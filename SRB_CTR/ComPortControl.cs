@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
-using pkgs;
+using SRB_access;
 namespace lemonReceiver.ToNode
 {
     public partial class ComPortControl : UserControl
@@ -208,26 +208,10 @@ namespace lemonReceiver.ToNode
         {
             if (mainSP.IsOpen == true)
             {
-                mainSP.BaseStream.WriteByte(0xF5);
-                mainSP.BaseStream.WriteByte(a0.addr);
-                mainSP.BaseStream.WriteByte(a0.bfc);
-                if (a0.bfc == 0xF5)
-                {
-                    mainSP.BaseStream.WriteByte(0xf3);
-                }
-                foreach (byte b in a0.data)
-                {
-                    mainSP.BaseStream.WriteByte(b);
-                    if (b == 0xF5)
-                    {
-                        mainSP.BaseStream.WriteByte(0xf3);
-                    }
-                }
-                mainSP.BaseStream.WriteByte(a0.crc);
-                if (a0.crc == 0xF5)
-                {
-                    mainSP.BaseStream.WriteByte(0xf3);
-                }
+
+                byte[] ba = null;
+                int len = a0.toUartByteArray(ref ba);
+                mainSP.BaseStream.Write(ba,0,len);
             }
         }
 

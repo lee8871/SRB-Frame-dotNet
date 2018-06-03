@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessControler.cs" />
+    <Compile Include="acSyncStream.cs" />
     <Compile Include="DataSR.cs" />
     <Compile Include="ComPortControl.cs">
       <SubType>UserControl</SubType>
@@ -53,7 +55,7 @@
     <Compile Include="ComPortControl.designer.cs">
       <DependentUpon>ComPortControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pkg_base.cs" />
+    <Compile Include="Access.cs" />
     <Compile Include="uartDara.cs">
       <SubType>Form</SubType>
     </Compile>

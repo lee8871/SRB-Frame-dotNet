@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-
+using SRB_access;
 namespace SRB_CTR
 {
     public partial class uartDara : Form
@@ -15,6 +15,13 @@ namespace SRB_CTR
         public uartDara()
         {
             InitializeComponent();
+            mainWB.DocumentText = @"<style>
+                                        span {font-family:consolas}
+	                                    span.note {color:black;}
+	                                    span.addr {color:OrangeRed;}
+	                                    span.send {color:DarkOrange;}
+	                                    span.recv {color:SteelBlue;}
+                                    </style>";
         }
         private byte Addr=0x00;
         private void sendPkg(byte addr, byte[] data, byte port)
@@ -30,19 +37,61 @@ namespace SRB_CTR
             }
             mainRT.SelectionColor = Color.Black;
             mainRT.AppendText("receive: ");
-            this.comport0.writeToCom(new pkgs.Access(addr, data, port));
-
+            Access ac = new SRB_access.Access(addr, data, port);
+            this.comport0.writeToCom(ac);
+            accesses[ac.sno] = ac;
         }
 
 
+        private Access[] accesses = new Access[256];
+        private Queue<byte> current_bytes = new Queue<byte>();
+        private byte current_sno = 0xf8;
+        bool Escaping = false;
+        private void getNextByte(byte b)
+        {
+            if (b == 0xf5)
+            {
+                Escaping = true;
+                return;
+            }
+            else
+            {
+                if (Escaping == true)
+                {
+                    if (b == 0xf3)
+                    {
+                        current_bytes.Enqueue(0xf5);
+                    }
+                    else
+                    {
+                        if (current_sno != 0xf8)
+                        {
+                            if (accesses[current_sno] != null)
+                            {
+                                accesses[current_sno].fromUartGetBytes(current_bytes.ToArray());
+                                mainWB.DocumentText += accesses[current_sno].ToHtml();
+                            }
+                        }
+                        current_bytes.Clear();
+                        current_sno = b;
+                    }
+                    Escaping = false;
+                }
+                else
+                {
 
-
+                    current_bytes.Enqueue(b);
+                }
+            }
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             mainRT.SelectionColor = Color.SteelBlue;
             while (this.comport0.qRead.Count != 0)
             {
-                mainRT.AppendText(support.ByteToString(this.comport0.qRead.Dequeue()) + " ");
+                byte b = this.comport0.qRead.Dequeue();
+               mainRT.AppendText(support.ByteToString(b) + " ");
+                getNextByte(b);
             }
         }
 
@@ -52,15 +101,13 @@ namespace SRB_CTR
             Color c = ((Button)sender).ForeColor;
             sendPkg(Addr, new byte[] { c.B, c.R, c.G }, 0);
         }
-        byte Colornum = 0x80;
+        int h = 180;
         private void LEDChange_Tick(object sender, EventArgs e)
         {
-            sendPkg(Addr, new byte[] { Colornum }, 4);
-            Colornum++;
-            if (Colornum == 0x85)
-            {
-                Colornum = 0x80;
-            }
+            ColorHSV rc = new ColorHSV(h, 255, 255);
+            Color c = ColorHelper.HsvToRgb(rc).GetColor();
+            sendPkg(Addr, new byte[] { c.B, c.R, c.G }, 0);
+            h++; h %= 360;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -99,8 +146,6 @@ namespace SRB_CTR
             char[] name_c = nameBT.Text.ToCharArray();
             byte[] pkg_datas = new byte[name_c.Length + 3];
             int i = 0,j=0;
-
-
             pkg_datas[i++] = 0x00;
             pkg_datas[i++] = addr_change_to;
             pkg_datas[i++] = 0x0f;
@@ -109,7 +154,6 @@ namespace SRB_CTR
                 pkg_datas[i++] = (byte)name_c[j++];
             }
             sendPkg(addr, pkg_datas, 5);
-            
         }
 
         private void readBT_Click(object sender, EventArgs e)
@@ -156,7 +200,7 @@ namespace SRB_CTR
 
         private void SynchronizeBTN_Click(object sender, EventArgs e)
         {
-            this.comport0.writeToCom(new pkgs.Access(0xf0));
+            this.comport0.writeToCom(new SRB_access.Access(0xf0));
         }
 
 
@@ -198,14 +242,5 @@ namespace SRB_CTR
             }
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-        private void mainWB_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
     }
 }

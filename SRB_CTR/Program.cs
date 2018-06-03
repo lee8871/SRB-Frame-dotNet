@@ -13,12 +13,17 @@ namespace SRB_CTR
 		/// <summary>
 		/// 应用程序的主入口点。
 		/// </summary>
-		[STAThread]
+        [STAThread]
 		static void Main()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new uartDara());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            //mainForm main_form = new mainForm();
+            //lemonReceiver.ToNode.ComPortControl comport0;
+            uartDara f2 = new uartDara();
+            //f2.Show(main_form);
+            //main_form.Show();
+            Application.Run(f2);
 		}
 	}
 }

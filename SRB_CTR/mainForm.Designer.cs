@@ -28,21 +28,38 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			// 
-			// Form1
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(559, 444);
-			this.Name = "Form1";
-			this.Text = "Form1";
-			this.ResumeLayout(false);
+            this.comPortControl1 = new lemonReceiver.ToNode.ComPortControl();
+            this.SuspendLayout();
+            // 
+            // comPortControl1
+            // 
+            this.comPortControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.comPortControl1.Location = new System.Drawing.Point(0, 541);
+            this.comPortControl1.MinimumSize = new System.Drawing.Size(40, 20);
+            this.comPortControl1.Name = "comPortControl1";
+            this.comPortControl1.Size = new System.Drawing.Size(784, 20);
+            this.comPortControl1.TabIndex = 0;
+            // 
+            // mainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.comPortControl1);
+            this.Name = "mainForm";
+            this.Text = "Form1";
+            this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-	}
+        private lemonReceiver.ToNode.ComPortControl comPortControl1;
+
+
+
+
+
+    }
 }
 
