@@ -1,6 +1,6 @@
 ﻿namespace SRB_CTR
 {
-	partial class uartDara
+	partial class uartDara_web
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,14 +29,11 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uartDara));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uartDara_web));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mainDGV = new System.Windows.Forms.DataGridView();
-            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.state = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.send = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.mainWB = new System.Windows.Forms.WebBrowser();
+            this.mainRT = new System.Windows.Forms.RichTextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.controlTabls = new System.Windows.Forms.TabControl();
             this.testTP = new System.Windows.Forms.TabPage();
@@ -74,13 +71,13 @@
             this.readClusterBTN = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.sendClusterBTN = new System.Windows.Forms.Button();
-            this.accessTimeL = new System.Windows.Forms.Label();
             this.addrTo16BT = new System.Windows.Forms.Button();
             this.addrTo15BT = new System.Windows.Forms.Button();
             this.addrTo14BT = new System.Windows.Forms.Button();
             this.addrTo13BT = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.addrTo00BT = new System.Windows.Forms.Button();
+            this.comport0 = new lemonReceiver.ToNode.ComPortControl();
             this.addrTB = new System.Windows.Forms.TextBox();
             this.laber3 = new System.Windows.Forms.Label();
             this.LEDChange = new System.Windows.Forms.Timer(this.components);
@@ -88,7 +85,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -107,60 +103,29 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.mainDGV);
+            this.splitContainer1.Panel1.Controls.Add(this.vScrollBar1);
+            this.splitContainer1.Panel1.Controls.Add(this.mainWB);
+            this.splitContainer1.Panel1.Controls.Add(this.mainRT);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             // 
-            // mainDGV
+            // vScrollBar1
             // 
-            this.mainDGV.AllowUserToAddRows = false;
-            this.mainDGV.AllowUserToDeleteRows = false;
-            this.mainDGV.AllowUserToOrderColumns = true;
-            this.mainDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.mainDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.mainDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.mainDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.time,
-            this.state,
-            this.address,
-            this.send,
-            this.recv});
-            resources.ApplyResources(this.mainDGV, "mainDGV");
-            this.mainDGV.Name = "mainDGV";
-            this.mainDGV.ReadOnly = true;
-            this.mainDGV.RowTemplate.Height = 23;
+            resources.ApplyResources(this.vScrollBar1, "vScrollBar1");
+            this.vScrollBar1.Name = "vScrollBar1";
             // 
-            // time
+            // mainWB
             // 
-            resources.ApplyResources(this.time, "time");
-            this.time.Name = "time";
-            this.time.ReadOnly = true;
+            resources.ApplyResources(this.mainWB, "mainWB");
+            this.mainWB.Name = "mainWB";
+            this.mainWB.ScrollBarsEnabled = false;
             // 
-            // state
+            // mainRT
             // 
-            resources.ApplyResources(this.state, "state");
-            this.state.Name = "state";
-            this.state.ReadOnly = true;
-            // 
-            // address
-            // 
-            resources.ApplyResources(this.address, "address");
-            this.address.Name = "address";
-            this.address.ReadOnly = true;
-            // 
-            // send
-            // 
-            resources.ApplyResources(this.send, "send");
-            this.send.Name = "send";
-            this.send.ReadOnly = true;
-            // 
-            // recv
-            // 
-            resources.ApplyResources(this.recv, "recv");
-            this.recv.Name = "recv";
-            this.recv.ReadOnly = true;
+            resources.ApplyResources(this.mainRT, "mainRT");
+            this.mainRT.Name = "mainRT";
             // 
             // splitContainer2
             // 
@@ -174,13 +139,13 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.accessTimeL);
             this.splitContainer2.Panel2.Controls.Add(this.addrTo16BT);
             this.splitContainer2.Panel2.Controls.Add(this.addrTo15BT);
             this.splitContainer2.Panel2.Controls.Add(this.addrTo14BT);
             this.splitContainer2.Panel2.Controls.Add(this.addrTo13BT);
             this.splitContainer2.Panel2.Controls.Add(this.button1);
             this.splitContainer2.Panel2.Controls.Add(this.addrTo00BT);
+            this.splitContainer2.Panel2.Controls.Add(this.comport0);
             this.splitContainer2.Panel2.Controls.Add(this.addrTB);
             this.splitContainer2.Panel2.Controls.Add(this.laber3);
             // 
@@ -471,11 +436,6 @@
             this.sendClusterBTN.UseVisualStyleBackColor = true;
             this.sendClusterBTN.Click += new System.EventHandler(this.sendClusterBTN_Click);
             // 
-            // accessTimeL
-            // 
-            resources.ApplyResources(this.accessTimeL, "accessTimeL");
-            this.accessTimeL.Name = "accessTimeL";
-            // 
             // addrTo16BT
             // 
             this.addrTo16BT.BackColor = System.Drawing.Color.Gainsboro;
@@ -524,10 +484,15 @@
             this.addrTo00BT.UseVisualStyleBackColor = false;
             this.addrTo00BT.Click += new System.EventHandler(this.addrChangeBT_Click);
             // 
-            // addrTB
+            // comport0
             // 
-            resources.ApplyResources(this.addrTB, "addrTB");
-            this.addrTB.Name = "addrTB";
+            resources.ApplyResources(this.comport0, "comport0");
+            this.comport0.Name = "comport0";
+            // 
+            // AddrTB
+            // 
+            resources.ApplyResources(this.addrTB, "AddrTB");
+            this.addrTB.Name = "AddrTB";
             this.addrTB.TextChanged += new System.EventHandler(this.addrTB_TextChanged);
             // 
             // laber3
@@ -537,21 +502,20 @@
             // 
             // LEDChange
             // 
-            this.LEDChange.Interval = 10;
+            this.LEDChange.Interval = 50;
             this.LEDChange.Tick += new System.EventHandler(this.LEDChange_Tick);
             // 
-            // uartDara
+            // uartDara_web
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.MaximizeBox = false;
-            this.Name = "uartDara";
+            this.Name = "uartDara_web";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainDGV)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
@@ -571,6 +535,7 @@
 		#endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
+		private lemonReceiver.ToNode.ComPortControl comport0;
         private System.Windows.Forms.Timer LEDChange;
         private System.Windows.Forms.TabControl controlTabls;
         private System.Windows.Forms.TabPage testTP;
@@ -617,13 +582,9 @@
         private System.Windows.Forms.TextBox clusterTB_6;
         private System.Windows.Forms.TextBox clusterTB_5;
         private ucHexInput hexInput;
-        private System.Windows.Forms.DataGridView mainDGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn state;
-        private System.Windows.Forms.DataGridViewTextBoxColumn address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn send;
-        private System.Windows.Forms.DataGridViewTextBoxColumn recv;
-        private System.Windows.Forms.Label accessTimeL;
+        private System.Windows.Forms.RichTextBox mainRT;
+        private System.Windows.Forms.WebBrowser mainWB;
+        private System.Windows.Forms.VScrollBar vScrollBar1;
 
 	}
 }

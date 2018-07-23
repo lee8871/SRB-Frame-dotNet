@@ -13,6 +13,7 @@ namespace System
         {
             UnKnow,Yes,No
         }
+
 		static public UInt16 byteToUint16(byte low, byte high)
 		{
 			UInt16 rev = 0;
@@ -30,25 +31,6 @@ namespace System
 			return (byte)(u16>>8);
 		}
 
-        static public string ByteArrayToString(byte[] ba)
-        {
-            string s="";
-            foreach (byte b in ba)
-            {
-                s += ByteToString(b) + ' ';
-            }
-            return s;
-        }
-        static public string ByteToString(byte b)
-        {
-            string a = "";
-            if (b < 0x10)
-            {
-                a += "0";
-            }
-            a += String.Format("{0:X}", b);
-            return a;
-        }
         static public string ushorToString(ushort b)
         {
             string a = "";
@@ -155,7 +137,7 @@ namespace System
         /// <summary>  
         /// 构造方法  
         /// </summary>  
-        /// <param name="h"></param>  
+        /// <param name="h0"></param>  
         /// <param name="s"></param>  
         /// <param name="v"></param>  
         public ColorHSV(int h, int s, int v)

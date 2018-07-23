@@ -4,107 +4,123 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SRB_access
+namespace SRB_CTR.nsBrain
 {
     public class Access
     {
-        public byte addr;
-        public byte sno;
+        public DateTime sendTime;
+        public string description;
         public DataGridViewRow row;
-        private static byte Sno_counter = 0;
-
-        public byte[] send_data;
-        public byte send_crc;
-        public byte send_bfc
+        private bool _is_received_sno = false;
+        public bool Is_received
         {
-            get { return (byte)(port * 32 + send_data.Length + 2); }
+            get { return _is_received_sno; }
         }
-        public int port;
-        public int send_len
+        public enum Status { NoSend, Sended, NoRecv, RecvedDone, RecvedMiss, SendFail };
+        public Status status = Status.NoSend;
+
+        public enum ePort { D0, D1, D2, D3, Cmd, Cgf, Rpt, Res };
+        private bool send = false;
+        public bool Send
         {
-            get { return (send_data.Length + 2); }
+            get { return send; }
+        }
+        private byte _addr;        
+        public byte Addr
+        {
+            get { return _addr; }
+        }
+        private ePort _port;
+        public ePort Port
+        {
+            get { return _port;}
+        }
+        private byte[] _send_data;
+        public byte[] Send_data
+        {
+            get { return _send_data; }
         }
 
+        private byte Send_bfc
+        {
+            get { return (byte)((int)_port * 32 + _send_data.Length + 2); }
+        }
 
-        public byte recv_bfc;
-        public byte recv_len
+        private byte[] _recv_data = null;
+        public byte[] Recv_data
+        {
+            get { return _recv_data;}
+        }
+
+        private byte recv_bfc;
+        public bool Recv_error
+        {
+            get { return (recv_bfc & (1 << 7)) != 0; }
+        }
+        public bool Recv_busy
+        {
+            get { return (recv_bfc & (1 << 6)) != 0; }
+        }
+        public bool Recv_event
+        {
+            get { return (recv_bfc & (1 << 5)) != 0; }
+        }
+
+        private byte recv_len
         {
             get { return (byte)(recv_bfc & 0x1f); }
         }
-        public byte[] recv_data = new byte[0];
-        public byte recv_crc;
 
-        public Access(byte addr, byte[] data, byte port)
+        public Access(byte a, ePort p, byte[] data)
         {
-            this.addr = addr;
-            this.sno = Sno_counter;
-            Sno_counter++;
-            if (Sno_counter >= 0xf0)
-            {
-                Sno_counter = 0;
-            }
-            this.send_data = data;
-            if (port > 7)
-            {
-                port = 7;
-            }
-            this.port = port;
-            send_crc = 0;
-            send_crc = Crc_table[send_crc ^ addr];
-            send_crc = Crc_table[send_crc ^ send_bfc];
-            foreach (byte b in data)
-            {
-                send_crc = Crc_table[send_crc ^ b];
-            }
+            _addr = a;
+            _send_data = data;
+            _port = p;
         }
-        public Access(byte addr)
-        {
-            this.addr = addr;
-            this.send_data = null;
-        }
+        
         public override string ToString()
         {
             string st_recv, st_send;
-            if (recv_data.Length == 0)
+            if (_recv_data.Length == 0)
             {
                 st_recv = "【None】";
             }
             else
             {
-                st_recv =recv_data.ToHexSt();
+                st_recv = _recv_data.ToHexSt();
             }
-            if (send_data.Length == 0)
+            if (_send_data.Length == 0)
             {
                 st_send = "【None】";
             }
             else
             {
-                st_send = send_data.ToHexSt();
+                st_send = _send_data.ToHexSt();
             }
             string st = System.String.Format(
                  @"Addr:{0}.{1} Send:{2}Recv:{3}",
-                 addr.ToHexSt(),
-                 port, st_send, st_recv);
+                 _addr.ToHexSt(),
+                 _port, st_send, st_recv);
             return st;
         }
         public string ToHtml()
         {
             string st_recv, st_send;
-            if (recv_data.Length == 0)
+            if (_recv_data.Length == 0)
             {
-                st_recv = "【None】";
+                st_recv = "None";
             }
             else
             {
-                st_recv = recv_data.ToHexSt();
+                st_recv = _recv_data.ToHexSt();
             }
-            if (send_data.Length == 0)
+            if (_send_data.Length == 0)
             {
-                st_send = "【None】";
+                st_send = "None";
             }
             else
             {
-                st_send = send_data.ToHexSt();
+                st_send = _send_data.ToHexSt();
             }
             string st = System.String.Format(
                  @"
@@ -115,45 +131,64 @@ namespace SRB_access
                 <span class=note>Recv:</span>
                 <span class=recv>{3}</span>
                 <br>",
-                 addr.ToHexSt(),
-                 port, st_send, st_recv);
+                 _addr.ToHexSt(),
+                 _port, st_send, st_recv);
             return st;
         }
-        public int toUartByteArray(ref byte[] ba)
+        public int toUartByteArray(ref byte[] ba,byte sno)
         {
-            ba = new byte[70];
+            ba = new byte[80];
             int i = 0;
             ba[i++] = 0xf5;
             ba[i++] = sno;
-            ba[i++] = addr;
-            if (0xf5 == (ba[i++] = send_bfc))
+            ba[i++] = _addr;
+            if (0xf5 == (ba[i++] = Send_bfc))
             {
                 ba[i++] = 0xf3;
             }
-            foreach (byte b in send_data)
+            foreach (byte b in _send_data)
             {
                 if (0xf5 == (ba[i++] = b))
                 {
                     ba[i++] = 0xf3;
                 }
             }
-            if (0xf5 == (ba[i++] = send_crc))
+            if (0xf5 == (ba[i++] = 0))
             {
                 ba[i++] = 0xf3;
             }
             return i;
         }
+
+
+        public void fromUartGetBytes(byte[] bytes, int length)
+        {
+            if (length >= 2)
+            {
+                this.recv_bfc = bytes[0];
+                if (this.recv_len != length)
+                {
+                    return;
+                }
+                this._recv_data = new byte[length - 2];
+                for (int i = 0; i < (length - 2); i++)
+                {
+                    this._recv_data[i] = bytes[i + 1];
+                }
+            }
+        }
+
         public byte[] toUartByteArray()
         {
             Queue<byte> bq = new Queue<byte>();
             bq.Enqueue(0xf5);
-            bq.Enqueue(addr);
-            bq.Enqueue(send_bfc);
-            if (0xf5 == send_bfc)
+            bq.Enqueue(_addr);
+            bq.Enqueue(Send_bfc);
+            if (0xf5 == Send_bfc)
             {
                 bq.Enqueue(0xf3);
             }
-            foreach (byte b in send_data)
+            foreach (byte b in _send_data)
             {
                 bq.Enqueue(b);
                 if (0xf5 == b)
@@ -163,21 +198,18 @@ namespace SRB_access
             }
             return bq.ToArray();
         }
-
-
-
-        public void fromUartGetBytes(byte[] bytes)
+        public void receiveSno()
         {
-            if (bytes.Length >= 1)
-            {
-                this.recv_bfc = bytes[0];
-                this.recv_data = new byte[bytes.Length - 1];
-                for(int i = 1;i<(recv_len-1);i++)
-                {
-                    this.recv_data[i - 1] = bytes[i];
-                }
-            }
+            _is_received_sno = true;
         }
+
+        public byte[] original_SendByte;
+        public byte[] original_RecvByte;
+
+
+
+
+
         private static byte[] Crc_table = 
 		{
 			0x00,0x31,0x62,0x53,0xc4,0xf5,0xa6,0x97,0xb9,0x88,0xdb,0xea,0x7d,0x4c,0x1f,0x2e,
@@ -199,3 +231,4 @@ namespace SRB_access
 		};
     }
 }
+

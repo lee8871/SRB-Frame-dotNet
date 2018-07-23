@@ -28,33 +28,55 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.comPortControl1 = new lemonReceiver.ToNode.ComPortControl();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Nodes = new System.Windows.Forms.FlowLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comPortControl1
+            // splitContainer1
             // 
-            this.comPortControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.comPortControl1.Location = new System.Drawing.Point(0, 541);
-            this.comPortControl1.MinimumSize = new System.Drawing.Size(40, 20);
-            this.comPortControl1.Name = "comPortControl1";
-            this.comPortControl1.Size = new System.Drawing.Size(784, 20);
-            this.comPortControl1.TabIndex = 0;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.Nodes);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 561);
+            this.splitContainer1.SplitterDistance = 578;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // Nodes
+            // 
+            this.Nodes.BackColor = System.Drawing.Color.PowderBlue;
+            this.Nodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Nodes.Location = new System.Drawing.Point(0, 0);
+            this.Nodes.Name = "Nodes";
+            this.Nodes.Size = new System.Drawing.Size(202, 561);
+            this.Nodes.TabIndex = 0;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.comPortControl1);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "mainForm";
             this.Text = "Form1";
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-        private lemonReceiver.ToNode.ComPortControl comPortControl1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.FlowLayoutPanel Nodes;
+
 
 
 

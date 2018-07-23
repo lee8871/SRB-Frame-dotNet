@@ -128,75 +128,81 @@
   <data name="splitContainer1.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <metadata name="time.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="time.HeaderText" xml:space="preserve">
-    <value>time</value>
+  <data name="vScrollBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>949, 57</value>
+  </data>
+  <data name="vScrollBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 169</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="time.Width" type="System.Int32, mscorlib">
-    <value>54</value>
+  <data name="vScrollBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <metadata name="state.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="state.HeaderText" xml:space="preserve">
-    <value>state</value>
+  <data name="&gt;&gt;vScrollBar1.Name" xml:space="preserve">
+    <value>vScrollBar1</value>
   </data>
-  <data name="state.Width" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="&gt;&gt;vScrollBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.VScrollBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="address.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="address.HeaderText" xml:space="preserve">
-    <value>address</value>
-  </data>
-  <data name="address.Width" type="System.Int32, mscorlib">
-    <value>72</value>
-  </data>
-  <metadata name="send.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="send.HeaderText" xml:space="preserve">
-    <value>send</value>
-  </data>
-  <data name="send.Width" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <metadata name="recv.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="recv.HeaderText" xml:space="preserve">
-    <value>recv</value>
-  </data>
-  <data name="recv.Width" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="mainDGV.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mainDGV.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="mainDGV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 445</value>
-  </data>
-  <data name="mainDGV.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;mainDGV.Name" xml:space="preserve">
-    <value>mainDGV</value>
-  </data>
-  <data name="&gt;&gt;mainDGV.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mainDGV.Parent" xml:space="preserve">
+  <data name="&gt;&gt;vScrollBar1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
   </data>
-  <data name="&gt;&gt;mainDGV.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;vScrollBar1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="mainWB.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="mainWB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 0</value>
+  </data>
+  <data name="mainWB.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>20, 20</value>
+  </data>
+  <data name="mainWB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>520, 226</value>
+  </data>
+  <data name="mainWB.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mainWB.Name" xml:space="preserve">
+    <value>mainWB</value>
+  </data>
+  <data name="&gt;&gt;mainWB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainWB.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mainWB.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="mainRT.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="mainRT.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="mainRT.Size" type="System.Drawing.Size, System.Drawing">
+    <value>444, 226</value>
+  </data>
+  <data name="mainRT.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mainRT.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;mainRT.Name" xml:space="preserve">
+    <value>mainRT</value>
+  </data>
+  <data name="&gt;&gt;mainRT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainRT.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mainRT.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -218,9 +224,6 @@
   </data>
   <data name="splitContainer2.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
-  </data>
-  <data name="SynchronizeBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="SynchronizeBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>188, 115</value>
@@ -246,9 +249,6 @@
   <data name="&gt;&gt;SynchronizeBTN.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="pinkVioletBlueBT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="pinkVioletBlueBT.Location" type="System.Drawing.Point, System.Drawing">
     <value>188, 77</value>
   </data>
@@ -273,9 +273,6 @@
   <data name="&gt;&gt;pinkVioletBlueBT.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="OrangeYellowGreenBT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="OrangeYellowGreenBT.Location" type="System.Drawing.Point, System.Drawing">
     <value>188, 41</value>
   </data>
@@ -299,9 +296,6 @@
   </data>
   <data name="&gt;&gt;OrangeYellowGreenBT.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="ColorfulTest1BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="ColorfulTest1BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>188, 6</value>
@@ -330,9 +324,6 @@
   <data name="redBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
   </data>
-  <data name="redBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="redBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 6</value>
   </data>
@@ -356,9 +347,6 @@
   </data>
   <data name="&gt;&gt;redBTN.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 82</value>
@@ -384,9 +372,6 @@
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="readFromCluster0BTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="readFromCluster0BTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 44</value>
   </data>
@@ -410,9 +395,6 @@
   </data>
   <data name="&gt;&gt;readFromCluster0BTN.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="stopTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="stopTest.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 115</value>
@@ -438,9 +420,6 @@
   <data name="&gt;&gt;stopTest.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="error.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="error.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 153</value>
   </data>
@@ -464,9 +443,6 @@
   </data>
   <data name="&gt;&gt;error.ZOrder" xml:space="preserve">
     <value>8</value>
-  </data>
-  <data name="writeintoCluster0BTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="writeintoCluster0BTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 6</value>
@@ -495,9 +471,6 @@
   <data name="orangeBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
   </data>
-  <data name="orangeBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="orangeBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 41</value>
   </data>
@@ -524,9 +497,6 @@
   </data>
   <data name="yellowBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
-  </data>
-  <data name="yellowBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="yellowBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 77</value>
@@ -555,9 +525,6 @@
   <data name="grassBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
   </data>
-  <data name="grassBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="grassBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 115</value>
   </data>
@@ -584,9 +551,6 @@
   </data>
   <data name="greenBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
-  </data>
-  <data name="greenBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="greenBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 153</value>
@@ -619,7 +583,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="testTP.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 215</value>
+    <value>962, 196</value>
   </data>
   <data name="testTP.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -669,9 +633,6 @@
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 45</value>
   </data>
@@ -696,9 +657,6 @@
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="readBT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="readBT.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 15</value>
   </data>
@@ -722,9 +680,6 @@
   </data>
   <data name="&gt;&gt;readBT.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="writeInfoBT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="writeInfoBT.Location" type="System.Drawing.Point, System.Drawing">
     <value>228, 15</value>
@@ -777,9 +732,6 @@
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 18</value>
   </data>
@@ -811,7 +763,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 215</value>
+    <value>962, 196</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -838,10 +790,10 @@
     <value>Consolas, 9pt, style=Bold</value>
   </data>
   <data name="hexInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 161</value>
+    <value>6, 142</value>
   </data>
   <data name="hexInput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 48</value>
+    <value>814, 48</value>
   </data>
   <data name="hexInput.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1077,11 +1029,8 @@
   <data name="readClusterBTN.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="readClusterBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="readClusterBTN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>269, 161</value>
+    <value>893, 142</value>
   </data>
   <data name="readClusterBTN.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 48</value>
@@ -1106,9 +1055,6 @@
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 13</value>
@@ -1137,11 +1083,8 @@
   <data name="sendClusterBTN.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="sendClusterBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="sendClusterBTN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 161</value>
+    <value>824, 142</value>
   </data>
   <data name="sendClusterBTN.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 48</value>
@@ -1171,7 +1114,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 215</value>
+    <value>962, 196</value>
   </data>
   <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1198,7 +1141,7 @@
     <value>0, 0</value>
   </data>
   <data name="controlTabls.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 241</value>
+    <value>970, 222</value>
   </data>
   <data name="controlTabls.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1227,36 +1170,6 @@
   <data name="&gt;&gt;splitContainer2.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="accessTimeL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="accessTimeL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 33</value>
-  </data>
-  <data name="accessTimeL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 12</value>
-  </data>
-  <data name="accessTimeL.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="accessTimeL.Text" xml:space="preserve">
-    <value>访问时间：</value>
-  </data>
-  <data name="&gt;&gt;accessTimeL.Name" xml:space="preserve">
-    <value>accessTimeL</value>
-  </data>
-  <data name="&gt;&gt;accessTimeL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;accessTimeL.Parent" xml:space="preserve">
-    <value>splitContainer2.Panel2</value>
-  </data>
-  <data name="&gt;&gt;accessTimeL.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="addrTo16BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="addrTo16BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>246, 5</value>
   </data>
@@ -1279,10 +1192,7 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;addrTo16BT.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="addrTo15BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>0</value>
   </data>
   <data name="addrTo15BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>213, 5</value>
@@ -1306,10 +1216,7 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;addrTo15BT.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="addrTo14BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>1</value>
   </data>
   <data name="addrTo14BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>180, 5</value>
@@ -1333,10 +1240,7 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;addrTo14BT.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="addrTo13BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>2</value>
   </data>
   <data name="addrTo13BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 5</value>
@@ -1360,10 +1264,7 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;addrTo13BT.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>3</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>114, 5</value>
@@ -1387,10 +1288,7 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="addrTo00BT.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+    <value>4</value>
   </data>
   <data name="addrTo00BT.Location" type="System.Drawing.Point, System.Drawing">
     <value>81, 5</value>
@@ -1414,16 +1312,49 @@
     <value>splitContainer2.Panel2</value>
   </data>
   <data name="&gt;&gt;addrTo00BT.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="comport0.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="comport0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 33</value>
+  </data>
+  <data name="comport0.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>40, 20</value>
+  </data>
+  <data name="comport0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>967, 20</value>
+  </data>
+  <data name="comport0.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;comport0.Name" xml:space="preserve">
+    <value>comport0</value>
+  </data>
+  <data name="&gt;&gt;comport0.Type" xml:space="preserve">
+    <value>lemonReceiver.ToNode.ComPortControl, SRB_CTR, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;comport0.Parent" xml:space="preserve">
+    <value>splitContainer2.Panel2</value>
+  </data>
+  <data name="&gt;&gt;comport0.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="addrTB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>47, 6</value>
+  </data>
+  <data name="addrTB.MaxLength" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="addrTB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 21</value>
+    <value>22, 21</value>
   </data>
   <data name="addrTB.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>1</value>
+  </data>
+  <data name="addrTB.Text" xml:space="preserve">
+    <value>00</value>
   </data>
   <data name="&gt;&gt;addrTB.Name" xml:space="preserve">
     <value>addrTB</value>
@@ -1439,9 +1370,6 @@
   </data>
   <data name="laber3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="laber3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="laber3.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>
@@ -1480,10 +1408,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 299</value>
+    <value>970, 280</value>
   </data>
   <data name="splitContainer2.SplitterDistance" type="System.Int32, mscorlib">
-    <value>241</value>
+    <value>222</value>
   </data>
   <data name="splitContainer2.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1513,10 +1441,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 748</value>
+    <value>970, 510</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
-    <value>445</value>
+    <value>226</value>
   </data>
   <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1533,8 +1461,11 @@
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="UpdataT.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>39, 29</value>
+  </metadata>
   <metadata name="LEDChange.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>3, 2</value>
+    <value>141, 29</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1543,40 +1474,16 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>346, 748</value>
+    <value>970, 510</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Uart Data</value>
   </data>
-  <data name="&gt;&gt;time.Name" xml:space="preserve">
-    <value>time</value>
+  <data name="&gt;&gt;UpdataT.Name" xml:space="preserve">
+    <value>UpdataT</value>
   </data>
-  <data name="&gt;&gt;time.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;state.Name" xml:space="preserve">
-    <value>state</value>
-  </data>
-  <data name="&gt;&gt;state.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;address.Name" xml:space="preserve">
-    <value>address</value>
-  </data>
-  <data name="&gt;&gt;address.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;send.Name" xml:space="preserve">
-    <value>send</value>
-  </data>
-  <data name="&gt;&gt;send.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recv.Name" xml:space="preserve">
-    <value>recv</value>
-  </data>
-  <data name="&gt;&gt;recv.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;UpdataT.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;LEDChange.Name" xml:space="preserve">
     <value>LEDChange</value>
@@ -1585,7 +1492,7 @@
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>uartDara</value>
+    <value>uartDara_web</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

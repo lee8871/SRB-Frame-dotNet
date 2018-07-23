@@ -13,6 +13,22 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\SRB_CS_tester\output\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -33,9 +49,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>9246BF6E868DC06F7B8AD613A3C411318CFC1504</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SRB_CTR_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,8 +75,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessControler.cs" />
     <Compile Include="acSyncStream.cs" />
+    <Compile Include="nsBrain\Access.cs" />
+    <Compile Include="nsBrain\Cluster_base\Clu.cs" />
+    <Compile Include="nsBrain\Cluster_base\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_base\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\brain.cs" />
+    <Compile Include="nsBrain\Cluster.cs" />
+    <Compile Include="nsBrain\Cluster_led_phase\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_led_phase\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\ComPort.cs" />
+    <Compile Include="nsBrain\ControPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nsBrain\ControPanel.Designer.cs">
+      <DependentUpon>ControPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\node.cs" />
+    <Compile Include="nsBrain\Nodes_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Nodes_Form.Designer.cs">
+      <DependentUpon>Nodes_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\Node_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Node_form.Designer.cs">
+      <DependentUpon>Node_form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_led_phase\Clu.cs" />
+    <Compile Include="nsBrain\Cluster_info\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_info\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\AccessDisplayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nsBrain\AccessDisplayer.Designer.cs">
+      <DependentUpon>AccessDisplayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\SRB_Master.cs" />
+    <Compile Include="nsBrain\SRB_Master_Uart.cs" />
+    <Compile Include="nsBrain\Node_Test001\cn.cs" />
+    <Compile Include="nsBrain\Node_Test001\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Node_Test001\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSR.cs" />
     <Compile Include="ComPortControl.cs">
       <SubType>UserControl</SubType>
@@ -56,6 +142,30 @@
       <DependentUpon>ComPortControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Access.cs" />
+    <Compile Include="HexTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_info\Clu.cs" />
+    <Compile Include="nsBrain\SRB_master_uart_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nsBrain\SRB_master_uart_form.Designer.cs">
+      <DependentUpon>SRB_master_uart_form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_error\Clu.cs" />
+    <Compile Include="nsBrain\Cluster_error\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Cluster_error\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsBrain\Node_dMotor\cn.cs" />
+    <Compile Include="nsBrain\Node_dMotor\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Node_dMotor\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="uartDara.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,11 +187,52 @@
     <Compile Include="ucHexInput.Designer.cs">
       <DependentUpon>ucHexInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="uartDara_web.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uartDara_web.Designer.cs">
+      <DependentUpon>uartDara_web.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uint8.cs" />
+    <EmbeddedResource Include="nsBrain\Cluster_base\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Cluster_led_phase\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\ControPanel.resx">
+      <DependentUpon>ControPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Nodes_Form.resx">
+      <DependentUpon>Nodes_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Node_form.resx">
+      <DependentUpon>Node_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Cluster_info\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\AccessDisplayer.resx">
+      <DependentUpon>AccessDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Node_Test001\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ComPortControl.resx">
       <DependentUpon>ComPortControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\SRB_master_uart_form.resx">
+      <DependentUpon>SRB_master_uart_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Cluster_error\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Node_dMotor\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uartDara.resx">
       <DependentUpon>uartDara.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
@@ -94,10 +245,15 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ucHexInput.resx">
       <DependentUpon>ucHexInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uartDara_web.resx">
+      <DependentUpon>uartDara_web.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,9 +263,37 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SRB_CTR_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="color-setting.htm" />
+    <None Include="Resources\1175682.png" />
+    <None Include="Resources\1175763.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
