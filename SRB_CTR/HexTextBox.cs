@@ -14,22 +14,32 @@ namespace SRB_CTR
         public HexTextBox()
         {
         }
-
+
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             if((e.KeyChar >= 'a')&&(e.KeyChar <= 'f'))
             {
                 e.KeyChar = char.ToUpper(e.KeyChar);
                 base.OnKeyPress(e);
+                return;
             }
-            else if ((e.KeyChar >= '0') && (e.KeyChar <= '9'))
+            if ((e.KeyChar >= 'A') && (e.KeyChar <= 'F'))
             {
                 base.OnKeyPress(e);
+                return;
             }
-            else
+            if ((e.KeyChar >= '0') && (e.KeyChar <= '9'))
             {
-                e.Handled = true;
+                base.OnKeyPress(e);
+                return;
             }
+
+            if (e.KeyChar == '\b')
+            {
+                base.OnKeyPress(e);
+                return;
+            }
+            e.Handled = true;
         }
         public byte byte_value{
             get

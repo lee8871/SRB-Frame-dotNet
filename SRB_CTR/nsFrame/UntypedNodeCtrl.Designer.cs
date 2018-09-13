@@ -1,6 +1,6 @@
-﻿namespace SRB_CTR.nsBrain.Node_Test001
+﻿namespace SRB_CTR.nsFrame
 {
-    partial class Ctrl
+    partial class UntypedNodeCtrl
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ColorLed = new System.Windows.Forms.Label();
+            this.nameL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // ColorLed
+            // nameL
             // 
-            this.ColorLed.AutoSize = true;
-            this.ColorLed.Font = new System.Drawing.Font("宋体", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ColorLed.Location = new System.Drawing.Point(-6, 0);
-            this.ColorLed.Name = "ColorLed";
-            this.ColorLed.Size = new System.Drawing.Size(47, 33);
-            this.ColorLed.TabIndex = 0;
-            this.ColorLed.Text = "●";
+            this.nameL.AutoSize = true;
+            this.nameL.Font = new System.Drawing.Font("宋体", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nameL.Location = new System.Drawing.Point(-6, 0);
+            this.nameL.Name = "nameL";
+            this.nameL.Size = new System.Drawing.Size(191, 33);
+            this.nameL.TabIndex = 0;
+            this.nameL.Text = "untypednode";
             // 
             // UntypedNodeCtrl
             // 
@@ -47,10 +47,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.ColorLed);
+            this.Controls.Add(this.nameL);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.Name = "UntypedNodeCtrl";
-            this.Size = new System.Drawing.Size(44, 33);
+            this.Size = new System.Drawing.Size(188, 33);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label ColorLed;
+        private System.Windows.Forms.Label nameL;
     }
 }

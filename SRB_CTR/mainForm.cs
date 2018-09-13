@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SRB_CTR.nsBrain;
+using SRB_CTR.nsFrame;
 using System.Diagnostics;
 
 namespace SRB_CTR

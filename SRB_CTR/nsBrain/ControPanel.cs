@@ -11,10 +11,10 @@ namespace SRB_CTR.nsBrain
 {
      partial class ControPanel : Form
     {
-        brain parent;
+         brain_test parent;
         private bool mouse_in_handle0;
         private bool speed_lock;
-        public ControPanel(brain pa)
+        public ControPanel(brain_test pa)
         {
             parent = pa;
             InitializeComponent();

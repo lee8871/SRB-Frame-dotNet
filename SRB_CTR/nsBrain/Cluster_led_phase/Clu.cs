@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SRB_CTR.nsFrame;
 
 namespace SRB_CTR.nsBrain.Cluster_led_phase
 {
@@ -51,7 +52,7 @@ namespace SRB_CTR.nsBrain.Cluster_led_phase
             b[i++] = low_ms.ByteHigh();
             b[i++] = period.ByteLow();
             b[i++] = period.ByteHigh();
-            parent_node.access_queue.Enqueue(new Access(this.parent_node.Addr, Access.ePort.Cgf, b));
+            parent_node.postAccess(new Access(this.parent_node, Access.ePort.Cgf, b));
         }
         public override void readRecv(Access ac)
         {

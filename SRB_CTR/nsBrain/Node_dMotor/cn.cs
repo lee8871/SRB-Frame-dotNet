@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-
+using SRB_CTR.nsFrame;
 namespace SRB_CTR.nsBrain.Node_dMotor
 {
     class cn:Node
     {
         public int speed_a = 0;
         public int speed_b = 0;
-        //public Cluster_led_phase.Clu led_phase_clu;
-        public cn(byte addr):base(addr)
+        public Cluster_Du_Motor_v02.Clu motor_clu;
+        public cn(byte addr, frame f = null)
+            : base(addr, f)
         {
-            //led_phase_clu = new Cluster_led_phase.Clu(10, this);
-            //clusters[led_phase_clu.clustr_ID] = led_phase_clu;
+            motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
+            clusters[motor_clu.clustr_ID] = motor_clu;
             //led_phase_clu.read();
         }
-        public override Access[] bulidUp()
+
+        public cn(Node n)
+            : base(n)
+        {
+            motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
+            clusters[motor_clu.clustr_ID] = motor_clu;
+            //led_phase_clu.read();
+        }
+        public void bulidUpD0()
         {
             int temp_a,temp_b;
             if (speed_a >= 0)
@@ -37,8 +46,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor
                 temp_b = (-speed_b) | 0xc000;
             }
             byte[] data = { (byte)temp_a, (byte)(temp_a >> 8), (byte)temp_b, (byte)(temp_b >> 8) };
-            this.access_queue.Enqueue(new Access(this.Addr, Access.ePort.D0, data));
-            return base.bulidUp();
+            this.postAccess(new Access(this, Access.ePort.D0, data));
         }
         protected override void d0AccessDone(Access ac)
         {
@@ -46,7 +54,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor
             {
                 if (ac.status == Access.Status.RecvedDone)
                 {
-                 // color_now = Color.FromArgb(ac.Recv_data[1], ac.Recv_data[2], ac.Recv_data[0]);
+                 // color_now = Color.FromArgb(ac._recv_data[1], ac._recv_data[2], ac._recv_data[0]);
                 }
             }
             catch (System.IndexOutOfRangeException)

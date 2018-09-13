@@ -29,25 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ColorLed = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.handleBTN = new System.Windows.Forms.Button();
+            this.sendTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // ColorLed
+            // handleBTN
             // 
-            this.ColorLed.AutoSize = true;
-            this.ColorLed.Font = new System.Drawing.Font("宋体", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ColorLed.Location = new System.Drawing.Point(-6, 0);
-            this.ColorLed.Name = "ColorLed";
-            this.ColorLed.Size = new System.Drawing.Size(47, 33);
-            this.ColorLed.TabIndex = 0;
-            this.ColorLed.Text = "●";
+            this.handleBTN.Location = new System.Drawing.Point(4, 4);
+            this.handleBTN.Name = "handleBTN";
+            this.handleBTN.Size = new System.Drawing.Size(200, 200);
+            this.handleBTN.TabIndex = 9;
+            this.handleBTN.Text = "双电机控制器";
+            this.handleBTN.UseVisualStyleBackColor = true;
             // 
-            // timer1
+            // sendTimer
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
             // 
             // Ctrl
             // 
@@ -55,18 +52,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.ColorLed);
+            this.Controls.Add(this.handleBTN);
             this.MaximumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 300);
+            this.Size = new System.Drawing.Size(300, 207);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label ColorLed;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button handleBTN;
+        private System.Windows.Forms.Timer sendTimer;
+
     }
 }

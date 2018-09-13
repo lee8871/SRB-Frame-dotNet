@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SRB_CTR.nsBrain;
+using SRB_CTR.nsFrame;
 
 
 
@@ -21,17 +21,10 @@ namespace SRB_CTR
             Application.SetCompatibleTextRenderingDefault(false);          
             
             // showfortest();
-            brain mainB = new brain();
+            frame mainB = new frame();
             Application.Run(mainB.Nodes_form);
 
         
         }
-        static void showfortest()
-        {
-            mainForm main_form = new mainForm();
-            uartDara f2 = new uartDara();
-            main_form.Show();
-            Application.Run(f2);
-		}
 	}
 }

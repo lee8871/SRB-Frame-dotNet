@@ -26,7 +26,7 @@ namespace SRB_CTR
         private byte Addr=0x00;
         private void sendPkg(byte addr, byte[] data, byte port)
         {
-            string st = " \nsno: " + addr.ToHexSt() + "." + port.ToHexSt();
+            string st = " \nsno: " + addr.ToString() + "." + port.ToHexSt();
             st += " send: ";
             mainRT.SelectionColor = Color.Black;
             mainRT.AppendText(st);
@@ -173,7 +173,7 @@ namespace SRB_CTR
             catch
             {
                 this.addrTB.BackColor = Color.Salmon;
-                //when user input a error address, this catch
+                //when user input addr error address, this catch
             }
         }
 
@@ -238,7 +238,7 @@ namespace SRB_CTR
             catch
             {
                 this.addrTB.BackColor = Color.Salmon;
-                //when user input a error address, this catch
+                //when user input addr error address, this catch
             }
         }
     }

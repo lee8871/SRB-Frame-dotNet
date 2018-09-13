@@ -8,19 +8,16 @@ using System.Text;
 using System.Windows.Forms;
 
 using SRB_CTR.nsFrame;
-namespace SRB_CTR.nsBrain.Node_Test001
+namespace SRB_CTR.nsFrame
 {
-    partial class Ctrl : UserControl
+    partial class UntypedNodeCtrl : UserControl
     {
-        cn node;  
-        public Ctrl(cn n)
+        Node node;  
+        public UntypedNodeCtrl(Node n)
         {
             node = n;
             InitializeComponent();
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.ColorLed.ForeColor = node.color_now;
+            nameL.Text = "Type = \"" +n.NodeType +"\"";
         }
     }
 }

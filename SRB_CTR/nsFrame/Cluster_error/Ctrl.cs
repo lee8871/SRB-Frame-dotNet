@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using SRB_CTR.nsFrame;
 
-namespace SRB_CTR.nsBrain.Cluster_led_phase
+namespace SRB_CTR.nsFrame.Cluster_error
 {
     partial class Ctrl : UserControl
     {
@@ -20,8 +19,6 @@ namespace SRB_CTR.nsBrain.Cluster_led_phase
             cluster = c;
             c.eDataChanged += new EventHandler(c_dataChanged);
             c_dataChanged(this, null);
-            this.CycleNUM.Value = new decimal(cluster.cycle_sec);
-            this.fadeNUM.Value = new decimal(cluster.fase_sec);
         }
 
         void c_dataChanged(object sender, EventArgs e)
@@ -33,15 +30,13 @@ namespace SRB_CTR.nsBrain.Cluster_led_phase
             }
             else
             {
-                this.cycleL.Text = cluster.cycle_sec.ToString("f3");
-                this.fadeL.Text = cluster.fase_sec.ToString("f3");
+                this.errorTextL.Text = cluster.error_text;
+                this.pageLineL.Text = string.Format("Page{0}.Lines{1}",cluster.file,cluster.line);
             }
         }
 
         private void write(object sender, EventArgs e)
         {
-            cluster.cycle_sec = (double)CycleNUM.Value;
-            cluster.fase_sec = (double)fadeNUM.Value;
             cluster.write();
         }
 

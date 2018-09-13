@@ -83,7 +83,7 @@ namespace SRB_access
             }
             string st = System.String.Format(
                  @"Addr:{0}.{1} Send:{2}Recv:{3}",
-                 addr.ToHexSt(),
+                 addr.ToString(),
                  port, st_send, st_recv);
             return st;
         }
@@ -115,7 +115,7 @@ namespace SRB_access
                 <span class=note>Recv:</span>
                 <span class=recv>{3}</span>
                 <br>",
-                 addr.ToHexSt(),
+                 addr.ToString(),
                  port, st_send, st_recv);
             return st;
         }

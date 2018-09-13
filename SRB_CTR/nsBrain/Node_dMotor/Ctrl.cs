@@ -7,19 +7,45 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using SRB_CTR.nsFrame;
 namespace SRB_CTR.nsBrain.Node_dMotor
 {
     partial class Ctrl : UserControl
     {
-        cn node;  
+        cn node;
         public Ctrl(cn n)
         {
             node = n;
             InitializeComponent();
+            handleBTN.MouseEnter += new EventHandler(handleBTN_MouseEnter);
+            handleBTN.MouseLeave += new EventHandler(handleBTN_MouseLeave);
         }
-        private void timer1_Tick(object sender, EventArgs e)
+
+        void handleBTN_MouseLeave(object sender, EventArgs e)
         {
-        //    this.ColorLed.ForeColor = node.color_now;
+            sendTimer.Stop();
         }
+
+        void handleBTN_MouseEnter(object sender, EventArgs e)
+        {
+            sendTimer.Start();
+        }
+
+        private void sendTimer_Tick(object sender, EventArgs e)
+        {
+            if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
+            {
+                Point moues = this.PointToClient(Control.MousePosition);
+                int x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
+                int y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
+                node.speed_a = (x + y) * 2;
+                node.speed_b = (x - y) * 2;
+                this.handleBTN.Text = "双电机控制\n"+ node.speed_a + " × " + node.speed_b;
+                node.bulidUpD0();
+            }
+        }
+
+        public int Motor_x { get; set; }
+        public int Motor_y { get; set; }
     }
 }

@@ -76,57 +76,85 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="acSyncStream.cs" />
-    <Compile Include="nsBrain\Access.cs" />
-    <Compile Include="nsBrain\Cluster_base\Clu.cs" />
-    <Compile Include="nsBrain\Cluster_base\Ctrl.cs">
+    <Compile Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Clu.cs" />
+    <Compile Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Ctrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="nsBrain\Cluster_base\Ctrl.Designer.cs">
+    <Compile Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\brain.cs" />
-    <Compile Include="nsBrain\Cluster.cs" />
+    <Compile Include="nsBrain\Node_dMotor\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsBrain\Node_dMotor\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsFrame\Access.cs" />
+    <Compile Include="nsBrain\brain_test.cs" />
+    <Compile Include="nsFrame\Brain.cs" />
+    <Compile Include="nsFrame\Cluster_base\Clu.cs" />
+    <Compile Include="nsFrame\Cluster_base\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsFrame\Cluster_base\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsFrame\scanNodeState.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsFrame\scanNodeState.Designer.cs">
+      <DependentUpon>scanNodeState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsFrame\UntypedNodeCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsFrame\UntypedNodeCtrl.Designer.cs">
+      <DependentUpon>UntypedNodeCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsFrame\frame.cs" />
+    <Compile Include="nsFrame\Cluster.cs" />
     <Compile Include="nsBrain\Cluster_led_phase\Ctrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="nsBrain\Cluster_led_phase\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\ComPort.cs" />
+    <Compile Include="nsFrame\ComPort.cs" />
     <Compile Include="nsBrain\ControPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="nsBrain\ControPanel.Designer.cs">
       <DependentUpon>ControPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\node.cs" />
-    <Compile Include="nsBrain\Nodes_Form.cs">
+    <Compile Include="nsFrame\node.cs" />
+    <Compile Include="nsFrame\FrameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="nsBrain\Nodes_Form.Designer.cs">
-      <DependentUpon>Nodes_Form.cs</DependentUpon>
+    <Compile Include="nsFrame\FrameForm.Designer.cs">
+      <DependentUpon>FrameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\Node_form.cs">
+    <Compile Include="nsFrame\Node_form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="nsBrain\Node_form.Designer.cs">
+    <Compile Include="nsFrame\Node_form.Designer.cs">
       <DependentUpon>Node_form.cs</DependentUpon>
     </Compile>
     <Compile Include="nsBrain\Cluster_led_phase\Clu.cs" />
-    <Compile Include="nsBrain\Cluster_info\Ctrl.cs">
+    <Compile Include="nsFrame\Cluster_info\Ctrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="nsBrain\Cluster_info\Ctrl.Designer.cs">
+    <Compile Include="nsFrame\Cluster_info\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\AccessDisplayer.cs">
+    <Compile Include="nsFrame\AccessDisplayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="nsBrain\AccessDisplayer.Designer.cs">
+    <Compile Include="nsFrame\AccessDisplayer.Designer.cs">
       <DependentUpon>AccessDisplayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="nsBrain\SRB_Master.cs" />
-    <Compile Include="nsBrain\SRB_Master_Uart.cs" />
+    <Compile Include="nsFrame\RawData.cs" />
+    <Compile Include="nsFrame\SRB_Master.cs" />
+    <Compile Include="nsFrame\SRB_Master_Uart.cs" />
     <Compile Include="nsBrain\Node_Test001\cn.cs" />
     <Compile Include="nsBrain\Node_Test001\Ctrl.cs">
       <SubType>UserControl</SubType>
@@ -145,39 +173,28 @@
     <Compile Include="HexTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="nsBrain\Cluster_info\Clu.cs" />
-    <Compile Include="nsBrain\SRB_master_uart_form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="nsBrain\SRB_master_uart_form.Designer.cs">
-      <DependentUpon>SRB_master_uart_form.cs</DependentUpon>
-    </Compile>
-    <Compile Include="nsBrain\Cluster_error\Clu.cs" />
-    <Compile Include="nsBrain\Cluster_error\Ctrl.cs">
+    <Compile Include="nsFrame\Cluster_info\Clu.cs" />
+    <Compile Include="nsFrame\SRB_master_uart_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="nsBrain\Cluster_error\Ctrl.Designer.cs">
+    <Compile Include="nsFrame\SRB_master_uart_uc.Designer.cs">
+      <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nsFrame\Cluster_error\Clu.cs" />
+    <Compile Include="nsFrame\Cluster_error\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="nsFrame\Cluster_error\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
     <Compile Include="nsBrain\Node_dMotor\cn.cs" />
-    <Compile Include="nsBrain\Node_dMotor\Ctrl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="nsBrain\Node_dMotor\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="uartDara.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="uartDara.Designer.cs">
-      <DependentUpon>uartDara.cs</DependentUpon>
-    </Compile>
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="nsFrame\UartRawData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="support.cs" />
@@ -194,7 +211,13 @@
       <DependentUpon>uartDara_web.cs</DependentUpon>
     </Compile>
     <Compile Include="uint8.cs" />
-    <EmbeddedResource Include="nsBrain\Cluster_base\Ctrl.resx">
+    <EmbeddedResource Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsBrain\Node_dMotor\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsFrame\Cluster_base\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nsBrain\Cluster_led_phase\Ctrl.resx">
@@ -203,16 +226,22 @@
     <EmbeddedResource Include="nsBrain\ControPanel.resx">
       <DependentUpon>ControPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\Nodes_Form.resx">
-      <DependentUpon>Nodes_Form.cs</DependentUpon>
+    <EmbeddedResource Include="nsFrame\scanNodeState.resx">
+      <DependentUpon>scanNodeState.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\Node_form.resx">
+    <EmbeddedResource Include="nsFrame\UntypedNodeCtrl.resx">
+      <DependentUpon>UntypedNodeCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsFrame\FrameForm.resx">
+      <DependentUpon>FrameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nsFrame\Node_form.resx">
       <DependentUpon>Node_form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\Cluster_info\Ctrl.resx">
+    <EmbeddedResource Include="nsFrame\Cluster_info\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\AccessDisplayer.resx">
+    <EmbeddedResource Include="nsFrame\AccessDisplayer.resx">
       <DependentUpon>AccessDisplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nsBrain\Node_Test001\Ctrl.resx">
@@ -221,18 +250,11 @@
     <EmbeddedResource Include="ComPortControl.resx">
       <DependentUpon>ComPortControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\SRB_master_uart_form.resx">
-      <DependentUpon>SRB_master_uart_form.cs</DependentUpon>
+    <EmbeddedResource Include="nsFrame\SRB_master_uart_uc.resx">
+      <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\Cluster_error\Ctrl.resx">
+    <EmbeddedResource Include="nsFrame\Cluster_error\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="nsBrain\Node_dMotor\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="uartDara.resx">
-      <DependentUpon>uartDara.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
@@ -295,6 +317,7 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
