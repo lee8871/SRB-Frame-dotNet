@@ -1,0 +1,8 @@
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\bin\Debug\testUSB.exe
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\bin\Debug\testUSB.pdb
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\bin\Debug\LibUsbDotNet.dll
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\bin\Debug\LibUsbDotNet.pdb
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\obj\x86\Debug\testUSB.Properties.Resources.resources
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\obj\x86\Debug\testUSB.csproj.GenerateResource.Cache
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\obj\x86\Debug\testUSB.exe
+D:\cloud-bank360\V\SRB_CS_tester\testUSB\obj\x86\Debug\testUSB.pdb

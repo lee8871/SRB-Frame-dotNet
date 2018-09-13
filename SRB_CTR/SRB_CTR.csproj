@@ -62,6 +62,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibUsbDotNet">
+      <HintPath>..\..\SRB2USB\LibUsbDotNet\LibWinUsb\bin\Debug\LibUsbDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -75,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="acSyncStream.cs" />
     <Compile Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Clu.cs" />
     <Compile Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Ctrl.cs">
       <SubType>UserControl</SubType>
@@ -162,14 +164,6 @@
     <Compile Include="nsBrain\Node_Test001\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSR.cs" />
-    <Compile Include="ComPortControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ComPortControl.designer.cs">
-      <DependentUpon>ComPortControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Access.cs" />
     <Compile Include="HexTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -188,28 +182,10 @@
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
     <Compile Include="nsBrain\Node_dMotor\cn.cs" />
-    <Compile Include="mainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="mainForm.Designer.cs">
-      <DependentUpon>mainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="nsFrame\UartRawData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="support.cs" />
-    <Compile Include="ucHexInput.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ucHexInput.Designer.cs">
-      <DependentUpon>ucHexInput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="uartDara_web.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="uartDara_web.Designer.cs">
-      <DependentUpon>uartDara_web.cs</DependentUpon>
-    </Compile>
     <Compile Include="uint8.cs" />
     <EmbeddedResource Include="nsBrain\Node_dMotor\Cluster_du_motor_v02\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
@@ -247,17 +223,11 @@
     <EmbeddedResource Include="nsBrain\Node_Test001\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ComPortControl.resx">
-      <DependentUpon>ComPortControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="nsFrame\SRB_master_uart_uc.resx">
       <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nsFrame\Cluster_error\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="mainForm.resx">
-      <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -269,13 +239,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ucHexInput.resx">
-      <DependentUpon>ucHexInput.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="uartDara_web.resx">
-      <DependentUpon>uartDara_web.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

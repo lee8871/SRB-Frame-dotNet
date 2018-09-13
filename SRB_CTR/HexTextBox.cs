@@ -14,7 +14,8 @@ namespace SRB_CTR
         public HexTextBox()
         {
         }
-
+
+
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             if((e.KeyChar >= 'a')&&(e.KeyChar <= 'f'))
