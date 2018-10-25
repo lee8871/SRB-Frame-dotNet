@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SRB_CTR.nsFrame;
+using SRB_CTR.SRB_Frame;
 
 
 
@@ -21,9 +21,8 @@ namespace SRB_CTR
             Application.SetCompatibleTextRenderingDefault(false);          
             
             // showfortest();
-            frame mainB = new frame();
+            SrbFrame mainB = new SrbFrame();
             Application.Run(mainB.Nodes_form);
-
         
         }
 	}

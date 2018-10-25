@@ -2,3 +2,5 @@ SRB_CTR/obj/
 SRB_CTR/bin/
 icons/
 output/
+*.log
+

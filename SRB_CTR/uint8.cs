@@ -5,7 +5,7 @@ using System.Text;
 
 namespace System//SRB_CTR.nsByteExtensions
 {
-    static class exbyte
+    static class Expand_Byte
     {
         static public string ToHexSt(this byte b)
         {

@@ -1,0 +1,301 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace SRB_CTR.SRB_Frame
+{
+    partial class FrameForm : Form
+    {
+        SrbFrame frame;
+
+        Control uartConfigCtrl;
+        public FrameForm(SrbFrame pa)
+        {
+            InitializeComponent();
+            frame = pa;
+            setPortState();
+            brainRunStateUpdate();
+            stopAddrShowBTN.Visible = false;
+           // cycleSet(this, null);
+            frame.eNode_register += new SrbFrame.dNodeChange(addNode);
+            frame.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
+            frame.eNode_change += new SrbFrame.dNodeChange(changeNode);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            frame.scan_stop = true;
+            Log_Writer.is_running = false;
+            base.OnClosing(e);
+        }
+        #region node Table sync
+        private delegate void dElegateNode(Node n);
+        public void addNode(Node n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(addNode);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag != null)
+                {
+                    throw new Exception("node has Tag");
+                }
+                Button b = new Button();
+                n.Tag = b;
+                b.Tag = n;
+                b.Text = getNodeString(n);
+                this.NodeTipTT.SetToolTip(b,n.ToolTip());
+                b.BackColor = Color.PaleGreen;
+                b.Size = new Size(48, 48);
+                b.Click += new EventHandler(nodeButton_Click);
+                this.nodesTable.Controls.Add(b);
+            }
+        }
+        public void changeString(Node n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(changeNode);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag == null)
+                {
+                    throw new Exception("Node dose not have a tag");
+                }
+                Button b = (Button)n.Tag;
+                b.Text = getNodeString(n);
+                this.NodeTipTT.SetToolTip(b, n.ToolTip());
+            }
+
+        }
+
+
+        public void changeNode(Node n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(changeNode);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag == null)
+                {
+                    throw new Exception("Node dose not have a tag");
+                }
+                Button b = (Button)n.Tag;
+                b.Tag = n;
+                b.Text = getNodeString(n);
+                this.NodeTipTT.SetToolTip(b, n.ToolTip());
+                b.BackColor = Color.PaleGreen;
+                b.Size = new Size(48, 48);
+                b.Click += new EventHandler(nodeButton_Click);
+                this.nodesTable.Controls.Add(b);
+            }
+        }
+
+        private string getNodeString(Node n)
+        {
+            return string.Format("A:{0}\n{1}", n.Addr, n.Name);
+        }
+
+        public void removeNode(Node n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(removeNode);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag == null)
+                {
+                    throw new Exception("Node dose not have tag!");
+                }
+                Button b = (Button)n.Tag;
+                this.nodesTable.Controls.Remove(b);
+            }
+        }
+        void nodeButton_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            Node n = (Node)(b.Tag);
+            Node_form nf = n.getForm();
+            nf.ShowAt((System.Windows.Forms.Control)sender);
+            changeNode(n);
+        }
+        #endregion
+
+        #region brain config
+        //void cycleSet(object sender, EventArgs e)
+        //{
+        //    int cycle;
+        //    if (false == int.TryParse(cycleTB.Text, out cycle))
+        //    {
+        //        cycleTB.Text = cycle.ToString();
+        //    }
+        //    else
+        //    {
+        //        this.frame.Cycle_in_ms = cycle;
+        //    }
+        //}
+
+        void stopBTN_Click(object sender, EventArgs e)
+        {
+            frame.stopCalculation(); brainRunStateUpdate();
+        }
+
+        void runBTN_Click(object sender, EventArgs e)
+        {
+            frame.runCalculation(); brainRunStateUpdate();
+        }
+        void brainRunStateUpdate()
+        {
+            if (frame.Is_calculation_running)
+            {
+                stopBTN.Visible =
+                !(MasterBroadConfigBTN_c.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = false);
+                if (uartConfigCtrl != null)
+                {
+                    if (uartConfigCtrl.Visible)
+                    {
+                        uartConfigCtrl.Hide();
+                    }
+                }
+            }
+            else
+            {
+                stopBTN.Visible =
+                !(MasterBroadConfigBTN_c.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = true);
+            }
+        }
+
+
+
+        #endregion
+
+
+
+
+        public double us_calculation = 0, us_communation = 0;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            setPortState();
+            if (is_addr_show_on)
+            {
+                if(addr_show_sno == 6000)
+                {
+                    frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+                    stopAddrShowBTN_Click(this,null);
+                }
+                switch (addr_show_sno% 3)
+                {
+                    case 0:
+                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.High);
+                        break;
+                    case 1:
+                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Low);
+                        break;
+                    case 2:
+                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+                        break;
+                }
+                addr_show_sno++;
+            }
+        }
+
+        private void setPortState()
+        {
+            if (frame.Is_port_opend)
+            {
+                this.MasterBroadConfigBTN_c.Visible = true;
+                this.MasterBroadConfigBTN_uc.Visible = false;
+            }
+            else
+            {
+                this.MasterBroadConfigBTN_c.Visible = false;
+                this.MasterBroadConfigBTN_uc.Visible = true;
+            }
+        }
+
+        private void MasterBroadConfigBTN_Click(object sender, EventArgs e)
+        {
+            if (uartConfigCtrl == null)
+            {
+                uartConfigCtrl = frame.getuartConfigContol();
+                frameCounterFLP.Controls.Add(uartConfigCtrl);
+                uartConfigCtrl.Show();
+            }
+            else
+            {
+                if (uartConfigCtrl.Visible)
+                {
+                    uartConfigCtrl.Hide();
+                }
+                else
+                {
+                    uartConfigCtrl.Show();
+                }
+            }
+
+        }
+
+
+
+        private void ShowAccessBTN_Click(object sender, EventArgs e)
+        {
+            frame.getAccessDisplayer().Show(this);
+        }
+
+        scanNodeState scanNodeCtrl;
+        private bool is_addr_show_on = false;
+        private int addr_show_sno = 0;
+        private void stopAddrShowBTN_Click(object sender, EventArgs e)
+        {
+            is_addr_show_on = false;
+            this.stopAddrShowBTN.Visible = false;
+            this.beginAddrShowBTN.Visible = true;
+            frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+        }
+
+        private void beginAddrShowBTN_Click(object sender, EventArgs e)
+        {
+            is_addr_show_on = true;
+            addr_show_sno = 0;
+            this.stopAddrShowBTN.Visible = true;
+            this.beginAddrShowBTN.Visible = false;
+        }
+
+        private void ScanNodeBTN_Click(object sender, EventArgs e)
+        {
+            if (scanNodeCtrl == null)
+            {
+                scanNodeCtrl = new scanNodeState(this.frame);
+                frameCounterFLP.Controls.Add(scanNodeCtrl);
+                scanNodeCtrl.Show();
+                this.frame.scanNodes();
+            }
+            else
+            {
+                if (scanNodeCtrl.Visible)
+                {
+                    scanNodeCtrl.Hide();
+                }
+                else
+                {
+                    scanNodeCtrl.Show();
+                    this.frame.scanNodes();
+                }
+            }
+        }
+    }
+}

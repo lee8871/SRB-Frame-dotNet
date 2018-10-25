@@ -1,0 +1,5 @@
+D:\cloud-bank360\V\SRB_CS_tester-2017\Node_dmotor\obj\Debug\Node_dmotor.csprojResolveAssemblyReference.cache
+D:\cloud-bank360\V\SRB_CS_tester-2017\Node_dmotor\obj\Debug\SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02.Ctrl.resources
+D:\cloud-bank360\V\SRB_CS_tester-2017\Node_dmotor\obj\Debug\SRB_CTR.nsBrain.Node_dMotor.Ctrl.resources
+D:\cloud-bank360\V\SRB_CS_tester-2017\Node_dmotor\obj\Debug\Node_dmotor.csproj.GenerateResource.cache
+D:\cloud-bank360\V\SRB_CS_tester-2017\Node_dmotor\obj\Debug\Node_dmotor.csproj.CoreCompileInputs.cache

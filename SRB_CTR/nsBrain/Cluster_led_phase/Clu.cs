@@ -52,7 +52,7 @@ namespace SRB_CTR.nsBrain.Cluster_led_phase
             b[i++] = low_ms.ByteHigh();
             b[i++] = period.ByteLow();
             b[i++] = period.ByteHigh();
-            parent_node.postAccess(new Access(this.parent_node, Access.ePort.Cgf, b));
+            parent_node.singleAccess(new Access(this.parent_node, Access.PortEnum.Cgf, b));
         }
         public override void readRecv(Access ac)
         {
