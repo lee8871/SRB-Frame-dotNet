@@ -8,9 +8,10 @@ namespace SRB_CTR.nsBrain
     internal class Brain_Test:IBrain
     {
         Node_dMotor.Cn[] motors = new Node_dMotor.Cn[4];
+        Random rnd = new Random();
         public Brain_Test(SrbFrame f):base(f)
         {
-            period_in_ms = 10;
+            period_in_ms = 2;
         }
 
 
@@ -38,31 +39,42 @@ namespace SRB_CTR.nsBrain
             base.onStop();
         }
 
+        int[] from = new int[8];
+        int[] to = new int[8];
         override public void calculate()
         {
-            int a, b;
-            long phase = loop_num % 400;
-            if(phase < 100)
+            long phase = (long)(loop_num * period_in_ms) % 4000;
+            if(phase == 0)
             {
-                a = b = 800;
+                for (int i = 0; i < 8; i++)
+                {
+                    from[i] = to[i];
+                    to[i] = rnd.Next(-1000, 1000);
+                }
             }
-            else if (phase < 200)
+            if(phase<3000)
             {
-                a = b = 0;
+                for (int i = 0; i < 8;)
+                {
+                    int motor_num = i / 2;
+                    motors[motor_num].speed_a = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
+                    i++;
+                    motors[motor_num].speed_b = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
+                    i++;
+                    motors[motor_num].bulidUpD0();
+                }
             }
-            else if (phase < 300)
+            else 
             {
-                a = b = -800;
-            }
-            else
-            {
-                a = b = 0;
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                motors[i].speed_a = a;
-                motors[i].speed_b = b;
-                motors[i].bulidUpD0();
+                for (int i = 0; i < 8;)
+                {
+                    int motor_num = i / 2;
+                    motors[motor_num].speed_a = (to[i]);
+                    i++;
+                    motors[motor_num].speed_b = (to[i]);
+                    i++;
+                    motors[motor_num].bulidUpD0();
+                }
             }
         }
 

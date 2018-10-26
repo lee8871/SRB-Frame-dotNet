@@ -251,7 +251,7 @@ namespace SRB_CTR.SRB_Frame
             int send_len = i;
             if (srb_writer.Write(send_to_usb_buf, 0, send_len, 10, out send_done_len) == ErrorCode.None)
             {
-                log.add(string.Format("Send_pkg= ({0},({1}))",send_len,send_to_usb_buf.ToHexSt(send_len), 0));
+                log.add(string.Format("Send_pkg= ({0},{1})",send_len,send_to_usb_buf.ToPythonTuple(send_len)));
                 access.sendDone();
             }
             else
@@ -268,7 +268,7 @@ namespace SRB_CTR.SRB_Frame
             if (srb_reader.Read(recv_from_usb_buf, 10, out recv_num) == ErrorCode.None)
             {
                 recv_access_counter++;
-                log.add(string.Format("Recv_pkg= ({0},({1}))", recv_num, recv_from_usb_buf.ToHexSt(recv_num)));
+                log.add(string.Format("Recv_pkg =  ({0},{1})", recv_num, recv_from_usb_buf.ToPythonTuple(recv_num)));
                 int recv_sno = recv_from_usb_buf[0];
                 byte recv_error = recv_from_usb_buf[1];
                 if(recv_error==0)

@@ -49,10 +49,6 @@ namespace System//SRB_CTR.nsByteExtensions
                    return "【empty】";
                }
            }
-           if (ba == null)
-           {
-               return "";
-           }
            string s = "";
            for(int i = 0;i<len;i++)
            {
@@ -61,7 +57,30 @@ namespace System//SRB_CTR.nsByteExtensions
            }
            return s;
        }
-       static public byte[] SubArray(this byte[] ba, int len)
+
+        static public string ToPythonTuple(this byte[] ba, int len = -1)
+        {
+            if (ba == null)
+            {
+                return "('null')";
+            }
+            if (len == -1)
+            {
+                len = ba.Length;
+                if (len == 0)
+                {
+                    return "('empty')";
+                }
+            }
+            string s = "";
+            for (int i = 0; i < len; i++)
+            {
+                byte b = ba[i];
+                s += "0x"+b.ToHexSt() + ',';
+            }
+            return "("+s+")";
+        }
+        static public byte[] SubArray(this byte[] ba, int len)
        {
            if (ba == null)
            {

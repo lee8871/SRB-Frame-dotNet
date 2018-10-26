@@ -7,7 +7,6 @@ namespace System
 {
 	public static class support
     {
-
         public static Random random = new Random();
         public enum YNU
         {

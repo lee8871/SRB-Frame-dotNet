@@ -91,7 +91,7 @@ namespace SRB_CTR
                 }
                 file_size = 0;
                 string fn = string.Format("{0}({1}){2}", FileName, file_num, Suffix);
-                sw = new StreamWriter(fn, true);
+                sw = new StreamWriter(fn, true,Encoding.ASCII,1024*1024);
                 sw.AutoFlush = false;
                 file_num++;
                 sw.Flush();

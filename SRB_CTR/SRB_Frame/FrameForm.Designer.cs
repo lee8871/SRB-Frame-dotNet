@@ -52,6 +52,7 @@
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.uartTS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
@@ -228,10 +229,11 @@
             this.runBTN,
             this.stopBTN,
             this.stopAddrShowBTN,
-            this.beginAddrShowBTN});
+            this.beginAddrShowBTN,
+            this.toolStripButton1});
             this.nodeScanTS.Location = new System.Drawing.Point(96, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(147, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(205, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN
@@ -283,6 +285,16 @@
             this.beginAddrShowBTN.Size = new System.Drawing.Size(27, 27);
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(27, 27);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FrameForm
             // 
@@ -337,5 +349,6 @@
         private System.Windows.Forms.ToolStripButton stopAddrShowBTN;
         private System.Windows.Forms.ToolStripButton beginAddrShowBTN;
         private System.Windows.Forms.ToolTip NodeTipTT;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

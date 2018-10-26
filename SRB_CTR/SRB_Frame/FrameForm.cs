@@ -275,6 +275,11 @@ namespace SRB_CTR.SRB_Frame
             this.beginAddrShowBTN.Visible = false;
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/lee8871/SRB");
+        }
+
         private void ScanNodeBTN_Click(object sender, EventArgs e)
         {
             if (scanNodeCtrl == null)
