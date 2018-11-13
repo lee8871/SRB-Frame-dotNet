@@ -12,16 +12,20 @@ namespace SRB_CTR.SRB_Frame
     partial class FrameForm : Form
     {
         SrbFrame frame;
-
-        Control uartConfigCtrl;
+        Control config_ctrl;
         public FrameForm(SrbFrame pa)
         {
             InitializeComponent();
+            nodesTable.BackColor = System.Support.Color_blue;
+            frameCounterFLP.BackColor = System.Support.Color_blue;
+
+
+            frameCounterFLP.Refresh();
             frame = pa;
             setPortState();
             brainRunStateUpdate();
             stopAddrShowBTN.Visible = false;
-           // cycleSet(this, null);
+            // cycleSet(this, null);
             frame.eNode_register += new SrbFrame.dNodeChange(addNode);
             frame.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
             frame.eNode_change += new SrbFrame.dNodeChange(changeNode);
@@ -29,6 +33,7 @@ namespace SRB_CTR.SRB_Frame
         protected override void OnClosing(CancelEventArgs e)
         {
             frame.scan_stop = true;
+            frame.endRecord();
             Log_Writer.is_running = false;
             base.OnClosing(e);
         }
@@ -52,7 +57,7 @@ namespace SRB_CTR.SRB_Frame
                 b.Tag = n;
                 b.Text = getNodeString(n);
                 this.NodeTipTT.SetToolTip(b,n.ToolTip());
-                b.BackColor = Color.PaleGreen;
+                b.BackColor = Color.GhostWhite;
                 b.Size = new Size(48, 48);
                 b.Click += new EventHandler(nodeButton_Click);
                 this.nodesTable.Controls.Add(b);
@@ -96,10 +101,10 @@ namespace SRB_CTR.SRB_Frame
                 b.Tag = n;
                 b.Text = getNodeString(n);
                 this.NodeTipTT.SetToolTip(b, n.ToolTip());
-                b.BackColor = Color.PaleGreen;
+                b.BackColor = Color.GhostWhite;
                 b.Size = new Size(48, 48);
                 b.Click += new EventHandler(nodeButton_Click);
-                this.nodesTable.Controls.Add(b);
+                //this.nodesTable.Controls.Add(b);
             }
         }
 
@@ -163,19 +168,19 @@ namespace SRB_CTR.SRB_Frame
             if (frame.Is_calculation_running)
             {
                 stopBTN.Visible =
-                !(MasterBroadConfigBTN_c.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = false);
-                if (uartConfigCtrl != null)
+                !(SRB_config.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = false);
+                if (config_ctrl != null)
                 {
-                    if (uartConfigCtrl.Visible)
+                    if (config_ctrl.Visible)
                     {
-                        uartConfigCtrl.Hide();
+                        config_ctrl.Hide();
                     }
                 }
             }
             else
             {
                 stopBTN.Visible =
-                !(MasterBroadConfigBTN_c.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = true);
+                !(SRB_config.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = true);
             }
         }
 
@@ -190,14 +195,21 @@ namespace SRB_CTR.SRB_Frame
         private void timer1_Tick(object sender, EventArgs e)
         {
             setPortState();
+            addrShowStep();
+
+
+
+        }
+        private void addrShowStep()
+        {
             if (is_addr_show_on)
             {
-                if(addr_show_sno == 6000)
+                if (addr_show_sno == 6000)
                 {
                     frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
-                    stopAddrShowBTN_Click(this,null);
+                    stopAddrShowBTN_Click(this, null);
                 }
-                switch (addr_show_sno% 3)
+                switch (addr_show_sno % 3)
                 {
                     case 0:
                         frame.ledAddrAll(Cluster_base.Clu.LedAddrType.High);
@@ -217,43 +229,28 @@ namespace SRB_CTR.SRB_Frame
         {
             if (frame.Is_port_opend)
             {
-                this.MasterBroadConfigBTN_c.Visible = true;
-                this.MasterBroadConfigBTN_uc.Visible = false;
+                this.srbRunning();
             }
             else
             {
-                this.MasterBroadConfigBTN_c.Visible = false;
-                this.MasterBroadConfigBTN_uc.Visible = true;
+                this.srbStoped();
             }
-        }
-
-        private void MasterBroadConfigBTN_Click(object sender, EventArgs e)
-        {
-            if (uartConfigCtrl == null)
-            {
-                uartConfigCtrl = frame.getuartConfigContol();
-                frameCounterFLP.Controls.Add(uartConfigCtrl);
-                uartConfigCtrl.Show();
-            }
-            else
-            {
-                if (uartConfigCtrl.Visible)
-                {
-                    uartConfigCtrl.Hide();
-                }
-                else
-                {
-                    uartConfigCtrl.Show();
-                }
-            }
-
         }
 
 
 
-        private void ShowAccessBTN_Click(object sender, EventArgs e)
+
+        private void ShowRecordBTN_r_Click(object sender, EventArgs e)
         {
-            frame.getAccessDisplayer().Show(this);
+            frame.endRecord();
+            ShowRecordBTN_r.Visible = false;
+            ShowRecordBTN_s.Visible = true;
+        }
+        private void ShowRecordBTN_s_Click(object sender, EventArgs e)
+        {
+            frame.beginRecord();
+            ShowRecordBTN_s.Visible = false;
+            ShowRecordBTN_r.Visible = true;
         }
 
         scanNodeState scanNodeCtrl;
@@ -278,6 +275,70 @@ namespace SRB_CTR.SRB_Frame
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/lee8871/SRB");
+        }
+
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrameForm));
+        Image portStoped = global::SRB_CTR.Properties.Resources._1175759;
+        Image portRunning = global::SRB_CTR.Properties.Resources._1175746;
+        private void srbStoped()
+        {
+            this.SRB_config.Image = portStoped;
+        }
+        private void srbRunning()
+        {
+            this.SRB_config.Image = portRunning;
+        }
+
+        private void uSBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (config_ctrl != frame.usbControlDisplay())
+            {
+                frameCounterFLP.Controls.Remove(config_ctrl);
+                config_ctrl = frame.usbControlDisplay();
+                frameCounterFLP.Controls.Add(config_ctrl);
+                config_ctrl.Show();
+                this.uSBToolStripMenuItem.Checked = true;
+                this.uARTToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                if(config_ctrl.Visible)
+                {
+                    config_ctrl.Hide();
+                }
+                else
+                {
+                    config_ctrl.Show();
+                }
+            }
+        }
+        private void uARTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(config_ctrl != frame.uartControlDisplay())
+            {
+                frameCounterFLP.Controls.Remove(config_ctrl);
+                config_ctrl = frame.uartControlDisplay();
+                frameCounterFLP.Controls.Add(config_ctrl);
+                config_ctrl.Show();
+                this.uSBToolStripMenuItem.Checked = false;
+                this.uARTToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                if (config_ctrl.Visible)
+                {
+                    config_ctrl.Hide();
+                }
+                else
+                {
+                    config_ctrl.Show();
+                }
+            }
+        }
+
+        private void SRB_config_ButtonClick(object sender, EventArgs e)
+        {
+
         }
 
         private void ScanNodeBTN_Click(object sender, EventArgs e)

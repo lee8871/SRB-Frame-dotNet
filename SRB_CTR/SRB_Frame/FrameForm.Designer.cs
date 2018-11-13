@@ -39,9 +39,11 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.uartTS = new System.Windows.Forms.ToolStrip();
-            this.MasterBroadConfigBTN_uc = new System.Windows.Forms.ToolStripButton();
-            this.MasterBroadConfigBTN_c = new System.Windows.Forms.ToolStripButton();
-            this.ShowAccessBTN = new System.Windows.Forms.ToolStripButton();
+            this.SRB_config = new System.Windows.Forms.ToolStripSplitButton();
+            this.uSBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowRecordBTN_s = new System.Windows.Forms.ToolStripButton();
+            this.ShowRecordBTN_r = new System.Windows.Forms.ToolStripButton();
             this.left_UpDownSC = new System.Windows.Forms.SplitContainer();
             this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
             this.mainTSC = new System.Windows.Forms.ToolStripContainer();
@@ -52,7 +54,6 @@
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.uartTS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
@@ -82,11 +83,10 @@
             // 
             // nodesTable
             // 
-            this.nodesTable.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.nodesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nodesTable.Location = new System.Drawing.Point(0, 0);
             this.nodesTable.Name = "nodesTable";
-            this.nodesTable.Size = new System.Drawing.Size(384, 442);
+            this.nodesTable.Size = new System.Drawing.Size(384, 445);
             this.nodesTable.TabIndex = 0;
             // 
             // BottomToolStripPanel
@@ -131,45 +131,64 @@
             this.uartTS.Dock = System.Windows.Forms.DockStyle.None;
             this.uartTS.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.uartTS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MasterBroadConfigBTN_uc,
-            this.MasterBroadConfigBTN_c,
-            this.ShowAccessBTN});
-            this.uartTS.Location = new System.Drawing.Point(3, 0);
+            this.SRB_config,
+            this.ShowRecordBTN_s,
+            this.ShowRecordBTN_r});
+            this.uartTS.Location = new System.Drawing.Point(181, 0);
             this.uartTS.Name = "uartTS";
             this.uartTS.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.uartTS.Size = new System.Drawing.Size(93, 30);
+            this.uartTS.Size = new System.Drawing.Size(78, 30);
             this.uartTS.TabIndex = 2;
             this.uartTS.Text = "Bus config";
             // 
-            // MasterBroadConfigBTN_uc
+            // SRB_config
             // 
-            this.MasterBroadConfigBTN_uc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MasterBroadConfigBTN_uc.Image = ((System.Drawing.Image)(resources.GetObject("MasterBroadConfigBTN_uc.Image")));
-            this.MasterBroadConfigBTN_uc.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.MasterBroadConfigBTN_uc.Name = "MasterBroadConfigBTN_uc";
-            this.MasterBroadConfigBTN_uc.Size = new System.Drawing.Size(27, 27);
-            this.MasterBroadConfigBTN_uc.Text = "端口配置";
-            this.MasterBroadConfigBTN_uc.Click += new System.EventHandler(this.MasterBroadConfigBTN_Click);
+            this.SRB_config.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SRB_config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uSBToolStripMenuItem,
+            this.uARTToolStripMenuItem});
+            this.SRB_config.Image = global::SRB_CTR.Properties.Resources._1175746;
+            this.SRB_config.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SRB_config.Name = "SRB_config";
+            this.SRB_config.Size = new System.Drawing.Size(39, 27);
+            this.SRB_config.Text = "端口配置";
+            this.SRB_config.ToolTipText = "Select SRB Port";
+            this.SRB_config.ButtonClick += new System.EventHandler(this.SRB_config_ButtonClick);
             // 
-            // MasterBroadConfigBTN_c
+            // uSBToolStripMenuItem
             // 
-            this.MasterBroadConfigBTN_c.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MasterBroadConfigBTN_c.Image = ((System.Drawing.Image)(resources.GetObject("MasterBroadConfigBTN_c.Image")));
-            this.MasterBroadConfigBTN_c.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.MasterBroadConfigBTN_c.Name = "MasterBroadConfigBTN_c";
-            this.MasterBroadConfigBTN_c.Size = new System.Drawing.Size(27, 27);
-            this.MasterBroadConfigBTN_c.Text = "端口配置";
-            this.MasterBroadConfigBTN_c.Click += new System.EventHandler(this.MasterBroadConfigBTN_Click);
+            this.uSBToolStripMenuItem.Name = "uSBToolStripMenuItem";
+            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uSBToolStripMenuItem.Text = "USB";
+            this.uSBToolStripMenuItem.Click += new System.EventHandler(this.uSBToolStripMenuItem_Click);
             // 
-            // ShowAccessBTN
+            // uARTToolStripMenuItem
             // 
-            this.ShowAccessBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ShowAccessBTN.Image = ((System.Drawing.Image)(resources.GetObject("ShowAccessBTN.Image")));
-            this.ShowAccessBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ShowAccessBTN.Name = "ShowAccessBTN";
-            this.ShowAccessBTN.Size = new System.Drawing.Size(27, 27);
-            this.ShowAccessBTN.Text = "打开监视窗口";
-            this.ShowAccessBTN.Click += new System.EventHandler(this.ShowAccessBTN_Click);
+            this.uARTToolStripMenuItem.Name = "uARTToolStripMenuItem";
+            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uARTToolStripMenuItem.Text = "UART";
+            this.uARTToolStripMenuItem.Click += new System.EventHandler(this.uARTToolStripMenuItem_Click);
+            // 
+            // ShowRecordBTN_s
+            // 
+            this.ShowRecordBTN_s.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ShowRecordBTN_s.Image = ((System.Drawing.Image)(resources.GetObject("ShowRecordBTN_s.Image")));
+            this.ShowRecordBTN_s.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ShowRecordBTN_s.Name = "ShowRecordBTN_s";
+            this.ShowRecordBTN_s.Size = new System.Drawing.Size(27, 27);
+            this.ShowRecordBTN_s.Text = "Start Access Record";
+            this.ShowRecordBTN_s.Click += new System.EventHandler(this.ShowRecordBTN_s_Click);
+            // 
+            // ShowRecordBTN_r
+            // 
+            this.ShowRecordBTN_r.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ShowRecordBTN_r.Image = ((System.Drawing.Image)(resources.GetObject("ShowRecordBTN_r.Image")));
+            this.ShowRecordBTN_r.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ShowRecordBTN_r.Name = "ShowRecordBTN_r";
+            this.ShowRecordBTN_r.Size = new System.Drawing.Size(27, 27);
+            this.ShowRecordBTN_r.Text = " Stop Access Record ";
+            this.ShowRecordBTN_r.Visible = false;
+            this.ShowRecordBTN_r.Click += new System.EventHandler(this.ShowRecordBTN_r_Click);
             // 
             // left_UpDownSC
             // 
@@ -186,16 +205,15 @@
             // 
             this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
             this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
-            this.left_UpDownSC.SplitterDistance = 103;
+            this.left_UpDownSC.SplitterDistance = 100;
             this.left_UpDownSC.TabIndex = 0;
             // 
             // frameCounterFLP
             // 
-            this.frameCounterFLP.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
             this.frameCounterFLP.Name = "frameCounterFLP";
-            this.frameCounterFLP.Size = new System.Drawing.Size(384, 103);
+            this.frameCounterFLP.Size = new System.Drawing.Size(384, 100);
             this.frameCounterFLP.TabIndex = 0;
             // 
             // mainTSC
@@ -229,11 +247,10 @@
             this.runBTN,
             this.stopBTN,
             this.stopAddrShowBTN,
-            this.beginAddrShowBTN,
-            this.toolStripButton1});
-            this.nodeScanTS.Location = new System.Drawing.Point(96, 0);
+            this.beginAddrShowBTN});
+            this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(205, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(178, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN
@@ -264,6 +281,7 @@
             this.stopBTN.Name = "stopBTN";
             this.stopBTN.Size = new System.Drawing.Size(27, 27);
             this.stopBTN.Text = "Stop";
+            this.stopBTN.Visible = false;
             this.stopBTN.Click += new System.EventHandler(this.stopBTN_Click);
             // 
             // stopAddrShowBTN
@@ -274,6 +292,7 @@
             this.stopAddrShowBTN.Name = "stopAddrShowBTN";
             this.stopAddrShowBTN.Size = new System.Drawing.Size(27, 27);
             this.stopAddrShowBTN.Text = "Stop Addr Show";
+            this.stopAddrShowBTN.Visible = false;
             this.stopAddrShowBTN.Click += new System.EventHandler(this.stopAddrShowBTN_Click);
             // 
             // beginAddrShowBTN
@@ -286,16 +305,6 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(27, 27);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // FrameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -303,6 +312,7 @@
             this.ClientSize = new System.Drawing.Size(384, 601);
             this.Controls.Add(this.mainTSC);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 640);
             this.Name = "FrameForm";
             this.Text = "Simple Robot Bus";
@@ -330,9 +340,7 @@
         private System.Windows.Forms.Timer uiTIMER;
         private System.Windows.Forms.FlowLayoutPanel nodesTable;
         private System.Windows.Forms.ToolStrip uartTS;
-        private System.Windows.Forms.ToolStripButton MasterBroadConfigBTN_uc;
-        private System.Windows.Forms.ToolStripButton MasterBroadConfigBTN_c;
-        private System.Windows.Forms.ToolStripButton ShowAccessBTN;
+        private System.Windows.Forms.ToolStripButton ShowRecordBTN_r;
         private System.Windows.Forms.SplitContainer left_UpDownSC;
         private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
         private System.Windows.Forms.ToolStripPanel topTSP;
@@ -349,6 +357,9 @@
         private System.Windows.Forms.ToolStripButton stopAddrShowBTN;
         private System.Windows.Forms.ToolStripButton beginAddrShowBTN;
         private System.Windows.Forms.ToolTip NodeTipTT;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton ShowRecordBTN_s;
+        private System.Windows.Forms.ToolStripSplitButton SRB_config;
+        private System.Windows.Forms.ToolStripMenuItem uSBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uARTToolStripMenuItem;
     }
 }
