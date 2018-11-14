@@ -39,14 +39,14 @@ namespace System//SRB_CTR.nsByteExtensions
        {
            if (ba == null)
            {
-               return "【null】";
+               return "<null>";
            }
            if (len == -1)
            {
                len = ba.Length;
                if (len == 0)
                {
-                   return "【empty】";
+                   return "<empty>";
                }
            }
            string s = "";

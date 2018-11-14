@@ -15,6 +15,7 @@ namespace SRB_CTR.SRB_Frame
         public Node_form(Node n)
         {
             InitializeComponent();
+            this.clusters.BackColor = System.Support.Color_blue;
             node = n;
             updateText();
             string[] st_a = n.getClusterTable();

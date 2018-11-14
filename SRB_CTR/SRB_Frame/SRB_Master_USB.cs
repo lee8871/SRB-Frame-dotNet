@@ -1,16 +1,15 @@
-﻿using System;
+﻿#define LOG_OFF
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-    
-
 using LibUsbDotNet;
 using LibUsbDotNet.LibUsb;
 using LibUsbDotNet.Main;
 using LibUsbDotNet.LudnMonoLibUsb;
 using EC = LibUsbDotNet.Main.ErrorCode;
-
 
 namespace SRB_CTR.SRB_Frame
 {
@@ -20,11 +19,14 @@ namespace SRB_CTR.SRB_Frame
         private string selected_device_name;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
-        private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string,UsbRegistry>();
+        private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
         SRB_Master_USB_Uc config_form;
 
         Stopwatch stopwatch;
+
+#if LOG_ON
         Log_Writer log;
+#endif
         public SRB_Master_USB()
         {
             scanDevice();
@@ -32,11 +34,13 @@ namespace SRB_CTR.SRB_Frame
             {
                 OpenPort(devicesDIC.Keys.ToArray()[0]);
             }
+#if LOG_ON
             log = new Log_Writer("USB");
             log.add("# new usb log!");
             log.add(string.Format("Date = '{0}'", DateTime.Now.ToString("yyyy-MM-dd")));
             log.add(string.Format("Time = '{0}'", DateTime.Now.ToString("HH:mm:ss")));
             log.autoFlushRun();
+#endif
             stopwatch = new Stopwatch();
         }
 
@@ -176,7 +180,7 @@ namespace SRB_CTR.SRB_Frame
         }
 
 
-        #region Access
+#region Access
 
         Access[] accesses;
         int send_access_counter;
@@ -211,7 +215,12 @@ namespace SRB_CTR.SRB_Frame
 
                 accesses = acs;
                 access_num = acs_num;
+
+#if LOG_ON
+#if DEBUG
                 log.add("# new access");
+#endif
+#endif
 
                 stopwatch.Restart();
                 recv_access_counter = send_access_counter = 0;
@@ -221,9 +230,19 @@ namespace SRB_CTR.SRB_Frame
                     sendAccess();
                     recvAccess();
                 }
+
                 stopwatch.Stop();
+
+#if LOG_ON
+#if DEBUG
                 log.add(string.Format("Num_spend = ({0},{1:###0.0000})", acs_num, stopwatch.getElapsedMs()));
-                
+#else
+                //if (stopwatch.getElapsedMs() > 1)
+                //{
+                //    log.add(string.Format("Num_spend = ({0},{1:###0.0000})", acs_num, stopwatch.getElapsedMs()));
+                //}
+#endif
+#endif
                 return true;
             }
         }
@@ -231,7 +250,7 @@ namespace SRB_CTR.SRB_Frame
         byte[] send_to_usb_buf = new byte[64];
         private void sendAccess()
         {
-            if(send_access_counter >= access_num)
+            if (send_access_counter >= access_num)
             {
                 return;
             }
@@ -243,20 +262,30 @@ namespace SRB_CTR.SRB_Frame
             send_to_usb_buf[i++] = access.Addr;
             send_to_usb_buf[i++] = access.Send_bfc;
 
-            foreach(byte b in access.Send_data)
+            foreach (byte b in access.Send_data)
             {
                 send_to_usb_buf[i++] = b;
             }
             int send_done_len;
             int send_len = i;
-            if (srb_writer.Write(send_to_usb_buf, 0, send_len, 10, out send_done_len) == ErrorCode.None)
+            if (srb_writer.Write(send_to_usb_buf, 0, send_len, 200, out send_done_len) == ErrorCode.None)
             {
+#if LOG_ON
+#if DEBUG
                 log.add(string.Format("Send_pkg= ({0},{1})",send_len,send_to_usb_buf.ToPythonTuple(send_len)));
+#endif
+#endif
+
+                DateTime t = DateTime.Now;
+                access.sendTime = t;
                 access.sendDone();
             }
             else
             {
-                log.add("Send_pkg = ('fail',)");
+
+#if LOG_ON
+                log.add(string.Format("Send_pkg= ('fail',{0},{1})", send_len, send_to_usb_buf.ToPythonTuple(send_len)));
+#endif
                 access.sendFail();
             }
             send_access_counter++;
@@ -265,28 +294,35 @@ namespace SRB_CTR.SRB_Frame
         private bool recvAccess()
         {
             int recv_num;
-            if (srb_reader.Read(recv_from_usb_buf, 10, out recv_num) == ErrorCode.None)
+            if (srb_reader.Read(recv_from_usb_buf, 200, out recv_num) == ErrorCode.None)
             {
                 recv_access_counter++;
+
+#if LOG_ON
+#if DEBUG
                 log.add(string.Format("Recv_pkg =  ({0},{1})", recv_num, recv_from_usb_buf.ToPythonTuple(recv_num)));
+#endif
+#endif
                 int recv_sno = recv_from_usb_buf[0];
                 byte recv_error = recv_from_usb_buf[1];
-                if(recv_error==0)
+                if (recv_error == 0)
                 {
                     byte[] recv_access_data = new byte[recv_num - 3];
-                    accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf,3);
+                    accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf, 3);
                 }
             }
             else
             {
                 recv_access_counter = access_num;
-                log.add("Recv_pkg = ('fail',)");
-            }
+#if LOG_ON
+                log.add(string.Format("Recv_pkg =  ('fail',{0},{1})", recv_num, recv_from_usb_buf.ToPythonTuple(recv_num)));
+ #endif
+                }
 
             return false;
         }
 
-        #endregion
+#endregion
 
     }
 }

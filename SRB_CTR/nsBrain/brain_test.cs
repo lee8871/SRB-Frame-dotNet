@@ -43,8 +43,14 @@ namespace SRB_CTR.nsBrain
         int[] to = new int[8];
         override public void calculate()
         {
+            motors[2].speed_a = 0;
+            motors[2].speed_b = -500;
+            motors[2].bulidUpD0();
+        }
+        public void calculate2()
+        {
             long phase = (long)(loop_num * period_in_ms) % 4000;
-            if(phase == 0)
+            if (phase == 0)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -52,7 +58,7 @@ namespace SRB_CTR.nsBrain
                     to[i] = rnd.Next(-1000, 1000);
                 }
             }
-            if(phase<3000)
+            if (phase < 3000)
             {
                 for (int i = 0; i < 8;)
                 {
@@ -64,7 +70,7 @@ namespace SRB_CTR.nsBrain
                     motors[motor_num].bulidUpD0();
                 }
             }
-            else 
+            else
             {
                 for (int i = 0; i < 8;)
                 {

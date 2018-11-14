@@ -81,7 +81,16 @@ namespace SRB_CTR.SRB_Frame
                 calculate_time = sw.getElapsedMs();
                 frame.sendAccess();
                 all_time = sw.getElapsedMs();
+#if DEBUG
                 log.add(string.Format("{0},{1:###0.0000},{2:###0.0000}", loop_num, calculate_time, all_time));
+#else
+                if(all_time>period_in_ms)
+                {
+                    log.add(string.Format("Not_real_time = ('{3}',{0},{1:###0.0000},{2:###0.0000},)", 
+                        loop_num,           calculate_time, 
+                        all_time,           DateTime.Now.ToString("hh:mm:ss.fff")));
+                }
+#endif
                 loop_num++;
                 while (sw.getElapsedMs() < period_in_ms) ;
             }

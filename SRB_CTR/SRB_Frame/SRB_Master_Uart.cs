@@ -143,10 +143,10 @@ namespace SRB_CTR.SRB_Frame
             {
                 if (acs[acs_counter].Status == Access.StatusEnum.SendWaitRecv)
                 {
-                   // acs[acs_counter].Status = Access.StatusEnum.NoRecv;
+                    acs[acs_counter].sendFail();
                 }
-                acs[acs_counter].original_SendByte = original_send_ba;
-                acs[acs_counter].original_RecvByte = original_recv_ba;
+               // acs[acs_counter].original_SendByte = original_send_ba;
+                //acs[acs_counter].original_RecvByte = original_recv_ba;
             }
             return true;
         }
@@ -180,7 +180,7 @@ namespace SRB_CTR.SRB_Frame
                 original_send_ba = new byte[send_buffer_counter];
                 Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
             }
-            this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
+            int 返回值 = this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
         }
 
         private int toUartByteArray(Access ac, byte sno)

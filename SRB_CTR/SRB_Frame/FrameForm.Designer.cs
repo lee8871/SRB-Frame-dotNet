@@ -38,7 +38,6 @@
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
-            this.uartTS = new System.Windows.Forms.ToolStrip();
             this.SRB_config = new System.Windows.Forms.ToolStripSplitButton();
             this.uSBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +53,6 @@
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
-            this.uartTS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
             this.left_UpDownSC.Panel2.SuspendLayout();
@@ -126,21 +124,6 @@
             // 
             this.ContentPanel.Size = new System.Drawing.Size(551, 557);
             // 
-            // uartTS
-            // 
-            this.uartTS.Dock = System.Windows.Forms.DockStyle.None;
-            this.uartTS.ImageScalingSize = new System.Drawing.Size(23, 23);
-            this.uartTS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SRB_config,
-            this.ShowRecordBTN_s,
-            this.ShowRecordBTN_r});
-            this.uartTS.Location = new System.Drawing.Point(181, 0);
-            this.uartTS.Name = "uartTS";
-            this.uartTS.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.uartTS.Size = new System.Drawing.Size(78, 30);
-            this.uartTS.TabIndex = 2;
-            this.uartTS.Text = "Bus config";
-            // 
             // SRB_config
             // 
             this.SRB_config.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -158,14 +141,14 @@
             // uSBToolStripMenuItem
             // 
             this.uSBToolStripMenuItem.Name = "uSBToolStripMenuItem";
-            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.uSBToolStripMenuItem.Text = "USB";
             this.uSBToolStripMenuItem.Click += new System.EventHandler(this.uSBToolStripMenuItem_Click);
             // 
             // uARTToolStripMenuItem
             // 
             this.uARTToolStripMenuItem.Name = "uARTToolStripMenuItem";
-            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.uARTToolStripMenuItem.Text = "UART";
             this.uARTToolStripMenuItem.Click += new System.EventHandler(this.uARTToolStripMenuItem_Click);
             // 
@@ -235,7 +218,6 @@
             // 
             // mainTSC.TopToolStripPanel
             // 
-            this.mainTSC.TopToolStripPanel.Controls.Add(this.uartTS);
             this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
             // 
             // nodeScanTS
@@ -243,6 +225,9 @@
             this.nodeScanTS.Dock = System.Windows.Forms.DockStyle.None;
             this.nodeScanTS.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.nodeScanTS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SRB_config,
+            this.ShowRecordBTN_s,
+            this.ShowRecordBTN_r,
             this.ScanNodeBTN,
             this.runBTN,
             this.stopBTN,
@@ -250,7 +235,7 @@
             this.beginAddrShowBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(178, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN
@@ -316,8 +301,6 @@
             this.MinimumSize = new System.Drawing.Size(400, 640);
             this.Name = "FrameForm";
             this.Text = "Simple Robot Bus";
-            this.uartTS.ResumeLayout(false);
-            this.uartTS.PerformLayout();
             this.left_UpDownSC.Panel1.ResumeLayout(false);
             this.left_UpDownSC.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).EndInit();
@@ -339,7 +322,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Timer uiTIMER;
         private System.Windows.Forms.FlowLayoutPanel nodesTable;
-        private System.Windows.Forms.ToolStrip uartTS;
         private System.Windows.Forms.ToolStripButton ShowRecordBTN_r;
         private System.Windows.Forms.SplitContainer left_UpDownSC;
         private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;

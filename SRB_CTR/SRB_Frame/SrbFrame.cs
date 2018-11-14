@@ -18,7 +18,7 @@ namespace SRB_CTR.SRB_Frame
         {
             get { return nodes; }
         }
-        ISRB_Driver srb;
+        private ISRB_Driver srb;
         public bool Is_port_opend
         {
             get { return srb.Is_opened(); }
@@ -29,16 +29,54 @@ namespace SRB_CTR.SRB_Frame
             get{return _nodes_form;}
         }
         IBrain main_brain;
+
+        SRB_Record record;
+
+
+
+        internal bool Is_calculation_running
+        {
+            get => main_brain.Running_flag;
+        }
         public SrbFrame()
         {
             nodes = new Node[128];
             ///TODO
             ///add master select 
-            //master = new SRB_Master_Uart();
-            srb = new SRB_Master_USB();
+            srb = new SRB_Master_Uart();
             main_brain = new nsBrain.Brain_Test(this);
             _nodes_form = new FrameForm(this);
             _nodes_form.Disposed += _nodes_form_Disposed;
+            record = new SRB_Record();
+        }
+        public System.Windows.Forms.Control usbControlDisplay()
+        {
+            if(!(srb is SRB_Master_USB))
+            {
+                srb = new SRB_Master_USB();
+            }
+            return srb.getConfigControl();
+        }
+        public System.Windows.Forms.Control uartControlDisplay()
+        {
+            if (!(srb is SRB_Master_Uart))
+            {
+                srb = new SRB_Master_Uart();
+            }
+            return srb.getConfigControl();
+        }
+
+
+
+
+
+        public void beginRecord()
+        {
+            record.beginRecord();
+        }
+        public void endRecord()
+        {
+            record.endRecord();
         }
 
         private void _nodes_form_Disposed(object sender, EventArgs e)
@@ -246,11 +284,8 @@ namespace SRB_CTR.SRB_Frame
         public void singleAccess(Access ac)
         {
             srb.doAccess(ac);
+            record.add(ac);
             ac.onAccessDone();
-            if (ad != null)
-            {
-                ad.addAccess(ac);
-            }
         }
         public void sendAccess()
         {
@@ -264,37 +299,13 @@ namespace SRB_CTR.SRB_Frame
             foreach (Access ac in acs)
             {
                 ac.onAccessDone();
-            }
-            if (ad != null)
-            {
-                ad.addAccess(acs, acs.Length);
+                record.add(ac);
             }
         }
         #endregion
-        
 
-        public System.Windows.Forms.Control getuartConfigContol()
-        {
-            return srb.getConfigControl();
-        }
-        AccessDisplayer ad;
-        internal bool Is_calculation_running
-        {
-            get => main_brain.Running_flag;
-        }
 
-        public System.Windows.Forms.Form getAccessDisplayer()
-        {
-            if (ad == null)
-            {
-                ad = new AccessDisplayer(this);
-            }
-            return ad;
-        }
-        public void closeAccessDisplayer()
-        {
-            ad = null;
-        }
+
 
 
     }

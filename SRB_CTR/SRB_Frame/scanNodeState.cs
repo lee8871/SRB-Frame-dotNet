@@ -13,15 +13,12 @@ namespace SRB_CTR.SRB_Frame
     {
         private SrbFrame backlogic;
 
-        public scanNodeState()
-        {
-            InitializeComponent();
-        }
-
-        public scanNodeState(SrbFrame frame)
+        public scanNodeState(SrbFrame frame = null)
         {
             this.backlogic = frame;
             InitializeComponent();
+            this.scanPB.ForeColor = Support.Color_blue;
+            this.scanPB.BackColor = Support.Color_red;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

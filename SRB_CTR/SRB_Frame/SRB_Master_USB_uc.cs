@@ -19,16 +19,6 @@ namespace SRB_CTR.SRB_Frame
             comSelectCB.Click += new EventHandler(comSelectCB_Click);
             comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
             getUartTable();
-            if (backstage.Record_port_data)
-            {
-                this.OpenRecordDataBTN.Visible = false;
-                this.CloseRecordDataBTN.Visible = true;
-            }
-            else
-            {
-                this.OpenRecordDataBTN.Visible = true;
-                this.CloseRecordDataBTN.Visible = false;
-            }
             this.comSelectCB.Text = backstage.getPortName();
         }
 
@@ -77,16 +67,9 @@ namespace SRB_CTR.SRB_Frame
             setPortState();
         }
 
-        private void CloseRecordDataBTN_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            this.OpenRecordDataBTN.Visible = true;
-            this.CloseRecordDataBTN.Visible = false;
-        }
-
-        private void OpenRecordDataBTN_Click(object sender, EventArgs e)
-        {
-             this.OpenRecordDataBTN.Visible = false;
-            this.CloseRecordDataBTN.Visible = true;
+            this.Hide();
         }
     }
 }

@@ -10,8 +10,7 @@ namespace SRB_CTR.SRB_Frame
     {
         //about Note
         public DateTime sendTime;
-        public string description;
-        public Raw_Data raw;
+        public string description = "";
 
         private Node sender_node;        
         public byte Addr
@@ -34,6 +33,8 @@ namespace SRB_CTR.SRB_Frame
 
 
         public enum PortEnum { D0, D1, D2, D3, Cmd, Cgf, Rpt, Res };
+
+
         private PortEnum _port;
         public PortEnum Port { get => _port; }
     
@@ -182,8 +183,23 @@ namespace SRB_CTR.SRB_Frame
                  _port, st_send, st_recv);
             return st;
         }
-        public byte[] original_SendByte;
-        public byte[] original_RecvByte;
+        internal string toJson()
+        {
+            string st = string.Format(
+                //"{{\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"State\":\"{2}\"\r\n\"Send\":{{\"bfc\":\"{3}\",\"data\":\"{4}\"}},\r\n\"Recv\":{{\"bfc\":\"{5}\",\"data\":\"{6}\"}}\r\n}\r\n",
+                "{7}\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"State\":\"{2}\",\r\n\"Send\":{7}\"bfc\":\"{3}\",\"data\":\"{4}\"{8},\r\n\"Recv\":{7}\"bfc\":\"{5}\",\"data\":\"{6}\"{8}\r\n{8}\r\n",
+                sendTime.ToString("dd-HH:mm:ss:fffff"),
+                this.description,
+                this.Status.ToString(),
+                this.Send_bfc.ToHexSt(),
+                this.Send_data.ToHexSt(),
+                this._recv_bfc.ToHexSt(),
+                this.Recv_data.ToHexSt(),
+                "{",
+                "}"
+            );
+            return st;
+        }
 
 
 

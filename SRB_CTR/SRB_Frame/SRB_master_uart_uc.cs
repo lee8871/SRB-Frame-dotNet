@@ -11,31 +11,21 @@ namespace SRB_CTR.SRB_Frame
 {
     internal partial class SRB_master_uart_uc  : UserControl
     {
-        SRB_Master_Uart bacestage;
+        SRB_Master_Uart background;
         internal SRB_master_uart_uc(SRB_Master_Uart bs)
         {
             InitializeComponent();
-            bacestage = bs; 
+            background = bs; 
             comSelectCB.Click += new EventHandler(comSelectCB_Click);
             comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
             getUartTable();
-            if (bacestage.Record_port_data)
-            {
-                this.OpenRecordDataBTN.Visible = false;
-                this.CloseRecordDataBTN.Visible = true;
-            }
-            else
-            {
-                this.OpenRecordDataBTN.Visible = true;
-                this.CloseRecordDataBTN.Visible = false;
-            }
-            this.comSelectCB.Text = bacestage.getPortName();
+            this.comSelectCB.Text = background.getPortName();
         }
 
 
         void setPortState() 
         {
-            if (bacestage.Is_opened())
+            if (background.Is_opened())
             {
                 this.comSelectCB.BackColor = Color.LightGreen;
             }
@@ -48,7 +38,7 @@ namespace SRB_CTR.SRB_Frame
         public void getUartTable()
         {
             comSelectCB.Items.Clear();
-            string[] comNumTable = bacestage.getPortTable();
+            string[] comNumTable = background.getPortTable();
             comSelectCB.Items.AddRange(comNumTable);
         }
 
@@ -58,7 +48,7 @@ namespace SRB_CTR.SRB_Frame
             getUartTable();
             if (comSelectCB.Text != "")
             {
-                bacestage.OpenPort(comSelectCB.Text);
+                background.OpenPort(comSelectCB.Text);
             }
             setPortState();
 
@@ -67,29 +57,20 @@ namespace SRB_CTR.SRB_Frame
         {
             if (comSelectCB.Text != "")
             {
-                bacestage.OpenPort(comSelectCB.Text);
+                background.OpenPort(comSelectCB.Text);
             }
             setPortState();
         }
 
         private void CloseConnectBTN_Click(object sender, EventArgs e)
         {
-            bacestage.ClosePort();
+            background.ClosePort();
             setPortState();
         }
 
-        private void CloseRecordDataBTN_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            bacestage.Record_port_data = false;
-                this.OpenRecordDataBTN.Visible = true;
-                this.CloseRecordDataBTN.Visible = false;
-        }
-
-        private void OpenRecordDataBTN_Click(object sender, EventArgs e)
-        {
-            bacestage.Record_port_data = true;
-            this.OpenRecordDataBTN.Visible = false;
-            this.CloseRecordDataBTN.Visible = true;
+            this.Hide();
         }
     }
 }

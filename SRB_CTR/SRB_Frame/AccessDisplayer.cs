@@ -59,9 +59,9 @@ namespace SRB_CTR.SRB_Frame
                 {
                     this.mainRTC.Clear();
                     this.mainRTC.SelectionColor = Color.Navy;
-                    this.mainRTC.AppendText(ac.original_SendByte.ToHexSt() + "\r\n");
+                    //this.mainRTC.AppendText(ac.original_SendByte.ToHexSt() + "\r\n");
                     this.mainRTC.SelectionColor = Color.DarkSalmon;
-                    this.mainRTC.AppendText(ac.original_RecvByte.ToHexSt() + "\r\n");
+                   // this.mainRTC.AppendText(ac.original_RecvByte.ToHexSt() + "\r\n");
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace SRB_CTR.SRB_Frame
 
         protected override void OnClosed(EventArgs e)
         {
-            parent.closeAccessDisplayer();
+            //parent.closeAccessDisplayer();
             base.OnClosed(e);
         }
     }

@@ -57,7 +57,7 @@
             // motor_a_minNUM
             // 
             this.motor_a_minNUM.DecimalPlaces = 2;
-            this.motor_a_minNUM.Location = new System.Drawing.Point(15, 79);
+            this.motor_a_minNUM.Location = new System.Drawing.Point(15, 93);
             this.motor_a_minNUM.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -121,7 +121,7 @@
             "5kHz",
             "10kHz",
             "20kHz"});
-            this.FreqCB.Location = new System.Drawing.Point(15, 27);
+            this.FreqCB.Location = new System.Drawing.Point(15, 43);
             this.FreqCB.Name = "FreqCB";
             this.FreqCB.Size = new System.Drawing.Size(83, 20);
             this.FreqCB.TabIndex = 5;
@@ -132,7 +132,7 @@
             // 
             this.label4.AutoEllipsis = true;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 52);
+            this.label4.Location = new System.Drawing.Point(13, 66);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(215, 12);
             this.label4.TabIndex = 0;
@@ -141,7 +141,7 @@
             // motorMinL
             // 
             this.motorMinL.AutoSize = true;
-            this.motorMinL.Location = new System.Drawing.Point(13, 64);
+            this.motorMinL.Location = new System.Drawing.Point(13, 78);
             this.motorMinL.Name = "motorMinL";
             this.motorMinL.Size = new System.Drawing.Size(233, 12);
             this.motorMinL.TabIndex = 0;
@@ -150,7 +150,7 @@
             // motor_b_minNUM
             // 
             this.motor_b_minNUM.DecimalPlaces = 2;
-            this.motor_b_minNUM.Location = new System.Drawing.Point(178, 79);
+            this.motor_b_minNUM.Location = new System.Drawing.Point(178, 93);
             this.motor_b_minNUM.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -175,7 +175,7 @@
             // 
             this.label2.AutoEllipsis = true;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 106);
+            this.label2.Location = new System.Drawing.Point(13, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(257, 12);
             this.label2.TabIndex = 0;
@@ -188,7 +188,7 @@
             "Close No Break",
             "Close And Break",
             "Keep Last Cmd"});
-            this.behaviorCB.Location = new System.Drawing.Point(15, 135);
+            this.behaviorCB.Location = new System.Drawing.Point(15, 149);
             this.behaviorCB.Name = "behaviorCB";
             this.behaviorCB.Size = new System.Drawing.Size(127, 20);
             this.behaviorCB.TabIndex = 5;
@@ -199,7 +199,7 @@
             // 
             this.behaviorL.AutoEllipsis = true;
             this.behaviorL.AutoSize = true;
-            this.behaviorL.Location = new System.Drawing.Point(13, 120);
+            this.behaviorL.Location = new System.Drawing.Point(13, 134);
             this.behaviorL.Name = "behaviorL";
             this.behaviorL.Size = new System.Drawing.Size(65, 12);
             this.behaviorL.TabIndex = 6;

@@ -35,7 +35,6 @@
             // 
             this.clusters.AutoSize = true;
             this.clusters.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.clusters.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.clusters.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clusters.Location = new System.Drawing.Point(0, 0);
             this.clusters.MaximumSize = new System.Drawing.Size(306, 6550);
@@ -57,7 +56,7 @@
             this.MinimizeBox = false;
             this.Name = "Node_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Node_form";
+            this.Text = "</";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -12,7 +12,7 @@ namespace SRB_CTR.SRB_Frame
         ///
         ///端口名称(COM1,COM2...COM4...)
         ///
-        public string Port = "COM1:";
+        public string Port = "COM1";
         ///
         ///波特率9600
         ///
@@ -406,7 +406,10 @@ namespace SRB_CTR.SRB_Frame
                 OVERLAPPED ovlCommPort = new OVERLAPPED();
                 int BytesWritten = 0;
                 //tickbase[tick_counter] = Stopwatch.GetTimestamp();
-                WriteFile(hComm, WriteBytes, intSize, ref BytesWritten, ref ovlCommPort);
+                if(WriteFile(hComm, WriteBytes, intSize, ref BytesWritten, ref ovlCommPort)==false)
+                {
+                    throw (new Exception("写入文件错误，编号为" + GetLastError().ToString()));
+                }
 
                 return BytesWritten;
             }

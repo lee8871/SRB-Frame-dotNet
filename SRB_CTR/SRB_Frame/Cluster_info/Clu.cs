@@ -25,7 +25,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
             int i = 0;
             major_version = ac.Recv_data[counter++];
             minor_version = ac.Recv_data[counter++];
-            time_stamp = support.byteToUint16(ac.Recv_data[counter++], ac.Recv_data[counter++]);
+            time_stamp = Support.byteToUint16(ac.Recv_data[counter++], ac.Recv_data[counter++]);
             char[] cs = new char[17];
             for (i = 0; i < 16; i++)
             {

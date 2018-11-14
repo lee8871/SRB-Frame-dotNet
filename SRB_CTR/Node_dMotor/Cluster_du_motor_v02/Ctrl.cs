@@ -56,8 +56,8 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02
             }
             else
             {
-                freqL.Text = string.Format("Freq. is {0} <- {1}",
-                    periodToFreq(cluster.period), FreqCB.Text);
+                freqL.Text = string.Format("Freq. is {0} <- {1}.\n The max speed is {2}.",
+                    periodToFreq(cluster.period), FreqCB.Text, cluster.period);
 
                 motor_a_minNUM.Value = cluster.min_pwm_a / 16;
                 motor_b_minNUM.Value = cluster.min_pwm_b / 16;

@@ -5,9 +5,25 @@ using System.Drawing;
 
 namespace System
 {
-	public static class support
+	public static class Support
     {
+        private static Color color_red = Color.FromArgb(unchecked((int)0xffbb433b));
+        private static Color color_dank = Color.FromArgb(unchecked((int)0xff332f2f));
+        private static Color color_navy = Color.FromArgb(unchecked((int)0xff334753));
+        private static Color color_blue = Color.FromArgb(unchecked((int)0xff4a8bcf));
+        private static Color color_moon = Color.FromArgb(unchecked((int)0xffadb5c7));
+
+
+        public static Color Color_red { get => color_red;}
+        public static Color Color_dank { get => color_dank;}
+        public static Color Color_navy { get => color_navy; }
+        public static Color Color_blue { get => color_blue;}
+        public static Color Color_moon { get => color_moon;}
+
         public static Random random = new Random();
+
+
+
         public enum YNU
         {
             UnKnow,Yes,No

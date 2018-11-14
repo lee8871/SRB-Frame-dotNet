@@ -19,10 +19,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SRB_master_uart_uc));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.CloseRecordDataBTN = new System.Windows.Forms.ToolStripButton();
-            this.OpenRecordDataBTN = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.CloseConnectBTN = new System.Windows.Forms.ToolStripButton();
             this.comSelectCB = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -30,36 +30,21 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CloseRecordDataBTN,
-            this.OpenRecordDataBTN,
+            this.toolStripLabel1,
             this.CloseConnectBTN,
-            this.comSelectCB});
+            this.comSelectCB,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(300, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // CloseRecordDataBTN
+            // toolStripLabel1
             // 
-            this.CloseRecordDataBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CloseRecordDataBTN.Image = ((System.Drawing.Image)(resources.GetObject("CloseRecordDataBTN.Image")));
-            this.CloseRecordDataBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CloseRecordDataBTN.Name = "CloseRecordDataBTN";
-            this.CloseRecordDataBTN.Size = new System.Drawing.Size(27, 27);
-            this.CloseRecordDataBTN.Text = "正在记录串口数据，点击关闭";
-            this.CloseRecordDataBTN.Visible = false;
-            this.CloseRecordDataBTN.Click += new System.EventHandler(this.CloseRecordDataBTN_Click);
-            // 
-            // OpenRecordDataBTN
-            // 
-            this.OpenRecordDataBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.OpenRecordDataBTN.Image = ((System.Drawing.Image)(resources.GetObject("OpenRecordDataBTN.Image")));
-            this.OpenRecordDataBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.OpenRecordDataBTN.Name = "OpenRecordDataBTN";
-            this.OpenRecordDataBTN.Size = new System.Drawing.Size(27, 27);
-            this.OpenRecordDataBTN.Text = "开始串口记录串口数据";
-            this.OpenRecordDataBTN.Click += new System.EventHandler(this.OpenRecordDataBTN_Click);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(40, 27);
+            this.toolStripLabel1.Text = "UART";
             // 
             // CloseConnectBTN
             // 
@@ -76,6 +61,17 @@
             this.comSelectCB.MaxDropDownItems = 16;
             this.comSelectCB.Name = "comSelectCB";
             this.comSelectCB.Size = new System.Drawing.Size(75, 30);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(27, 27);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // SRB_master_uart_uc
             // 
@@ -97,10 +93,8 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripComboBox comSelectCB;
-        private System.Windows.Forms.ToolStripButton CloseRecordDataBTN;
-        private System.Windows.Forms.ToolStripButton OpenRecordDataBTN;
         private System.Windows.Forms.ToolStripButton CloseConnectBTN;
-
-
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
