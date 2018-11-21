@@ -186,6 +186,7 @@ namespace SRB_CTR.SRB_Frame
         int send_access_counter;
         int recv_access_counter;
         int access_num;
+        int access_error_counter;
 
         object lock_access = new object();
         public override bool doAccess(Access[] acs, int acs_num = -1)
@@ -221,7 +222,7 @@ namespace SRB_CTR.SRB_Frame
                 log.add("# new access");
 #endif
 #endif
-
+                access_error_counter = 0;
                 stopwatch.Restart();
                 recv_access_counter = send_access_counter = 0;
                 sendAccess();
@@ -229,6 +230,14 @@ namespace SRB_CTR.SRB_Frame
                 {
                     sendAccess();
                     recvAccess();
+                    if(access_error_counter>=10)
+                    {
+                        for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                        {
+                            acs[acs_counter].sendFail();
+                        }
+                        return false;
+                    }
                 }
 
                 stopwatch.Stop();
@@ -268,29 +277,30 @@ namespace SRB_CTR.SRB_Frame
             }
             int send_done_len;
             int send_len = i;
-            if (srb_writer.Write(send_to_usb_buf, 0, send_len, 200, out send_done_len) == ErrorCode.None)
+            ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, 200, out send_done_len);
+            if (ec == ErrorCode.None)
             {
+                DateTime t = DateTime.Now;
+                access.sendTime = t;
+                access.sendDone();
+                send_access_counter++;//发送成功了,转向下一个
 #if LOG_ON
 #if DEBUG
                 log.add(string.Format("Send_pkg= ({0},{1})",send_len,send_to_usb_buf.ToPythonTuple(send_len)));
 #endif
 #endif
-
-                DateTime t = DateTime.Now;
-                access.sendTime = t;
-                access.sendDone();
             }
             else
             {
-
+                access_error_counter++;//发送错误了,记录错误
 #if LOG_ON
                 log.add(string.Format("Send_pkg= ('fail',{0},{1})", send_len, send_to_usb_buf.ToPythonTuple(send_len)));
 #endif
-                access.sendFail();
             }
-            send_access_counter++;
         }
         byte[] recv_from_usb_buf = new byte[64];
+
+
         private bool recvAccess()
         {
             int recv_num;
@@ -313,12 +323,11 @@ namespace SRB_CTR.SRB_Frame
             }
             else
             {
-                recv_access_counter = access_num;
+                access_error_counter++;//发送错误了,记录错误
 #if LOG_ON
                 log.add(string.Format("Recv_pkg =  ('fail',{0},{1})", recv_num, recv_from_usb_buf.ToPythonTuple(recv_num)));
- #endif
-                }
-
+#endif
+            }
             return false;
         }
 

@@ -90,6 +90,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logWriter.cs" />
+    <Compile Include="Node_dMotor\Cluster_du_motor_adj\Clu.cs" />
+    <Compile Include="Node_dMotor\Cluster_du_motor_adj\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Node_dMotor\Cluster_du_motor_adj\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Node_dMotor\Cluster_du_motor_v02\Clu.cs" />
     <Compile Include="Node_dMotor\Cluster_du_motor_v02\Ctrl.cs">
       <SubType>UserControl</SubType>
@@ -200,6 +207,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="support.cs" />
     <Compile Include="uint8.cs" />
+    <EmbeddedResource Include="Node_dMotor\Cluster_du_motor_adj\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Node_dMotor\Cluster_du_motor_v02\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>

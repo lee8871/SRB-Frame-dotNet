@@ -41,13 +41,13 @@ namespace SRB_CTR.nsBrain
 
         int[] from = new int[8];
         int[] to = new int[8];
-        override public void calculate()
+        public void calculate3()
         {
             motors[2].speed_a = 0;
             motors[2].speed_b = -500;
             motors[2].bulidUpD0();
         }
-        public void calculate2()
+        override public void calculate()
         {
             long phase = (long)(loop_num * period_in_ms) % 4000;
             if (phase == 0)

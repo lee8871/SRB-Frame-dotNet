@@ -11,11 +11,14 @@ namespace SRB_CTR.nsBrain.Node_dMotor
         public int speed_a = 0;
         public int speed_b = 0;
         public Cluster_Du_Motor_v02.Clu motor_clu;
+        public Cluster_du_motor_adj.Clu adj_clu;
         public Cn(byte addr, SrbFrame f = null)
             : base(addr, f)
         {
             motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
             clusters[motor_clu.clustr_ID] = motor_clu;
+            adj_clu = new Cluster_du_motor_adj.Clu(11, this);
+            clusters[adj_clu.clustr_ID] = adj_clu;
             //led_phase_clu.read();
         }
 
@@ -24,6 +27,8 @@ namespace SRB_CTR.nsBrain.Node_dMotor
         {
             motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
             clusters[motor_clu.clustr_ID] = motor_clu;
+            adj_clu = new Cluster_du_motor_adj.Clu(11, this);
+            clusters[adj_clu.clustr_ID] = adj_clu;
             //led_phase_clu.read();
         }
         public void bulidUpD0()
