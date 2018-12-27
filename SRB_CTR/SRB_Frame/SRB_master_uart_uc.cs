@@ -72,5 +72,10 @@ namespace SRB_CTR.SRB_Frame
         {
             this.Hide();
         }
+
+        private void comSelectCB_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

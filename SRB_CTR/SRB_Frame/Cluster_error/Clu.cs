@@ -7,6 +7,8 @@ namespace SRB_CTR.SRB_Frame.Cluster_error
     class Clu:Cluster
     {
         public string error_text;
+
+        public byte[] error_Byte;
         public int file;
         public int line;
 

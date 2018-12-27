@@ -44,5 +44,10 @@ namespace SRB_CTR.SRB_Frame.Cluster_error
         {
             cluster.read();
         }
+
+        private void Ctrl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -224,9 +224,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(label1);
             this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 300);
+            this.Size = new System.Drawing.Size(300, 172);
             ((System.ComponentModel.ISupportInitialize)(this.motor_a_minNUM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.motor_b_minNUM)).EndInit();
             this.ResumeLayout(false);

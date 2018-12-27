@@ -10,7 +10,8 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
         public byte addr;
         public byte new_addr;
         public string name;
-        
+        public byte error_behave;
+
         public override void write()
         {
             Access ac;
@@ -22,7 +23,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
             {
                 b[i++] = (byte)c;
             }
-            b[19] = 100;
+            b[19] = 1;
             ac = new Access(this.parent_node, Access.PortEnum.Cgf,b);
             parent_node.singleAccess(ac);
         }
@@ -62,6 +63,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
             }
             cs[16] = '\0';
             this.name = new string(cs,0,i);
+            this.error_behave = ac.Recv_data[18];
             base.readRecv(ac);
 
         }

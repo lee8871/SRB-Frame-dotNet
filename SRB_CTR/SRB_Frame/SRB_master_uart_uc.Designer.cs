@@ -58,9 +58,11 @@
             // 
             // comSelectCB
             // 
+            this.comSelectCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comSelectCB.MaxDropDownItems = 16;
             this.comSelectCB.Name = "comSelectCB";
             this.comSelectCB.Size = new System.Drawing.Size(75, 30);
+            this.comSelectCB.Click += new System.EventHandler(this.comSelectCB_Click_1);
             // 
             // toolStripButton1
             // 
@@ -92,9 +94,9 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripComboBox comSelectCB;
         private System.Windows.Forms.ToolStripButton CloseConnectBTN;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripComboBox comSelectCB;
     }
 }

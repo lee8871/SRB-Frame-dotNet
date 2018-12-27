@@ -63,7 +63,7 @@
             this.errorTextL.TabIndex = 3;
             this.errorTextL.Text = "Error ";
             // 
-            // UntypedNodeCtrl
+            // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,8 +74,9 @@
             this.Controls.Add(this.pageLineL);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "UntypedNodeCtrl";
+            this.Name = "Ctrl";
             this.Size = new System.Drawing.Size(300, 43);
+            this.Load += new System.EventHandler(this.Ctrl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

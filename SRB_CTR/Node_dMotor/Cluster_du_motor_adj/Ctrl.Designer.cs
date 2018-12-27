@@ -74,7 +74,7 @@
             // 
             this.AdjCB.FormattingEnabled = true;
             this.AdjCB.Items.AddRange(new object[] {
-            "NoChange",
+            "NoAdjust",
             "255",
             "1000",
             "10000"});

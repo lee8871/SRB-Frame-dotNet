@@ -230,7 +230,7 @@ namespace SRB_CTR.SRB_Frame
                 {
                     sendAccess();
                     recvAccess();
-                    if(access_error_counter>=10)
+                    if(access_error_counter>=20)
                     {
                         for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
                         {
@@ -277,7 +277,7 @@ namespace SRB_CTR.SRB_Frame
             }
             int send_done_len;
             int send_len = i;
-            ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, 200, out send_done_len);
+            ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, 2000, out send_done_len);
             if (ec == ErrorCode.None)
             {
                 DateTime t = DateTime.Now;
@@ -304,7 +304,7 @@ namespace SRB_CTR.SRB_Frame
         private bool recvAccess()
         {
             int recv_num;
-            if (srb_reader.Read(recv_from_usb_buf, 200, out recv_num) == ErrorCode.None)
+            if (srb_reader.Read(recv_from_usb_buf, 2000, out recv_num) == ErrorCode.None)
             {
                 recv_access_counter++;
 

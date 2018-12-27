@@ -13,6 +13,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_du_motor_adj
 {
     partial class Ctrl : UserControl
     {
+        private const string No_adjust = "NoAdjust";
         Clu cluster;
         public Ctrl(Clu c)
         {
@@ -32,14 +33,14 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_du_motor_adj
                 case 3:
                     return "10000";
                 default:
-                    return "NoChange";
+                    return "NoAdjust";
             }
         }        
         public int nameToAdj(string st)
         {
             switch (st)
             {
-                case "NoChange":
+                case No_adjust:
                     return 0;
                 case "255":
                     return 1;

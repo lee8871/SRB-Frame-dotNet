@@ -58,6 +58,7 @@
             // 
             // comSelectCB
             // 
+            this.comSelectCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comSelectCB.MaxDropDownItems = 16;
             this.comSelectCB.Name = "comSelectCB";
             this.comSelectCB.Size = new System.Drawing.Size(75, 30);

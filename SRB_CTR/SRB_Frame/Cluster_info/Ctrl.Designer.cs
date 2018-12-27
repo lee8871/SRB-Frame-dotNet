@@ -33,6 +33,7 @@
             this.typeL = new System.Windows.Forms.Label();
             this.factorySettingBTN = new System.Windows.Forms.Button();
             this.ResetNodeBTN = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // readBTN
@@ -67,12 +68,13 @@
             // 
             // factorySettingBTN
             // 
-            this.factorySettingBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.factorySettingBTN.Location = new System.Drawing.Point(148, 34);
+            this.factorySettingBTN.BackColor = System.Drawing.Color.Crimson;
+            this.factorySettingBTN.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.factorySettingBTN.ForeColor = System.Drawing.Color.Crimson;
+            this.factorySettingBTN.Location = new System.Drawing.Point(193, 34);
             this.factorySettingBTN.Name = "factorySettingBTN";
-            this.factorySettingBTN.Size = new System.Drawing.Size(29, 23);
+            this.factorySettingBTN.Size = new System.Drawing.Size(23, 23);
             this.factorySettingBTN.TabIndex = 5;
-            this.factorySettingBTN.Text = "FS";
             this.factorySettingBTN.UseVisualStyleBackColor = false;
             this.factorySettingBTN.Click += new System.EventHandler(this.factorySettingBTN_Click);
             // 
@@ -86,12 +88,22 @@
             this.ResetNodeBTN.UseVisualStyleBackColor = true;
             this.ResetNodeBTN.Click += new System.EventHandler(this.ResetNodeBTN_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(86, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 12);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Factory Setting:";
+            // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.ResetNodeBTN);
             this.Controls.Add(this.factorySettingBTN);
             this.Controls.Add(this.readBTN);
@@ -113,5 +125,6 @@
         private System.Windows.Forms.Label typeL;
         private System.Windows.Forms.Button factorySettingBTN;
         private System.Windows.Forms.Button ResetNodeBTN;
+        private System.Windows.Forms.Label label1;
     }
 }
