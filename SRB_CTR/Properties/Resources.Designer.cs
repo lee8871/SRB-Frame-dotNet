@@ -47,7 +47,7 @@ namespace SRB_CTR.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -57,6 +57,26 @@ namespace SRB_CTR.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _1175643 {
+            get {
+                object obj = ResourceManager.GetObject("1175643", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _11756431 {
+            get {
+                object obj = ResourceManager.GetObject("11756431", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -101,11 +121,41 @@ namespace SRB_CTR.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _1175843 {
+            get {
+                object obj = ResourceManager.GetObject("1175843", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap _11758431 {
+            get {
+                object obj = ResourceManager.GetObject("11758431", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 0x334753 的本地化字符串。
         /// </summary>
         internal static string Color_red {
             get {
                 return ResourceManager.GetString("Color_red", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap pencil_512px_1175838_easyicon_net {
+            get {
+                object obj = ResourceManager.GetObject("pencil_512px_1175838_easyicon.net", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

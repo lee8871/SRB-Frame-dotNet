@@ -43,8 +43,8 @@ namespace SRB_CTR.nsBrain
         int[] to = new int[8];
         public void calculate3()
         {
-            motors[2].speed_a = 0;
-            motors[2].speed_b = -500;
+            motors[2].Speed_a = 0;
+            motors[2].Speed_b = -500;
             motors[2].bulidUpD0();
         }
         override public void calculate()
@@ -63,9 +63,9 @@ namespace SRB_CTR.nsBrain
                 for (int i = 0; i < 8;)
                 {
                     int motor_num = i / 2;
-                    motors[motor_num].speed_a = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
+                    motors[motor_num].Speed_a = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
                     i++;
-                    motors[motor_num].speed_b = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
+                    motors[motor_num].Speed_b = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
                     i++;
                     motors[motor_num].bulidUpD0();
                 }
@@ -75,9 +75,9 @@ namespace SRB_CTR.nsBrain
                 for (int i = 0; i < 8;)
                 {
                     int motor_num = i / 2;
-                    motors[motor_num].speed_a = (to[i]);
+                    motors[motor_num].Speed_a = (to[i]);
                     i++;
-                    motors[motor_num].speed_b = (to[i]);
+                    motors[motor_num].Speed_b = (to[i]);
                     i++;
                     motors[motor_num].bulidUpD0();
                 }

@@ -11,7 +11,7 @@ using SRB_CTR.SRB_Frame.Cluster_base;
 
 namespace SRB_CTR.SRB_Frame
 {
-    class SrbFrame
+    public class SrbFrame
     {
         Node[] nodes;
         internal Node[] Nodes
@@ -219,6 +219,10 @@ namespace SRB_CTR.SRB_Frame
                     {
                         case "Du_Motor":
                             nsBrain.Node_dMotor.Cn cn = new nsBrain.Node_dMotor.Cn(n);
+                          //  Nodes_form.addNode(cn);
+                            break;
+                        case "PS2_handle":
+                            nsBrain.Node_PS2_handle.Cn cn2 = new nsBrain.Node_PS2_handle.Cn(n);
                           //  Nodes_form.addNode(cn);
                             break;
                         default:

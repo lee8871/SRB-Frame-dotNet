@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 namespace SRB_CTR.SRB_Frame.Cluster_base
 {
-    class Clu : Cluster
+    public class Clu : Cluster
     {
         public byte addr;
         public byte new_addr;

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SRB_CTR.SRB_Frame
 {
-    class Access
+    public class Access
     {
         //about Note
         public DateTime sendTime;

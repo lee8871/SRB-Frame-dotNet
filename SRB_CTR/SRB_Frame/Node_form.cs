@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SRB_CTR.SRB_Frame
 {
-    partial class Node_form : Form
+    public partial class Node_form : Form
     {
         Node node;
         public Node_form(Node n)

@@ -23,6 +23,8 @@
             this.CloseConnectBTN = new System.Windows.Forms.ToolStripButton();
             this.comSelectCB = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.renameBT = new System.Windows.Forms.ToolStripButton();
+            this.EnterNameTB = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -33,7 +35,8 @@
             this.toolStripLabel1,
             this.CloseConnectBTN,
             this.comSelectCB,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.renameBT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(300, 30);
@@ -61,7 +64,7 @@
             this.comSelectCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comSelectCB.MaxDropDownItems = 16;
             this.comSelectCB.Name = "comSelectCB";
-            this.comSelectCB.Size = new System.Drawing.Size(75, 30);
+            this.comSelectCB.Size = new System.Drawing.Size(125, 30);
             // 
             // toolStripButton1
             // 
@@ -74,10 +77,31 @@
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
+            // renameBT
+            // 
+            this.renameBT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.renameBT.Image = global::SRB_CTR.Properties.Resources.pencil_512px_1175838_easyicon_net;
+            this.renameBT.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.renameBT.Name = "renameBT";
+            this.renameBT.Size = new System.Drawing.Size(27, 27);
+            this.renameBT.Text = "Rename SRB-USB Hardware";
+            this.renameBT.Click += new System.EventHandler(this.renameHardware_click);
+            // 
+            // EnterNameTB
+            // 
+            this.EnterNameTB.BackColor = System.Drawing.SystemColors.Window;
+            this.EnterNameTB.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.EnterNameTB.Location = new System.Drawing.Point(69, 2);
+            this.EnterNameTB.Name = "EnterNameTB";
+            this.EnterNameTB.Size = new System.Drawing.Size(125, 23);
+            this.EnterNameTB.TabIndex = 2;
+            this.EnterNameTB.Visible = false;
+            // 
             // SRB_Master_USB_Uc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.EnterNameTB);
             this.Controls.Add(this.toolStrip1);
             this.MaximumSize = new System.Drawing.Size(300, 32);
             this.MinimumSize = new System.Drawing.Size(300, 32);
@@ -97,5 +121,7 @@
         private System.Windows.Forms.ToolStripButton CloseConnectBTN;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton renameBT;
+        private System.Windows.Forms.TextBox EnterNameTB;
     }
 }

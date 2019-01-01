@@ -30,12 +30,24 @@ namespace System//SRB_CTR.nsByteExtensions
             }
             return new string(ca, 0, 2);
         }
-       static public string AsByteToHexSt(this int i)
+       static public int enterRound(this int i,int min ,int max)
+        {
+            if (i >= max)
+            {
+                return max;
+            }
+            if(i<=min)
+            {
+                return min;
+            }
+            return i;
+        }
+        static public string AsByteToHexSt(this int i)
         {
             byte b = (byte)i;
             return b.ToHexSt();
         }
-       static public string ToHexSt(this byte[] ba, int len = -1)
+        static public string ToHexSt(this byte[] ba, int len = -1)
        {
            if (ba == null)
            {

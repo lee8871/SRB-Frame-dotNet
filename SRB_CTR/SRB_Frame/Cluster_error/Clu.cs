@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 namespace SRB_CTR.SRB_Frame.Cluster_error
 {
-    class Clu:Cluster
+    public  class Clu:Cluster
     {
         public string error_text;
 

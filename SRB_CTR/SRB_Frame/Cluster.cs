@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SRB_CTR.SRB_Frame
 {
-    abstract class Cluster
+    public abstract class Cluster
     {
         public byte clustr_ID;
         public abstract void write();

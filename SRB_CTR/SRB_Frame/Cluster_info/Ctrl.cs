@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SRB_CTR.SRB_Frame.Cluster_info
 {
-    partial class Ctrl : UserControl
+    public partial class Ctrl : UserControl
     {
         Clu cluster;
         public Ctrl(Clu c)

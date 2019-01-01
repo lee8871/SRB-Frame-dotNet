@@ -34,12 +34,14 @@
             // nameL
             // 
             this.nameL.AutoSize = true;
-            this.nameL.Font = new System.Drawing.Font("宋体", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nameL.Location = new System.Drawing.Point(-6, 0);
+            this.nameL.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nameL.ForeColor = System.Drawing.Color.OrangeRed;
+            this.nameL.Location = new System.Drawing.Point(3, 0);
             this.nameL.Name = "nameL";
-            this.nameL.Size = new System.Drawing.Size(191, 33);
+            this.nameL.Size = new System.Drawing.Size(155, 28);
             this.nameL.TabIndex = 0;
             this.nameL.Text = "untypednode";
+            this.nameL.Click += new System.EventHandler(this.nameL_Click);
             // 
             // UntypedNodeCtrl
             // 
@@ -49,8 +51,9 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.nameL);
             this.MaximumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 50);
             this.Name = "UntypedNodeCtrl";
-            this.Size = new System.Drawing.Size(188, 33);
+            this.Size = new System.Drawing.Size(300, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 

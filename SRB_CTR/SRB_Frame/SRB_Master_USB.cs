@@ -119,6 +119,21 @@ namespace SRB_CTR.SRB_Frame
             }
         }
 
+        internal void changeName(string text)
+        {
+            if (Is_opened())
+            {
+                int len;
+                char[] data = text.ToCharArray();
+                UsbSetupPacket setup = new UsbSetupPacket(0, 7, 0x0304, 0x0409, (short)(data.Length*2));
+                selected_device.ControlTransfer(ref setup, data, data.Length*2, out len);
+            }
+            else
+            {
+                throw new Exception("The USB-SRB is not oppend.");
+            }
+        }
+
         internal void ClosePort()
         {
             lock (lock_access)
@@ -166,7 +181,7 @@ namespace SRB_CTR.SRB_Frame
                 regDevice.Device.GetString(out product_name, 0x0409, 2);
                 if (product_name == "SRB-USB")
                 {
-                    regDevice.Device.GetString(out device_name, 0x0409, 3);
+                    regDevice.Device.GetString(out device_name, 0x0409, 4);
                     devicesDIC[device_name] = regDevice;
                 }
             }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SRB_CTR.SRB_Frame
 {
-    partial class FrameForm : Form
+    public partial class FrameForm : Form
     {
         SrbFrame frame;
         Control config_ctrl;

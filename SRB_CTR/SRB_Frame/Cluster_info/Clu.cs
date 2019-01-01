@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SRB_CTR.SRB_Frame.Cluster_info
 {
-    class Clu:Cluster
+    public class Clu:Cluster
     {
         public string type ="Unknow";
         public int major_version;

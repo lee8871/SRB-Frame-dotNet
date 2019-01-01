@@ -6,7 +6,7 @@ using SRB_CTR.SRB_Frame;
 
 namespace SRB_CTR.SRB_Frame
 {
-    class Node
+    public class Node
     {
         SrbFrame parent = null;
         internal SrbFrame Parent
@@ -19,7 +19,7 @@ namespace SRB_CTR.SRB_Frame
         int access_fail_counter = 0;
         protected bool Can_post_access
         {
-            get{ return (parent!=null);}
+            get { return (parent != null); }
         }
         public byte Addr
         {
@@ -62,11 +62,12 @@ namespace SRB_CTR.SRB_Frame
             {
                 nf.updateText();
             }
-            if(eDescription_change != null)
+            if (eDescription_change != null)
             {
                 eDescription_change.Invoke(this);
             }
         }
+
         #region base method
         public override string ToString()
         {
@@ -102,12 +103,13 @@ namespace SRB_CTR.SRB_Frame
             this.errorClu = n.errorClu;
             this.errorClu.changeParentNode(this);
             n.clearNodeForm();
-            n.parent.nodeReplace(n,this);
+            n.parent.nodeReplace(n, this);
         }
         #endregion
+
         public bool Is_hareware_exist
         {
-            get {return is_hardware_exist;}
+            get { return is_hardware_exist; }
         }
 
         public void register(SrbFrame frm)
@@ -119,14 +121,81 @@ namespace SRB_CTR.SRB_Frame
             parent.nodeUnregister(this);
         }
 
+
+
+
         #region access
+
+        protected byte[] bank;
+        private Mapping[] mappings;
+
+        public void bankInit(byte[][] raw)
+        {
+            bank = new byte[256];
+            mappings = new Mapping[4];
+            for (int i = 0; i < 4; i++)
+            {
+                mappings[0] = new Mapping(raw[0]);
+            }
+        }
+        public void bankWrite(uint data, int byte_Location, int bit_length = 32, int bit_offset = 0)
+        {
+
+            byte_Location += bit_offset / 8;
+            bit_offset %= 8;
+            while (bit_length != 0)
+            {
+                if ((data & 1) == 0)
+                {
+                    bank[byte_Location] &= ((byte)~(1 << bit_offset));
+                }
+                else
+                {
+                    bank[byte_Location] |= ((byte)(1 << bit_offset));
+                }
+                bit_offset++;
+                if (bit_offset == 8)
+                {
+                    byte_Location++;
+                    bit_offset = 0;
+                }
+                data >>= 1;
+                bit_length--;
+            }
+        }
+
+        private Access buildAccess(int port, int sent_len = 0)
+        {
+            Mapping mapping = mappings[port];
+            if ((sent_len <= 0) || (sent_len > mapping.Down_mapping.Length))
+            {
+                sent_len = mapping.Down_len;
+            }
+            byte[] pd = new byte[sent_len];
+            for (int i = 0; i < sent_len; i++)
+            {
+                pd[i] = bank[((int)mapping.Down_mapping[i])];
+            }
+            return new Access(this, (Access.PortEnum)port, pd);
+        }
+
         public virtual void addAccess(Access ac)
         {
             parent.addAccess(ac);
         }
+
+        public virtual void addAccess(int port, int sent_len = 0)
+        {
+            parent.addAccess(buildAccess(port, sent_len));
+        }
+
         public virtual void singleAccess(Access ac)
         {
             parent.singleAccess(ac);
+        }
+        public virtual void singleAccess(int port, int sent_len = 0)
+        {
+            parent.singleAccess(buildAccess(port, sent_len));
         }
         public void accessDone(Access ac)
         {
@@ -137,16 +206,10 @@ namespace SRB_CTR.SRB_Frame
                 switch (ac.Port)
                 {
                     case Access.PortEnum.D0:
-                        d0AccessDone(ac);
-                        break;
                     case Access.PortEnum.D1:
-                        d1AccessDone(ac);
-                        break;
                     case Access.PortEnum.D2:
-                        d2AccessDone(ac);
-                        break;
                     case Access.PortEnum.D3:
-                        d3AccessDone(ac);
+                        dataAccessDone(ac);
                         break;
                     case Access.PortEnum.Cmd:
                         cmdAccessDone(ac);
@@ -154,14 +217,15 @@ namespace SRB_CTR.SRB_Frame
                     case Access.PortEnum.Cgf:
                         cfgAccessDone(ac);
                         break;
+
                 }
             }
             else
             {
                 access_fail_counter++;
-                if(access_fail_counter >= 3)
+                if (access_fail_counter >= 3)
                 {
-                    is_hardware_exist =false;
+                    is_hardware_exist = false;
                 }
             }
         }
@@ -175,7 +239,7 @@ namespace SRB_CTR.SRB_Frame
                 {
                     throw new Exception("cfg_receive a null recv_data");
                 }
-                if ((ac.Recv_error)||(ac.Recv_busy))
+                if ((ac.Recv_error) || (ac.Recv_busy))
                 {
                     return;
                 }
@@ -189,21 +253,29 @@ namespace SRB_CTR.SRB_Frame
                 }
             }
         }
-        protected virtual void d0AccessDone(Access ac)
+        protected virtual void dataAccessDone(Access ac)
         {
-
-        }
-        protected virtual void d1AccessDone(Access ac)
-        {
-
-        }
-        protected virtual void d2AccessDone(Access ac)
-        {
-
-        }
-        protected virtual void d3AccessDone(Access ac)
-        {
-
+            int port;
+            port = (int)ac.Port;
+            switch (ac.Port)
+            {
+                case Access.PortEnum.D0:
+                case Access.PortEnum.D1:
+                case Access.PortEnum.D2:
+                case Access.PortEnum.D3:
+                    break;
+            }
+            int recv_len = ac.Recv_data.Length;
+            Mapping mapping = mappings[port];
+            if (recv_len > mapping.Down_mapping.Length)
+            {
+                recv_len = mapping.Down_len;
+            }
+            for (int i = 0; i < recv_len; i++)
+            {
+                bank[((int)mapping.Up_mapping[i])] = ac.Recv_data[i];
+            }
+            return;
         }
         protected virtual void cmdAccessDone(Access ac)
         {
@@ -233,7 +305,7 @@ namespace SRB_CTR.SRB_Frame
         public string[] getClusterTable()
         {
             string[] st_a = new string[128];
-            for(int i = 0 ; i<128;i++)
+            for (int i = 0; i < 128; i++)
             {
                 if (clusters[i] != null)
                     st_a[i] = clusters[i].ToString();
@@ -249,7 +321,7 @@ namespace SRB_CTR.SRB_Frame
         {
             if ((i >= 0) && (i < 128))
             {
-                if(clusters[i] == null)
+                if (clusters[i] == null)
                 {
                     throw new Exception(string.Format(
                         "发生了非预期的错误，节点{0}的{1}簇申请控件，但是这个簇不存在或者已经被销毁了。",
@@ -286,4 +358,5 @@ namespace SRB_CTR.SRB_Frame
             return ToString() + "\n" + Describe();
         }
     }
+
 }

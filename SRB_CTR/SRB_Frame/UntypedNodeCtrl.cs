@@ -19,5 +19,10 @@ namespace SRB_CTR.SRB_Frame
             InitializeComponent();
             nameL.Text = "Type = \"" +n.NodeType +"\"";
         }
+
+        private void nameL_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

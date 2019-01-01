@@ -90,6 +90,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logWriter.cs" />
+    <Compile Include="Node_Ps2_handle\Cluster_du_motor_adj\Clu.cs" />
+    <Compile Include="Node_Ps2_handle\Cluster_du_motor_adj\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Node_Ps2_handle\Cluster_du_motor_adj\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Node_Ps2_handle\cn.cs" />
+    <Compile Include="Node_Ps2_handle\Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Node_Ps2_handle\Ctrl.Designer.cs">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Node_dMotor\Cluster_du_motor_adj\Clu.cs" />
     <Compile Include="Node_dMotor\Cluster_du_motor_adj\Ctrl.cs">
       <SubType>UserControl</SubType>
@@ -120,6 +134,7 @@
     <Compile Include="SRB_Frame\Cluster_base\Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SRB_Frame\NodeData.cs" />
     <Compile Include="SRB_Frame\scanNodeState.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -207,6 +222,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="support.cs" />
     <Compile Include="uint8.cs" />
+    <EmbeddedResource Include="Node_Ps2_handle\Cluster_du_motor_adj\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Node_Ps2_handle\Ctrl.resx">
+      <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Node_dMotor\Cluster_du_motor_adj\Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,6 +297,9 @@
   <ItemGroup>
     <Content Include="110618274272.ico" />
     <Content Include="color-setting.htm" />
+    <None Include="Resources\pencil_512px_1175838_easyicon.net.png" />
+    <None Include="Resources\1175843.png" />
+    <None Include="Resources\1175643.png" />
     <None Include="Resources\1175746.png" />
     <None Include="Resources\1175759.png" />
     <None Include="Resources\1175682.png" />
