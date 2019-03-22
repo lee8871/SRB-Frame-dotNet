@@ -62,7 +62,6 @@
             this.comSelectCB.MaxDropDownItems = 16;
             this.comSelectCB.Name = "comSelectCB";
             this.comSelectCB.Size = new System.Drawing.Size(75, 30);
-            this.comSelectCB.Click += new System.EventHandler(this.comSelectCB_Click_1);
             // 
             // toolStripButton1
             // 

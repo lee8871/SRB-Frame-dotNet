@@ -6,7 +6,7 @@ using SRB_CTR.SRB_Frame;
 
 namespace SRB_CTR.SRB_Frame
 {
-    public class Node
+    public class Node:IDisposable
     {
         SrbFrame parent = null;
         internal SrbFrame Parent
@@ -79,9 +79,9 @@ namespace SRB_CTR.SRB_Frame
             infoClu = new Cluster_info.Clu(1, this);
             errorClu = new Cluster_error.Clu(2, this);
             register(frm);
-            clusters[baseClu.clustr_ID] = baseClu;
-            clusters[infoClu.clustr_ID] = infoClu;
-            clusters[errorClu.clustr_ID] = errorClu;
+            clusters[baseClu.Clustr_ID] = baseClu;
+            clusters[infoClu.Clustr_ID] = infoClu;
+            clusters[errorClu.Clustr_ID] = errorClu;
             baseClu.read();
             infoClu.read();
             frm.nodeDescriptionChange(this);
@@ -119,55 +119,24 @@ namespace SRB_CTR.SRB_Frame
         public void unregister()
         {
             parent.nodeUnregister(this);
+            Parent = null;
         }
-
+        public void Dispose()
+        {
+            if (this.nf != null)
+            {
+                //this.nf.Close();
+                this.nf.close(this,null);
+            }
+        }
 
 
 
         #region access
-
-        protected byte[] bank;
-        private Mapping[] mappings;
-
-        public void bankInit(byte[][] raw)
-        {
-            bank = new byte[256];
-            mappings = new Mapping[4];
-            for (int i = 0; i < 4; i++)
-            {
-                mappings[0] = new Mapping(raw[0]);
-            }
-        }
-        public void bankWrite(uint data, int byte_Location, int bit_length = 32, int bit_offset = 0)
-        {
-
-            byte_Location += bit_offset / 8;
-            bit_offset %= 8;
-            while (bit_length != 0)
-            {
-                if ((data & 1) == 0)
-                {
-                    bank[byte_Location] &= ((byte)~(1 << bit_offset));
-                }
-                else
-                {
-                    bank[byte_Location] |= ((byte)(1 << bit_offset));
-                }
-                bit_offset++;
-                if (bit_offset == 8)
-                {
-                    byte_Location++;
-                    bit_offset = 0;
-                }
-                data >>= 1;
-                bit_length--;
-            }
-        }
-
-        private Access buildAccess(int port, int sent_len = 0)
+        private Access buildAccess(int port, int sent_len = -1)
         {
             Mapping mapping = mappings[port];
-            if ((sent_len <= 0) || (sent_len > mapping.Down_mapping.Length))
+            if ((sent_len < 0) || (sent_len > mapping.Down_len))
             {
                 sent_len = mapping.Down_len;
             }
@@ -184,7 +153,7 @@ namespace SRB_CTR.SRB_Frame
             parent.addAccess(ac);
         }
 
-        public virtual void addAccess(int port, int sent_len = 0)
+        public virtual void addAccess(int port, int sent_len = -1)
         {
             parent.addAccess(buildAccess(port, sent_len));
         }
@@ -193,9 +162,20 @@ namespace SRB_CTR.SRB_Frame
         {
             parent.singleAccess(ac);
         }
-        public virtual void singleAccess(int port, int sent_len = 0)
+        public virtual void singleAccess(int port, int sent_len = -1)
         {
             parent.singleAccess(buildAccess(port, sent_len));
+        }
+        public event EventHandler<AccessEventArgs> eDataAccessRecv;
+
+        public class AccessEventArgs : EventArgs
+        {
+            public bool Handled = false;
+            public Access ac;
+            public AccessEventArgs(Access access):base()
+            {
+                ac = access;
+            }
         }
         public void accessDone(Access ac)
         {
@@ -209,7 +189,16 @@ namespace SRB_CTR.SRB_Frame
                     case Access.PortEnum.D1:
                     case Access.PortEnum.D2:
                     case Access.PortEnum.D3:
-                        dataAccessDone(ac);
+                        AccessEventArgs e = new AccessEventArgs(ac);
+                        if (eDataAccessRecv != null)
+                        {
+                            eDataAccessRecv.Invoke(this, e);
+                        }
+                        
+                        if(e.Handled==false)
+                        {
+                            dataAccessDone(ac);
+                        }
                         break;
                     case Access.PortEnum.Cmd:
                         cmdAccessDone(ac);
@@ -243,13 +232,13 @@ namespace SRB_CTR.SRB_Frame
                 {
                     return;
                 }
-                if (ac.Recv_data.Length == 0)
+                if (ac.Send_data.Length == 1)
                 {
-                    clusters[clusterID].writeRecv(ac);
+                    clusters[clusterID].readRecv(ac);
                 }
                 else
                 {
-                    clusters[clusterID].readRecv(ac);
+                    clusters[clusterID].writeRecv(ac);
                 }
             }
         }
@@ -257,19 +246,11 @@ namespace SRB_CTR.SRB_Frame
         {
             int port;
             port = (int)ac.Port;
-            switch (ac.Port)
-            {
-                case Access.PortEnum.D0:
-                case Access.PortEnum.D1:
-                case Access.PortEnum.D2:
-                case Access.PortEnum.D3:
-                    break;
-            }
             int recv_len = ac.Recv_data.Length;
             Mapping mapping = mappings[port];
-            if (recv_len > mapping.Down_mapping.Length)
+            if (recv_len > mapping.Up_len)
             {
-                recv_len = mapping.Down_len;
+                recv_len = mapping.Up_len;
             }
             for (int i = 0; i < recv_len; i++)
             {
@@ -296,10 +277,6 @@ namespace SRB_CTR.SRB_Frame
         }
         public void clearNodeForm()
         {
-            foreach (Cluster c in clusters)
-            {
-                if (c == null) continue;
-            }
             nf = null;
         }
         public string[] getClusterTable()
@@ -357,6 +334,112 @@ namespace SRB_CTR.SRB_Frame
         {
             return ToString() + "\n" + Describe();
         }
+
+
+
+
+        #region bank
+        protected byte[] bank;
+        private Mapping[] mappings;
+
+        public void bankInit(byte[][] raw)
+        {
+            bank = new byte[256];
+            mappings = new Mapping[4];
+            for (int i = 0; i < 4; i++)
+            {
+                mappings[i] = new Mapping(raw[i]);
+            }
+        }
+        public void mappingUpdata(int mapping_num, byte[] raw)
+        {
+            mappings[mapping_num] = new Mapping(raw);
+        }
+
+
+        public void bankWrite(byte data, int byte_Location)
+        {
+            bank[byte_Location] = data;
+        }
+        public byte bankReadByte(int byte_Location)
+        {
+            return bank[byte_Location];
+        }
+        public void bankWrite(byte data, int byte_Location, int mask)
+        {
+            data = (byte)((data & mask) | (bank[byte_Location] & ~mask));
+            bankWrite(data, byte_Location);
+        }
+        public void bankWrite(byte data, int byte_Location, int bit_len, int bit_location)
+        {
+            int mask = 1 << bit_len - 1;
+            data <<= bit_location;
+            mask <<= bit_location;
+            bankWrite(data, byte_Location, mask);
+        }
+        public byte bankReadByte(int byte_Location, int bit_len, int bit_location)
+        {
+            byte mask = (byte)(1 << bit_len - 1);
+            return (byte)((bank[byte_Location] >> bit_location) & mask);
+        }
+        public void bankWrite(ushort data, int byte_Location)
+        {
+            bank[byte_Location] = data.ByteLow();
+            bank[byte_Location + 1] = data.ByteHigh();
+        }
+        public void bankWrite(ushort data, int byte_Location, int mask)
+        {
+            ushort bankdata = Support.byteToUint16(bank[byte_Location], bank[byte_Location + 1]);
+
+            data = (ushort)((data & mask) | (bankdata & ~mask));
+            bankWrite(data, byte_Location);
+        }
+        public void bankWrite(ushort data, int byte_Location, int bit_len, int bit_location)
+        {
+            int mask = 1 << bit_len - 1;
+            data <<= bit_location;
+            mask <<= bit_location;
+            bankWrite(data, byte_Location, mask);
+        }
+        public void bankWrite(int data, int byte_Location)
+        {
+            bank[byte_Location] = (byte)data;
+            data >>= 8;
+            bank[byte_Location + 1] = (byte)data;
+            data >>= 8;
+            bank[byte_Location + 2] = (byte)data;
+            data >>= 8;
+            bank[byte_Location + 3] = (byte)data;
+        }
+        public void bankWrite(int data, int byte_Location, int mask)
+        {
+            int bankdata;
+            bankdata = bank[byte_Location] + bank[byte_Location + 1] << 8 +
+                bank[byte_Location + 2] << 16 + bank[byte_Location + 3] << 24;
+            data = (ushort)((data & mask) | (bankdata & ~mask));
+            bankWrite(data, byte_Location);
+        }
+        public void bankWrite(int data, int byte_Location, int bit_len, int bit_location)
+        {
+            int mask = 1 << bit_len - 1;
+            data <<= bit_location;
+            mask <<= bit_location;
+            bankWrite(data, byte_Location, mask);
+        }
+        public void bankWrite(bool data, int byte_Location, int bit_location)
+        {
+            if (data)
+            {
+                bank[byte_Location] |= (byte)(1 << bit_location);
+
+            }
+            else
+            {
+                bank[byte_Location] &= (byte)~(1 << bit_location);
+            }
+        }
+
+        #endregion
     }
 
 }

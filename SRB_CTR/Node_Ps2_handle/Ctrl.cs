@@ -18,10 +18,12 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
         {
             node = n;
             InitializeComponent();
-            left_x_base = LeftLAB.Location.X - 42;
-            left_y_base = LeftLAB.Location.Y - 42;
-            right_x_base = RightLAB.Location.X - 42;
-            right_y_base = RightLAB.Location.Y - 42;
+            left_x_base = LeftLAB.Location.X;
+            left_y_base = LeftLAB.Location.Y;
+            right_x_base = RightLAB.Location.X;
+            right_y_base = RightLAB.Location.Y;
+
+
             LeftLAB.Parent = this;
         }
 
@@ -48,6 +50,7 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
         }
         bool rumble_on = false;
         int counter = 0;
+        
         private void sendTimer_Tick(object sender, EventArgs e)
         {
             if(rumble_on)
@@ -59,7 +62,26 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
             {
                 node.bulidUpD0();
             }
-         
+            if(node.handle_exist)
+            {
+                this.Start.Text = "Start";
+            }
+            else
+            {
+                this.Start.Text = "No Handle";
+            }
+
+            //if (node.joy_lx < -120)
+            //{
+            //    Console.Beep(2000, 100);
+            //    MessageBox.Show("x is " + node.joy_lx);
+            //}
+            //if (node.joy_ly < -120)
+            //{
+            //    Console.Beep(2000, 100);
+            //    MessageBox.Show("y is " + node.joy_ly);
+            //}
+
             node.Parent.sendAccess();
             LeftLAB.Location = new Point(left_x_base + node.joy_lx/3, left_y_base + node.joy_ly / 3);
             RightLAB.Location = new Point(right_x_base + node.joy_rx / 3, right_y_base + node.joy_ry / 3);

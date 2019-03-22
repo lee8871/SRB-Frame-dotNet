@@ -17,7 +17,7 @@ namespace SRB_CTR.SRB_Frame
             InitializeComponent();
             backstage = p; 
             comSelectCB.Click += new EventHandler(comSelectCB_Click);
-            comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
+           // comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
             comSelectCB.SelectedIndexChanged+= new EventHandler(comSelectCB_TextChanged);
             getUartTable();
             this.comSelectCB.Text = backstage.getPortName();

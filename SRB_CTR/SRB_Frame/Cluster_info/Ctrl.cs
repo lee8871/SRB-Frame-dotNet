@@ -18,7 +18,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
             InitializeComponent();
             cluster = c;
             c.eDataChanged += new EventHandler(c_dataChanged);
-            c_dataChanged(this, null);
+            cluster.read();
         }
 
         void c_dataChanged(object sender, EventArgs e)
@@ -32,7 +32,8 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
             {
                 this.typeL.Text = "Type: " + cluster.type;
                 this.versionL.Text = 
-                   string.Format("Version: {0}.{1}", cluster.major_version, cluster.minor_version);
+                   string.Format("Version: Node-{0}.{1}  SRB-{2}.{3}  ", cluster.major_version, cluster.minor_version,
+                   cluster.SRB_major_version,cluster.SRB_minor_version);
             }
         }
 

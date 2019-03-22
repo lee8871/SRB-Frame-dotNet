@@ -11,45 +11,52 @@ namespace SRB_CTR.nsBrain.Node_dMotor
         public Cluster_Du_Motor_v02.Clu motor_clu;
         public Cluster_du_motor_adj.Clu adj_clu;
 
-        public int Speed_a {set => setSpeedA(value); }
-        public int Speed_b {set => setSpeedB(value); }
+        public int Speed_a { set => setSpeedA(value); }
+        public int Speed_b { set => setSpeedB(value); }
+
+        public int Brake_a { set => setBrakeA(value); }
+        public int Brake_b { set => setBrakeB(value); }
+
+        private void setBrakeA(int value)
+        {
+            int temp;
+            temp = value;
+            temp |= (1 << 15);
+            bank[0] = (byte)temp;
+            bank[1] = (byte)(temp >> 8);
+        }
+
+        private void setBrakeB(int value)
+        {
+            int temp;
+            temp = value;
+            temp |= (1 << 15);
+            bank[2] = (byte)temp;
+            bank[3] = (byte)(temp >> 8);
+        }
 
         public void setSpeedA(int speed)
         {
             int temp;
-            if (speed >= 0)
-            {
-                temp = speed;
-            }
-            else
-            {
-                temp = (-speed) | 0xc000;
-            }
+            temp = speed;
+            temp &= ~(1 << 15);
             bank[0] = (byte)temp;
             bank[1] = (byte)(temp >> 8);
         }
         public void setSpeedB(int speed)
         {
             int temp;
-            if (speed >= 0)
-            {
-                temp = speed;
-            }
-            else
-            {
-                temp = (-speed) | 0xc000;
-            }
+            temp = speed;
+            temp &= ~(1 << 15);
             bank[2] = (byte)temp;
             bank[3] = (byte)(temp >> 8);
         }
-
-        public Cn(byte addr, SrbFrame f = null)
-            : base(addr, f)
+        public void init()
         {
             motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
-            clusters[motor_clu.clustr_ID] = motor_clu;
+            clusters[motor_clu.Clustr_ID] = motor_clu;
             adj_clu = new Cluster_du_motor_adj.Clu(11, this);
-            clusters[adj_clu.clustr_ID] = adj_clu;
+            clusters[adj_clu.Clustr_ID] = adj_clu;
             //led_phase_clu.read();
             bankInit(new byte[][]{
                 new byte[]{ 0,4,0,1,2,3}                        ,
@@ -58,22 +65,16 @@ namespace SRB_CTR.nsBrain.Node_dMotor
                 new byte[]{ 0,4,2,3,0,1}
             });
         }
-
+        public Cn(byte addr, SrbFrame f = null)
+            : base(addr, f)
+        {
+            init();
+        }
 
         public Cn(Node n)
             : base(n)
         {
-            motor_clu = new Cluster_Du_Motor_v02.Clu(10, this);
-            clusters[motor_clu.clustr_ID] = motor_clu;
-            adj_clu = new Cluster_du_motor_adj.Clu(11, this);
-            clusters[adj_clu.clustr_ID] = adj_clu;
-            //led_phase_clu.read();           
-            bankInit(new byte[][]{
-            new byte[] { 0, 4, 0, 1, 2, 3 }                        ,
-                new byte[] { 0, 4, 2, 3, 0, 1 }                        ,
-                new byte[] { 0, 4, 0, 1, 2, 3 }                        ,
-                new byte[] { 0, 4, 2, 3, 0, 1 }
-            });
+            init();
         }
         public void bulidUpD0()
         {

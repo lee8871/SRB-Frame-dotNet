@@ -8,37 +8,35 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
 {
     public class Clu:Cluster
     {
-        public string type ="Unknow";
-        public int major_version;
-        public int minor_version;
-        public int time_stamp;
+        public string type  { get => getBankString(6,17);   }
+        public int major_version { get => getBankByte(0); }
+        public int minor_version { get => getBankByte(1); }
+        public int SRB_major_version { get => getBankByte(2); }
+        public int SRB_minor_version { get => getBankByte(3); }
+        public int time_stamp { get => getBankUshort(4); }
 
         public Clu(byte ID, Node n)
-            : base(ID, n) { }
+            : base(ID, n,23)
+        {
+            char[] ca = "Unknow".ToCharArray();
+            int i;
+            for (i = 0; i < ca.Length; i++)
+            {
+                bank[6 + i] = (byte)ca[i];
+            }
+            bank[6 + i] = (byte)'\0';
+        }
         public override void write()
         {
             throw new Exception("read only cluster can not write.");
         }
-        public override void readRecv(Access ac)
+        public override void writeRecv(Access ac)
         {
-            int counter = 0;
-            int i = 0;
-            major_version = ac.Recv_data[counter++];
-            minor_version = ac.Recv_data[counter++];
-            time_stamp = Support.byteToUint16(ac.Recv_data[counter++], ac.Recv_data[counter++]);
-            char[] cs = new char[17];
-            for (i = 0; i < 16; i++)
+            if (ac.Send_data.Length == 3)
             {
-                cs[i] = (char)ac.Recv_data[counter++];
-                if (cs[i] == 0)
-                {
-                    break;
-                }
-            }            
-            cs[16] = '\0';
-            this.type = new string(cs, 0, i);
-            base.readRecv(ac);
-            return;
+                return;
+            }
+            throw new Exception("read only cluster can not write.");
         }
         public override System.Windows.Forms.UserControl createControl()
         {
@@ -54,7 +52,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
             Access ac;
             byte[] b = new byte[3];
             int i = 0;
-            b[i++] = clustr_ID;
+            b[i++] = Clustr_ID;
             b[i++] = (byte)'R';
             b[i++] = (byte)'N';
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
@@ -65,7 +63,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_info
             Access ac;
             byte[] b = new byte[3];
             int i = 0;
-            b[i++] = clustr_ID;
+            b[i++] = Clustr_ID;
             b[i++] = (byte)'F';
             b[i++] = (byte)'S';
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);

@@ -18,11 +18,40 @@ namespace SRB_CTR.SRB_Frame
             node = n;
             InitializeComponent();
             nameL.Text = "Type = \"" +n.NodeType +"\"";
+            node.eDataAccessRecv += Node_eDataAccessRecv;
+        }
+
+        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
+        {
+            recvRTB.Text = e.ac.Recv_data.ToArrayString();
+            e.Handled = true;
         }
 
         private void nameL_Click(object sender, EventArgs e)
         {
+            
 
+        }
+
+        private void AccessOnce(object sender, EventArgs e)
+        {
+            byte[] ba = sendRTB.Text.ToByteAsCArroy();
+            sendRTB.Text = ba.ToArrayString();  
+            node.singleAccess(new Access(node, Access.PortEnum.D0, ba));
+        }
+
+        private void accessTimerOnBTN_Click(object sender, EventArgs e)
+        {
+            if(AccessT.Enabled==true)
+            {
+                AccessT.Enabled = false;
+                accessTimerOnBTN.Text = "Run Access/100ms";
+            }
+            else
+            {
+                AccessT.Enabled = true;
+                accessTimerOnBTN.Text = "Stop Access";
+            }
         }
     }
 }

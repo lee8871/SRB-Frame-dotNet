@@ -40,9 +40,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.behaviorCB = new System.Windows.Forms.ComboBox();
             this.behaviorL = new System.Windows.Forms.Label();
+            this.SetDelayNUM = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.motor_a_minNUM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.motor_b_minNUM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SetDelayNUM)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -205,17 +208,52 @@
             this.behaviorL.TabIndex = 6;
             this.behaviorL.Text = "{0} -> {1}";
             // 
+            // SetDelayNUM
+            // 
+            this.SetDelayNUM.Location = new System.Drawing.Point(15, 191);
+            this.SetDelayNUM.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.SetDelayNUM.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.SetDelayNUM.Name = "SetDelayNUM";
+            this.SetDelayNUM.Size = new System.Drawing.Size(99, 21);
+            this.SetDelayNUM.TabIndex = 2;
+            this.SetDelayNUM.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.SetDelayNUM.ValueChanged += new System.EventHandler(this.motor_X_minNUM_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoEllipsis = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 175);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 12);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Set lose delay  x10ms";
+            // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.behaviorL);
             this.Controls.Add(this.behaviorCB);
             this.Controls.Add(this.FreqCB);
             this.Controls.Add(this.readBTN);
             this.Controls.Add(this.writeBTN);
+            this.Controls.Add(this.SetDelayNUM);
             this.Controls.Add(this.motor_b_minNUM);
             this.Controls.Add(this.motor_a_minNUM);
             this.Controls.Add(this.motorMinL);
@@ -226,9 +264,10 @@
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 172);
+            this.Size = new System.Drawing.Size(300, 215);
             ((System.ComponentModel.ISupportInitialize)(this.motor_a_minNUM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.motor_b_minNUM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SetDelayNUM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,5 +286,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox behaviorCB;
         private System.Windows.Forms.Label behaviorL;
+        private System.Windows.Forms.NumericUpDown SetDelayNUM;
+        private System.Windows.Forms.Label label3;
     }
 }

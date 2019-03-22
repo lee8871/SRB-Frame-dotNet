@@ -30,6 +30,7 @@ namespace System//SRB_CTR.nsByteExtensions
             }
             return new string(ca, 0, 2);
         }
+
        static public int enterRound(this int i,int min ,int max)
         {
             if (i >= max)
@@ -69,6 +70,56 @@ namespace System//SRB_CTR.nsByteExtensions
            }
            return s;
        }
+
+        static public string ToArrayString(this byte[] ba, int len = -1)
+        {
+            if (ba == null)
+            {
+                return "{}";
+            }
+            if (len == -1)
+            {
+                len = ba.Length;
+                if (len == 0)
+                {
+                    return "{};";
+                }
+            }
+            string s = "";
+            s += "{";
+            int i = 0;
+            while (true)
+            {
+                byte b = ba[i];
+                //  s += "0x" + b.ToHexSt();
+                s += b.ToString();
+                i++;
+                if (i < len)
+                {
+                    s += ",";
+                }
+                else
+                {
+                    s += "};";
+                    return s;
+                }
+            }
+        }
+        static public bool bit(this byte b, int diff)
+        {
+            if ((b & (1 << diff)) == 0)
+                return false;
+            else
+                return true;
+        }
+        static public byte writeBit(ref this byte b , int diff, bool value)
+        {
+            if (value)
+                b |= (byte)(1 << diff);
+            else
+                b &= (byte)~(1 << diff);
+            return b;
+        }
 
         static public string ToPythonTuple(this byte[] ba, int len = -1)
         {
@@ -117,5 +168,61 @@ namespace System//SRB_CTR.nsByteExtensions
        {
            return (ushort)((int)b[num] + (((int)b[num + 1]) << 8));
        }
+        public static byte[] ToByteAsCArroy(this string st)
+        {
+           // TODO:
+            //change inpot 0x
+            int begin = st.IndexOf('{');
+            int end = st.IndexOf('}');
+            if (begin < 0) return new byte[0];
+            if (end < 0) return new byte[0];
+            if (end <= begin) return new byte[0];
+            st = st.Substring(begin + 1, end - begin - 1);
+            st.Replace(" ", "");
+            st.Replace(";", "");
+            st.Replace("\n", "");
+            st.Replace("\r", "");
+            st.Replace("\t", "");
+            try
+            {
+                string[] sta = st.Split(',');
+                byte[] b = new byte[sta.Length];
+                for (int i = 0; i < sta.Length; i++)
+                {//调试错误 这里应该处理空数组
+                    int provider;
+                    if ((sta[i].ToCharArray()[0] == '0') && (sta[i].Length > 1))
+                    {
+                        if (sta[i].ToCharArray()[1] == 'x')
+                        {
+                            provider = 16;
+                            sta[i] = sta[i].Substring(2);
+                        }
+                        else
+                        {
+                            provider = 8;
+                            sta[i] = sta[i].Substring(1);
+                        }
+                    }
+                    else
+                    {
+                        provider = 10;
+                    }
+                    try
+                    {
+                        b[i] = System.Convert.ToByte(sta[i], provider);
+                    }
+                    catch
+                    {
+                        return new byte[0];
+                    }
+                }
+                return b;
+            }
+            catch
+            {
+                return new byte[0];
+            }
+        }
+
     }
 }

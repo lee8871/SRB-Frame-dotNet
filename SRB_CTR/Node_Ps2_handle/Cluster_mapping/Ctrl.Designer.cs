@@ -1,4 +1,4 @@
-﻿namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_du_motor_adj
+﻿namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_mapping
 {
     partial class Ctrl
     {
@@ -28,23 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label label1;
             this.writeBTN = new System.Windows.Forms.Button();
             this.readBTN = new System.Windows.Forms.Button();
-            this.AdjCB = new System.Windows.Forms.ComboBox();
-            this.motorATogCBOX = new System.Windows.Forms.CheckBox();
-            this.motorBTogCBOX = new System.Windows.Forms.CheckBox();
-            label1 = new System.Windows.Forms.Label();
+            this.UpRTC = new System.Windows.Forms.RichTextBox();
+            this.DownRTC = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(13, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(119, 12);
-            label1.TabIndex = 0;
-            label1.Text = "Set Max speed Value";
             // 
             // writeBTN
             // 
@@ -70,43 +60,42 @@
             this.readBTN.UseVisualStyleBackColor = true;
             this.readBTN.Click += new System.EventHandler(this.read);
             // 
-            // AdjCB
+            // UpRTC
             // 
-            this.AdjCB.FormattingEnabled = true;
-            this.AdjCB.Items.AddRange(new object[] {
-            "NoAdjust",
-            "255",
-            "1000",
-            "10000"});
-            this.AdjCB.Location = new System.Drawing.Point(15, 15);
-            this.AdjCB.Name = "AdjCB";
-            this.AdjCB.Size = new System.Drawing.Size(83, 20);
-            this.AdjCB.TabIndex = 5;
-            this.AdjCB.Text = "<unknow>";
+            this.UpRTC.Location = new System.Drawing.Point(6, 19);
+            this.UpRTC.MaxLength = 2048;
+            this.UpRTC.Name = "UpRTC";
+            this.UpRTC.Size = new System.Drawing.Size(201, 40);
+            this.UpRTC.TabIndex = 8;
+            this.UpRTC.Text = "";
+            this.UpRTC.TextChanged += new System.EventHandler(this.RTC_TextChanged);
             // 
-            // motorATogCBOX
+            // DownRTC
             // 
-            this.motorATogCBOX.AutoSize = true;
-            this.motorATogCBOX.Checked = true;
-            this.motorATogCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.motorATogCBOX.Location = new System.Drawing.Point(15, 42);
-            this.motorATogCBOX.Name = "motorATogCBOX";
-            this.motorATogCBOX.Size = new System.Drawing.Size(90, 16);
-            this.motorATogCBOX.TabIndex = 6;
-            this.motorATogCBOX.Text = "Tog Motor A";
-            this.motorATogCBOX.UseVisualStyleBackColor = true;
+            this.DownRTC.Location = new System.Drawing.Point(6, 77);
+            this.DownRTC.MaxLength = 2048;
+            this.DownRTC.Name = "DownRTC";
+            this.DownRTC.Size = new System.Drawing.Size(201, 40);
+            this.DownRTC.TabIndex = 9;
+            this.DownRTC.Text = "";
             // 
-            // motorBTogCBOX
+            // label1
             // 
-            this.motorBTogCBOX.AutoSize = true;
-            this.motorBTogCBOX.Checked = true;
-            this.motorBTogCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.motorBTogCBOX.Location = new System.Drawing.Point(111, 42);
-            this.motorBTogCBOX.Name = "motorBTogCBOX";
-            this.motorBTogCBOX.Size = new System.Drawing.Size(90, 16);
-            this.motorBTogCBOX.TabIndex = 7;
-            this.motorBTogCBOX.Text = "Tog Motor B";
-            this.motorBTogCBOX.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 12);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Up Mapping:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 62);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 12);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Down Mapping:";
             // 
             // Ctrl
             // 
@@ -114,16 +103,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.motorBTogCBOX);
-            this.Controls.Add(this.motorATogCBOX);
-            this.Controls.Add(this.AdjCB);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DownRTC);
+            this.Controls.Add(this.UpRTC);
             this.Controls.Add(this.readBTN);
             this.Controls.Add(this.writeBTN);
-            this.Controls.Add(label1);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 20);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 61);
+            this.Size = new System.Drawing.Size(300, 120);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,8 +121,9 @@
         #endregion
         private System.Windows.Forms.Button writeBTN;
         private System.Windows.Forms.Button readBTN;
-        private System.Windows.Forms.ComboBox AdjCB;
-        private System.Windows.Forms.CheckBox motorATogCBOX;
-        private System.Windows.Forms.CheckBox motorBTogCBOX;
+        private System.Windows.Forms.RichTextBox UpRTC;
+        private System.Windows.Forms.RichTextBox DownRTC;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

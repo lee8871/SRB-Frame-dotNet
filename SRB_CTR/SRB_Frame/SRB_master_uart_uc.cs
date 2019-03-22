@@ -17,7 +17,8 @@ namespace SRB_CTR.SRB_Frame
             InitializeComponent();
             background = bs; 
             comSelectCB.Click += new EventHandler(comSelectCB_Click);
-            comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
+            //comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
+            comSelectCB.SelectedIndexChanged += new EventHandler(comSelectCB_TextChanged);
             getUartTable();
             this.comSelectCB.Text = background.getPortName();
         }
@@ -37,8 +38,8 @@ namespace SRB_CTR.SRB_Frame
 
         public void getUartTable()
         {
-            comSelectCB.Items.Clear();
             string[] comNumTable = background.getPortTable();
+            comSelectCB.Items.Clear();
             comSelectCB.Items.AddRange(comNumTable);
         }
 
@@ -46,12 +47,7 @@ namespace SRB_CTR.SRB_Frame
         void comSelectCB_Click(object sender, EventArgs e)
         {
             getUartTable();
-            if (comSelectCB.Text != "")
-            {
-                background.OpenPort(comSelectCB.Text);
-            }
             setPortState();
-
         }
         void comSelectCB_TextChanged(object sender, EventArgs e)
         {
@@ -73,9 +69,5 @@ namespace SRB_CTR.SRB_Frame
             this.Hide();
         }
 
-        private void comSelectCB_Click_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }

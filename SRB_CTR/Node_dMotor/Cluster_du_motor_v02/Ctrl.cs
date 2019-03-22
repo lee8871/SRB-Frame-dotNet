@@ -19,7 +19,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02
             InitializeComponent();
             cluster = c;
             c.eDataChanged += new EventHandler(c_dataChanged);
-            c_dataChanged(this, null);
+            cluster.read();
         }
         public string periodToFreq(int period)
         {
@@ -61,6 +61,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02
 
                 motor_a_minNUM.Value = cluster.min_pwm_a / 16;
                 motor_b_minNUM.Value = cluster.min_pwm_b / 16;
+                SetDelayNUM.Value = cluster.lose_control_ms;
                 motorMinL.Text = string.Format("Port A {0} <- {1}, PortB  {2} <- {3}",
                     cluster.min_pwm_a / 16, motor_a_minNUM.Value,
                     cluster.min_pwm_b / 16, motor_b_minNUM.Value);
@@ -73,9 +74,11 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02
 
         private void write(object sender, EventArgs e)
         {
+            cluster.writeBankinit();
             cluster.period = (ushort)freqToPeriod(FreqCB.Text);
             cluster.min_pwm_a = (ushort)(16 * motor_a_minNUM.Value);
             cluster.min_pwm_b = (ushort)(16 * motor_b_minNUM.Value);
+            cluster.lose_control_ms = (byte)SetDelayNUM.Value;
             setLoseBehavior();
             cluster.write();
         }
@@ -84,15 +87,12 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_Du_Motor_v02
             switch (behaviorCB.Text)
             {
                 case "Close No Break":
-                    cluster.lose_control_ms = 200;
                     cluster.lose_behavior = 0;
                     break;
                 case "Close And Break":
-                    cluster.lose_control_ms = 200;
                     cluster.lose_behavior = 1;
                     break;
                 case "Keep Last Cmd":
-                    cluster.lose_control_ms = 200;
                     cluster.lose_behavior = 2;
                     break;
             }

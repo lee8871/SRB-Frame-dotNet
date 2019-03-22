@@ -21,6 +21,18 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
             this.AddrNUM.Value = cluster.addr;
             this.NodeNameTB.Text = cluster.name;
         }
+        Color[] num_to_color = {
+            Color.White,
+            Color.Pink,
+            Color.FromArgb(255,126,126),
+            Color.Orange,
+            Color.Yellow,
+            Color.GreenYellow,
+            Color.SpringGreen,
+            Color.Cyan,
+            Color.DeepSkyBlue,
+            Color.FromArgb(180,140,255),
+        };
 
         void  c_dataChanged(object sender, EventArgs e)
         {
@@ -33,33 +45,39 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
             {
                 this.AddrL.Text = cluster.addr.ToString();
                 this.NodeNameL.Text = cluster.name;
+                int addr_color = ((int)cluster.addr).enterRound(0, 99);
+                this.highBTN.BackColor = num_to_color[cluster.addr / 10];
+                this.lowBTN.BackColor = num_to_color[cluster.addr % 10];
             }
         }
 
         private void writeBTN_Click(object sender, EventArgs e)
         {
-            if(NodeNameTB.Text!="")
+            cluster.writeBankinit();
+            if (NodeNameTB.Text!="")
             {
                 cluster.name = NodeNameTB.Text;
             }
-            cluster.new_addr = (byte)((int)AddrNUM.Value);
-            if (cluster.new_addr == cluster.addr)
+            byte new_addr = (byte)((int)AddrNUM.Value);
+            if (new_addr == cluster.addr)
             {
                 cluster.write();
             }
             else
             {
-                if (cluster.isNewAddrAvaliable(cluster.new_addr))
+                if (cluster.isNewAddrAvaliable(new_addr))
                 {
+                    cluster.addr_new = new_addr;
                     cluster.write();
                 }
                 else
                 {
                     DialogResult res;
-                    string st = string.Format("There is anther node which use the address({0}), click OK to contiual.", cluster.new_addr);
+                    string st = string.Format("There is anther node which use the address({0}), click OK to contiual.", new_addr);
                     res = MessageBox.Show(st, "New Address Exist", MessageBoxButtons.OKCancel);
                     if (res == DialogResult.OK)
                     {
+                        cluster.addr_new = new_addr;
                         cluster.write();
                     }
                 }
@@ -68,7 +86,6 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
 
         private void readBTN_Click(object sender, EventArgs e)
         {
-
             cluster.read();
         }
 

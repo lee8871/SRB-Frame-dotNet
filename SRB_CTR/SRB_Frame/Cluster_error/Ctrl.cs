@@ -18,7 +18,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_error
             InitializeComponent();
             cluster = c;
             c.eDataChanged += new EventHandler(c_dataChanged);
-            c_dataChanged(this, null);
+            cluster.read();
         }
 
         void c_dataChanged(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_error
             }
             else
             {
-                this.errorTextL.Text = cluster.error_text;
+                this.errorTextL.Text = cluster.error_text + cluster.parameter.ToArrayString();
                 this.pageLineL.Text = string.Format("Page{0}.Lines{1}",cluster.file,cluster.line);
             }
         }

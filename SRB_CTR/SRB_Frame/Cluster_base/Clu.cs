@@ -7,26 +7,28 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
 {
     public class Clu : Cluster
     {
-        public byte addr;
-        public byte new_addr;
-        public string name;
         public byte error_behave;
 
-        public override void write()
-        {
-            Access ac;
-            byte[] b = new byte[20];
-            int i = 0;
-            b[i++] = clustr_ID;
-            b[i++] = new_addr;
-            foreach (char c in name.ToCharArray())
-            {
-                b[i++] = (byte)c;
-            }
-            b[19] = 1;
-            ac = new Access(this.parent_node, Access.PortEnum.Cgf,b);
-            parent_node.singleAccess(ac);
-        }
+        public byte addr { get => bank[0]; set => bank[0] = value; }
+        public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
+        public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
+        public byte addr_new { get => bank_write[0]; set => bank_write[0] = value; }
+
+        //public override void write()
+        //{
+        //    Access ac;
+        //    byte[] b = new byte[20];
+        //    int i = 0;
+        //    b[i++] = clustr_ID;
+        //    b[i++] = new_addr;
+        //    foreach (char c in name.ToCharArray())
+        //    {
+        //        b[i++] = (byte)c;
+        //    }
+        //    b[19] = 1;
+        //    ac = new Access(this.parent_node, Access.PortEnum.Cgf,b);
+        //    parent_node.singleAccess(ac);
+        //}
         public override void writeRecv(Access ac)
         {
             if (ac.Recv_error == false)
@@ -37,40 +39,48 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
                 }
                 if (addr != ac.Send_data[1])
                 {
-                    addr = ac.Send_data[1];
+                    base.writeRecv(ac);
                     parent_node.onAddrChanged();
                 }
-                OnDataChangded();
-            }
-        }
-        public override void readRecv(Access ac)
-        {
-            char[] cs = new char[17];
-            int counter=0;
-            int read_addr = ac.Recv_data[counter++];
-            if(addr != read_addr)
-            {
-                throw new Exception(string.Format("read addr for Node{0} is {1}!", addr, read_addr));
-            }
-            int i;
-            for(i=0;i<16;i++)
-            {
-                cs[i] = (char)ac.Recv_data[counter++];
-                if(cs[i] == 0)
-                {
-                    break;
+                else {
+                    base.writeRecv(ac);
                 }
             }
-            cs[16] = '\0';
-            this.name = new string(cs,0,i);
-            this.error_behave = ac.Recv_data[18];
-            base.readRecv(ac);
-
         }
+        //public override void readRecv(Access ac)
+        //{
+        //    if(ac.Recv_data_len==0)
+        //    {
+        //        base.readRecv(ac);
+        //        return;
+
+        //    }
+        //    char[] cs = new char[17];
+        //    int counter=0;
+        //    int read_addr = ac.Recv_data[counter++];
+        //    if(addr != read_addr)
+        //    {
+        //        throw new Exception(string.Format("read addr for Node{0} is {1}!", addr, read_addr));
+        //    }
+        //    int i;
+        //    for(i=0;i<16;i++)
+        //    {
+        //        cs[i] = (char)ac.Recv_data[counter++];
+        //        if(cs[i] == 0)
+        //        {
+        //            break;
+        //        }
+        //    }
+        //    cs[16] = '\0';
+        //    this.name = new string(cs,0,i);
+        //    this.error_behave = ac.Recv_data[18];
+        //    base.readRecv(ac);
+
+        //}
         public Clu(byte ID,Node n,byte addr)
-            : base(ID,n)
+            : base(ID,n,19)
         {
-            this.addr = addr;
+            bank[0]  = addr;
         }
 
         public override UserControl createControl()
@@ -79,7 +89,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
         }
         public override string ToString()
         {
-            return string.Format("Base Cluster", clustr_ID.ToHexSt());
+            return string.Format("Base Cluster", Clustr_ID.ToHexSt());
         }
 
         public bool isNewAddrAvaliable(byte addr)
@@ -92,7 +102,7 @@ namespace SRB_CTR.SRB_Frame.Cluster_base
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = clustr_ID;
+            b[i++] = Clustr_ID;
             switch(adt)
             {
                 case LedAddrType.Close:

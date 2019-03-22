@@ -86,10 +86,17 @@ namespace SRB_CTR.SRB_Frame
             }
 
         }
-        public void close()
+        public void close(object sender, EventArgs e)
         {
-            EventArgs e = new EventArgs();
-            this.OnClosed(e);
+            if (this.InvokeRequired)
+            {
+                EventHandler d = new EventHandler(close);
+                this.Invoke(d, new object[] { sender, e });
+            }
+            else
+            {
+                this.Close();
+            }
         }
         protected override void  OnClosed(EventArgs e)
         {

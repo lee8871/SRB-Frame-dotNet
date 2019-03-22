@@ -53,6 +53,8 @@
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
+            this.VersionLAB = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
             this.left_UpDownSC.Panel2.SuspendLayout();
@@ -66,6 +68,8 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.VersionLAB});
             this.statusStrip1.Location = new System.Drawing.Point(0, 579);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -290,6 +294,12 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
+            // VersionLAB
+            // 
+            this.VersionLAB.Name = "VersionLAB";
+            this.VersionLAB.Size = new System.Drawing.Size(53, 17);
+            this.VersionLAB.Text = "V0.0.1.0";
+            // 
             // FrameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -301,6 +311,8 @@
             this.MinimumSize = new System.Drawing.Size(400, 640);
             this.Name = "FrameForm";
             this.Text = "Simple Robot Bus";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.left_UpDownSC.Panel1.ResumeLayout(false);
             this.left_UpDownSC.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).EndInit();
@@ -343,5 +355,6 @@
         private System.Windows.Forms.ToolStripSplitButton SRB_config;
         private System.Windows.Forms.ToolStripMenuItem uSBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uARTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel VersionLAB;
     }
 }

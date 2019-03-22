@@ -29,6 +29,11 @@ namespace SRB_CTR.SRB_Frame
             frame.eNode_register += new SrbFrame.dNodeChange(addNode);
             frame.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
             frame.eNode_change += new SrbFrame.dNodeChange(changeNode);
+                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +"  @  "+
+                System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
+
         }
         protected override void OnClosing(CancelEventArgs e)
         {

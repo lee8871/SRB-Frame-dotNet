@@ -40,6 +40,7 @@
             this.highBTN = new System.Windows.Forms.Button();
             this.lowBTN = new System.Windows.Forms.Button();
             this.closeBTN = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,33 +132,46 @@
             // 
             // highBTN
             // 
-            this.highBTN.Location = new System.Drawing.Point(11, 3);
+            this.highBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.highBTN.Location = new System.Drawing.Point(96, 0);
             this.highBTN.Name = "highBTN";
-            this.highBTN.Size = new System.Drawing.Size(15, 23);
+            this.highBTN.Size = new System.Drawing.Size(22, 22);
             this.highBTN.TabIndex = 8;
             this.highBTN.Text = "H";
-            this.highBTN.UseVisualStyleBackColor = true;
+            this.highBTN.UseVisualStyleBackColor = false;
             this.highBTN.Click += new System.EventHandler(this.highBTN_Click);
             // 
             // lowBTN
             // 
-            this.lowBTN.Location = new System.Drawing.Point(32, 3);
+            this.lowBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lowBTN.Location = new System.Drawing.Point(121, 0);
             this.lowBTN.Name = "lowBTN";
-            this.lowBTN.Size = new System.Drawing.Size(15, 23);
+            this.lowBTN.Size = new System.Drawing.Size(22, 22);
             this.lowBTN.TabIndex = 8;
             this.lowBTN.Text = "L";
-            this.lowBTN.UseVisualStyleBackColor = true;
+            this.lowBTN.UseVisualStyleBackColor = false;
             this.lowBTN.Click += new System.EventHandler(this.lowBTN_Click);
             // 
             // closeBTN
             // 
-            this.closeBTN.Location = new System.Drawing.Point(53, 3);
+            this.closeBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeBTN.Location = new System.Drawing.Point(146, 0);
             this.closeBTN.Name = "closeBTN";
-            this.closeBTN.Size = new System.Drawing.Size(15, 23);
+            this.closeBTN.Size = new System.Drawing.Size(22, 22);
             this.closeBTN.TabIndex = 8;
             this.closeBTN.Text = "C";
-            this.closeBTN.UseVisualStyleBackColor = true;
+            this.closeBTN.UseVisualStyleBackColor = false;
             this.closeBTN.Click += new System.EventHandler(this.closeBTN_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(9, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Addr Color:";
             // 
             // Ctrl
             // 
@@ -175,6 +189,7 @@
             this.Controls.Add(this.AddrL);
             this.Controls.Add(this.NodeNameTB);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 20);
@@ -200,5 +215,6 @@
         private System.Windows.Forms.Button highBTN;
         private System.Windows.Forms.Button lowBTN;
         private System.Windows.Forms.Button closeBTN;
+        private System.Windows.Forms.Label label3;
     }
 }

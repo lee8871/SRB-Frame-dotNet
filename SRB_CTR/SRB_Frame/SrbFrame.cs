@@ -93,21 +93,18 @@ namespace SRB_CTR.SRB_Frame
         {
             int a = n.Addr;
             if (a < nodes.Length)
-            { 
+            {
                 if (nodes[a] != null)
                 {
-                    if (eNode_unregister != null)
-                    {
-                        eNode_unregister.Invoke(nodes[a]);
-                    }
-                    nodes[a].Parent = null;
-                    nodes[a] = null;
+                    Node n_remove = nodes[a];
+                    n_remove.unregister();
+                    n_remove.Dispose();
                 }
-            nodes[a] = n;
-            if (eNode_register != null)
-            {
-                eNode_register.Invoke(n);
-            }
+                nodes[a] = n;
+                if (eNode_register != null)
+                {
+                    eNode_register.Invoke(n);
+                }
             }
             n.Parent = this;
         }
@@ -168,15 +165,18 @@ namespace SRB_CTR.SRB_Frame
         internal void nodeUnregister(Node n)
         {
             int a = n.Addr;
-            if (nodes[a] == n)
+            if (nodes[a] != n)
             {
-                if (eNode_unregister != null)
-                {
-                    eNode_unregister.Invoke(nodes[a]);
-                }
-                nodes[a].Parent = null;
-                nodes[a] = null;
+                throw new Exception(
+                    n.Describe()+@"
+unregist and call this Frame,
+but we do not have the node in table"); 
             }
+            if (eNode_unregister != null)
+            {
+                eNode_unregister.Invoke(nodes[a]);
+            }
+            nodes[a] = null;
         }
 
         public bool scan_stop = true;

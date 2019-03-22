@@ -38,9 +38,9 @@ namespace SRB_CTR.nsBrain.Node_dMotor
                 Point moues = this.PointToClient(Control.MousePosition);
                 int x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
                 int y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
-                node.Speed_a = (x + y) * 2;
-                node.Speed_b = (x - y) * 2;
-                this.handleBTN.Text = "双电机控制\n"+ (x + y) * 2 + " × " + (x - y) * 2;
+                node.Speed_a = (x + y) ;
+                node.Speed_b = (x - y);
+                this.handleBTN.Text = "双电机控制\n"+ (x + y) + " × " + (x - y) ;
                 node.bulidUpD0();
                 node.Parent.sendAccess();
             }

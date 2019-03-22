@@ -20,7 +20,7 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_du_motor_adj
             InitializeComponent();
             cluster = c;
             c.eDataChanged += new EventHandler(c_dataChanged);
-            c_dataChanged(this, null);
+            cluster.read();
         }
         public string adjToName(int adj)
         {
@@ -63,13 +63,14 @@ namespace SRB_CTR.nsBrain.Node_dMotor.Cluster_du_motor_adj
             else
             {
                 this.AdjCB.Text = adjToName(cluster.adj);
-                motorATogCBOX.Checked = cluster.motor_a_tog;
-                motorBTogCBOX.Checked = cluster.motor_b_tog;
+                motorATogCBOX.CheckState = cluster.motor_a_tog ? CheckState.Checked : CheckState.Unchecked;
+                motorBTogCBOX.CheckState = cluster.motor_b_tog ? CheckState.Checked : CheckState.Unchecked;
             }
         }
 
         private void write(object sender, EventArgs e)
         {
+            cluster.writeBankinit();
             cluster.adj = (byte)nameToAdj(AdjCB.Text);
             cluster.motor_a_tog = motorATogCBOX.Checked;
             cluster.motor_b_tog = motorBTogCBOX.Checked;

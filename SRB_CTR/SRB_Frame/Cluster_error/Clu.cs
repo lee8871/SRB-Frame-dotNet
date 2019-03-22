@@ -6,40 +6,42 @@ namespace SRB_CTR.SRB_Frame.Cluster_error
 {
     public  class Clu:Cluster
     {
-        public string error_text;
+        public string error_text { get => getBankString(4,24); } 
 
-        public byte[] error_Byte;
-        public int file;
-        public int line;
+        public int file { get => getBankUshort(0); }
+        public int line { get => getBankUshort(2); }
+
+        public byte[] parameter { get => getParameter(); }
 
         public Clu(byte ID, Node n)
-            : base(ID, n) { }
+            : base(ID, n,28) { }
         public override void write()
         {
             throw new Exception("read only cluster can not write.");
         }
-        public override void readRecv(Access ac)
+        public override void writeRecv(Access ac)
         {
-            int counter = 0;
-            int i = 0;
-            file = ac.Recv_data.GetUint16(counter);
-            counter += 2;
-            line = ac.Recv_data.GetUint16(counter);
-            counter += 2;
-
-            char[] cs = new char[25];
-            for (i = 0; i < 24; i++)
+            throw new Exception("read only cluster can not write.");
+        }
+        public byte[] getParameter()
+        {
+            int diff = 4;
+            int srt_len = 24;
+            int i = 0,j = 0;
+            for (; i < srt_len; i++)
             {
-                cs[i] = (char)ac.Recv_data[counter++];
-                if (cs[i] == 0)
+                if(bank[i + diff] ==0)
                 {
+                    i++;
                     break;
                 }
             }
-            cs[24] = '\0';
-            this.error_text = new string(cs, 0, i);
-            base.readRecv(ac);
-            return;
+            byte[] rev = new byte[srt_len - i];
+            for (; i < srt_len; i++)
+            {
+                rev[j++] = bank[i + diff];
+            }
+            return rev;
         }
         public override System.Windows.Forms.UserControl createControl()
         {
