@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SRB_CTR.SRB_Frame;
+using SRB_CTR;
 using System.Diagnostics;
 
 

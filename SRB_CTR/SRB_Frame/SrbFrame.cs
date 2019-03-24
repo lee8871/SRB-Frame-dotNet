@@ -6,18 +6,13 @@ using System.Text;
 using System.Drawing;
 using System.Threading;
 using System.Diagnostics;
-using SRB_CTR.nsBrain;
-using SRB_CTR.SRB_Frame.Cluster_base;
+using SRB.Frame;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
-    public class SrbFrame
+    public class SrbFrame : ISRB_Master
     {
-        Node[] nodes;
-        internal Node[] Nodes
-        {
-            get { return nodes; }
-        }
+
         private ISRB_Driver srb;
         public bool Is_port_opend
         {
@@ -34,13 +29,13 @@ namespace SRB_CTR.SRB_Frame
 
 
 
-        internal bool Is_calculation_running
+        public bool Is_calculation_running
         {
             get => main_brain.Running_flag;
         }
         public SrbFrame()
         {
-            nodes = new Node[128];
+            Nodes = new Node[128];
             ///TODO
             ///add master select 
             srb = new SRB_Master_Uart();
@@ -85,22 +80,24 @@ namespace SRB_CTR.SRB_Frame
         }
         #region Node
 
+
         public delegate void dNodeChange(Node n);
+
         public dNodeChange eNode_register;
         public dNodeChange eNode_unregister;
         public dNodeChange eNode_change;
-        internal void nodeRegister(Node n)
+        public override void nodeRegister(Node n)
         {
             int a = n.Addr;
-            if (a < nodes.Length)
+            if (a < Nodes.Length)
             {
-                if (nodes[a] != null)
+                if (Nodes[a] != null)
                 {
-                    Node n_remove = nodes[a];
+                    Node n_remove = Nodes[a];
                     n_remove.unregister();
                     n_remove.Dispose();
                 }
-                nodes[a] = n;
+                Nodes[a] = n;
                 if (eNode_register != null)
                 {
                     eNode_register.Invoke(n);
@@ -108,8 +105,8 @@ namespace SRB_CTR.SRB_Frame
             }
             n.Parent = this;
         }
-
-        internal void nodeAddrChange(Node n)
+        
+        public override void nodeAddrChange(Node n)
         {
             //remove the node which addr is changed
             for (int i = 0;i<scan_max_addr;i++)
@@ -122,22 +119,22 @@ namespace SRB_CTR.SRB_Frame
             }
             //find the addr changed to
             int addr = n.Addr;
-            if (nodes[addr] != null)
+            if (Nodes[addr] != null)
             {//If there been a node on the node changed to, unregister it.
                 if (eNode_unregister != null)
                 {
-                    eNode_unregister.Invoke(nodes[addr]);
+                    eNode_unregister.Invoke(Nodes[addr]);
                 }
-                nodes[addr].Parent = null;
-                nodes[addr] = null;
+                Nodes[addr].Parent = null;
+                Nodes[addr] = null;
             }
             //add the node here
             n.Parent = this;
-            nodes[addr] = n;
+            Nodes[addr] = n;
             nodeDescriptionChange(n);
         }
 
-        internal void nodeDescriptionChange(Node n)
+        public override void nodeDescriptionChange(Node n)
         {
             if (eNode_change != null)
             {
@@ -145,14 +142,14 @@ namespace SRB_CTR.SRB_Frame
             }
         }
 
-        internal void nodeReplace(Node from, Node to)
+        public override void nodeReplace(Node from, Node to)
         {
             int addr = from.Addr;
-            if (nodes[addr] != from)
+            if (Nodes[addr] != from)
             {
                 throw new Exception("Old node is not in register.");
             }
-            nodes[addr] = to;
+            Nodes[addr] = to;
 
             from.Parent = null;            
             to.Parent = this;
@@ -162,10 +159,10 @@ namespace SRB_CTR.SRB_Frame
                 eNode_change.Invoke(to);
             }
         }
-        internal void nodeUnregister(Node n)
+        public override void nodeUnregister(Node n)
         {
             int a = n.Addr;
-            if (nodes[a] != n)
+            if (Nodes[a] != n)
             {
                 throw new Exception(
                     n.Describe()+@"
@@ -174,9 +171,9 @@ but we do not have the node in table");
             }
             if (eNode_unregister != null)
             {
-                eNode_unregister.Invoke(nodes[a]);
+                eNode_unregister.Invoke(Nodes[a]);
             }
-            nodes[a] = null;
+            Nodes[a] = null;
         }
 
         public bool scan_stop = true;
@@ -218,7 +215,7 @@ but we do not have the node in table");
                     switch (n.NodeType)
                     {
                         case "Du_Motor":
-                            nsBrain.Node_dMotor.Cn cn = new nsBrain.Node_dMotor.Cn(n);
+                            SRB.NodeType.Du_motor.Cn cn = new SRB.NodeType.Du_motor.Cn(n);
                           //  Nodes_form.addNode(cn);
                             break;
                         case "PS2_handle":
@@ -244,24 +241,6 @@ but we do not have the node in table");
             Scan_addr = -3;
         }
 
-        internal void ledAddrAll(Clu.LedAddrType adt)
-        {
-            Access ac;
-            byte[] b = new byte[2];
-            int i = 0;
-            b[i++] = 0x0;
-            switch (adt)
-            {
-                case Clu.LedAddrType.Close:
-                    b[i++] = 0xf5; break;
-                case Clu.LedAddrType.High:
-                    b[i++] = 0xf4; break;
-                case Clu.LedAddrType.Low:
-                    b[i++] = 0xf3; break;
-            }
-            ac = new Access(null, Access.PortEnum.Cgf, b);
-            singleAccess(ac);
-        }
 
         internal void runCalculation()
         {
@@ -278,20 +257,26 @@ but we do not have the node in table");
         #region Access
         object lock_access_queue = new object();
         Queue<Access> access_queue = new Queue<Access>();
-        internal void addAccess(Access ac)
+
+        internal void ledAddrAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void addAccess(Access ac)
         {
             lock (lock_access_queue)
             {
                 access_queue.Enqueue(ac);
             }
         }
-        public void singleAccess(Access ac)
+        public override void singleAccess(Access ac)
         {
             srb.doAccess(ac);
             record.add(ac);
             ac.onAccessDone();
         }
-        public void sendAccess()
+        public override void sendAccess()
         {
             Access[] acs;
             lock (lock_access_queue)

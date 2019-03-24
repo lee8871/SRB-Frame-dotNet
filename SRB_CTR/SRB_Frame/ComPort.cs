@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     class ComPort
     {

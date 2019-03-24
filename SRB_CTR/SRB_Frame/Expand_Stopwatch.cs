@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     static class Expand_Stopwatch
     {

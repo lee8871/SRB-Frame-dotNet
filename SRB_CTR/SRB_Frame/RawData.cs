@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     abstract class Raw_Data
     {

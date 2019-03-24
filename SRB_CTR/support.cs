@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace System
 {
-	public static class Support
+	internal static class Support
     {
         private static Color color_red = Color.FromArgb(unchecked((int)0xffbb433b));
         private static Color color_dank = Color.FromArgb(unchecked((int)0xff332f2f));
@@ -14,23 +14,23 @@ namespace System
         private static Color color_moon = Color.FromArgb(unchecked((int)0xffadb5c7));
 
 
-        public static Color Color_red { get => color_red;}
-        public static Color Color_dank { get => color_dank;}
-        public static Color Color_navy { get => color_navy; }
-        public static Color Color_blue { get => color_blue;}
-        public static Color Color_moon { get => color_moon;}
+        internal static Color Color_red { get => color_red;}
+        internal static Color Color_dank { get => color_dank;}
+        internal static Color Color_navy { get => color_navy; }
+        internal static Color Color_blue { get => color_blue;}
+        internal static Color Color_moon { get => color_moon;}
 
-        public static Random random = new Random();
+        internal static Random random = new Random();
 
 
       
 
-        public enum YNU
+        internal enum YNU
         {
             UnKnow,Yes,No
         }
 
-		static public UInt16 byteToUint16(byte low, byte high)
+		static internal UInt16 byteToUint16(byte low, byte high)
 		{
 			UInt16 rev = 0;
 			rev += high;
@@ -38,16 +38,16 @@ namespace System
 			rev += low;
 			return rev;
 		}
-		static public byte Uint16LowByte(UInt16 u16)
+		static internal byte Uint16LowByte(UInt16 u16)
 		{
 			return (byte)u16;
 		}
-		static public byte Uint16HighByte(UInt16 u16)
+		static internal byte Uint16HighByte(UInt16 u16)
 		{
 			return (byte)(u16>>8);
 		}
 
-        static public string ushorToString(ushort b)
+        static internal string ushorToString(ushort b)
         {
             string a = "";
             if (b < 0x10)
@@ -65,7 +65,7 @@ namespace System
             a += String.Format("{0:X}", b);
             return a;
         }
-        static public string getTime()
+        static internal string getTime()
         {
             string a ="[";
             a+=System.DateTime.Now.Hour;
@@ -85,9 +85,9 @@ namespace System
     /// 修      改：2015-03-20  
     /// 作      者：ls9512  
     /// </summary>  
-    public class ColorHSL
+    internal class ColorHSL
     {
-        public ColorHSL(int h, int s, int l)
+        internal ColorHSL(int h, int s, int l)
         {
             this._h = h;
             this._s = s;
@@ -101,7 +101,7 @@ namespace System
         /// <summary>  
         /// 色相  
         /// </summary>  
-        public int H
+        internal int H
         {
             get { return this._h; }
             set
@@ -115,7 +115,7 @@ namespace System
         /// <summary>  
         /// 饱和度(纯度)  
         /// </summary>  
-        public int S
+        internal int S
         {
             get { return this._s; }
             set
@@ -129,7 +129,7 @@ namespace System
         /// <summary>  
         /// 饱和度  
         /// </summary>  
-        public int L
+        internal int L
         {
             get { return this._l; }
             set
@@ -148,7 +148,7 @@ namespace System
     /// 修      改：2015-03-20  
     /// 作      者：ls9512  
     /// </summary>  
-    public class ColorHSV
+    internal class ColorHSV
     {
         /// <summary>  
         /// 构造方法  
@@ -156,7 +156,7 @@ namespace System
         /// <param name="h0"></param>  
         /// <param name="s"></param>  
         /// <param name="v"></param>  
-        public ColorHSV(int h, int s, int v)
+        internal ColorHSV(int h, int s, int v)
         {
             this._h = h;
             this._s = s;
@@ -170,7 +170,7 @@ namespace System
         /// <summary>  
         /// 色相  
         /// </summary>  
-        public int H
+        internal int H
         {
             get { return this._h; }
             set
@@ -184,7 +184,7 @@ namespace System
         /// <summary>  
         /// 饱和度(纯度)  
         /// </summary>  
-        public int S
+        internal int S
         {
             get { return this._s; }
             set
@@ -198,7 +198,7 @@ namespace System
         /// <summary>  
         /// 明度  
         /// </summary>  
-        public int V
+        internal int V
         {
             get { return this._v; }
             set
@@ -218,7 +218,7 @@ namespace System
     /// 修      改：2015-03-20  
     /// 作      者：ls9512  
     /// </summary>  
-    public class ColorRGB
+    internal class ColorRGB
     {
         /// <summary>  
         /// 构造方法  
@@ -226,7 +226,7 @@ namespace System
         /// <param name="r"></param>  
         /// <param name="g"></param>  
         /// <param name="b"></param>  
-        public ColorRGB(int r, int g, int b)
+        internal ColorRGB(int r, int g, int b)
         {
             this._r = r;
             this._g = g;
@@ -240,7 +240,7 @@ namespace System
         /// <summary>  
         /// 红色  
         /// </summary>  
-        public int R
+        internal int R
         {
             get { return this._r; }
             set
@@ -254,7 +254,7 @@ namespace System
         /// <summary>  
         /// 绿色  
         /// </summary>  
-        public int G
+        internal int G
         {
             get { return this._g; }
             set
@@ -268,7 +268,7 @@ namespace System
         /// <summary>  
         /// 蓝色  
         /// </summary>  
-        public int B
+        internal int B
         {
             get { return this._b; }
             set
@@ -283,20 +283,20 @@ namespace System
         /// 获取实际颜色  
         /// </summary>  
         /// <returns></returns>  
-        public Color GetColor()
+        internal Color GetColor()
         {
             return Color.FromArgb(this._r, this._g, this._b);
         }
     }
     #endregion  
-    public static class ColorHelper
+    internal static class ColorHelper
     {
         /// <summary>  
         /// RGB转换HSV  
         /// </summary>  
         /// <param name="rgb"></param>  
         /// <returns></returns>  
-        public static ColorHSV RgbToHsv(ColorRGB rgb)
+        internal static ColorHSV RgbToHsv(ColorRGB rgb)
         {
             float min, max, tmp, H, S, V;
             float R = rgb.R * 1.0f / 255, G = rgb.G * 1.0f / 255, B = rgb.B * 1.0f / 255;
@@ -345,7 +345,7 @@ namespace System
         /// </summary>  
         /// <param name="hsv"></param>  
         /// <returns></returns>  
-        public static ColorRGB HsvToRgb(ColorHSV hsv)
+        internal static ColorRGB HsvToRgb(ColorHSV hsv)
         {
             if (hsv.H == 360) hsv.H = 359; // 360为全黑，原因不明  
             float R = 0f, G = 0f, B = 0f;
@@ -385,7 +385,7 @@ namespace System
         /// </summary>  
         /// <param name="rgb"></param>  
         /// <returns></returns>  
-        public static ColorHSL RgbToHsl(ColorRGB rgb)
+        internal static ColorHSL RgbToHsl(ColorRGB rgb)
         {
             float min, max, tmp, H, S, L;
             float R = rgb.R * 1.0f / 255, G = rgb.G * 1.0f / 255, B = rgb.B * 1.0f / 255;
@@ -439,7 +439,7 @@ namespace System
         /// </summary>  
         /// <param name="hsl"></param>  
         /// <returns></returns>  
-        public static ColorRGB HslToRgb(ColorHSL hsl)
+        internal static ColorRGB HslToRgb(ColorHSL hsl)
         {
             float R = 0f, G = 0f, B = 0f;
             float S = hsl.S * 1.0f / 255, L = hsl.L * 1.0f / 255;

@@ -6,8 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SRB.Frame;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     internal partial class AccessDisplayer : Form
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SRB_CTR.SRB_Frame;
+using SRB_CTR;
 namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test:IBrain
     {
-        Node_dMotor.Cn[] motors = new Node_dMotor.Cn[4];
+        SRB.NodeType.Du_motor.Cn[] motors = new SRB.NodeType.Du_motor.Cn[4];
         Random rnd = new Random();
         public Brain_Test(SrbFrame f):base(f)
         {
@@ -21,11 +21,11 @@ namespace SRB_CTR.nsBrain
             {
                 if (motors[i] == null)
                 {
-                    motors[i] = frame.Nodes[i + 2] as Node_dMotor.Cn;
+                    motors[i] = frame.Nodes[i + 2] as SRB.NodeType.Du_motor.Cn;
                 }
                 if (motors[i] == null)
                 {
-                    motors[i] = new Node_dMotor.Cn((byte)(i + 2), frame);
+                    motors[i] = new SRB.NodeType.Du_motor.Cn((byte)(i + 2), frame);
                 }
             }
             base.onRun();

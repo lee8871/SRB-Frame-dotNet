@@ -10,8 +10,9 @@ using LibUsbDotNet.LibUsb;
 using LibUsbDotNet.Main;
 using LibUsbDotNet.LudnMonoLibUsb;
 using EC = LibUsbDotNet.Main.ErrorCode;
+using SRB.Frame;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     class SRB_Master_USB : ISRB_Driver
     {

@@ -1,4 +1,4 @@
-﻿namespace SRB_CTR.SRB_Frame
+﻿namespace SRB_CTR
 {
     partial class SRB_Master_USB_Uc
     {

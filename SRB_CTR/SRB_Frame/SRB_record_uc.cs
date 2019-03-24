@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     internal partial class SRB_record_uc : UserControl
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-using SRB_CTR.SRB_Frame;
+using SRB_CTR;
 namespace SRB_CTR.nsBrain.Node_PS2_handle
 {
     partial class Ctrl : UserControl

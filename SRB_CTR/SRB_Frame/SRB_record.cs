@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.IO;
+using SRB.Frame;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     class SRB_Record
     {

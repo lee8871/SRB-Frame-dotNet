@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     abstract class IBrain
     {

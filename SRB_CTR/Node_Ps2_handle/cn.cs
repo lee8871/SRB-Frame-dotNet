@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using SRB_CTR.SRB_Frame;
+using SRB_CTR;
+using SRB.Frame;
 namespace SRB_CTR.nsBrain.Node_PS2_handle
 {
     class Cn : Node
@@ -63,20 +64,23 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
             cfg_clu = new Cluster_handle_cfg.Clu(11, this);
             clusters[cfg_clu.Clustr_ID] = cfg_clu;
 
-            Mapping0_clu = new Cluster_mapping.Clu(3, this);
+            Mapping0_clu = new Cluster_mapping.Clu(3, this,"Mapping0");
             clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;
 
-
-
+            Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();
+        }
+
+        private void updataMapping(object sender, EventArgs e)
+        {
             bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
                 new byte[] {6,3,4,5,6,7,8,9,0,1,2}                    ,
                 new byte[] {4,3,6,7,8,9,0,1,2}                   ,
                 new byte[] {7,3,3,4,5,6,7,8,9,0,1,2}
             });
-            //led_phase_clu.read();
         }
+
         public Cn(byte addr, SrbFrame f = null)
             : base(addr, f)
         {
@@ -136,7 +140,7 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
         //        { }
         //    }
         //}
-        internal override System.Windows.Forms.Control getClusterControl()
+        public override System.Windows.Forms.Control getClusterControl()
         {
             return new Ctrl(this);
         }

@@ -6,8 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SRB.Frame;
 
-namespace SRB_CTR.SRB_Frame
+namespace SRB_CTR
 {
     public partial class FrameForm : Form
     {
@@ -211,19 +212,19 @@ namespace SRB_CTR.SRB_Frame
             {
                 if (addr_show_sno == 6000)
                 {
-                    frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+                    frame.ledAddrAll(/*SRB.Frame.Cluster_base.Clu.LedAddrType.Close*/);
                     stopAddrShowBTN_Click(this, null);
                 }
                 switch (addr_show_sno % 3)
                 {
                     case 0:
-                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.High);
+                        frame.ledAddrAll(/*SRB.Frame.Cluster_base.Clu.LedAddrType.High*/);
                         break;
                     case 1:
-                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Low);
+                        frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Low*/);
                         break;
                     case 2:
-                        frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+                        frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Close*/);
                         break;
                 }
                 addr_show_sno++;
@@ -266,7 +267,7 @@ namespace SRB_CTR.SRB_Frame
             is_addr_show_on = false;
             this.stopAddrShowBTN.Visible = false;
             this.beginAddrShowBTN.Visible = true;
-            frame.ledAddrAll(Cluster_base.Clu.LedAddrType.Close);
+            frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Close*/);
         }
 
         private void beginAddrShowBTN_Click(object sender, EventArgs e)
