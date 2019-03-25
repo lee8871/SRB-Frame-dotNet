@@ -1,6 +1,6 @@
-﻿namespace SRB.NodeType.Du_motor.Cluster_du_motor_adj
+﻿namespace SRB.NodeType.Du_motor.Cluster
 {
-    partial class Ctrl
+    partial class AdjustCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label1;
-            this.writeBTN = new System.Windows.Forms.Button();
-            this.readBTN = new System.Windows.Forms.Button();
             this.AdjCB = new System.Windows.Forms.ComboBox();
             this.motorATogCBOX = new System.Windows.Forms.CheckBox();
             this.motorBTogCBOX = new System.Windows.Forms.CheckBox();
@@ -45,28 +43,6 @@
             label1.Size = new System.Drawing.Size(119, 12);
             label1.TabIndex = 0;
             label1.Text = "Set Max speed Value";
-            // 
-            // writeBTN
-            // 
-            this.writeBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.writeBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.writeBTN.Location = new System.Drawing.Point(257, 0);
-            this.writeBTN.Name = "writeBTN";
-            this.writeBTN.Size = new System.Drawing.Size(40, 40);
-            this.writeBTN.TabIndex = 4;
-            this.writeBTN.UseVisualStyleBackColor = true;
-            this.writeBTN.Click += new System.EventHandler(this.write);
-            // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(211, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 4;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.read);
             // 
             // AdjCB
             // 
@@ -106,7 +82,7 @@
             this.motorBTogCBOX.Text = "Tog Motor B";
             this.motorBTogCBOX.UseVisualStyleBackColor = true;
             // 
-            // Ctrl
+            // AdjustCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,12 +91,10 @@
             this.Controls.Add(this.motorBTogCBOX);
             this.Controls.Add(this.motorATogCBOX);
             this.Controls.Add(this.AdjCB);
-            this.Controls.Add(this.readBTN);
-            this.Controls.Add(this.writeBTN);
             this.Controls.Add(label1);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
+            this.Name = "AdjustCC";
             this.Size = new System.Drawing.Size(300, 61);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -128,8 +102,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button writeBTN;
-        private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.ComboBox AdjCB;
         private System.Windows.Forms.CheckBox motorATogCBOX;
         private System.Windows.Forms.CheckBox motorBTogCBOX;

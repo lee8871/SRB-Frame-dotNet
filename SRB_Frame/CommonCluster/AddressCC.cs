@@ -7,19 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SRB.Frame.Cluster_base
+namespace SRB.Frame.Cluster
 {
-    partial class Ctrl : UserControl
+    partial class AddressCC : IClusterControl
     {
-        Clu cluster;
-        public Ctrl(Clu c)
+        AddressCluster cluster;
+        public AddressCC(AddressCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
-            c.eDataChanged += new EventHandler(c_dataChanged);
-            c_dataChanged(this, null);
-            this.AddrNUM.Value = cluster.addr;
-            this.NodeNameTB.Text = cluster.name;
+            cluster.read();
         }
         Color[] num_to_color = {
             Color.White,
@@ -34,24 +31,20 @@ namespace SRB.Frame.Cluster_base
             Color.FromArgb(180,140,255),
         };
 
-        void  c_dataChanged(object sender, EventArgs e)
+
+
+        protected override void DataUpdata()
         {
-            if (this.InvokeRequired)
-            {
-                EventHandler d = new EventHandler(c_dataChanged);
-                this.Invoke(d, new object[] { sender, e });
-            }
-            else
-            {
-                this.AddrL.Text = cluster.addr.ToString();
-                this.NodeNameL.Text = cluster.name;
-                int addr_color = ((int)cluster.addr).enterRound(0, 99);
-                this.highBTN.BackColor = num_to_color[cluster.addr / 10];
-                this.lowBTN.BackColor = num_to_color[cluster.addr % 10];
-            }
+            this.AddrNUM.Value = cluster.addr;
+            this.AddrL.Text = cluster.addr.ToString();
+            this.NodeNameTB.Text = cluster.name;
+            this.NodeNameL.Text = cluster.name;
+            int addr_color = ((int)cluster.addr).enterRound(0, 99);
+            this.highBTN.BackColor = num_to_color[cluster.addr / 10];
+            this.lowBTN.BackColor = num_to_color[cluster.addr % 10];
         }
 
-        private void writeBTN_Click(object sender, EventArgs e)
+        protected override void WriteData()
         {
             cluster.writeBankinit();
             if (NodeNameTB.Text!="")
@@ -84,24 +77,20 @@ namespace SRB.Frame.Cluster_base
             }
         }
 
-        private void readBTN_Click(object sender, EventArgs e)
-        {
-            cluster.read();
-        }
 
         private void highBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(Clu.LedAddrType.High);
+            this.cluster.ledAddr(AddressCluster.LedAddrType.High);
         }
 
         private void lowBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(Clu.LedAddrType.Low);
+            this.cluster.ledAddr(AddressCluster.LedAddrType.Low);
         }
 
         private void closeBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(Clu.LedAddrType.Close);
+            this.cluster.ledAddr(AddressCluster.LedAddrType.Close);
         }
     }
 }

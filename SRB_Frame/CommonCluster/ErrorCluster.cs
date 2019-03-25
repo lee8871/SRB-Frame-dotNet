@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-namespace SRB.Frame.Cluster_error
+namespace SRB.Frame.Cluster
 {
-    public  class Clu:ICluster
+    public  class ErrorCluster:ICluster
     {
         public string error_text { get => getBankString(4,24); } 
 
@@ -13,7 +13,7 @@ namespace SRB.Frame.Cluster_error
 
         public byte[] parameter { get => getParameter(); }
 
-        public Clu(byte ID, Node n)
+        public ErrorCluster(byte ID, Node n)
             : base(ID, n,28) { }
         public override void write()
         {
@@ -45,7 +45,7 @@ namespace SRB.Frame.Cluster_error
         }
         public override System.Windows.Forms.UserControl createControl()
         {
-            return new Ctrl(this);
+            return new ErrorCC(this);
         }
         public override string ToString()
         {

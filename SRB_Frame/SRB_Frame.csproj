@@ -47,33 +47,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
-    <Compile Include="Ctrl_base.cs">
+    <Compile Include="IClusterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl_base.Designer.cs">
-      <DependentUpon>Ctrl_base.cs</DependentUpon>
+    <Compile Include="IClusterControl.Designer.cs">
+      <DependentUpon>IClusterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ICluster.cs" />
-    <Compile Include="Cluster_base\Clu.cs" />
-    <Compile Include="Cluster_base\Ctrl.cs">
+    <Compile Include="CommonCluster\AddressCluster.cs" />
+    <Compile Include="CommonCluster\AddressCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster_base\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="CommonCluster\AddressCC.Designer.cs">
+      <DependentUpon>AddressCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster_error\Clu.cs" />
-    <Compile Include="Cluster_error\Ctrl.cs">
+    <Compile Include="CommonCluster\ErrorCluster.cs" />
+    <Compile Include="CommonCluster\ErrorCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster_error\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="CommonCluster\ErrorCC.Designer.cs">
+      <DependentUpon>ErrorCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster_info\Clu.cs" />
-    <Compile Include="Cluster_info\Ctrl.cs">
+    <Compile Include="CommonCluster\InformationCluster.cs" />
+    <Compile Include="CommonCluster\InformationCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster_info\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="CommonCluster\InformationCC.Designer.cs">
+      <DependentUpon>InformationCC.cs</DependentUpon>
     </Compile>
     <Compile Include="ISRB_Master.cs" />
     <Compile Include="Node.cs" />
@@ -105,17 +105,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cluster_base\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="CommonCluster\AddressCC.resx">
+      <DependentUpon>AddressCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cluster_error\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="CommonCluster\ErrorCC.resx">
+      <DependentUpon>ErrorCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cluster_info\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="CommonCluster\InformationCC.resx">
+      <DependentUpon>InformationCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl_base.resx">
-      <DependentUpon>Ctrl_base.cs</DependentUpon>
+    <EmbeddedResource Include="IClusterControl.resx">
+      <DependentUpon>IClusterControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Node_form.resx">
       <DependentUpon>Node_form.cs</DependentUpon>
@@ -139,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1175763.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11757631.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11756821.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

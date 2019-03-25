@@ -1,6 +1,6 @@
-﻿namespace SRB.NodeType.Du_motor.Cluster_Du_Motor_v02
+﻿namespace SRB.NodeType.Du_motor.Cluster
 {
-    partial class Ctrl
+    partial class ConfigCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -30,8 +30,6 @@
         {
             System.Windows.Forms.Label label1;
             this.motor_a_minNUM = new System.Windows.Forms.NumericUpDown();
-            this.writeBTN = new System.Windows.Forms.Button();
-            this.readBTN = new System.Windows.Forms.Button();
             this.freqL = new System.Windows.Forms.Label();
             this.FreqCB = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -80,28 +78,6 @@
             0,
             0});
             this.motor_a_minNUM.ValueChanged += new System.EventHandler(this.motor_X_minNUM_ValueChanged);
-            // 
-            // writeBTN
-            // 
-            this.writeBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.writeBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.writeBTN.Location = new System.Drawing.Point(257, 0);
-            this.writeBTN.Name = "writeBTN";
-            this.writeBTN.Size = new System.Drawing.Size(40, 40);
-            this.writeBTN.TabIndex = 4;
-            this.writeBTN.UseVisualStyleBackColor = true;
-            this.writeBTN.Click += new System.EventHandler(this.write);
-            // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(211, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 4;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.read);
             // 
             // freqL
             // 
@@ -239,7 +215,7 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Set lose delay  x10ms";
             // 
-            // Ctrl
+            // ConfigCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -249,8 +225,6 @@
             this.Controls.Add(this.behaviorL);
             this.Controls.Add(this.behaviorCB);
             this.Controls.Add(this.FreqCB);
-            this.Controls.Add(this.readBTN);
-            this.Controls.Add(this.writeBTN);
             this.Controls.Add(this.SetDelayNUM);
             this.Controls.Add(this.motor_b_minNUM);
             this.Controls.Add(this.motor_a_minNUM);
@@ -261,7 +235,7 @@
             this.Controls.Add(label1);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 0);
-            this.Name = "Ctrl";
+            this.Name = "ConfigCC";
             this.Size = new System.Drawing.Size(300, 215);
             ((System.ComponentModel.ISupportInitialize)(this.motor_a_minNUM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.motor_b_minNUM)).EndInit();
@@ -274,8 +248,6 @@
         #endregion
 
         private System.Windows.Forms.NumericUpDown motor_a_minNUM;
-        private System.Windows.Forms.Button writeBTN;
-        private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.Label freqL;
         private System.Windows.Forms.ComboBox FreqCB;
         private System.Windows.Forms.Label label4;

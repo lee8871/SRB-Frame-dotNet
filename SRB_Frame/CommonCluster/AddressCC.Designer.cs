@@ -1,6 +1,6 @@
-﻿namespace SRB.Frame.Cluster_base
+﻿namespace SRB.Frame.Cluster
 {
-    partial class Ctrl
+    partial class AddressCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -33,8 +33,6 @@
             this.NodeNameL = new System.Windows.Forms.Label();
             this.NodeNameTB = new System.Windows.Forms.TextBox();
             this.AddrL = new System.Windows.Forms.Label();
-            this.readBTN = new System.Windows.Forms.Button();
-            this.writeBTN = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.AddrNUM = new System.Windows.Forms.NumericUpDown();
             this.highBTN = new System.Windows.Forms.Button();
@@ -89,28 +87,6 @@
             this.AddrL.Size = new System.Drawing.Size(17, 12);
             this.AddrL.TabIndex = 0;
             this.AddrL.Text = "00";
-            // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(211, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 6;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.readBTN_Click);
-            // 
-            // writeBTN
-            // 
-            this.writeBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.writeBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.writeBTN.Location = new System.Drawing.Point(257, 0);
-            this.writeBTN.Name = "writeBTN";
-            this.writeBTN.Size = new System.Drawing.Size(40, 40);
-            this.writeBTN.TabIndex = 5;
-            this.writeBTN.UseVisualStyleBackColor = true;
-            this.writeBTN.Click += new System.EventHandler(this.writeBTN_Click);
             // 
             // openFileDialog1
             // 
@@ -181,8 +157,6 @@
             this.Controls.Add(this.lowBTN);
             this.Controls.Add(this.highBTN);
             this.Controls.Add(this.AddrNUM);
-            this.Controls.Add(this.readBTN);
-            this.Controls.Add(this.writeBTN);
             this.Controls.Add(this.NodeNameL);
             this.Controls.Add(this.AddrL);
             this.Controls.Add(this.NodeNameTB);
@@ -206,8 +180,6 @@
         private System.Windows.Forms.Label NodeNameL;
         private System.Windows.Forms.TextBox NodeNameTB;
         private System.Windows.Forms.Label AddrL;
-        private System.Windows.Forms.Button readBTN;
-        private System.Windows.Forms.Button writeBTN;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.NumericUpDown AddrNUM;
         private System.Windows.Forms.Button highBTN;

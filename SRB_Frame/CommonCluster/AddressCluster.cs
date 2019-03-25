@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-namespace SRB.Frame.Cluster_base
+namespace SRB.Frame.Cluster
 {
-    public class Clu : ICluster
+    public class AddressCluster : ICluster
     {
         public byte error_behave;
 
@@ -14,21 +14,6 @@ namespace SRB.Frame.Cluster_base
         public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
         public byte addr_new { get => bank_write[0]; set => bank_write[0] = value; }
 
-        //public override void write()
-        //{
-        //    Access ac;
-        //    byte[] b = new byte[20];
-        //    int i = 0;
-        //    b[i++] = clustr_ID;
-        //    b[i++] = new_addr;
-        //    foreach (char c in name.ToCharArray())
-        //    {
-        //        b[i++] = (byte)c;
-        //    }
-        //    b[19] = 1;
-        //    ac = new Access(this.parent_node, Access.PortEnum.Cgf,b);
-        //    parent_node.singleAccess(ac);
-        //}
         public override void writeRecv(Access ac)
         {
             if (ac.Recv_error == false)
@@ -47,37 +32,7 @@ namespace SRB.Frame.Cluster_base
                 }
             }
         }
-        //public override void readRecv(Access ac)
-        //{
-        //    if(ac.Recv_data_len==0)
-        //    {
-        //        base.readRecv(ac);
-        //        return;
-
-        //    }
-        //    char[] cs = new char[17];
-        //    int counter=0;
-        //    int read_addr = ac.Recv_data[counter++];
-        //    if(addr != read_addr)
-        //    {
-        //        throw new Exception(string.Format("read addr for Node{0} is {1}!", addr, read_addr));
-        //    }
-        //    int i;
-        //    for(i=0;i<16;i++)
-        //    {
-        //        cs[i] = (char)ac.Recv_data[counter++];
-        //        if(cs[i] == 0)
-        //        {
-        //            break;
-        //        }
-        //    }
-        //    cs[16] = '\0';
-        //    this.name = new string(cs,0,i);
-        //    this.error_behave = ac.Recv_data[18];
-        //    base.readRecv(ac);
-
-        //}
-        public Clu(byte ID,Node n,byte addr)
+        public AddressCluster(byte ID,Node n,byte addr)
             : base(ID,n,19)
         {
             bank[0]  = addr;
@@ -85,11 +40,11 @@ namespace SRB.Frame.Cluster_base
 
         public override UserControl createControl()
         {
-            return new Ctrl(this);
+            return new AddressCC(this);
         }
         public override string ToString()
         {
-            return string.Format("Base Cluster", Clustr_ID.ToHexSt());
+            return string.Format("Address Cluster", Clustr_ID.ToHexSt());
         }
 
         public bool isNewAddrAvaliable(byte addr)

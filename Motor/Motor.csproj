@@ -45,19 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cluster_du_motor_adj\Clu.cs" />
-    <Compile Include="Cluster_du_motor_adj\Ctrl.cs">
+    <Compile Include="Cluster\AdjustCluster.cs" />
+    <Compile Include="Cluster\AdjustCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster_du_motor_adj\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="Cluster\AdjustCC.Designer.cs">
+      <DependentUpon>AdjustCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster_du_motor_v02\Clu.cs" />
-    <Compile Include="Cluster_du_motor_v02\Ctrl.cs">
+    <Compile Include="Cluster\ConfigCluster.cs" />
+    <Compile Include="Cluster\ConfigCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster_du_motor_v02\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="Cluster\ConfigCC.Designer.cs">
+      <DependentUpon>ConfigCC.cs</DependentUpon>
     </Compile>
     <Compile Include="cn.cs" />
     <Compile Include="Ctrl.cs">
@@ -69,11 +69,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cluster_du_motor_adj\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="Cluster\AdjustCC.resx">
+      <DependentUpon>AdjustCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cluster_du_motor_v02\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="Cluster\ConfigCC.resx">
+      <DependentUpon>ConfigCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>

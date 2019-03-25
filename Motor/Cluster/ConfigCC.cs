@@ -6,17 +6,17 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SRB.Frame;
 
-namespace SRB.NodeType.Du_motor.Cluster_Du_Motor_v02
+namespace SRB.NodeType.Du_motor.Cluster
 {
-    partial class Ctrl : UserControl
+    partial class ConfigCC : IClusterControl
     {
-        Clu cluster;
-        public Ctrl(Clu c)
+        ConfigCluster cluster;
+        public ConfigCC(ConfigCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
-            c.eDataChanged += new EventHandler(c_dataChanged);
             cluster.read();
         }
         public string periodToFreq(int period)
@@ -45,32 +45,25 @@ namespace SRB.NodeType.Du_motor.Cluster_Du_Motor_v02
             }
         }
 
-        void c_dataChanged(object sender, EventArgs e)
+
+        protected override void DataUpdata()
         {
-            if (this.InvokeRequired)
-            {
-                EventHandler d = new EventHandler(c_dataChanged);
-                this.Invoke(d, new object[] { sender, e });
-            }
-            else
-            {
-                freqL.Text = string.Format("Freq. is {0} <- {1}.\n The max speed is {2}.",
-                    periodToFreq(cluster.period), FreqCB.Text, cluster.period);
+            freqL.Text = string.Format("Freq. is {0} <- {1}.\n The max speed is {2}.",
+            periodToFreq(cluster.period), FreqCB.Text, cluster.period);
 
-                motor_a_minNUM.Value = cluster.min_pwm_a / 16;
-                motor_b_minNUM.Value = cluster.min_pwm_b / 16;
-                SetDelayNUM.Value = cluster.lose_control_ms;
-                motorMinL.Text = string.Format("Port A {0} <- {1}, PortB  {2} <- {3}",
-                    cluster.min_pwm_a / 16, motor_a_minNUM.Value,
-                    cluster.min_pwm_b / 16, motor_b_minNUM.Value);
+            motor_a_minNUM.Value = cluster.min_pwm_a / 16;
+            motor_b_minNUM.Value = cluster.min_pwm_b / 16;
+            SetDelayNUM.Value = cluster.lose_control_ms;
+            motorMinL.Text = string.Format("Port A {0} <- {1}, PortB  {2} <- {3}",
+            cluster.min_pwm_a / 16, motor_a_minNUM.Value,
+            cluster.min_pwm_b / 16, motor_b_minNUM.Value);
 
-                setLoseBehaviorBC();
-                behaviorL.Text = string.Format("[{0}] <- [{1}]",
-                    last_behavior, behaviorCB.Text);
-            }
+            setLoseBehaviorBC();
+            behaviorL.Text = string.Format("[{0}] <- [{1}]",
+            last_behavior, behaviorCB.Text);
         }
 
-        private void write(object sender, EventArgs e)
+        protected override void WriteData()
         {
             cluster.writeBankinit();
             cluster.period = (ushort)freqToPeriod(FreqCB.Text);

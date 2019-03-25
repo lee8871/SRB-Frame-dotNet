@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 
-namespace SRB.Frame.Cluster_info
+namespace SRB.Frame.Cluster
 {
-    public class Clu:ICluster
+    public class InformationCluster:ICluster
     {
         public string type  { get => getBankString(6,17);   }
         public int major_version { get => getBankByte(0); }
@@ -15,7 +15,7 @@ namespace SRB.Frame.Cluster_info
         public int SRB_minor_version { get => getBankByte(3); }
         public int time_stamp { get => getBankUshort(4); }
 
-        public Clu(byte ID, Node n)
+        public InformationCluster(byte ID, Node n)
             : base(ID, n,23)
         {
             char[] ca = "Unknow".ToCharArray();
@@ -40,7 +40,7 @@ namespace SRB.Frame.Cluster_info
         }
         public override System.Windows.Forms.UserControl createControl()
         {
-            return new Ctrl(this);
+            return new InformationCC(this);
         }
         public override string ToString()
         {

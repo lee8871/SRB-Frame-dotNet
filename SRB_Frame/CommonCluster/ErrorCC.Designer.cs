@@ -1,6 +1,6 @@
-﻿namespace SRB.Frame.Cluster_error
+﻿namespace SRB.Frame.Cluster
 {
-    partial class Ctrl
+    partial class ErrorCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,21 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.readBTN = new System.Windows.Forms.Button();
             this.pageLineL = new System.Windows.Forms.Label();
             this.errorTextL = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(257, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 4;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.read);
             // 
             // pageLineL
             // 
@@ -62,28 +50,22 @@
             this.errorTextL.TabIndex = 3;
             this.errorTextL.Text = "Error ";
             // 
-            // Ctrl
+            // ErrorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.readBTN);
             this.Controls.Add(this.errorTextL);
             this.Controls.Add(this.pageLineL);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 43);
-            this.Load += new System.EventHandler(this.Ctrl_Load);
+            this.Enable_write = false;
+            this.Name = "ErrorControl";
+            this.Controls.SetChildIndex(this.pageLineL, 0);
+            this.Controls.SetChildIndex(this.errorTextL, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.Label pageLineL;
         private System.Windows.Forms.Label errorTextL;
     }

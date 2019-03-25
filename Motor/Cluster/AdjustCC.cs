@@ -6,18 +6,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SRB.Frame;
 
-namespace SRB.NodeType.Du_motor.Cluster_du_motor_adj
+namespace SRB.NodeType.Du_motor.Cluster
 {
-    partial class Ctrl : UserControl
+    partial class AdjustCC : IClusterControl
     {
         private const string No_adjust = "NoAdjust";
-        Clu cluster;
-        public Ctrl(Clu c)
+        AdjustCluster cluster;
+        public AdjustCC(AdjustCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
-            c.eDataChanged += new EventHandler(c_dataChanged);
             cluster.read();
         }
         public string adjToName(int adj)
@@ -51,33 +51,20 @@ namespace SRB.NodeType.Du_motor.Cluster_du_motor_adj
             }
         }
 
-        void c_dataChanged(object sender, EventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                EventHandler d = new EventHandler(c_dataChanged);
-                this.Invoke(d, new object[] { sender, e });
-            }
-            else
-            {
-                this.AdjCB.Text = adjToName(cluster.adj);
-                motorATogCBOX.CheckState = cluster.motor_a_tog ? CheckState.Checked : CheckState.Unchecked;
-                motorBTogCBOX.CheckState = cluster.motor_b_tog ? CheckState.Checked : CheckState.Unchecked;
-            }
-        }
 
-        private void write(object sender, EventArgs e)
+        protected override void DataUpdata()
         {
+            this.AdjCB.Text = adjToName(cluster.adj);
+            motorATogCBOX.CheckState = cluster.motor_a_tog ? CheckState.Checked : CheckState.Unchecked;
+            motorBTogCBOX.CheckState = cluster.motor_b_tog ? CheckState.Checked : CheckState.Unchecked;
+        }
+        protected override void WriteData()
+        { 
             cluster.writeBankinit();
             cluster.adj = (byte)nameToAdj(AdjCB.Text);
             cluster.motor_a_tog = motorATogCBOX.Checked;
             cluster.motor_b_tog = motorBTogCBOX.Checked;
             cluster.write();
         }
-        private void read(object sender, EventArgs e)
-        {
-            cluster.read();
-        }
-
     }
 }

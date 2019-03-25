@@ -34,9 +34,9 @@ namespace SRB.Frame
         }
         protected ICluster[] clusters = new ICluster[128];
 
-        protected Cluster_base.Clu baseClu;
-        protected Cluster_info.Clu infoClu;
-        protected Cluster_error.Clu errorClu;
+        protected Cluster.AddressCluster baseClu;
+        protected Cluster.InformationCluster infoClu;
+        protected Cluster.ErrorCluster errorClu;
 
         public EventHandler eAddr_change;
         public EventHandler eDescription_change;
@@ -74,9 +74,9 @@ namespace SRB.Frame
         }
         public Node(byte addr, ISRB_Master frm = null)
         {
-            baseClu = new Cluster_base.Clu(0, this, addr);
-            infoClu = new Cluster_info.Clu(1, this);
-            errorClu = new Cluster_error.Clu(2, this);
+            baseClu = new Cluster.AddressCluster(0, this, addr);
+            infoClu = new Cluster.InformationCluster(1, this);
+            errorClu = new Cluster.ErrorCluster(2, this);
             register(frm);
             clusters[baseClu.Clustr_ID] = baseClu;
             clusters[infoClu.Clustr_ID] = infoClu;
@@ -85,7 +85,7 @@ namespace SRB.Frame
             infoClu.read();
             frm.nodeDescriptionChange(this);
         }
-        public void ledAddr(Cluster_base.Clu.LedAddrType adt)
+        public void ledAddr(Cluster.AddressCluster.LedAddrType adt)
         {
             baseClu.ledAddr(adt);
         }

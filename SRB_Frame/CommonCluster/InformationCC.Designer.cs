@@ -1,6 +1,6 @@
-﻿namespace SRB.Frame.Cluster_info
+﻿namespace SRB.Frame.Cluster
 {
-    partial class Ctrl
+    partial class InformationCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.readBTN = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformationCC));
             this.versionL = new System.Windows.Forms.Label();
             this.typeL = new System.Windows.Forms.Label();
             this.factorySettingBTN = new System.Windows.Forms.Button();
@@ -36,90 +36,59 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(257, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 4;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.read);
-            // 
             // versionL
             // 
-            this.versionL.AutoSize = true;
-            this.versionL.Location = new System.Drawing.Point(3, 19);
+            resources.ApplyResources(this.versionL, "versionL");
             this.versionL.Name = "versionL";
-            this.versionL.Size = new System.Drawing.Size(53, 12);
-            this.versionL.TabIndex = 3;
-            this.versionL.Text = "Version:";
             // 
             // typeL
             // 
-            this.typeL.AutoSize = true;
-            this.typeL.Location = new System.Drawing.Point(3, 1);
+            resources.ApplyResources(this.typeL, "typeL");
             this.typeL.Name = "typeL";
-            this.typeL.Size = new System.Drawing.Size(41, 12);
-            this.typeL.TabIndex = 3;
-            this.typeL.Text = "Type: ";
             // 
             // factorySettingBTN
             // 
             this.factorySettingBTN.BackColor = System.Drawing.Color.Crimson;
-            this.factorySettingBTN.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            resources.ApplyResources(this.factorySettingBTN, "factorySettingBTN");
             this.factorySettingBTN.ForeColor = System.Drawing.Color.Crimson;
-            this.factorySettingBTN.Location = new System.Drawing.Point(193, 34);
             this.factorySettingBTN.Name = "factorySettingBTN";
-            this.factorySettingBTN.Size = new System.Drawing.Size(23, 23);
-            this.factorySettingBTN.TabIndex = 5;
             this.factorySettingBTN.UseVisualStyleBackColor = false;
             this.factorySettingBTN.Click += new System.EventHandler(this.factorySettingBTN_Click);
             // 
             // ResetNodeBTN
             // 
-            this.ResetNodeBTN.Location = new System.Drawing.Point(5, 34);
+            resources.ApplyResources(this.ResetNodeBTN, "ResetNodeBTN");
             this.ResetNodeBTN.Name = "ResetNodeBTN";
-            this.ResetNodeBTN.Size = new System.Drawing.Size(75, 23);
-            this.ResetNodeBTN.TabIndex = 5;
-            this.ResetNodeBTN.Text = "Reset";
             this.ResetNodeBTN.UseVisualStyleBackColor = true;
             this.ResetNodeBTN.Click += new System.EventHandler(this.ResetNodeBTN_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 39);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 12);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Factory Setting:";
             // 
-            // Ctrl
+            // InformationControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ResetNodeBTN);
             this.Controls.Add(this.factorySettingBTN);
-            this.Controls.Add(this.readBTN);
             this.Controls.Add(this.versionL);
             this.Controls.Add(this.typeL);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 60);
+            this.Enable_write = false;
+            this.Name = "InformationControl";
+            this.Controls.SetChildIndex(this.typeL, 0);
+            this.Controls.SetChildIndex(this.versionL, 0);
+            this.Controls.SetChildIndex(this.factorySettingBTN, 0);
+            this.Controls.SetChildIndex(this.ResetNodeBTN, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.Label versionL;
         private System.Windows.Forms.Label typeL;
         private System.Windows.Forms.Button factorySettingBTN;
