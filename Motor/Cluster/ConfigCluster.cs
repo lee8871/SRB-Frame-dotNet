@@ -15,7 +15,8 @@ namespace SRB.NodeType.Du_motor
         public byte lose_behavior  { get => getBankByte(7); set => setBankByte(value, 7);}
 
         public ConfigCluster(byte ID, Node n)
-            : base(ID, n,8) {
+            : base(n, ID, 8)
+        {
         }
         public override System.Windows.Forms.UserControl createControl()
         {

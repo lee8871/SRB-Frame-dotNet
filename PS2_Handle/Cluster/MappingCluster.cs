@@ -17,7 +17,7 @@ namespace SRB.NodeType.PS2_Handle
         public EventHandler eMappingChanged;
         public string description;
         public MappingCluster(byte ID, Node n, string dsc = "Mapping")
-            : base(ID, n,30)
+            : base(n, ID, 30)
         {
             description = dsc;
         }

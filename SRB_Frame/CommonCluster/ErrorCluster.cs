@@ -11,10 +11,12 @@ namespace SRB.Frame.Cluster
         public int file { get => getBankUshort(0); }
         public int line { get => getBankUshort(2); }
 
+
         public byte[] parameter { get => getParameter(); }
 
-        public ErrorCluster(byte ID, Node n)
-            : base(ID, n,28) { }
+        public const byte Cluster_ID = 2;
+        public ErrorCluster(Node n, byte ID = Cluster_ID)
+            : base(n, ID, 28) { }
         public override void write()
         {
             throw new Exception("read only cluster can not write.");

@@ -13,7 +13,7 @@ namespace SRB.NodeType.PS2_Handle
         internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
 
         public ConfigCluster(byte ID, Node n)
-            : base(ID, n,2)
+            : base(n, ID, 2)
         {
             
         }

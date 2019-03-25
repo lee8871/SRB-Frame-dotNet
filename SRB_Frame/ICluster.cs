@@ -18,7 +18,7 @@ namespace SRB.Frame
         public byte Clustr_ID { get => clustr_ID; }
 
 
-        public ICluster(byte ID, Node n, int banksize = -1)
+        public ICluster(Node n, byte ID, int banksize = -1)
         {
             this.clustr_ID = ID;
             this.parent_node = n;

@@ -7,7 +7,8 @@ namespace SRB.Frame.Cluster
 {
     public class AddressCluster : ICluster
     {
-        public byte error_behave;
+        public const byte Cluster_ID = 0;
+
 
         public byte addr { get => bank[0]; set => bank[0] = value; }
         public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
@@ -32,8 +33,8 @@ namespace SRB.Frame.Cluster
                 }
             }
         }
-        public AddressCluster(byte ID,Node n,byte addr)
-            : base(ID,n,19)
+        public AddressCluster(Node n, byte addr, byte cID = Cluster_ID)
+            : base(n, cID, 19)
         {
             bank[0]  = addr;
         }
@@ -70,6 +71,26 @@ namespace SRB.Frame.Cluster
             }
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
+        }
+        public static void ledAddrBroadcast(LedAddrType adt, ISRB_Master parent)
+        {
+            Access ac;
+            byte[] b = new byte[2];
+            int i = 0;
+            b[i++] = Cluster_ID;
+            switch (adt)
+            {
+                case LedAddrType.Close:
+                    b[i++] = 0xf5; break;
+                case LedAddrType.High:
+                    b[i++] = 0xf4; break;
+                case LedAddrType.Low:
+                    b[i++] = 0xf3; break;
+
+            }
+            ac = new Access(null, Access.PortEnum.Cgf, b);
+            parent.singleAccess(ac);
+
         }
     }
 }

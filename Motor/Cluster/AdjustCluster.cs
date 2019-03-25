@@ -13,7 +13,7 @@ namespace SRB.NodeType.Du_motor
 	   public bool motor_b_tog { get => getBankBool(2); set => setBankBool(value, 2); }
 
         public AdjustCluster(byte ID, Node n)
-            : base(ID, n,3) { }
+            : base(n, ID, 3) { }
         public override System.Windows.Forms.UserControl createControl()
         {
             return new AdjustCC(this);

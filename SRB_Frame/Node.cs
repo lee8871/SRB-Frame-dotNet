@@ -74,9 +74,9 @@ namespace SRB.Frame
         }
         public Node(byte addr, ISRB_Master frm = null)
         {
-            baseClu = new Cluster.AddressCluster(0, this, addr);
-            infoClu = new Cluster.InformationCluster(1, this);
-            errorClu = new Cluster.ErrorCluster(2, this);
+            baseClu = new Cluster.AddressCluster(this, addr);
+            infoClu = new Cluster.InformationCluster(this);
+            errorClu = new Cluster.ErrorCluster(this);
             register(frm);
             clusters[baseClu.Clustr_ID] = baseClu;
             clusters[infoClu.Clustr_ID] = infoClu;

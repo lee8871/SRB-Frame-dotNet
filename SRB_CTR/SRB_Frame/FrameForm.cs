@@ -212,19 +212,19 @@ namespace SRB_CTR
             {
                 if (addr_show_sno == 6000)
                 {
-                    frame.ledAddrAll(/*SRB.Frame.Cluster_base.Clu.LedAddrType.Close*/);
+                    frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                     stopAddrShowBTN_Click(this, null);
                 }
                 switch (addr_show_sno % 3)
                 {
                     case 0:
-                        frame.ledAddrAll(/*SRB.Frame.Cluster_base.Clu.LedAddrType.High*/);
+                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
                         break;
                     case 1:
-                        frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Low*/);
+                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
                         break;
                     case 2:
-                        frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Close*/);
+                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                         break;
                 }
                 addr_show_sno++;
@@ -267,7 +267,7 @@ namespace SRB_CTR
             is_addr_show_on = false;
             this.stopAddrShowBTN.Visible = false;
             this.beginAddrShowBTN.Visible = true;
-            frame.ledAddrAll(/*Cluster_base.Clu.LedAddrType.Close*/);
+            frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
         }
 
         private void beginAddrShowBTN_Click(object sender, EventArgs e)

@@ -259,9 +259,9 @@ but we do not have the node in table");
         object lock_access_queue = new object();
         Queue<Access> access_queue = new Queue<Access>();
 
-        internal void ledAddrAll()
+        internal void ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType type)
         {
-            throw new NotImplementedException();
+            SRB.Frame.Cluster.AddressCluster.ledAddrBroadcast(type,this);
         }
 
         public override void addAccess(Access ac)
