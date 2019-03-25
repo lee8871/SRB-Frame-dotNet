@@ -10,10 +10,9 @@ namespace SRB.Frame.Cluster
         public const byte Cluster_ID = 0;
 
 
-        public byte addr { get => bank[0]; set => bank[0] = value; }
+        public byte addr { get => bank[0]; set => bank_write[0] = value; }
         public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
         public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
-        public byte addr_new { get => bank_write[0]; set => bank_write[0] = value; }
 
         public override void writeRecv(Access ac)
         {
@@ -33,10 +32,10 @@ namespace SRB.Frame.Cluster
                 }
             }
         }
-        public AddressCluster(Node n, byte addr, byte cID = Cluster_ID)
+        public AddressCluster(Node n, byte address, byte cID = Cluster_ID)
             : base(n, cID, 19)
         {
-            bank[0]  = addr;
+            bank[0]  = address;//此处为特殊操作,This Cluster must init address before used.
         }
 
         public override UserControl createControl()

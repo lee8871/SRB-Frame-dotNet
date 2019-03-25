@@ -60,7 +60,7 @@ namespace SRB.Frame.Cluster
             {
                 if (cluster.isNewAddrAvaliable(new_addr))
                 {
-                    cluster.addr_new = new_addr;
+                    cluster.addr = new_addr;
                     cluster.write();
                 }
                 else
@@ -70,7 +70,7 @@ namespace SRB.Frame.Cluster
                     res = MessageBox.Show(st, "New Address Exist", MessageBoxButtons.OKCancel);
                     if (res == DialogResult.OK)
                     {
-                        cluster.addr_new = new_addr;
+                        cluster.addr = new_addr;
                         cluster.write();
                     }
                 }

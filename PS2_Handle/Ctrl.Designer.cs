@@ -285,7 +285,7 @@
             // RightLAB
             // 
             this.RightLAB.BackColor = System.Drawing.Color.Transparent;
-            this.RightLAB.BackgroundImage = global::PS2_Handle.Properties.Resources.right_arrow_256px_1205488_easyicon_net;
+            this.RightLAB.BackgroundImage = global::PS2_Handle.Properties.Resources._1175867;
             this.RightLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RightLAB.Location = new System.Drawing.Point(207, 103);
             this.RightLAB.Name = "RightLAB";
@@ -296,7 +296,7 @@
             // LeftLAB
             // 
             this.LeftLAB.BackColor = System.Drawing.Color.Transparent;
-            this.LeftLAB.BackgroundImage = global::PS2_Handle.Properties.Resources.left_arrow_247px_1205454_easyicon1;
+            this.LeftLAB.BackgroundImage = global::PS2_Handle.Properties.Resources._1175867;
             this.LeftLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.LeftLAB.Location = new System.Drawing.Point(49, 103);
             this.LeftLAB.Name = "LeftLAB";

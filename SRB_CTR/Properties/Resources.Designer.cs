@@ -63,36 +63,6 @@ namespace SRB_CTR.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap _1175643 {
-            get {
-                object obj = ResourceManager.GetObject("1175643", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _11756431 {
-            get {
-                object obj = ResourceManager.GetObject("11756431", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _1175682 {
-            get {
-                object obj = ResourceManager.GetObject("1175682", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap _1175746 {
             get {
                 object obj = ResourceManager.GetObject("1175746", resourceCulture);
@@ -106,36 +76,6 @@ namespace SRB_CTR.Properties {
         internal static System.Drawing.Bitmap _1175759 {
             get {
                 object obj = ResourceManager.GetObject("1175759", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _1175763 {
-            get {
-                object obj = ResourceManager.GetObject("1175763", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _1175843 {
-            get {
-                object obj = ResourceManager.GetObject("1175843", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _11758431 {
-            get {
-                object obj = ResourceManager.GetObject("11758431", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

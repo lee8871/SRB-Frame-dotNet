@@ -63,29 +63,9 @@ namespace PS2_Handle.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap left_arrow_247px_1205454_easyicon_net {
+        internal static System.Drawing.Bitmap _1175867 {
             get {
-                object obj = ResourceManager.GetObject("left_arrow_247px_1205454_easyicon.net", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap left_arrow_247px_1205454_easyicon1 {
-            get {
-                object obj = ResourceManager.GetObject("left_arrow_247px_1205454_easyicon1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap right_arrow_256px_1205488_easyicon_net {
-            get {
-                object obj = ResourceManager.GetObject("right_arrow_256px_1205488_easyicon.net", resourceCulture);
+                object obj = ResourceManager.GetObject("1175867", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

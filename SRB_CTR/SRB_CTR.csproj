@@ -97,6 +97,11 @@
   <ItemGroup>
     <Compile Include="logWriter.cs" />
     <Compile Include="nsBrain\Brain_Test.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SRB_Frame\Brain.cs" />
     <Compile Include="SRB_Frame\scanNodeState.cs">
       <SubType>UserControl</SubType>
@@ -179,14 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,12 +203,8 @@
     <Content Include="110618274272.ico" />
     <Content Include="color-setting.htm" />
     <None Include="Resources\pencil_512px_1175838_easyicon.net.png" />
-    <None Include="Resources\1175843.png" />
-    <None Include="Resources\1175643.png" />
     <None Include="Resources\1175746.png" />
     <None Include="Resources\1175759.png" />
-    <None Include="Resources\1175682.png" />
-    <None Include="Resources\1175763.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
