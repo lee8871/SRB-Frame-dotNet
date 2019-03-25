@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SRB_CTR;
 using SRB.Frame;
 
-namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_handle_cfg
+namespace SRB.NodeType.PS2_Handle
 {
-    class Clu:ICluster
+    class ConfigCluster:ICluster
     {
         public int period { get => getBankByte(1); set => setBankByte((byte)value, 1); }
         internal bool analog { get => getBankBool(0,0); set => setBankBool(value, 0,0); }
         internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
 
-        public Clu(byte ID, Node n)
+        public ConfigCluster(byte ID, Node n)
             : base(ID, n,2)
         {
             
         }
         public override System.Windows.Forms.UserControl createControl()
         {
-            return new Ctrl(this);
+            return new ConfigCC(this);
         }
         public override string ToString()
         {

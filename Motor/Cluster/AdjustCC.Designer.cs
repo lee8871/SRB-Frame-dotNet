@@ -1,5 +1,5 @@
-﻿namespace SRB.NodeType.Du_motor.Cluster
-{
+﻿namespace SRB.NodeType.Du_motor
+{ 
     partial class AdjustCC
     {
         /// <summary> 
@@ -86,16 +86,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.motorBTogCBOX);
             this.Controls.Add(this.motorATogCBOX);
             this.Controls.Add(this.AdjCB);
             this.Controls.Add(label1);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 20);
             this.Name = "AdjustCC";
-            this.Size = new System.Drawing.Size(300, 61);
+            this.Controls.SetChildIndex(label1, 0);
+            this.Controls.SetChildIndex(this.AdjCB, 0);
+            this.Controls.SetChildIndex(this.motorATogCBOX, 0);
+            this.Controls.SetChildIndex(this.motorBTogCBOX, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

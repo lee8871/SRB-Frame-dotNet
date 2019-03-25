@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using SRB_CTR;
 using SRB.Frame;
-namespace SRB_CTR.nsBrain.Node_PS2_handle
+
+namespace SRB.NodeType.PS2_Handle
 {
-    class Cn : Node
+    public class Cn : Node
     {
         public int joy_rx { get => toJoy(6); }
         public int joy_ry { get => toJoy(7); }
@@ -56,15 +56,15 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
 
 
 
-        public Cluster_handle_cfg.Clu cfg_clu;
-        public Cluster_mapping.Clu Mapping0_clu;
+        internal ConfigCluster cfg_clu;
+        internal MappingCluster Mapping0_clu;
 
         public void init()
         {
-            cfg_clu = new Cluster_handle_cfg.Clu(11, this);
+            cfg_clu = new ConfigCluster(11, this);
             clusters[cfg_clu.Clustr_ID] = cfg_clu;
 
-            Mapping0_clu = new Cluster_mapping.Clu(3, this,"Mapping0");
+            Mapping0_clu = new MappingCluster(3, this,"Mapping0");
             clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -81,7 +81,7 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle
             });
         }
 
-        public Cn(byte addr, SrbFrame f = null)
+        public Cn(byte addr, ISRB_Master f = null)
             : base(addr, f)
         {
             init();

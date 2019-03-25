@@ -8,8 +8,8 @@ namespace SRB.NodeType.Du_motor
 {
     public class Cn : Node
     {
-        internal Cluster.ConfigCluster motor_clu;
-        internal Cluster.AdjustCluster adj_clu;
+        internal ConfigCluster motor_clu;
+        internal AdjustCluster adj_clu;
 
         public int Speed_a { set => setSpeedA(value); }
         public int Speed_b { set => setSpeedB(value); }
@@ -53,9 +53,9 @@ namespace SRB.NodeType.Du_motor
         }
         public void init()
         {
-            motor_clu = new Cluster.ConfigCluster(10, this);
+            motor_clu = new ConfigCluster(10, this);
             clusters[motor_clu.Clustr_ID] = motor_clu;
-            adj_clu = new Cluster.AdjustCluster(11, this);
+            adj_clu = new AdjustCluster(11, this);
             clusters[adj_clu.Clustr_ID] = adj_clu;
             //led_phase_clu.read();
             bankInit(new byte[][]{

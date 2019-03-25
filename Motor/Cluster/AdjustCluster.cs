@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SRB.Frame;
 
-namespace SRB.NodeType.Du_motor.Cluster
+namespace SRB.NodeType.Du_motor
 {
     class AdjustCluster:ICluster
     {

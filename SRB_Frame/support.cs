@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace System
 {
-    internal static class Support
+    public static class Support
     {
         internal static Random random = new Random();
 
@@ -16,11 +16,11 @@ namespace System
         private static Color color_moon = Color.FromArgb(unchecked((int)0xffadb5c7));
 
 
-        internal static Color Color_red { get => color_red; }
-        internal static Color Color_dank { get => color_dank; }
-        internal static Color Color_navy { get => color_navy; }
-        internal static Color Color_blue { get => color_blue; }
-        internal static Color Color_moon { get => color_moon; }
+        public static Color Color_red { get => color_red; }
+        public static Color Color_dank { get => color_dank; }
+        public static Color Color_navy { get => color_navy; }
+        public static Color Color_blue { get => color_blue; }
+        public static Color Color_moon { get => color_moon; }
 
 
         internal enum YNU

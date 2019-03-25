@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SRB_CTR;
 using SRB.Frame;
 
-namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_mapping
+namespace SRB.NodeType.PS2_Handle
 {
-    class Clu:ICluster
+    class MappingCluster:ICluster
     {
         private const int totle_length=28;
         public int up_len { get => getBankByte(0);}
@@ -17,7 +16,7 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_mapping
         public byte[] mapping { get => getBankByteArray(0, up_len + 2 + down_len); }
         public EventHandler eMappingChanged;
         public string description;
-        public Clu(byte ID, Node n, string dsc = "Mapping")
+        public MappingCluster(byte ID, Node n, string dsc = "Mapping")
             : base(ID, n,30)
         {
             description = dsc;
@@ -46,7 +45,7 @@ namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_mapping
 
         public override System.Windows.Forms.UserControl createControl()
         {
-            return new Ctrl(this);
+            return new MappingCC(this);
         }
         public override string ToString()
         {

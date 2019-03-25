@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.Du_motor.Cluster
+﻿namespace SRB.NodeType.Du_motor
 {
     partial class ConfigCC
     {
@@ -219,8 +219,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.behaviorL);
             this.Controls.Add(this.behaviorCB);
@@ -233,10 +231,19 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label4);
             this.Controls.Add(label1);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "ConfigCC";
-            this.Size = new System.Drawing.Size(300, 215);
+            this.Controls.SetChildIndex(label1, 0);
+            this.Controls.SetChildIndex(this.label4, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.freqL, 0);
+            this.Controls.SetChildIndex(this.motorMinL, 0);
+            this.Controls.SetChildIndex(this.motor_a_minNUM, 0);
+            this.Controls.SetChildIndex(this.motor_b_minNUM, 0);
+            this.Controls.SetChildIndex(this.SetDelayNUM, 0);
+            this.Controls.SetChildIndex(this.FreqCB, 0);
+            this.Controls.SetChildIndex(this.behaviorCB, 0);
+            this.Controls.SetChildIndex(this.behaviorL, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.motor_a_minNUM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.motor_b_minNUM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SetDelayNUM)).EndInit();

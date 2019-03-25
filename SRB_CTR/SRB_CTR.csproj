@@ -45,15 +45,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>9246BF6E868DC06F7B8AD613A3C411318CFC1504</ManifestCertificateThumbprint>
@@ -68,7 +68,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SRB_CTR.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <Win32Resource>
@@ -95,27 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logWriter.cs" />
-    <Compile Include="Node_Ps2_handle\Cluster_mapping\Clu.cs" />
-    <Compile Include="Node_Ps2_handle\Cluster_mapping\Ctrl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Node_Ps2_handle\Cluster_mapping\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Node_Ps2_handle\Cluster_handle_cfg\Clu.cs" />
-    <Compile Include="Node_Ps2_handle\Cluster_handle_cfg\Ctrl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Node_Ps2_handle\Cluster_handle_cfg\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Node_Ps2_handle\cn.cs" />
-    <Compile Include="Node_Ps2_handle\Ctrl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Node_Ps2_handle\Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </Compile>
     <Compile Include="nsBrain\Brain_Test.cs" />
     <Compile Include="SRB_Frame\Brain.cs" />
     <Compile Include="SRB_Frame\scanNodeState.cs">
@@ -176,15 +156,6 @@
     <Compile Include="SRB_Frame\UartRawData.cs" />
     <Compile Include="support.cs" />
     <Compile Include="uint8.cs" />
-    <EmbeddedResource Include="Node_Ps2_handle\Cluster_mapping\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Node_Ps2_handle\Cluster_handle_cfg\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Node_Ps2_handle\Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="nsBrain\ControPanel.resx">
       <DependentUpon>ControPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,9 +236,13 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Motor\Motor.csproj">
+    <ProjectReference Include="..\Motor\Du_Motor.csproj">
       <Project>{d02140bc-c6ca-44b5-9070-2388bc5e7455}</Project>
-      <Name>Motor</Name>
+      <Name>Du_Motor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PS2_Handle\PS2_Handle.csproj">
+      <Project>{93c7fdaa-b077-4f0f-8e4e-d7be53ccd779}</Project>
+      <Name>PS2_Handle</Name>
     </ProjectReference>
     <ProjectReference Include="..\SRB_Frame\SRB_Frame.csproj">
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>

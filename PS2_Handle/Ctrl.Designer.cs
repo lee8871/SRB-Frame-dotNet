@@ -1,4 +1,4 @@
-﻿namespace SRB_CTR.nsBrain.Node_PS2_handle
+﻿namespace SRB.NodeType.PS2_Handle
 {
     partial class Ctrl
     {
@@ -32,8 +32,6 @@
             this.StartBTN = new System.Windows.Forms.Button();
             this.sendTimer = new System.Windows.Forms.Timer(this.components);
             this.StopBTN = new System.Windows.Forms.Button();
-            this.LeftLAB = new System.Windows.Forms.PictureBox();
-            this.RightLAB = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.up = new System.Windows.Forms.Label();
             this.down = new System.Windows.Forms.Label();
@@ -54,9 +52,11 @@
             this.Start = new System.Windows.Forms.Label();
             this.RumbleBT = new System.Windows.Forms.Button();
             this.rumbleNUM = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.LeftLAB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RightLAB)).BeginInit();
+            this.RightLAB = new System.Windows.Forms.PictureBox();
+            this.LeftLAB = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.rumbleNUM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightLAB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftLAB)).BeginInit();
             this.SuspendLayout();
             // 
             // StartBTN
@@ -83,26 +83,6 @@
             this.StopBTN.Text = "Stop";
             this.StopBTN.UseVisualStyleBackColor = true;
             this.StopBTN.Click += new System.EventHandler(this.StopBTN_Click);
-            // 
-            // LeftLAB
-            // 
-            this.LeftLAB.BackColor = System.Drawing.Color.Transparent;
-            this.LeftLAB.Image = global::SRB_CTR.Properties.Resources._1175843;
-            this.LeftLAB.Location = new System.Drawing.Point(49, 103);
-            this.LeftLAB.Name = "LeftLAB";
-            this.LeftLAB.Size = new System.Drawing.Size(32, 32);
-            this.LeftLAB.TabIndex = 11;
-            this.LeftLAB.TabStop = false;
-            // 
-            // RightLAB
-            // 
-            this.RightLAB.BackColor = System.Drawing.Color.Transparent;
-            this.RightLAB.Image = global::SRB_CTR.Properties.Resources._1175643;
-            this.RightLAB.Location = new System.Drawing.Point(207, 103);
-            this.RightLAB.Name = "RightLAB";
-            this.RightLAB.Size = new System.Drawing.Size(32, 32);
-            this.RightLAB.TabIndex = 11;
-            this.RightLAB.TabStop = false;
             // 
             // label1
             // 
@@ -302,6 +282,28 @@
             this.rumbleNUM.Size = new System.Drawing.Size(59, 21);
             this.rumbleNUM.TabIndex = 23;
             // 
+            // RightLAB
+            // 
+            this.RightLAB.BackColor = System.Drawing.Color.Transparent;
+            this.RightLAB.BackgroundImage = global::PS2_Handle.Properties.Resources.right_arrow_256px_1205488_easyicon_net;
+            this.RightLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RightLAB.Location = new System.Drawing.Point(207, 103);
+            this.RightLAB.Name = "RightLAB";
+            this.RightLAB.Size = new System.Drawing.Size(32, 32);
+            this.RightLAB.TabIndex = 11;
+            this.RightLAB.TabStop = false;
+            // 
+            // LeftLAB
+            // 
+            this.LeftLAB.BackColor = System.Drawing.Color.Transparent;
+            this.LeftLAB.BackgroundImage = global::PS2_Handle.Properties.Resources.left_arrow_247px_1205454_easyicon1;
+            this.LeftLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.LeftLAB.Location = new System.Drawing.Point(49, 103);
+            this.LeftLAB.Name = "LeftLAB";
+            this.LeftLAB.Size = new System.Drawing.Size(32, 32);
+            this.LeftLAB.TabIndex = 11;
+            this.LeftLAB.TabStop = false;
+            // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -337,9 +339,9 @@
             this.Name = "Ctrl";
             this.Size = new System.Drawing.Size(300, 180);
             this.Load += new System.EventHandler(this.Ctrl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.LeftLAB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.RightLAB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rumbleNUM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightLAB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftLAB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -350,7 +352,6 @@
         private System.Windows.Forms.Button StartBTN;
         private System.Windows.Forms.Timer sendTimer;
         private System.Windows.Forms.Button StopBTN;
-        private System.Windows.Forms.PictureBox LeftLAB;
         private System.Windows.Forms.PictureBox RightLAB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label up;
@@ -372,5 +373,6 @@
         private System.Windows.Forms.Label Start;
         private System.Windows.Forms.Button RumbleBT;
         private System.Windows.Forms.NumericUpDown rumbleNUM;
+        private System.Windows.Forms.PictureBox LeftLAB;
     }
 }

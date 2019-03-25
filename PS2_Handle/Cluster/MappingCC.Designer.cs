@@ -1,6 +1,6 @@
-﻿namespace SRB_CTR.nsBrain.Node_PS2_handle.Cluster_mapping
+﻿namespace SRB.NodeType.PS2_Handle
 {
-    partial class Ctrl
+    partial class MappingCC
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,37 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.writeBTN = new System.Windows.Forms.Button();
-            this.readBTN = new System.Windows.Forms.Button();
             this.UpRTC = new System.Windows.Forms.RichTextBox();
             this.DownRTC = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // writeBTN
-            // 
-            this.writeBTN.BackgroundImage = global::SRB_CTR.Properties.Resources._1175763;
-            this.writeBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.writeBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.writeBTN.Location = new System.Drawing.Point(257, 0);
-            this.writeBTN.Name = "writeBTN";
-            this.writeBTN.Size = new System.Drawing.Size(40, 40);
-            this.writeBTN.TabIndex = 4;
-            this.writeBTN.UseVisualStyleBackColor = true;
-            this.writeBTN.Click += new System.EventHandler(this.write);
-            // 
-            // readBTN
-            // 
-            this.readBTN.BackgroundImage = global::SRB_CTR.Properties.Resources._1175682;
-            this.readBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.readBTN.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readBTN.Location = new System.Drawing.Point(211, 0);
-            this.readBTN.Name = "readBTN";
-            this.readBTN.Size = new System.Drawing.Size(40, 40);
-            this.readBTN.TabIndex = 4;
-            this.readBTN.UseVisualStyleBackColor = true;
-            this.readBTN.Click += new System.EventHandler(this.read);
             // 
             // UpRTC
             // 
@@ -68,7 +42,6 @@
             this.UpRTC.Size = new System.Drawing.Size(201, 40);
             this.UpRTC.TabIndex = 8;
             this.UpRTC.Text = "";
-            this.UpRTC.TextChanged += new System.EventHandler(this.RTC_TextChanged);
             // 
             // DownRTC
             // 
@@ -97,30 +70,25 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Down Mapping:";
             // 
-            // Ctrl
+            // MappingCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DownRTC);
             this.Controls.Add(this.UpRTC);
-            this.Controls.Add(this.readBTN);
-            this.Controls.Add(this.writeBTN);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 120);
+            this.Name = "MappingCC";
+            this.Controls.SetChildIndex(this.UpRTC, 0);
+            this.Controls.SetChildIndex(this.DownRTC, 0);
+            this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.label2, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button writeBTN;
-        private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.RichTextBox UpRTC;
         private System.Windows.Forms.RichTextBox DownRTC;
         private System.Windows.Forms.Label label1;

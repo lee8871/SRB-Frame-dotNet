@@ -218,8 +218,9 @@ but we do not have the node in table");
                             SRB.NodeType.Du_motor.Cn cn = new SRB.NodeType.Du_motor.Cn(n);
                           //  Nodes_form.addNode(cn);
                             break;
+                        case "PS2_Handle":
                         case "PS2_handle":
-                            nsBrain.Node_PS2_handle.Cn cn2 = new nsBrain.Node_PS2_handle.Cn(n);
+                            SRB.NodeType.PS2_Handle.Cn cn2 = new SRB.NodeType.PS2_Handle.Cn(n);
                           //  Nodes_form.addNode(cn);
                             break;
                         default:

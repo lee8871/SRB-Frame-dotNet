@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SRB_Frame.Properties {
+namespace PS2_Handle.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SRB_Frame.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SRB_Frame.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PS2_Handle.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace SRB_Frame.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap _11756821 {
+        internal static System.Drawing.Bitmap left_arrow_247px_1205454_easyicon_net {
             get {
-                object obj = ResourceManager.GetObject("11756821", resourceCulture);
+                object obj = ResourceManager.GetObject("left_arrow_247px_1205454_easyicon.net", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,19 @@ namespace SRB_Frame.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap _11757631 {
+        internal static System.Drawing.Bitmap left_arrow_247px_1205454_easyicon1 {
             get {
-                object obj = ResourceManager.GetObject("11757631", resourceCulture);
+                object obj = ResourceManager.GetObject("left_arrow_247px_1205454_easyicon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap right_arrow_256px_1205488_easyicon_net {
+            get {
+                object obj = ResourceManager.GetObject("right_arrow_256px_1205488_easyicon.net", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

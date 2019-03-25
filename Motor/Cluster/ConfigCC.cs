@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SRB.Frame;
 
-namespace SRB.NodeType.Du_motor.Cluster
+namespace SRB.NodeType.Du_motor
 {
     partial class ConfigCC : IClusterControl
     {
