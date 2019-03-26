@@ -44,8 +44,8 @@ namespace SRB_CTR
             base.OnClosing(e);
         }
         #region node Table sync
-        private delegate void dElegateNode(Node n);
-        public void addNode(Node n)
+        private delegate void dElegateNode(BaseNode n);
+        public void addNode(BaseNode n)
         {
             if (this.InvokeRequired)
             {
@@ -69,7 +69,7 @@ namespace SRB_CTR
                 this.nodesTable.Controls.Add(b);
             }
         }
-        public void changeString(Node n)
+        public void changeString(BaseNode n)
         {
             if (this.InvokeRequired)
             {
@@ -90,7 +90,7 @@ namespace SRB_CTR
         }
 
 
-        public void changeNode(Node n)
+        public void changeNode(BaseNode n)
         {
             if (this.InvokeRequired)
             {
@@ -114,12 +114,12 @@ namespace SRB_CTR
             }
         }
 
-        private string getNodeString(Node n)
+        private string getNodeString(BaseNode n)
         {
             return string.Format("A:{0}\n{1}", n.Addr, n.Name);
         }
 
-        public void removeNode(Node n)
+        public void removeNode(BaseNode n)
         {
             if (this.InvokeRequired)
             {
@@ -139,7 +139,7 @@ namespace SRB_CTR
         void nodeButton_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
-            Node n = (Node)(b.Tag);
+            BaseNode n = (BaseNode)(b.Tag);
             Node_form nf = n.getForm();
             nf.ShowAt((System.Windows.Forms.Control)sender);
             changeNode(n);

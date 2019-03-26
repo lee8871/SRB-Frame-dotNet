@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="ByteBank.cs" />
     <Compile Include="IClusterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -77,7 +78,7 @@
       <DependentUpon>InformationCC.cs</DependentUpon>
     </Compile>
     <Compile Include="ISRB_Master.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="BaseNode.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="Node_form.cs">
       <SubType>Form</SubType>

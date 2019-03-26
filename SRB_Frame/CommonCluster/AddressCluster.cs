@@ -10,7 +10,7 @@ namespace SRB.Frame.Cluster
         public const byte Cluster_ID = 0;
 
 
-        public byte addr { get => bank[0]; set => bank_write[0] = value; }
+        public byte addr { get => bank[0]; set => bank_write_temp[0] = value; }
         public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
         public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
 
@@ -32,7 +32,7 @@ namespace SRB.Frame.Cluster
                 }
             }
         }
-        public AddressCluster(Node n, byte address, byte cID = Cluster_ID)
+        public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
             : base(n, cID, 19)
         {
             bank[0]  = address;//此处为特殊操作,This Cluster must init address before used.

@@ -15,7 +15,7 @@ namespace SRB.Frame.Cluster
         public byte[] parameter { get => getParameter(); }
 
         public const byte Cluster_ID = 2;
-        public ErrorCluster(Node n, byte ID = Cluster_ID)
+        public ErrorCluster(BaseNode n, byte ID = Cluster_ID)
             : base(n, ID, 28) { }
         public override void write()
         {

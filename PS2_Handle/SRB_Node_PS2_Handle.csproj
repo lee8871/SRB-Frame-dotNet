@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D02140BC-C6CA-44B5-9070-2388BC5E7455}</ProjectGuid>
+    <ProjectGuid>{93C7FDAA-B077-4F0F-8E4E-D7BE53CCD779}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Motor</RootNamespace>
-    <AssemblyName>Motor</AssemblyName>
+    <RootNamespace>PS2_Handle</RootNamespace>
+    <AssemblyName>PS2_Handle</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,23 +33,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cluster\AdjustCluster.cs" />
-    <Compile Include="Cluster\AdjustCC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Cluster\AdjustCC.Designer.cs">
-      <DependentUpon>AdjustCC.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cluster\ConfigCluster.cs" />
     <Compile Include="Cluster\ConfigCC.cs">
       <SubType>UserControl</SubType>
@@ -60,7 +50,14 @@
     <Compile Include="Cluster\ConfigCC.Designer.cs">
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="cn.cs" />
+    <Compile Include="Cluster\MappingCluster.cs" />
+    <Compile Include="Cluster\MappingCC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cluster\MappingCC.Designer.cs">
+      <DependentUpon>MappingCC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PS_handle.cs" />
     <Compile Include="Ctrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -68,16 +65,27 @@
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cluster\AdjustCC.resx">
-      <DependentUpon>AdjustCC.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Cluster\ConfigCC.resx">
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cluster\MappingCC.resx">
+      <DependentUpon>MappingCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +93,9 @@
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175867.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

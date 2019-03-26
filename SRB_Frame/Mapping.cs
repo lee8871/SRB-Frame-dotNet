@@ -5,14 +5,17 @@ using System.Text;
 
 namespace SRB.Frame
 {
-
     class Mapping
     {
         private byte[] up_mapping;
         private byte[] down_mapping;
 
-        public byte[] Up_mapping { get => up_mapping; }
-        public byte[] Down_mapping { get => down_mapping; }
+        public int upMapping(int num) {
+            return (int)up_mapping[num];
+        }
+        public int downMapping(int num) {
+            return (int)down_mapping[num];
+        }
 
         public int Up_len { get => up_mapping.Length; }
         public int Down_len { get => down_mapping.Length; }

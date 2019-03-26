@@ -6,7 +6,7 @@ using System.Drawing;
 using SRB.Frame;
 namespace SRB.NodeType.Du_motor
 {
-    public class Cn : Node
+    public class Cn : BaseNode
     {
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
@@ -71,7 +71,7 @@ namespace SRB.NodeType.Du_motor
             init();
         }
 
-        public Cn(Node n)
+        public Cn(BaseNode n)
             : base(n)
         {
             init();

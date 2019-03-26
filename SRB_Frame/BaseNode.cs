@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SRB.Frame
 {
-    public class Node:IDisposable
+    public class BaseNode : IByteBank
     {
         ISRB_Master parent = null;
         public ISRB_Master Parent
@@ -72,7 +72,7 @@ namespace SRB.Frame
         {
             return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
         }
-        public Node(byte addr, ISRB_Master frm = null)
+        public BaseNode(byte addr, ISRB_Master frm = null) : base(256, false)
         {
             baseClu = new Cluster.AddressCluster(this, addr);
             infoClu = new Cluster.InformationCluster(this);
@@ -89,7 +89,7 @@ namespace SRB.Frame
         {
             baseClu.ledAddr(adt);
         }
-        public Node(Node n)
+        public BaseNode(BaseNode n) : base(256, false)
         {
             this.Tag = n.Tag;
             this.is_hardware_exist = n.is_hardware_exist;
@@ -142,7 +142,7 @@ namespace SRB.Frame
             byte[] pd = new byte[sent_len];
             for (int i = 0; i < sent_len; i++)
             {
-                pd[i] = bank[((int)mapping.Down_mapping[i])];
+                pd[i] = bank[mapping.downMapping(i)];
             }
             return new Access(this, (Access.PortEnum)port, pd);
         }
@@ -253,7 +253,7 @@ namespace SRB.Frame
             }
             for (int i = 0; i < recv_len; i++)
             {
-                bank[((int)mapping.Up_mapping[i])] = ac.Recv_data[i];
+                bank[mapping.upMapping(i)] = ac.Recv_data[i];
             }
             return;
         }
@@ -331,13 +331,9 @@ namespace SRB.Frame
 
 
 
-        #region bank
-        protected byte[] bank;
         private Mapping[] mappings;
-
         public void bankInit(byte[][] raw)
         {
-            bank = new byte[256];
             mappings = new Mapping[4];
             for (int i = 0; i < 4; i++)
             {
@@ -350,91 +346,6 @@ namespace SRB.Frame
         }
 
 
-        public void bankWrite(byte data, int byte_Location)
-        {
-            bank[byte_Location] = data;
-        }
-        public byte bankReadByte(int byte_Location)
-        {
-            return bank[byte_Location];
-        }
-
-
-        public void bankWrite(byte data, int byte_Location, int mask)
-        {
-            data = (byte)((data & mask) | (bank[byte_Location] & ~mask));
-            bankWrite(data, byte_Location);
-        }
-        public void bankWrite(byte data, int byte_Location, int bit_len, int bit_location)
-        {
-            int mask = 1 << bit_len - 1;
-            data <<= bit_location;
-            mask <<= bit_location;
-            bankWrite(data, byte_Location, mask);
-        }
-        public byte bankReadByte(int byte_Location, int bit_len, int bit_location)
-        {
-            byte mask = (byte)(1 << bit_len - 1);
-            return (byte)((bank[byte_Location] >> bit_location) & mask);
-        }
-        public void bankWrite(ushort data, int byte_Location)
-        {
-            bank[byte_Location] = data.ByteLow();
-            bank[byte_Location + 1] = data.ByteHigh();
-        }
-        public void bankWrite(ushort data, int byte_Location, int mask)
-        {
-            ushort bankdata = Support.byteToUint16(bank[byte_Location], bank[byte_Location + 1]);
-
-            data = (ushort)((data & mask) | (bankdata & ~mask));
-            bankWrite(data, byte_Location);
-        }
-        public void bankWrite(ushort data, int byte_Location, int bit_len, int bit_location)
-        {
-            int mask = 1 << bit_len - 1;
-            data <<= bit_location;
-            mask <<= bit_location;
-            bankWrite(data, byte_Location, mask);
-        }
-        public void bankWrite(int data, int byte_Location)
-        {
-            bank[byte_Location] = (byte)data;
-            data >>= 8;
-            bank[byte_Location + 1] = (byte)data;
-            data >>= 8;
-            bank[byte_Location + 2] = (byte)data;
-            data >>= 8;
-            bank[byte_Location + 3] = (byte)data;
-        }
-        public void bankWrite(int data, int byte_Location, int mask)
-        {
-            int bankdata;
-            bankdata = bank[byte_Location] + bank[byte_Location + 1] << 8 +
-                bank[byte_Location + 2] << 16 + bank[byte_Location + 3] << 24;
-            data = (ushort)((data & mask) | (bankdata & ~mask));
-            bankWrite(data, byte_Location);
-        }
-        public void bankWrite(int data, int byte_Location, int bit_len, int bit_location)
-        {
-            int mask = 1 << bit_len - 1;
-            data <<= bit_location;
-            mask <<= bit_location;
-            bankWrite(data, byte_Location, mask);
-        }
-        public void bankWrite(bool data, int byte_Location, int bit_location)
-        {
-            if (data)
-            {
-                bank[byte_Location] |= (byte)(1 << bit_location);
-
-            }
-            else
-            {
-                bank[byte_Location] &= (byte)~(1 << bit_location);
-            }
-        }
-
-        #endregion
     }
 
 }

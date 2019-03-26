@@ -14,7 +14,7 @@ namespace SRB.NodeType.Du_motor
         public byte lose_control_ms { get => getBankByte(6); set => setBankByte(value, 6);}
         public byte lose_behavior  { get => getBankByte(7); set => setBankByte(value, 7);}
 
-        public ConfigCluster(byte ID, Node n)
+        public ConfigCluster(byte ID, BaseNode n)
             : base(n, ID, 8)
         {
         }

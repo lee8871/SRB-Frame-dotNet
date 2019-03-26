@@ -8,12 +8,12 @@ namespace SRB.Frame
 {
     public abstract class ISRB_Master
     {
-        public Node[] Nodes;
-        public abstract void nodeAddrChange(Node node);
-        public abstract void nodeDescriptionChange(Node node);
-        public abstract void nodeReplace(Node n, Node node);
-        public abstract void nodeRegister(Node node);
-        public abstract void nodeUnregister(Node node);
+        public BaseNode[] Nodes;
+        public abstract void nodeAddrChange(BaseNode node);
+        public abstract void nodeDescriptionChange(BaseNode node);
+        public abstract void nodeReplace(BaseNode n, BaseNode node);
+        public abstract void nodeRegister(BaseNode node);
+        public abstract void nodeUnregister(BaseNode node);
 
         public abstract void addAccess(Access ac);
         public abstract void singleAccess(Access ac);

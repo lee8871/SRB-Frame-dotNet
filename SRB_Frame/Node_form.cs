@@ -11,8 +11,8 @@ namespace SRB.Frame
 {
     public partial class Node_form : Form
     {
-        Node node;
-        public Node_form(Node n)
+        BaseNode node;
+        public Node_form(BaseNode n)
         {
             InitializeComponent();
             this.clusters.BackColor = System.Support.Color_blue;

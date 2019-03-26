@@ -16,7 +16,7 @@ namespace SRB.Frame.Cluster
         public int time_stamp { get => getBankUshort(4); }
 
         public const byte Cluster_ID = 1;
-        public InformationCluster(Node n, byte ID = Cluster_ID)
+        public InformationCluster(BaseNode n, byte ID = Cluster_ID)
             : base(n, ID, 23)
         {
             char[] ca = "Unknow".ToCharArray();

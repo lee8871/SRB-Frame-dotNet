@@ -12,9 +12,9 @@ namespace SRB.NodeType.PS2_Handle
 {
     partial class Ctrl : UserControl
     {
-        Cn node;
+        Node node;
         int left_x_base, left_y_base, right_x_base, right_y_base;
-        public Ctrl(Cn n)
+        public Ctrl(Node n)
         {
             node = n;
             InitializeComponent();

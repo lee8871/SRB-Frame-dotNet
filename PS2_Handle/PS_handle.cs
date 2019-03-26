@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using SRB.Frame;
+
+namespace SRB.NodeType.PS2_Handle
+{
+    public class Node : BaseNode
+    {
+        public int joy_rx { get => toJoy(6); }
+        public int joy_ry { get => toJoy(7); }
+        public int joy_lx { get => toJoy(8); }
+        public int joy_ly { get => toJoy(9); }
+
+        public bool handle_exist { get => getBankBool(3,0); }
+
+        public bool select { get => !getBankBool(4, 0); }
+        public bool L3 { get =>! getBankBool(4, 1); }
+        public bool R3 { get =>! getBankBool(4, 2); }
+        public bool start { get => !getBankBool(4, 3); }
+
+        public bool up { get =>! getBankBool(4, 4); }
+        public bool right { get => !getBankBool(4, 5); }
+        public bool down { get =>!getBankBool(4, 6); }
+        public bool left { get => !getBankBool(4, 7); }
+
+        public bool L2 { get =>! getBankBool(5, 0); }
+        public bool R2 { get =>! getBankBool(5, 1); }
+        public bool L1 { get =>! getBankBool(5, 2); }
+        public bool R1 { get =>! getBankBool(5, 3); }
+
+        public bool trag { get =>! getBankBool(5, 4); }
+        public bool circle { get => !getBankBool(5, 5); }
+        public bool cross { get =>! getBankBool(5, 6); }
+        public bool square { get =>! getBankBool(5, 7); }
+
+        public int rumble { set => setBankByte((byte)(value.enterRound(0, 255)), 2); }
+        public int rumble_ms { set => setBankUshort(((ushort)value.enterRound(0,65535)), 0); }
+
+        public void setRumble(int rumble)
+        {
+            rumble = rumble.enterRound(0, 255);
+        }
+        public int toJoy(int byte_location)
+        {
+            int data = bank[byte_location];
+            data -= 128;
+            if (data < 0)
+            { 
+                data++;
+            }
+            return data;
+        }
+
+
+
+        internal ConfigCluster cfg_clu;
+        internal MappingCluster Mapping0_clu;
+
+        public void init()
+        {
+            cfg_clu = new ConfigCluster(11, this);
+            clusters[cfg_clu.Clustr_ID] = cfg_clu;
+
+            Mapping0_clu = new MappingCluster(3, this,"Mapping0");
+            clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;
+
+            Mapping0_clu.eDataChanged += updataMapping;
+            Mapping0_clu.read();
+        }
+
+        private void updataMapping(object sender, EventArgs e)
+        {
+            bankInit(new byte[][]{
+                Mapping0_clu.mapping                  ,
+                new byte[] {6,3,4,5,6,7,8,9,0,1,2}                    ,
+                new byte[] {4,3,6,7,8,9,0,1,2}                   ,
+                new byte[] {7,3,3,4,5,6,7,8,9,0,1,2}
+            });
+        }
+
+        public Node(byte addr, ISRB_Master f = null)
+            : base(addr, f)
+        {
+            init();
+        }
+        
+        public Node(BaseNode n)
+            : base(n)
+        {
+            init();
+        }
+        public void bulidUpD0()
+        {
+            this.addAccess(0, 0);
+        }
+        public void bulidUpD0(ushort ms)
+        {
+            rumble_ms = ms;
+            this.addAccess(0);
+        }
+        //protected override void dataAccessDone(Access ac)
+        //{
+        //    if (ac.Port == Access.PortEnum.D0)
+        //    {
+        //        try
+        //        {
+        //            if (ac.Status == Access.StatusEnum.RecvedDone)
+        //            {
+        //                // color_now = Color.FromArgb(ac._recv_data[1], ac._recv_data[2], ac._recv_data[0]);
+        //                this.joy_rx = ac.Recv_data[2];
+        //                this.joy_ry = ac.Recv_data[3];
+        //                this.joy_lx = ac.Recv_data[4];
+        //                this.joy_ly = ac.Recv_data[5];
+        //                this.select = (ac.Recv_data[0] & (1 << 0)) == 0;
+        //                this.L3 = (ac.Recv_data[0] & (1 << 1)) == 0;
+        //                this.R3 = (ac.Recv_data[0] & (1 << 2)) == 0;
+        //                this.start = (ac.Recv_data[0] & (1 << 3)) == 0;
+
+        //                this.up = (ac.Recv_data[0] & (1 << 4)) == 0;
+        //                this.right = (ac.Recv_data[0] & (1 << 5)) == 0;
+        //                this.down = (ac.Recv_data[0] & (1 << 6)) == 0;
+        //                this.left = (ac.Recv_data[0] & (1 << 7)) == 0;
+
+        //                this.L2 = (ac.Recv_data[1] & (1 << 0)) == 0;
+        //                this.R2 = (ac.Recv_data[1] & (1 << 1)) == 0;
+        //                this.L1 = (ac.Recv_data[1] & (1 << 2)) == 0;
+        //                this.R1 = (ac.Recv_data[1] & (1 << 3)) == 0;
+
+        //                this.trag = (ac.Recv_data[1] & (1 << 4)) == 0;
+        //                this.circle = (ac.Recv_data[1] & (1 << 5)) == 0;
+        //                this.cross = (ac.Recv_data[1] & (1 << 6)) == 0;
+        //                this.square = (ac.Recv_data[1] & (1 << 7)) == 0;
+
+        //            }
+        //        }
+        //        catch (System.IndexOutOfRangeException)
+        //        { }
+        //    }
+        //}
+        public override System.Windows.Forms.Control getClusterControl()
+        {
+            return new Ctrl(this);
+        }
+        public override string Describe()
+        {
+            return @"This node drivers two motors. Without speed or force sensor";
+        }
+    }
+}

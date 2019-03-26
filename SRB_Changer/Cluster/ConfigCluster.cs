@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SRB.Frame;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.NodeType.Charger
 {
     class ConfigCluster:ICluster
     {
@@ -12,7 +12,7 @@ namespace SRB.NodeType.PS2_Handle
         internal bool analog { get => getBankBool(0,0); set => setBankBool(value, 0,0); }
         internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
 
-        public ConfigCluster(byte ID, BaseNode n)
+        public ConfigCluster(byte ID, Frame.BaseNode n)
             : base(n, ID, 2)
         {
             

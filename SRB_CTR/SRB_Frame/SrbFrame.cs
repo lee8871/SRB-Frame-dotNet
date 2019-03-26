@@ -35,7 +35,7 @@ namespace SRB_CTR
         }
         public SrbFrame()
         {
-            Nodes = new Node[128];
+            Nodes = new BaseNode[128];
             ///TODO
             ///add master select 
             srb = new SRB_Master_Uart();
@@ -81,19 +81,19 @@ namespace SRB_CTR
         #region Node
 
 
-        public delegate void dNodeChange(Node n);
+        public delegate void dNodeChange(BaseNode n);
 
         public dNodeChange eNode_register;
         public dNodeChange eNode_unregister;
         public dNodeChange eNode_change;
-        public override void nodeRegister(Node n)
+        public override void nodeRegister(BaseNode n)
         {
             int a = n.Addr;
             if (a < Nodes.Length)
             {
                 if (Nodes[a] != null)
                 {
-                    Node n_remove = Nodes[a];
+                    BaseNode n_remove = Nodes[a];
                     n_remove.unregister();
                     n_remove.Dispose();
                 }
@@ -106,7 +106,7 @@ namespace SRB_CTR
             n.Parent = this;
         }
         
-        public override void nodeAddrChange(Node n)
+        public override void nodeAddrChange(BaseNode n)
         {
             //remove the node which addr is changed
             for (int i = 0;i<scan_max_addr;i++)
@@ -134,7 +134,7 @@ namespace SRB_CTR
             nodeDescriptionChange(n);
         }
 
-        public override void nodeDescriptionChange(Node n)
+        public override void nodeDescriptionChange(BaseNode n)
         {
             if (eNode_change != null)
             {
@@ -142,7 +142,7 @@ namespace SRB_CTR
             }
         }
 
-        public override void nodeReplace(Node from, Node to)
+        public override void nodeReplace(BaseNode from, BaseNode to)
         {
             int addr = from.Addr;
             if (Nodes[addr] != from)
@@ -159,7 +159,7 @@ namespace SRB_CTR
                 eNode_change.Invoke(to);
             }
         }
-        public override void nodeUnregister(Node n)
+        public override void nodeUnregister(BaseNode n)
         {
             int a = n.Addr;
             if (Nodes[a] != n)
@@ -209,7 +209,7 @@ but we do not have the node in table");
             {
                 Scan_addr = i;
                 Scan_progress = Scan_addr *1.0 / scan_max_addr;
-                Node n = new Node((byte)i, this);
+                BaseNode n = new BaseNode((byte)i, this);
                 if (n.Is_hareware_exist)
                 {
                     switch (n.NodeType)
@@ -220,7 +220,7 @@ but we do not have the node in table");
                             break;
                         case "PS2_Handle":
                         case "PS2_handle":
-                            SRB.NodeType.PS2_Handle.Cn cn2 = new SRB.NodeType.PS2_Handle.Cn(n);
+                            SRB.NodeType.PS2_Handle.Node cn2 = new SRB.NodeType.PS2_Handle.Node(n);
                           //  Nodes_form.addNode(cn);
                             break;
                         default:

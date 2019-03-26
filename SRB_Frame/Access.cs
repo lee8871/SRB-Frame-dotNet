@@ -11,7 +11,7 @@ namespace SRB.Frame
         public DateTime sendTime;
         public string description = "";
 
-        private Node sender_node;        
+        private BaseNode sender_node;        
         public byte Addr
         {
             get
@@ -73,7 +73,7 @@ namespace SRB.Frame
 
 
 
-        public Access(Node n, PortEnum p, byte[] send_d)
+        public Access(BaseNode n, PortEnum p, byte[] send_d)
         {
             sender_node = n;
             _send_data = send_d;

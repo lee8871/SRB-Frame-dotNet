@@ -11,8 +11,8 @@ using SRB.Frame;
 namespace SRB.Frame{
     public partial class UntypedNodeCtrl : UserControl
     {
-        Node node;  
-        public UntypedNodeCtrl(Node n)
+        BaseNode node;  
+        public UntypedNodeCtrl(BaseNode n)
         {
             node = n;
             InitializeComponent();
@@ -20,7 +20,7 @@ namespace SRB.Frame{
             node.eDataAccessRecv += Node_eDataAccessRecv;
         }
 
-        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
         {
             recvRTB.Text = e.ac.Recv_data.ToArrayString();
             e.Handled = true;

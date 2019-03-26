@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SRB.Frame;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.NodeType.Charger
 {
     class MappingCluster:ICluster
     {
@@ -16,7 +16,7 @@ namespace SRB.NodeType.PS2_Handle
         public byte[] mapping { get => getBankByteArray(0, up_len + 2 + down_len); }
         public EventHandler eMappingChanged;
         public string description;
-        public MappingCluster(byte ID, BaseNode n, string dsc = "Mapping")
+        public MappingCluster(byte ID, Frame.BaseNode n, string dsc = "Mapping")
             : base(n, ID, 30)
         {
             description = dsc;
