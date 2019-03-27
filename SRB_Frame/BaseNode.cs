@@ -193,10 +193,9 @@ namespace SRB.Frame
                         {
                             eDataAccessRecv.Invoke(this, e);
                         }
-                        
                         if(e.Handled==false)
                         {
-                            dataAccessDone(ac);
+                            OnDataAccessDone(ac);
                         }
                         break;
                     case Access.PortEnum.Cmd:
@@ -241,7 +240,8 @@ namespace SRB.Frame
                 }
             }
         }
-        protected virtual void dataAccessDone(Access ac)
+        public event EventHandler eBankChangeByAccess;
+        protected virtual void OnDataAccessDone(Access ac)
         {
             int port;
             port = (int)ac.Port;
@@ -254,6 +254,13 @@ namespace SRB.Frame
             for (int i = 0; i < recv_len; i++)
             {
                 bank[mapping.upMapping(i)] = ac.Recv_data[i];
+            }
+            if (recv_len != 0)
+            {
+                if(eBankChangeByAccess!=null)
+                {
+                    eBankChangeByAccess.Invoke(this, new EventArgs());
+                }
             }
             return;
         }

@@ -9,52 +9,149 @@ namespace SRB.NodeType.Charger
 {
     public class Node : BaseNode
     {
-        public int joy_rx { get => toJoy(6); }
-        public int joy_ry { get => toJoy(7); }
-        public int joy_lx { get => toJoy(8); }
-        public int joy_ly { get => toJoy(9); }
+        public byte buzzer_now { get => getBankByte(0); }
 
-        public bool handle_exist { get => (bank[3] & (1 << 0)) != 0; }
+        public bool is_charge_open { get => getBankBool(1, 0); }
+        public bool is_charging { get => getBankBool(1, 1); }
+        public bool is_charge_done { get => getBankBool(1, 2); }
+        public bool is_jack_in { get => getBankBool(1, 3); }
 
-        public bool select { get => (bank[4] & (1 << 0)) == 0;}
-        public bool L3 { get => (bank[4] & (1 << 1)) == 0; }
-        public bool R3 { get => (bank[4] & (1 << 2)) == 0; }
-        public bool start { get => (bank[4] & (1 << 3)) == 0; }
+        public int battery_voteage { get => (int)getBankUshort(2); }
+        public ushort battery_ADC { get => getBankUshort(4); }
+        public int charge_second { get => (int)getBankUshort(6); }
 
-        public bool up { get => (bank[4] & (1 << 4)) == 0; }
-        public bool right { get => (bank[4] & (1 << 5)) == 0; }
-        public bool down { get => (bank[4] & (1 << 6)) == 0; }
-        public bool left { get => (bank[4] & (1 << 7)) == 0; }
+        public byte buzzer_commend { set => setBankByte(value, 8); }
 
-        public bool L2 { get => (bank[5] & (1 << 0)) == 0; }
-        public bool R2 { get => (bank[5] & (1 << 1)) == 0; }
-        public bool L1 { get => (bank[5] & (1 << 2)) == 0; }
-        public bool R1 { get => (bank[5] & (1 << 3)) == 0; }
-
-        public bool trag { get => (bank[5] & (1 << 4)) == 0; }
-        public bool circle { get => (bank[5] & (1 << 5)) == 0; }
-        public bool cross { get => (bank[5] & (1 << 6)) == 0; }
-        public bool square { get =>( (bank[5] & (1 << 7)) == 0); }
-
-        public void setRumble(int rumble)
-        {
-            rumble = rumble.enterRound(0, 255);
+        public bool cmd_charge_enable {
+            get => getBankBool(9,0);
+            set => setBankBool(value, 9,0);
         }
-        public int toJoy(int byte_location)
-        {
-            int data = bank[byte_location];
-            data -= 128;
-            if (data < 0)
-            { 
-                data++;
-            }
-            return data;
+        public bool is_Mute {
+            get => getBankBool(9,1);
+            set => setBankBool(value, 9, 1);
         }
-
-
+        public bool is_PowerLEDRun {
+            get => getBankBool(9, 2);
+            set => setBankBool(value, 9, 2);
+        }
 
         internal ConfigCluster cfg_clu;
         internal MappingCluster Mapping0_clu;
+        Dictionary<char, string> Morse = new Dictionary<char, string>()
+        {
+            {'A' , ".-"},
+            {'B' , "-..."},
+            {'C' , "-.-."},
+            {'D' , "-.."},
+            {'E' , "."},
+            {'F' , "..-."},
+            {'G' , "--."},
+            {'H' , "...."},
+            {'I' , ".."},
+            {'J' , ".---"},
+            {'K' , "-.-"},
+            {'L' , ".-.."},
+            {'M' , "--"},
+            {'N' , "-."},
+            {'O' , "---"},
+            {'P' , ".--."},
+            {'Q' , "--.-"},
+            {'R' , ".-."},
+            {'S' , "..."},
+            {'T' , "-"},
+            {'U' , "..-"},
+            {'V' , "...-"},
+            {'W' , ".--"},
+            {'X' , "-..-"},
+            {'Y' , "-.--"},
+            {'Z' , "--.."},
+            {'1' , ".----"},
+            {'2' , "..---"},
+            {'3' , "...--"},
+            {'4' , "....-"},
+            {'5' , "....."},
+            {'6' , "-...."},
+            {'7' , "--..."},
+            {'8' , "---.."},
+            {'9' , "----."},
+            {'0' , "-----"},
+            {'.' , ".-.-.-"},
+            {':' , "---..."},
+            {',' , "--..--"},
+            {';' , "-.-.-."},
+            {'?' , "..--.."},
+            {'=' , "-...-"},
+            {'\'' , ".----."},
+            {'/' , "-..-."},
+            {'!' , "-.-.--"},
+            {'-' , "-....-"},
+            {'_' , "..--.-"},
+            {'(' , "-.--."},
+            {')' , "-.--.-"},
+            {'$' , "...-..-"},
+            {'&' , ".-..."},
+            {'@' , ".--.-."},
+            {'+' , ".-.-."},
+            {'"' , ".-..-."},
+
+        };
+
+
+        public char morseToChar(string morse)
+        {
+            foreach(char c in Morse.Keys)
+            {
+                if (Morse[c] == morse)
+                {
+                    return c;
+                }
+            }
+            return '\0';
+        }
+
+        public string charToMorse(char c)
+        { 
+            try
+            {
+                return Morse[c];
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public void play(string s)
+        {
+            char[] ticks = s.ToArray();
+
+            foreach (char c in ticks)
+            {
+                if ((c != '.') &&( c != '-'))
+                {
+                    throw new Exception("Morse string is constitute by '.'and '-'");
+                }
+            }
+            int i = 8 - 1 - ticks.Length;
+            byte b = 0;
+            b |= (byte)(1 << i);
+            i++;
+            foreach (char c in ticks)
+            {
+                if (c == '-')
+                {
+                    b |= (byte)(1 << i);
+                }
+                i++;
+            }
+            buzzer_commend = b;
+        }
+
+        public void play(char c)
+        {
+            play(Morse[c]);
+        }
+
 
         public void init()
         {
@@ -66,15 +163,18 @@ namespace SRB.NodeType.Charger
 
             Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();
+            this.cmd_charge_enable = true;
+            this.buzzer_commend = 0x80;
+            this.is_Mute = true;
+            this.is_PowerLEDRun = true;
         }
-
         private void updataMapping(object sender, EventArgs e)
         {
             bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[] {6,3,4,5,6,7,8,9,0,1,2}                    ,
-                new byte[] {4,3,6,7,8,9,0,1,2}                   ,
-                new byte[] {7,3,3,4,5,6,7,8,9,0,1,2}
+                new byte[] {8,2, 0,1, 2,3, 4,5, 6,7,  8,9}        ,
+                new byte[] {1,0,9}  ,
+                new byte[] {8,2, 0,1, 2,3, 4,5, 6,7,  8,9}
             });
         }
 
@@ -82,28 +182,19 @@ namespace SRB.NodeType.Charger
             : base(addr, f)
         {
             init();
-        }
-        
-        public Node(Node n)
+        }        
+        public Node(BaseNode n)
             : base(n)
         {
             init();
         }
-        public void bulidUpD0()
-        {
-            this.addAccess(0, 0);
-        }
-        public void bulidUpD0(ushort ms)
-        {
-            this.addAccess(0);
-        }
         public override System.Windows.Forms.Control getClusterControl()
         {
-            return new Ctrl(this);
+            return new ChangerControl(this);
         }
         public override string Describe()
         {
-            return @"This node drivers two motors. Without speed or force sensor";
+            return @"";
         }
     }
 }

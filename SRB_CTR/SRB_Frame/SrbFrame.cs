@@ -223,6 +223,10 @@ but we do not have the node in table");
                             SRB.NodeType.PS2_Handle.Node cn2 = new SRB.NodeType.PS2_Handle.Node(n);
                           //  Nodes_form.addNode(cn);
                             break;
+                        case "Charger_2LiB":
+                            SRB.NodeType.Charger.Node Charger = new SRB.NodeType.Charger.Node(n);
+                            //  Nodes_form.addNode(cn);
+                            break;
                         default:
                          //   Nodes_form.addNode(n);
                             break;

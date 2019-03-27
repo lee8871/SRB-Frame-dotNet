@@ -58,11 +58,11 @@
       <DependentUpon>MappingCC.cs</DependentUpon>
     </Compile>
     <Compile Include="PS_handle.cs" />
-    <Compile Include="Ctrl.cs">
+    <Compile Include="PS2_handle_control.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="PS2_handle_control.Designer.cs">
+      <DependentUpon>PS2_handle_control.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -79,8 +79,8 @@
     <EmbeddedResource Include="Cluster\MappingCC.resx">
       <DependentUpon>MappingCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="PS2_handle_control.resx">
+      <DependentUpon>PS2_handle_control.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

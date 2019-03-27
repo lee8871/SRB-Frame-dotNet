@@ -1,6 +1,6 @@
 ﻿namespace SRB.NodeType.Charger
 {
-    partial class Ctrl
+    partial class ChangerControl
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -37,22 +37,25 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ChargeTimerLAB = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.MuteBTN = new System.Windows.Forms.Button();
             this.MorseTB = new System.Windows.Forms.TextBox();
-            this.PlayBTN = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.MorseCharTB = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.RunStopBTN = new System.Windows.Forms.Button();
+            this.BatteryPowerLedBTN = new System.Windows.Forms.Button();
+            this.PlayBTN = new System.Windows.Forms.Button();
+            this.ChangeEnableBTN = new System.Windows.Forms.Button();
+            this.MuteBTN = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // sendTimer
             // 
             this.sendTimer.Interval = 50;
+            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
             // 
             // ChangeVottageBar
             // 
@@ -80,12 +83,12 @@
             this.BatteryValueLAB.Name = "BatteryValueLAB";
             this.BatteryValueLAB.Size = new System.Drawing.Size(41, 12);
             this.BatteryValueLAB.TabIndex = 2;
-            this.BatteryValueLAB.Text = "7.403V";
+            this.BatteryValueLAB.Text = "0.000V";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(155, 40);
+            this.label2.Location = new System.Drawing.Point(119, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 3;
@@ -105,27 +108,18 @@
             this.ChargeTimerLAB.AutoSize = true;
             this.ChargeTimerLAB.Location = new System.Drawing.Point(54, 52);
             this.ChargeTimerLAB.Name = "ChargeTimerLAB";
-            this.ChargeTimerLAB.Size = new System.Drawing.Size(29, 12);
+            this.ChargeTimerLAB.Size = new System.Drawing.Size(17, 12);
             this.ChargeTimerLAB.TabIndex = 5;
-            this.ChargeTimerLAB.Text = "144s";
+            this.ChargeTimerLAB.Text = "0S";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(202, 52);
+            this.label4.Location = new System.Drawing.Point(179, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 3;
             this.label4.Text = "Charging";
-            // 
-            // MuteBTN
-            // 
-            this.MuteBTN.Location = new System.Drawing.Point(252, 98);
-            this.MuteBTN.Name = "MuteBTN";
-            this.MuteBTN.Size = new System.Drawing.Size(40, 40);
-            this.MuteBTN.TabIndex = 6;
-            this.MuteBTN.Text = "Mute";
-            this.MuteBTN.UseVisualStyleBackColor = true;
             // 
             // MorseTB
             // 
@@ -136,15 +130,7 @@
             this.MorseTB.Size = new System.Drawing.Size(87, 26);
             this.MorseTB.TabIndex = 4;
             this.MorseTB.Text = ".-..-.-";
-            // 
-            // PlayBTN
-            // 
-            this.PlayBTN.Location = new System.Drawing.Point(160, 98);
-            this.PlayBTN.Name = "PlayBTN";
-            this.PlayBTN.Size = new System.Drawing.Size(40, 40);
-            this.PlayBTN.TabIndex = 8;
-            this.PlayBTN.Text = "Play";
-            this.PlayBTN.UseVisualStyleBackColor = true;
+            this.MorseTB.TextChanged += new System.EventHandler(this.MorseTB_TextChanged);
             // 
             // label5
             // 
@@ -155,24 +141,16 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Morse Input:";
             // 
-            // button1
+            // MorseCharTB
             // 
-            this.button1.Location = new System.Drawing.Point(206, 98);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(40, 40);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Light";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(37, 105);
-            this.textBox1.MaxLength = 1;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(23, 26);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "F";
+            this.MorseCharTB.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.MorseCharTB.Location = new System.Drawing.Point(37, 105);
+            this.MorseCharTB.MaxLength = 1;
+            this.MorseCharTB.Name = "MorseCharTB";
+            this.MorseCharTB.Size = new System.Drawing.Size(23, 26);
+            this.MorseCharTB.TabIndex = 4;
+            this.MorseCharTB.Text = "F";
+            this.MorseCharTB.TextChanged += new System.EventHandler(this.MorseCharTB_TextChanged);
             // 
             // label6
             // 
@@ -211,21 +189,80 @@
             this.label10.TabIndex = 14;
             this.label10.Text = "|6.0";
             // 
-            // Ctrl
+            // RunStopBTN
+            // 
+            this.RunStopBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175842;
+            this.RunStopBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.RunStopBTN.Location = new System.Drawing.Point(252, 52);
+            this.RunStopBTN.Name = "RunStopBTN";
+            this.RunStopBTN.Size = new System.Drawing.Size(40, 40);
+            this.RunStopBTN.TabIndex = 15;
+            this.RunStopBTN.UseVisualStyleBackColor = true;
+            this.RunStopBTN.Click += new System.EventHandler(this.RunStopBTN_Click);
+            // 
+            // BatteryPowerLedBTN
+            // 
+            this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175695;
+            this.BatteryPowerLedBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BatteryPowerLedBTN.Location = new System.Drawing.Point(193, 106);
+            this.BatteryPowerLedBTN.Name = "BatteryPowerLedBTN";
+            this.BatteryPowerLedBTN.Size = new System.Drawing.Size(28, 28);
+            this.BatteryPowerLedBTN.TabIndex = 8;
+            this.BatteryPowerLedBTN.UseVisualStyleBackColor = true;
+            this.BatteryPowerLedBTN.Click += new System.EventHandler(this.BatteryPowerLedBTN_Click);
+            // 
+            // PlayBTN
+            // 
+            this.PlayBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175826;
+            this.PlayBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.PlayBTN.Location = new System.Drawing.Point(159, 106);
+            this.PlayBTN.Name = "PlayBTN";
+            this.PlayBTN.Size = new System.Drawing.Size(28, 28);
+            this.PlayBTN.TabIndex = 8;
+            this.PlayBTN.UseVisualStyleBackColor = true;
+            this.PlayBTN.Click += new System.EventHandler(this.PlayBTN_Click);
+            // 
+            // ChangeEnableBTN
+            // 
+            this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
+            this.ChangeEnableBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ChangeEnableBTN.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChangeEnableBTN.Location = new System.Drawing.Point(261, 106);
+            this.ChangeEnableBTN.Name = "ChangeEnableBTN";
+            this.ChangeEnableBTN.Size = new System.Drawing.Size(28, 28);
+            this.ChangeEnableBTN.TabIndex = 6;
+            this.ChangeEnableBTN.UseVisualStyleBackColor = true;
+            this.ChangeEnableBTN.Click += new System.EventHandler(this.ChangeEnableBTN_Click);
+            // 
+            // MuteBTN
+            // 
+            this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175710;
+            this.MuteBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.MuteBTN.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.MuteBTN.Location = new System.Drawing.Point(227, 106);
+            this.MuteBTN.Name = "MuteBTN";
+            this.MuteBTN.Size = new System.Drawing.Size(28, 28);
+            this.MuteBTN.TabIndex = 6;
+            this.MuteBTN.UseVisualStyleBackColor = true;
+            this.MuteBTN.Click += new System.EventHandler(this.MuteBTN_Click);
+            // 
+            // ChangerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.RunStopBTN);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BatteryPowerLedBTN);
             this.Controls.Add(this.PlayBTN);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.MorseCharTB);
             this.Controls.Add(this.MorseTB);
+            this.Controls.Add(this.ChangeEnableBTN);
             this.Controls.Add(this.MuteBTN);
             this.Controls.Add(this.ChargeTimerLAB);
             this.Controls.Add(this.label3);
@@ -236,8 +273,8 @@
             this.Controls.Add(this.ChangeVottageBar);
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 141);
+            this.Name = "ChangerControl";
+            this.Size = new System.Drawing.Size(300, 137);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,16 +289,18 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label ChargeTimerLAB;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button MuteBTN;
         private System.Windows.Forms.TextBox MorseTB;
         private System.Windows.Forms.Button PlayBTN;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button BatteryPowerLedBTN;
+        private System.Windows.Forms.TextBox MorseCharTB;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button MuteBTN;
+        private System.Windows.Forms.Button RunStopBTN;
+        private System.Windows.Forms.Button ChangeEnableBTN;
     }
 }

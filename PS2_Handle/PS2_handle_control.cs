@@ -10,11 +10,11 @@ using SRB.Frame;
 
 namespace SRB.NodeType.PS2_Handle
 {
-    partial class Ctrl : UserControl
+    partial class PS2HandleControl : UserControl
     {
         Node node;
         int left_x_base, left_y_base, right_x_base, right_y_base;
-        public Ctrl(Node n)
+        public PS2HandleControl(Node n)
         {
             node = n;
             InitializeComponent();

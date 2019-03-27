@@ -49,11 +49,11 @@
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </Compile>
     <Compile Include="Cluster\ConfigCluster.cs" />
-    <Compile Include="Ctrl.cs">
+    <Compile Include="ChargerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Ctrl.Designer.cs">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <Compile Include="ChargerControl.Designer.cs">
+      <DependentUpon>ChargerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Cluster\MappingCC.cs">
       <SubType>UserControl</SubType>
@@ -64,17 +64,26 @@
     <Compile Include="Cluster\MappingCluster.cs" />
     <Compile Include="Charger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Cluster\ConfigCC.resx">
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ctrl.resx">
-      <DependentUpon>Ctrl.cs</DependentUpon>
+    <EmbeddedResource Include="ChargerControl.resx">
+      <DependentUpon>ChargerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cluster\MappingCC.resx">
       <DependentUpon>MappingCC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +91,45 @@
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175826.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175858.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175642.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175836.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175842.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175709.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175695.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175295.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175309.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175310.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11756951.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11757091.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175710.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

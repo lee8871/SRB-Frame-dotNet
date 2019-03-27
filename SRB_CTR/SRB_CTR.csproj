@@ -240,6 +240,10 @@
       <Project>{93c7fdaa-b077-4f0f-8e4e-d7be53ccd779}</Project>
       <Name>SRB_Node_PS2_Handle</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SRB_Changer\SRB_Node_Charger.csproj">
+      <Project>{66701bdf-b018-4712-a6de-9b78b020b981}</Project>
+      <Name>SRB_Node_Charger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB_Frame\SRB_Frame.csproj">
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>

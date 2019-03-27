@@ -1,6 +1,6 @@
 ﻿namespace SRB.NodeType.PS2_Handle
 {
-    partial class Ctrl
+    partial class PS2HandleControl
     {
         /// <summary> 
         /// 必需的设计器变量。

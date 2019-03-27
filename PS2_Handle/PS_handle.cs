@@ -101,52 +101,13 @@ namespace SRB.NodeType.PS2_Handle
             rumble_ms = ms;
             this.addAccess(0);
         }
-        //protected override void dataAccessDone(Access ac)
-        //{
-        //    if (ac.Port == Access.PortEnum.D0)
-        //    {
-        //        try
-        //        {
-        //            if (ac.Status == Access.StatusEnum.RecvedDone)
-        //            {
-        //                // color_now = Color.FromArgb(ac._recv_data[1], ac._recv_data[2], ac._recv_data[0]);
-        //                this.joy_rx = ac.Recv_data[2];
-        //                this.joy_ry = ac.Recv_data[3];
-        //                this.joy_lx = ac.Recv_data[4];
-        //                this.joy_ly = ac.Recv_data[5];
-        //                this.select = (ac.Recv_data[0] & (1 << 0)) == 0;
-        //                this.L3 = (ac.Recv_data[0] & (1 << 1)) == 0;
-        //                this.R3 = (ac.Recv_data[0] & (1 << 2)) == 0;
-        //                this.start = (ac.Recv_data[0] & (1 << 3)) == 0;
-
-        //                this.up = (ac.Recv_data[0] & (1 << 4)) == 0;
-        //                this.right = (ac.Recv_data[0] & (1 << 5)) == 0;
-        //                this.down = (ac.Recv_data[0] & (1 << 6)) == 0;
-        //                this.left = (ac.Recv_data[0] & (1 << 7)) == 0;
-
-        //                this.L2 = (ac.Recv_data[1] & (1 << 0)) == 0;
-        //                this.R2 = (ac.Recv_data[1] & (1 << 1)) == 0;
-        //                this.L1 = (ac.Recv_data[1] & (1 << 2)) == 0;
-        //                this.R1 = (ac.Recv_data[1] & (1 << 3)) == 0;
-
-        //                this.trag = (ac.Recv_data[1] & (1 << 4)) == 0;
-        //                this.circle = (ac.Recv_data[1] & (1 << 5)) == 0;
-        //                this.cross = (ac.Recv_data[1] & (1 << 6)) == 0;
-        //                this.square = (ac.Recv_data[1] & (1 << 7)) == 0;
-
-        //            }
-        //        }
-        //        catch (System.IndexOutOfRangeException)
-        //        { }
-        //    }
-        //}
         public override System.Windows.Forms.Control getClusterControl()
         {
-            return new Ctrl(this);
+            return new PS2HandleControl(this);
         }
         public override string Describe()
         {
-            return @"This node drivers two motors. Without speed or force sensor";
+            return @"";
         }
     }
 }
