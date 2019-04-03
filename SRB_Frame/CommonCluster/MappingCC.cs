@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SRB.Frame;
 
-namespace SRB.NodeType.Charger
+namespace SRB.Frame.Cluster
 {
     partial class MappingCC  : IClusterControl
     {
@@ -22,22 +22,33 @@ namespace SRB.NodeType.Charger
 
         protected override void DataUpdata()
         {
-            UpRTC.Text = cluster.up_mapping.ToArrayString();
-            DownRTC.Text = cluster.down_mapping.ToArrayString();
+            UpRTC.Text = cluster.mapping.ToArrayString();
         }
 
         protected override void WriteData()
         {
-            byte[] up = UpRTC.Text.ToByteAsCArroy();
-            byte[] down = DownRTC.Text.ToByteAsCArroy();
-
-            cluster.setMapping(up, down);
-            cluster.write();
+            string error;
+            byte[] up = UpRTC.Text.ToByteAsCArroy(out error);
+            if (up != null) { 
+                if (cluster.setMapping(up))
+                {
+                    cluster.write();
+                }
+            }
         }
 
         private void UpRTC_TextChanged(object sender, EventArgs e)
         {
-
+            string error;
+            byte[] up = UpRTC.Text.ToByteAsCArroy(out error);
+            if(up!=null)
+            {                
+                StatusLAB.Text = cluster.checkMapping(up);
+            }
+            else
+            {
+                StatusLAB.Text = error;
+            }
         }
     }
 }

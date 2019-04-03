@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SRB.Frame;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.Frame.Cluster.ud
 {
     partial class MappingCC  : IClusterControl
     {
@@ -28,8 +28,9 @@ namespace SRB.NodeType.PS2_Handle
 
         protected override void WriteData()
         {
-            byte[] up = UpRTC.Text.ToByteAsCArroy();
-            byte[] down = DownRTC.Text.ToByteAsCArroy();
+            string error;
+            byte[] up = UpRTC.Text.ToByteAsCArroy(out error);
+            byte[] down = DownRTC.Text.ToByteAsCArroy(out error);
 
             cluster.setMapping(up, down);
             cluster.write();

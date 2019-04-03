@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using SRB.Frame;
+using SRB.Frame.Cluster;
 
 namespace SRB.NodeType.Charger
 {
@@ -16,7 +17,7 @@ namespace SRB.NodeType.Charger
         public bool is_charge_done { get => getBankBool(1, 2); }
         public bool is_jack_in { get => getBankBool(1, 3); }
 
-        public int battery_voteage { get => (int)getBankUshort(2); }
+        public int battery_voltage { get => (int)getBankUshort(2); }
         public ushort battery_ADC { get => getBankUshort(4); }
         public int charge_second { get => (int)getBankUshort(6); }
 
@@ -34,129 +35,88 @@ namespace SRB.NodeType.Charger
             get => getBankBool(9, 2);
             set => setBankBool(value, 9, 2);
         }
-
-        internal ConfigCluster cfg_clu;
-        internal MappingCluster Mapping0_clu;
-        Dictionary<char, string> Morse = new Dictionary<char, string>()
+        public string getStatues()
         {
-            {'A' , ".-"},
-            {'B' , "-..."},
-            {'C' , "-.-."},
-            {'D' , "-.."},
-            {'E' , "."},
-            {'F' , "..-."},
-            {'G' , "--."},
-            {'H' , "...."},
-            {'I' , ".."},
-            {'J' , ".---"},
-            {'K' , "-.-"},
-            {'L' , ".-.."},
-            {'M' , "--"},
-            {'N' , "-."},
-            {'O' , "---"},
-            {'P' , ".--."},
-            {'Q' , "--.-"},
-            {'R' , ".-."},
-            {'S' , "..."},
-            {'T' , "-"},
-            {'U' , "..-"},
-            {'V' , "...-"},
-            {'W' , ".--"},
-            {'X' , "-..-"},
-            {'Y' , "-.--"},
-            {'Z' , "--.."},
-            {'1' , ".----"},
-            {'2' , "..---"},
-            {'3' , "...--"},
-            {'4' , "....-"},
-            {'5' , "....."},
-            {'6' , "-...."},
-            {'7' , "--..."},
-            {'8' , "---.."},
-            {'9' , "----."},
-            {'0' , "-----"},
-            {'.' , ".-.-.-"},
-            {':' , "---..."},
-            {',' , "--..--"},
-            {';' , "-.-.-."},
-            {'?' , "..--.."},
-            {'=' , "-...-"},
-            {'\'' , ".----."},
-            {'/' , "-..-."},
-            {'!' , "-.-.--"},
-            {'-' , "-....-"},
-            {'_' , "..--.-"},
-            {'(' , "-.--."},
-            {')' , "-.--.-"},
-            {'$' , "...-..-"},
-            {'&' , ".-..."},
-            {'@' , ".--.-."},
-            {'+' , ".-.-."},
-            {'"' , ".-..-."},
-
-        };
-
-
-        public char morseToChar(string morse)
-        {
-            foreach(char c in Morse.Keys)
+            if(is_charging)
             {
-                if (Morse[c] == morse)
+                if((!is_charge_done)&&(is_jack_in)&&(is_charge_open))
                 {
-                    return c;
+                    return "Charging";
+                }
+                else
+                {
+                    return "Error Status";
                 }
             }
-            return '\0';
+            else
+            {
+                if(is_charge_done)
+                {
+                    if ((is_jack_in) && (is_charge_open))
+                    {
+                        return "Charge Done";
+                    }
+                    else
+                    {
+                        return "Error Status";
+                    }
+                }
+                else
+                {
+                    if (!(is_charge_open))
+                    {
+                        if ((is_jack_in))
+                        { 
+                            return "Charge is Closed";
+                        }
+                        else
+                        {
+                            return "Discharging";
+                        }
+                    }
+                    else 
+                    {
+                        if ((is_jack_in))
+                        {
+                            return "Low Power Support";
+                        }
+                        else
+                        {
+                            return "Discharging";
+                        }
+                    }
+
+                }
+
+            }
         }
 
-        public string charToMorse(char c)
-        { 
-            try
-            {
-                return Morse[c];
-            }
-            catch
-            {
-                return "";
-            }
-        }
 
         public void play(string s)
         {
-            char[] ticks = s.ToArray();
-
-            foreach (char c in ticks)
-            {
-                if ((c != '.') &&( c != '-'))
-                {
-                    throw new Exception("Morse string is constitute by '.'and '-'");
-                }
-            }
-            int i = 8 - 1 - ticks.Length;
-            byte b = 0;
-            b |= (byte)(1 << i);
-            i++;
-            foreach (char c in ticks)
-            {
-                if (c == '-')
-                {
-                    b |= (byte)(1 << i);
-                }
-                i++;
-            }
-            buzzer_commend = b;
+            buzzer_commend = MorseEnter.morseToByte(s);
         }
 
         public void play(char c)
         {
-            play(Morse[c]);
+            play(MorseEnter.charToMorse(c));
         }
 
+        public void play(byte bc)
+        {
+            buzzer_commend = bc;
+        }
 
+        internal BatteryCluster cfg_clu;
+        internal MappingCluster Mapping0_clu;
+        internal MorseCluster morse_clu;
         public void init()
         {
-            cfg_clu = new ConfigCluster(11, this);
+            cfg_clu = new BatteryCluster(this);
             clusters[cfg_clu.Clustr_ID] = cfg_clu;
+
+            morse_clu = new MorseCluster(this);
+            clusters[morse_clu.Clustr_ID] = morse_clu;
 
             Mapping0_clu = new MappingCluster(3, this,"Mapping0");
             clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;

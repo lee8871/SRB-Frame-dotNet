@@ -168,61 +168,73 @@ namespace System//SRB_CTR.nsByteExtensions
        {
            return (ushort)((int)b[num] + (((int)b[num + 1]) << 8));
        }
-        public static byte[] ToByteAsCArroy(this string st)
+        public static byte[] ToByteAsCArroy(this string st,out string error)
         {
            // TODO:
             //change inpot 0x
             int begin = st.IndexOf('{');
             int end = st.IndexOf('}');
-            if (begin < 0) return new byte[0];
-            if (end < 0) return new byte[0];
-            if (end <= begin) return new byte[0];
+            if (begin < 0)
+            {
+                error = "Miss char '{'";
+                return null;
+            }
+            if (end < 0)
+            {
+                error = "Miss char '}'";
+                return null;
+            }
+            if (end <= begin)
+            {
+                error = "No arror {...}";
+                return null;
+
+            }
             st = st.Substring(begin + 1, end - begin - 1);
             st.Replace(" ", "");
             st.Replace(";", "");
             st.Replace("\n", "");
             st.Replace("\r", "");
             st.Replace("\t", "");
-            try
-            {
-                string[] sta = st.Split(',');
-                byte[] b = new byte[sta.Length];
-                for (int i = 0; i < sta.Length; i++)
-                {//调试错误 这里应该处理空数组
-                    int provider;
-                    if ((sta[i].ToCharArray()[0] == '0') && (sta[i].Length > 1))
+            string[] sta = st.Split(',');
+            byte[] b = new byte[sta.Length];
+            for (int i = 0; i < sta.Length; i++)
+            {//调试错误 这里应该处理空数组
+                if (sta[i].Length == 0)
+                {
+                    error = "Number "+i+" is missing";
+                    return null;
+                }
+                int provider;
+                if ((sta[i].ToCharArray()[0] == '0') && (sta[i].Length > 1))
+                {
+                    if (sta[i].ToCharArray()[1] == 'x')
                     {
-                        if (sta[i].ToCharArray()[1] == 'x')
-                        {
-                            provider = 16;
-                            sta[i] = sta[i].Substring(2);
-                        }
-                        else
-                        {
-                            provider = 8;
-                            sta[i] = sta[i].Substring(1);
-                        }
+                        provider = 16;
+                        sta[i] = sta[i].Substring(2);
                     }
                     else
                     {
-                        provider = 10;
-                    }
-                    try
-                    {
-                        b[i] = System.Convert.ToByte(sta[i], provider);
-                    }
-                    catch
-                    {
-                        return new byte[0];
+                        provider = 8;
+                        sta[i] = sta[i].Substring(1);
                     }
                 }
-                return b;
+                else
+                {
+                    provider = 10;
+                }
+                try
+                {
+                    b[i] = System.Convert.ToByte(sta[i], provider);
+                }
+                catch
+                {
+                    error = "\"" + sta[i] + "\"" + " is not a number";
+                    return null;
+                }
             }
-            catch
-            {
-                return new byte[0];
-            }
+            error = "done";
+            return b;
         }
-
     }
 }

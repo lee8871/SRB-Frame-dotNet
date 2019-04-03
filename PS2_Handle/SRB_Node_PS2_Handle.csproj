@@ -50,14 +50,7 @@
     <Compile Include="Cluster\ConfigCC.Designer.cs">
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster\MappingCluster.cs" />
-    <Compile Include="Cluster\MappingCC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Cluster\MappingCC.Designer.cs">
-      <DependentUpon>MappingCC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PS_handle.cs" />
+    <Compile Include="PS2_handle.cs" />
     <Compile Include="PS2_handle_control.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,9 +68,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Cluster\ConfigCC.resx">
       <DependentUpon>ConfigCC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cluster\MappingCC.resx">
-      <DependentUpon>MappingCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PS2_handle_control.resx">
       <DependentUpon>PS2_handle_control.cs</DependentUpon>

@@ -36,7 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ChargeTimerLAB = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.statusLAB = new System.Windows.Forms.Label();
             this.MorseTB = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.MorseCharTB = new System.Windows.Forms.TextBox();
@@ -44,7 +44,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.RunStopBTN = new System.Windows.Forms.Button();
             this.BatteryPowerLedBTN = new System.Windows.Forms.Button();
             this.PlayBTN = new System.Windows.Forms.Button();
@@ -74,7 +74,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Battery Vottage:";
+            this.label1.Text = "Battery Voltage:";
             // 
             // BatteryValueLAB
             // 
@@ -88,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(119, 40);
+            this.label2.Location = new System.Drawing.Point(100, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 3;
@@ -112,14 +112,14 @@
             this.ChargeTimerLAB.TabIndex = 5;
             this.ChargeTimerLAB.Text = "0S";
             // 
-            // label4
+            // statusLAB
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(179, 52);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Charging";
+            this.statusLAB.AutoSize = true;
+            this.statusLAB.Location = new System.Drawing.Point(113, 52);
+            this.statusLAB.Name = "statusLAB";
+            this.statusLAB.Size = new System.Drawing.Size(53, 12);
+            this.statusLAB.TabIndex = 3;
+            this.statusLAB.Text = "Charging";
             // 
             // MorseTB
             // 
@@ -129,7 +129,7 @@
             this.MorseTB.Name = "MorseTB";
             this.MorseTB.Size = new System.Drawing.Size(87, 26);
             this.MorseTB.TabIndex = 4;
-            this.MorseTB.Text = ".-..-.-";
+            this.MorseTB.Text = "..-.";
             this.MorseTB.TextChanged += new System.EventHandler(this.MorseTB_TextChanged);
             // 
             // label5
@@ -188,6 +188,10 @@
             this.label10.Size = new System.Drawing.Size(29, 12);
             this.label10.TabIndex = 14;
             this.label10.Text = "|6.0";
+            // 
+            // ToolTips
+            // 
+            this.ToolTips.IsBalloon = true;
             // 
             // RunStopBTN
             // 
@@ -266,7 +270,7 @@
             this.Controls.Add(this.MuteBTN);
             this.Controls.Add(this.ChargeTimerLAB);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.statusLAB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BatteryValueLAB);
             this.Controls.Add(this.label1);
@@ -288,7 +292,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label ChargeTimerLAB;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label statusLAB;
         private System.Windows.Forms.TextBox MorseTB;
         private System.Windows.Forms.Button PlayBTN;
         private System.Windows.Forms.Label label5;
@@ -298,7 +302,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip ToolTips;
         private System.Windows.Forms.Button MuteBTN;
         private System.Windows.Forms.Button RunStopBTN;
         private System.Windows.Forms.Button ChangeEnableBTN;

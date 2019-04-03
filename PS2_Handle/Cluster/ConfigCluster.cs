@@ -12,8 +12,8 @@ namespace SRB.NodeType.PS2_Handle
         internal bool analog { get => getBankBool(0,0); set => setBankBool(value, 0,0); }
         internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
 
-        public ConfigCluster(byte ID, BaseNode n)
-            : base(n, ID, 2)
+        public ConfigCluster(BaseNode n)
+            : base(n, 11, 2)
         {
             
         }

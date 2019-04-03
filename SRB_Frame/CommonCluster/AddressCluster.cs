@@ -14,6 +14,12 @@ namespace SRB.Frame.Cluster
         public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
         public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
 
+        public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
+            : base(n, cID, 19)
+        {
+            bank[0] = address;//此处为特殊操作,This Cluster must init address before used.
+        }
+
         public override void writeRecv(Access ac)
         {
             if (ac.Recv_error == false)
@@ -32,12 +38,6 @@ namespace SRB.Frame.Cluster
                 }
             }
         }
-        public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
-            : base(n, cID, 19)
-        {
-            bank[0]  = address;//此处为特殊操作,This Cluster must init address before used.
-        }
-
         public override UserControl createControl()
         {
             return new AddressCC(this);

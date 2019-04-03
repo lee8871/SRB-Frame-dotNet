@@ -42,44 +42,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cluster\ConfigCC.cs">
+    <Compile Include="Cluster\BatteryCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster\ConfigCC.Designer.cs">
-      <DependentUpon>ConfigCC.cs</DependentUpon>
+    <Compile Include="Cluster\BatteryCC.Designer.cs">
+      <DependentUpon>BatteryCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster\ConfigCluster.cs" />
+    <Compile Include="Cluster\BatteryCluster.cs" />
     <Compile Include="ChargerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ChargerControl.Designer.cs">
       <DependentUpon>ChargerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster\MappingCC.cs">
+    <Compile Include="Charger.cs" />
+    <Compile Include="Cluster\MorseCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster\MappingCC.Designer.cs">
-      <DependentUpon>MappingCC.cs</DependentUpon>
+    <Compile Include="Cluster\MorseCC.Designer.cs">
+      <DependentUpon>MorseCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cluster\MappingCluster.cs" />
-    <Compile Include="Charger.cs" />
+    <Compile Include="Cluster\MorseCluster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="MorseEnter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MorseEnter.Designer.cs">
+      <DependentUpon>MorseEnter.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cluster\ConfigCC.resx">
-      <DependentUpon>ConfigCC.cs</DependentUpon>
+    <EmbeddedResource Include="Cluster\BatteryCC.resx">
+      <DependentUpon>BatteryCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChargerControl.resx">
       <DependentUpon>ChargerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cluster\MappingCC.resx">
-      <DependentUpon>MappingCC.cs</DependentUpon>
+    <EmbeddedResource Include="Cluster\MorseCC.resx">
+      <DependentUpon>MorseCC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MorseEnter.resx">
+      <DependentUpon>MorseEnter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

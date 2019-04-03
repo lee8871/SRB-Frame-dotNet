@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using SRB.Frame;
+using SRB.Frame.Cluster;
 
 namespace SRB.NodeType.PS2_Handle
 {
@@ -61,7 +62,7 @@ namespace SRB.NodeType.PS2_Handle
 
         public void init()
         {
-            cfg_clu = new ConfigCluster(11, this);
+            cfg_clu = new ConfigCluster(this);
             clusters[cfg_clu.Clustr_ID] = cfg_clu;
 
             Mapping0_clu = new MappingCluster(3, this,"Mapping0");

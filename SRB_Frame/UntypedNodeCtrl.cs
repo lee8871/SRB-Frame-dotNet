@@ -34,7 +34,8 @@ namespace SRB.Frame{
 
         private void AccessOnce(object sender, EventArgs e)
         {
-            byte[] ba = sendRTB.Text.ToByteAsCArroy();
+            string error;
+            byte[] ba = sendRTB.Text.ToByteAsCArroy(out error);
             sendRTB.Text = ba.ToArrayString();  
             node.singleAccess(new Access(node, Access.PortEnum.D0, ba));
         }

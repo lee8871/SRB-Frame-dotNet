@@ -22,6 +22,10 @@ namespace SRB.NodeType.Charger
             node.eBankChangeByAccess += Node_eBankChangeByAccess;
             node.eDataAccessRecv += Node_eDataAccessRecv;
             node.singleAccess(2,0);
+            this.ToolTips.SetToolTip(PlayBTN, "Click to play morse.");
+            this.ToolTips.SetToolTip(BatteryPowerLedBTN, "Click to Toggle Voltage LED On PCB.");
+            this.ToolTips.SetToolTip(MuteBTN, "Click to Enable or disable buzzer alram.");
+            this.ToolTips.SetToolTip(ChangeEnableBTN, "Click to enable or disable charge.");
         }
 
         private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
@@ -31,10 +35,11 @@ namespace SRB.NodeType.Charger
 
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
-            this.BatteryValueLAB.Text =( ((double)node.battery_voteage) / 1000.0).ToString("0.000") + "V";
-            this.ChangeVottageBar.Value = node.battery_voteage.enterRound(6000, 8400); ;
+            this.BatteryValueLAB.Text =( ((double)node.battery_voltage) / 1000.0).ToString("0.000") + "V";
+            this.ChangeVottageBar.Value = node.battery_voltage.enterRound(6000, 8400); ;
             this.ChargeTimerLAB.Text = node.charge_second.ToString() + "S";
-            if(node.cmd_charge_enable)
+            this.statusLAB.Text = node.getStatues(); 
+            if (node.cmd_charge_enable)
             {
                 this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
             }
@@ -96,7 +101,7 @@ namespace SRB.NodeType.Charger
             }
             try
             {
-                MorseCharTB.Text = new string(node.morseToChar(MorseTB.Text), 1);
+                MorseCharTB.Text = new string(MorseEnter.morseToChar(MorseTB.Text), 1);
             }
             catch
             {
@@ -106,7 +111,7 @@ namespace SRB.NodeType.Charger
         private void MorseCharTB_TextChanged(object sender, EventArgs e)
         {
             try{
-                MorseTB.Text = node.charToMorse(MorseCharTB.Text.ToUpper().ToArray()[0]);
+                MorseTB.Text = MorseEnter.charToMorse(MorseCharTB.Text.ToUpper().ToArray()[0]);
             }
             catch
             {

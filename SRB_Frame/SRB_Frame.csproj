@@ -49,6 +49,12 @@
   <ItemGroup>
     <Compile Include="Access.cs" />
     <Compile Include="ByteBank.cs" />
+    <Compile Include="CommonCluster\MappingCC-UD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonCluster\MappingCC-UD.Designer.cs">
+      <DependentUpon>MappingCC-UD.cs</DependentUpon>
+    </Compile>
     <Compile Include="IClusterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -80,6 +86,13 @@
     <Compile Include="ISRB_Master.cs" />
     <Compile Include="BaseNode.cs" />
     <Compile Include="Mapping.cs" />
+    <Compile Include="CommonCluster\MappingCC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonCluster\MappingCC.Designer.cs">
+      <DependentUpon>MappingCC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonCluster\MappingCluster.cs" />
     <Compile Include="Node_form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,8 +129,14 @@
     <EmbeddedResource Include="CommonCluster\InformationCC.resx">
       <DependentUpon>InformationCC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CommonCluster\MappingCC-UD.resx">
+      <DependentUpon>MappingCC-UD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IClusterControl.resx">
       <DependentUpon>IClusterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonCluster\MappingCC.resx">
+      <DependentUpon>MappingCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Node_form.resx">
       <DependentUpon>Node_form.cs</DependentUpon>

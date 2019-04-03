@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using SRB.Frame;
+using SRB.Frame.Cluster;
+
 namespace SRB.NodeType.Du_motor
 {
     public class Cn : BaseNode
     {
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
+        internal MappingCluster Mapping0_clu;
 
         public int Speed_a { set => setSpeedA(value); }
         public int Speed_b { set => setSpeedB(value); }
@@ -53,16 +56,25 @@ namespace SRB.NodeType.Du_motor
         }
         public void init()
         {
-            motor_clu = new ConfigCluster(10, this);
+            motor_clu = new ConfigCluster(this);
             clusters[motor_clu.Clustr_ID] = motor_clu;
-            adj_clu = new AdjustCluster(11, this);
+            adj_clu = new AdjustCluster(this);
             clusters[adj_clu.Clustr_ID] = adj_clu;
-            //led_phase_clu.read();
+            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
+            clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;
+
+            Mapping0_clu.eDataChanged += updataMapping;
+            Mapping0_clu.read();
+
+        }
+
+        private void updataMapping(object sender, EventArgs e)
+        {
             bankInit(new byte[][]{
-                new byte[]{ 0,4,0,1,2,3}                        ,
-                new byte[]{ 0,4,2,3,0,1}                        ,
-                new byte[]{ 0,4,0,1,2,3}                        ,
-                new byte[]{ 0,4,2,3,0,1}
+                Mapping0_clu.mapping                  ,
+                new byte[] {0,4,0,1,2,3}                  ,
+                new byte[] {0,2,0,2}             ,
+                new byte[] {0,4,2,3,0,1}
             });
         }
         public Cn(byte addr, ISRB_Master f = null)

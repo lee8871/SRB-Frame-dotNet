@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using SRB.Frame;
 
-namespace SRB.NodeType.Charger
+namespace SRB.Frame.Cluster
 {
-    class MappingCluster:ICluster
+    public class MappingCluster:ICluster
     {
         private const int totle_length=28;
         public int up_len { get => getBankByte(0);}
@@ -16,9 +16,13 @@ namespace SRB.NodeType.Charger
         public byte[] mapping { get => getBankByteArray(0, up_len + 2 + down_len); }
         public EventHandler eMappingChanged;
         public string description;
-        public MappingCluster(byte ID, Frame.BaseNode n, string dsc = "Mapping")
+        public MappingCluster(byte ID, BaseNode n, string dsc = null)
             : base(n, ID, 30)
         {
+            if(dsc == null)
+            {
+                dsc = "Mapping" + (ID - 3);
+            }
             description = dsc;
         }
         public void setMapping(byte[] up, byte[] down)
@@ -39,9 +43,37 @@ namespace SRB.NodeType.Charger
             {
                 bank_write_temp[i++] = b;
             }
-
         }
-
+        public bool setMapping(byte[] mba)
+        {
+            if (checkMapping(mba)=="done")
+            {
+                bank_write_temp = mba;
+                return true;
+            }
+            return false;
+        }
+        public string checkMapping(byte[] mba)
+        {
+            if (mba.Length > totle_length + 2)
+            {
+                return
+                    "Array too long. Shold Less than 30";
+            }
+            if (mba.Length < 2)
+            {
+                return
+                    "Array too short. No up and down length.";
+            }
+            int len;
+            len = mba.Length;
+            if (mba.Length != 2 + mba[0] + mba[1])
+            {
+                return
+                    "Length error. [0] + [1] ≠ Length -2";
+            }
+            return "done";
+        }
 
         public override System.Windows.Forms.UserControl createControl()
         {

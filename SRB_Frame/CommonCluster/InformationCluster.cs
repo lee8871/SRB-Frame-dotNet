@@ -8,6 +8,7 @@ namespace SRB.Frame.Cluster
 {
     public class InformationCluster:ICluster
     {
+        public const byte Cluster_ID = 1;
         public string type  { get => getBankString(6,17);   }
         public int major_version { get => getBankByte(0); }
         public int minor_version { get => getBankByte(1); }
@@ -15,7 +16,6 @@ namespace SRB.Frame.Cluster
         public int SRB_minor_version { get => getBankByte(3); }
         public int time_stamp { get => getBankUshort(4); }
 
-        public const byte Cluster_ID = 1;
         public InformationCluster(BaseNode n, byte ID = Cluster_ID)
             : base(n, ID, 23)
         {

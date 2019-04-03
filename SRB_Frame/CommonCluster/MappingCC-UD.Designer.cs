@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.Charger
+﻿namespace SRB.Frame.Cluster.ud
 {
     partial class MappingCC
     {
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.UpRTC = new System.Windows.Forms.RichTextBox();
-            this.DownRTC = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.DownRTC = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // UpRTC
@@ -42,16 +42,6 @@
             this.UpRTC.Size = new System.Drawing.Size(201, 40);
             this.UpRTC.TabIndex = 8;
             this.UpRTC.Text = "";
-            this.UpRTC.TextChanged += new System.EventHandler(this.UpRTC_TextChanged);
-            // 
-            // DownRTC
-            // 
-            this.DownRTC.Location = new System.Drawing.Point(6, 77);
-            this.DownRTC.MaxLength = 2048;
-            this.DownRTC.Name = "DownRTC";
-            this.DownRTC.Size = new System.Drawing.Size(201, 40);
-            this.DownRTC.TabIndex = 9;
-            this.DownRTC.Text = "";
             // 
             // label1
             // 
@@ -70,6 +60,15 @@
             this.label2.Size = new System.Drawing.Size(83, 12);
             this.label2.TabIndex = 10;
             this.label2.Text = "Down Mapping:";
+            // 
+            // DownRTC
+            // 
+            this.DownRTC.Location = new System.Drawing.Point(6, 77);
+            this.DownRTC.MaxLength = 2048;
+            this.DownRTC.Name = "DownRTC";
+            this.DownRTC.Size = new System.Drawing.Size(201, 40);
+            this.DownRTC.TabIndex = 9;
+            this.DownRTC.Text = "";
             // 
             // MappingCC
             // 
@@ -92,8 +91,8 @@
 
         #endregion
         private System.Windows.Forms.RichTextBox UpRTC;
-        private System.Windows.Forms.RichTextBox DownRTC;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox DownRTC;
     }
 }
