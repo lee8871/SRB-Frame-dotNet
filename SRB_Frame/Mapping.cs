@@ -21,7 +21,7 @@ namespace SRB.Frame
         public int Down_len { get => down_mapping.Length; }
         public Mapping(byte[] raw)
         {
-            if (raw.Length <= 2)
+            if (raw.Length < 2)
             {
                 throw new Exception(
                     "The Mapping Raw Array shold has up_len, down_len and Mapping Table "

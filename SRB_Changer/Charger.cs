@@ -20,20 +20,21 @@ namespace SRB.NodeType.Charger
         public int battery_voltage { get => (int)getBankUshort(2); }
         public ushort battery_ADC { get => getBankUshort(4); }
         public int charge_second { get => (int)getBankUshort(6); }
+        public int capacity { get => (short)getBankUshort(8); }
 
-        public byte buzzer_commend { set => setBankByte(value, 8); }
+        public byte buzzer_commend { set => setBankByte(value, 10); }
 
         public bool cmd_charge_enable {
-            get => getBankBool(9,0);
-            set => setBankBool(value, 9,0);
+            get => getBankBool(11,0);
+            set => setBankBool(value, 11,0);
         }
         public bool is_Mute {
-            get => getBankBool(9,1);
-            set => setBankBool(value, 9, 1);
+            get => getBankBool(11,1);
+            set => setBankBool(value, 11, 1);
         }
         public bool is_PowerLEDRun {
-            get => getBankBool(9, 2);
-            set => setBankBool(value, 9, 2);
+            get => getBankBool(11, 2);
+            set => setBankBool(value, 11, 2);
         }
         public string getStatues()
         {
@@ -110,6 +111,7 @@ namespace SRB.NodeType.Charger
         internal BatteryCluster cfg_clu;
         internal MappingCluster Mapping0_clu;
         internal MorseCluster morse_clu;
+        internal InnResCluster inn_res_clu;
         public void init()
         {
             cfg_clu = new BatteryCluster(this);
@@ -117,6 +119,9 @@ namespace SRB.NodeType.Charger
 
             morse_clu = new MorseCluster(this);
             clusters[morse_clu.Clustr_ID] = morse_clu;
+
+            inn_res_clu = new InnResCluster(this);
+            clusters[inn_res_clu.Clustr_ID] = inn_res_clu;
 
             Mapping0_clu = new MappingCluster(3, this,"Mapping0");
             clusters[Mapping0_clu.Clustr_ID] = Mapping0_clu;
@@ -132,9 +137,9 @@ namespace SRB.NodeType.Charger
         {
             bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[] {8,2, 0,1, 2,3, 4,5, 6,7,  8,9}        ,
-                new byte[] {1,0,9}  ,
-                new byte[] {8,2, 0,1, 2,3, 4,5, 6,7,  8,9}
+                new byte[]  {10,2, 0,1, 2,3, 4,5, 6,7, 8,9,10,11}       ,
+                new byte[]  {1,0,11},
+                new byte[]  {0,0}
             });
         }
 

@@ -42,12 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cluster\InnResCC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Cluster\InnResCC.Designer.cs">
+      <DependentUpon>InnResCC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cluster\BatteryCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Cluster\BatteryCC.Designer.cs">
       <DependentUpon>BatteryCC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cluster\InnResCluster.cs" />
     <Compile Include="Cluster\BatteryCluster.cs" />
     <Compile Include="ChargerControl.cs">
       <SubType>UserControl</SubType>
@@ -78,6 +85,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Cluster\InnResCC.resx">
+      <DependentUpon>InnResCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cluster\BatteryCC.resx">
       <DependentUpon>BatteryCC.cs</DependentUpon>
     </EmbeddedResource>

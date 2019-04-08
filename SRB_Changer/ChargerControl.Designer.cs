@@ -50,6 +50,8 @@
             this.PlayBTN = new System.Windows.Forms.Button();
             this.ChangeEnableBTN = new System.Windows.Forms.Button();
             this.MuteBTN = new System.Windows.Forms.Button();
+            this.CapacityLAB = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // sendTimer
@@ -250,12 +252,32 @@
             this.MuteBTN.UseVisualStyleBackColor = true;
             this.MuteBTN.Click += new System.EventHandler(this.MuteBTN_Click);
             // 
+            // Capacity
+            // 
+            this.CapacityLAB.AutoSize = true;
+            this.CapacityLAB.Location = new System.Drawing.Point(54, 76);
+            this.CapacityLAB.Name = "Capacity";
+            this.CapacityLAB.Size = new System.Drawing.Size(17, 12);
+            this.CapacityLAB.TabIndex = 17;
+            this.CapacityLAB.Text = "0%";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Capacity";
+            // 
             // ChangerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.CapacityLAB);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.RunStopBTN);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -306,5 +328,7 @@
         private System.Windows.Forms.Button MuteBTN;
         private System.Windows.Forms.Button RunStopBTN;
         private System.Windows.Forms.Button ChangeEnableBTN;
+        private System.Windows.Forms.Label CapacityLAB;
+        private System.Windows.Forms.Label label7;
     }
 }

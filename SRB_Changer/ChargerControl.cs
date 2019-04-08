@@ -38,6 +38,7 @@ namespace SRB.NodeType.Charger
             this.BatteryValueLAB.Text =( ((double)node.battery_voltage) / 1000.0).ToString("0.000") + "V";
             this.ChangeVottageBar.Value = node.battery_voltage.enterRound(6000, 8400); ;
             this.ChargeTimerLAB.Text = node.charge_second.ToString() + "S";
+            this.CapacityLAB.Text = ((node.capacity*100.0)/1024).ToString("0.0") + "%";
             this.statusLAB.Text = node.getStatues(); 
             if (node.cmd_charge_enable)
             {
