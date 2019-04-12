@@ -177,9 +177,9 @@ namespace SRB_CTR
             }
             if (record_port_data)
             {
-                UartRawData raw = new UartRawData();
-                original_send_ba = new byte[send_buffer_counter];
-                Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
+                //UartRawData raw = new UartRawData();
+                //original_send_ba = new byte[send_buffer_counter];
+                //Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
             }
             int 返回值 = this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
         }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrameForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.VersionLAB = new System.Windows.Forms.ToolStripStatusLabel();
             this.uiTIMER = new System.Windows.Forms.Timer(this.components);
             this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -53,7 +54,6 @@
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
-            this.VersionLAB = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
@@ -76,6 +76,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(384, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // VersionLAB
+            // 
+            this.VersionLAB.Name = "VersionLAB";
+            this.VersionLAB.Size = new System.Drawing.Size(53, 17);
+            this.VersionLAB.Text = "V0.0.1.0";
             // 
             // uiTIMER
             // 
@@ -294,12 +300,6 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
-            // VersionLAB
-            // 
-            this.VersionLAB.Name = "VersionLAB";
-            this.VersionLAB.Size = new System.Drawing.Size(53, 17);
-            this.VersionLAB.Text = "V0.0.1.0";
-            // 
             // FrameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -347,7 +347,6 @@
         private System.Windows.Forms.ToolStripButton ScanNodeBTN;
         private System.Windows.Forms.FlowLayoutPanel frameCounterFLP;
         private System.Windows.Forms.ToolStripButton runBTN;
-        private System.Windows.Forms.ToolStripButton stopBTN;
         private System.Windows.Forms.ToolStripButton stopAddrShowBTN;
         private System.Windows.Forms.ToolStripButton beginAddrShowBTN;
         private System.Windows.Forms.ToolTip NodeTipTT;
@@ -356,5 +355,6 @@
         private System.Windows.Forms.ToolStripMenuItem uSBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uARTToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel VersionLAB;
+        private System.Windows.Forms.ToolStripButton stopBTN;
     }
 }

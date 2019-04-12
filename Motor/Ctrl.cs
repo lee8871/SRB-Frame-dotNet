@@ -9,40 +9,36 @@ using System.Windows.Forms;
 using SRB.Frame;
 namespace SRB.NodeType.Du_motor
 {
-    partial class Ctrl : UserControl
+    partial class Ctrl : INodeControl
     {
         Cn node;
-        public Ctrl(Cn n)
+        public Ctrl(Cn n) :
+            base(n)
         {
             node = n;
             InitializeComponent();
-            handleBTN.MouseEnter += new EventHandler(handleBTN_MouseEnter);
-            handleBTN.MouseLeave += new EventHandler(handleBTN_MouseLeave);
         }
-
-        void handleBTN_MouseLeave(object sender, EventArgs e)
+        int x;
+        int y;
+        protected override void OnAccess()
         {
-            sendTimer.Stop();
-        }
-
-        void handleBTN_MouseEnter(object sender, EventArgs e)
-        {
-            sendTimer.Start();
-        }
-
-        private void sendTimer_Tick(object sender, EventArgs e)
-        {
-            if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
+            if ((Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)&&(this.handleBTN.Capture))
             {
                 Point moues = this.PointToClient(Control.MousePosition);
-                int x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
-                int y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
-                node.Speed_a = (x + y) ;
-                node.Speed_b = (x - y);
-                this.handleBTN.Text = "双电机控制\n"+ (x + y) + " × " + (x - y) ;
-                node.bulidUpD0();
-                node.Parent.sendAccess();
+                x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
+                y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
             }
+            else
+            {
+                if ((x > 20)||(x<-20)) x =( x * 2) / 3;
+                else x = 0;
+                if ((y > 20) || (y < -20)) y = (y * 2) / 3;
+                else y = 0;
+            }
+            node.Speed_a = (x + y);
+            node.Speed_b = (x - y);
+            this.handleBTN.Text = "双电机控制\n" + (x + y) + " × " + (x - y);
+            base.OnAccess();
         }
 
         public int Motor_x { get; set; }

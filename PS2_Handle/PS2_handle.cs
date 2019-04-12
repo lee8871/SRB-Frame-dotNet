@@ -37,8 +37,9 @@ namespace SRB.NodeType.PS2_Handle
         public bool cross { get =>! getBankBool(5, 6); }
         public bool square { get =>! getBankBool(5, 7); }
 
-        public int rumble { set => setBankByte((byte)(value.enterRound(0, 255)), 2); }
-        public int rumble_ms { set => setBankUshort(((ushort)value.enterRound(0,65535)), 0); }
+        public int rumble_l_strength { set => setBankByte((byte)(value.enterRound(0, 255)), 2); }
+        public int rumble_l { set => setBankByte(((byte)value.enterRound(0, 255)), 0); }
+        public int rumble_r { set => setBankByte(((byte)value.enterRound(0, 255)), 1); }
 
         public void setRumble(int rumble)
         {
@@ -54,8 +55,6 @@ namespace SRB.NodeType.PS2_Handle
             }
             return data;
         }
-
-
 
         internal ConfigCluster cfg_clu;
         internal MappingCluster Mapping0_clu;
@@ -76,9 +75,9 @@ namespace SRB.NodeType.PS2_Handle
         {
             bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[] {6,3,4,5,6,7,8,9,0,1,2}                    ,
-                new byte[] {4,3,6,7,8,9,0,1,2}                   ,
-                new byte[] {7,3,3,4,5,6,7,8,9,0,1,2}
+                new byte[] {7,3,3,4,5,6,7,8,9,0,1,2}                  ,
+                new byte[] {4,3,6,7,8,9,0,1,2}             ,
+                new byte[] {6,3,4,5,6,7,8,9,0,1,2}
             });
         }
 
@@ -99,7 +98,7 @@ namespace SRB.NodeType.PS2_Handle
         }
         public void bulidUpD0(ushort ms)
         {
-            rumble_ms = ms;
+            rumble_l = ms;
             this.addAccess(0);
         }
         public override System.Windows.Forms.Control getClusterControl()

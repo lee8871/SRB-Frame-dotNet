@@ -27,46 +27,36 @@
             // 
             // toolStrip1
             // 
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.recordBTN,
             this.fileName});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 30);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
+            resources.ApplyResources(this.toolStripLabel1, "toolStripLabel1");
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(50, 27);
-            this.toolStripLabel1.Text = "Record";
             // 
             // recordBTN
             // 
+            resources.ApplyResources(this.recordBTN, "recordBTN");
             this.recordBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.recordBTN.Image = ((System.Drawing.Image)(resources.GetObject("recordBTN.Image")));
-            this.recordBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.recordBTN.Name = "recordBTN";
-            this.recordBTN.Size = new System.Drawing.Size(27, 27);
-            this.recordBTN.Text = "正在记录串口数据，点击关闭";
             // 
             // fileName
             // 
+            resources.ApplyResources(this.fileName, "fileName");
             this.fileName.Name = "fileName";
-            this.fileName.Size = new System.Drawing.Size(100, 30);
             // 
             // SRB_record_uc
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip1);
-            this.MaximumSize = new System.Drawing.Size(300, 32);
-            this.MinimumSize = new System.Drawing.Size(300, 32);
             this.Name = "SRB_record_uc";
-            this.Size = new System.Drawing.Size(300, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

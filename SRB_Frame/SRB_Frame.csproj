@@ -49,6 +49,12 @@
   <ItemGroup>
     <Compile Include="Access.cs" />
     <Compile Include="ByteBank.cs" />
+    <Compile Include="INodeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INodeControl.Designer.cs">
+      <DependentUpon>INodeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommonCluster\MappingCC-UD.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="INodeControl.resx">
+      <DependentUpon>INodeControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\AddressCC.resx">
       <DependentUpon>AddressCC.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\MappingCC.resx">
       <DependentUpon>MappingCC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INodeControl.zh.resx">
+      <DependentUpon>INodeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Node_form.resx">
       <DependentUpon>Node_form.cs</DependentUpon>
@@ -161,6 +173,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\11756821.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175842.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175836.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

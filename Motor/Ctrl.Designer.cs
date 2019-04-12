@@ -28,44 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.handleBTN = new System.Windows.Forms.Button();
-            this.sendTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // handleBTN
             // 
-            this.handleBTN.Location = new System.Drawing.Point(4, 4);
+            this.handleBTN.Location = new System.Drawing.Point(6, 26);
             this.handleBTN.Name = "handleBTN";
-            this.handleBTN.Size = new System.Drawing.Size(200, 200);
+            this.handleBTN.Size = new System.Drawing.Size(145, 94);
             this.handleBTN.TabIndex = 9;
             this.handleBTN.Text = "双电机控制器";
             this.handleBTN.UseVisualStyleBackColor = true;
             this.handleBTN.Click += new System.EventHandler(this.handleBTN_Click);
             // 
-            // sendTimer
-            // 
-            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
-            // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.handleBTN);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 207);
+            this.Size = new System.Drawing.Size(300, 123);
+            this.Controls.SetChildIndex(this.handleBTN, 0);
+            this.Controls.SetChildIndex(this.RunStopBTN, 0);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button handleBTN;
-        private System.Windows.Forms.Timer sendTimer;
 
     }
 }

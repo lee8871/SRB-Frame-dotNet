@@ -24,7 +24,7 @@ namespace SRB.NodeType.Charger
         }
         public override string ToString()
         {
-            return string.Format("<ID={0}>", Clustr_ID.ToHexSt());
+            return string.Format("Internal resistance get<ID={0}>", Clustr_ID);
         }
     }
 }

@@ -10,11 +10,12 @@ using SRB.Frame;
 
 namespace SRB.NodeType.Charger
 {
-    partial class ChangerControl : UserControl
+    partial class ChangerControl : INodeControl
     {
         Node node;
 
-        public ChangerControl(Node n)
+        public ChangerControl(Node n) :
+            base(n)
         {
             node = n;
             InitializeComponent();
@@ -123,27 +124,13 @@ namespace SRB.NodeType.Charger
         private void PlayBTN_Click(object sender, EventArgs e)
         {
             node.play(MorseTB.Text);
-            if (sendTimer.Enabled == false)
+            if (is_running == false)
             {
                 node.singleAccess(1);
             }
 
         }
-        
-        private void RunStopBTN_Click(object sender, EventArgs e)
-        {
-            if (sendTimer.Enabled)
-            {
-                this.RunStopBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175842;
-                sendTimer.Stop() ;
-            }
-            else
-            {
-                this.RunStopBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175836;
-                sendTimer.Start();
-            }
 
-        }
 
         private void sendTimer_Tick(object sender, EventArgs e)
         {
@@ -153,7 +140,7 @@ namespace SRB.NodeType.Charger
         private void BatteryPowerLedBTN_Click(object sender, EventArgs e)
         {
             node.is_PowerLEDRun = !node.is_PowerLEDRun;
-            if (sendTimer.Enabled == false)
+            if (is_running == false)
             {
                 node.singleAccess(1);
             }
@@ -162,7 +149,7 @@ namespace SRB.NodeType.Charger
         private void ChangeEnableBTN_Click(object sender, EventArgs e)
         {
             node.cmd_charge_enable = !node.cmd_charge_enable;
-            if (sendTimer.Enabled == false)
+            if (is_running == false)
             {
                 node.singleAccess(1);
             }
@@ -171,7 +158,7 @@ namespace SRB.NodeType.Charger
         private void MuteBTN_Click(object sender, EventArgs e)
         {     
             node.is_Mute = !node.is_Mute;
-            if (sendTimer.Enabled == false)
+            if (is_running == false)
             {
                 node.singleAccess(1);
             }

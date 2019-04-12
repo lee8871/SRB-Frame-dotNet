@@ -27,7 +27,7 @@ namespace SRB.NodeType.Charger
             string a ="";
             for (int i = 0; i < 15; i++)
             {
-                a += cluster.mOhm(i) + "mΩ  ";
+                a += cluster.mOhm(i) + " mΩ  ";
             }
             this.valueRTC.Text = a;
         }

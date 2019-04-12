@@ -147,9 +147,6 @@
     <Compile Include="SRB_Frame\RawData.cs" />
     <Compile Include="SRB_Frame\ISRB_Driver.cs" />
     <Compile Include="SRB_Frame\SRB_Master_Uart.cs" />
-    <Compile Include="HexTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SRB_Frame\SRB_master_uart_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -166,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SRB_Frame\scanNodeState.resx">
       <DependentUpon>scanNodeState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SRB_Frame\SRB_record_uc.byn.resx">
+      <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SRB_Frame\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>

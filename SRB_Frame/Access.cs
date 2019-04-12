@@ -186,7 +186,7 @@ namespace SRB.Frame
         {
             string st = string.Format(
                 //"{{\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"State\":\"{2}\"\r\n\"Send\":{{\"bfc\":\"{3}\",\"data\":\"{4}\"}},\r\n\"Recv\":{{\"bfc\":\"{5}\",\"data\":\"{6}\"}}\r\n}\r\n",
-                "{7}\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"State\":\"{2}\",\r\n\"Send\":{7}\"bfc\":\"{3}\",\"data\":\"{4}\"{8},\r\n\"Recv\":{7}\"bfc\":\"{5}\",\"data\":\"{6}\"{8}\r\n{8}\r\n",
+                "{7}\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"Addr\":\"{9}\",\"State\":\"{2}\",\r\n\"Send\":{7}\"bfc\":\"{3}\",\"data\":\"{4}\"{8},\r\n\"Recv\":{7}\"bfc\":\"{5}\",\"data\":\"{6}\"{8}\r\n{8}\r\n",
                 sendTime.ToString("dd-HH:mm:ss:fffff"),
                 this.description,
                 this.Status.ToString(),
@@ -195,7 +195,8 @@ namespace SRB.Frame
                 this._recv_bfc.ToHexSt(),
                 this.Recv_data.ToHexSt(),
                 "{",
-                "}"
+                "}",
+                this.Addr.ToString()
             );
             return st;
         }
