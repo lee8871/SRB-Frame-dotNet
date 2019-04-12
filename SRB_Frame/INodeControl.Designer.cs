@@ -64,11 +64,6 @@
             0,
             0});
             this.sendFreqNUM.Location = new System.Drawing.Point(103, 0);
-            this.sendFreqNUM.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.sendFreqNUM.Minimum = new decimal(new int[] {
             1,
             0,
@@ -78,7 +73,7 @@
             this.sendFreqNUM.Size = new System.Drawing.Size(48, 21);
             this.sendFreqNUM.TabIndex = 24;
             this.sendFreqNUM.Value = new decimal(new int[] {
-            1000,
+            50,
             0,
             0,
             0});
