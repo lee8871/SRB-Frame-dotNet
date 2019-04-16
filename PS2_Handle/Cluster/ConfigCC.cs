@@ -24,7 +24,9 @@ namespace SRB.NodeType.PS2_Handle
 
         protected override void DataUpdata()
         {
-            PeriodNum.Value = cluster.period;
+            OnlineNUM.Value = cluster.online_rumble_10ms * 10;
+            loseNUM.Value = cluster.lose_rumble_10ms * 10;
+            StrengthNUM.Value = cluster.Strength;
             AnalogCBOX.CheckState = cluster.analog ? CheckState.Checked : CheckState.Unchecked;
             RumbleCBOX.CheckState = cluster.rumble ? CheckState.Checked : CheckState.Unchecked;
         }
@@ -32,11 +34,12 @@ namespace SRB.NodeType.PS2_Handle
         protected override void WriteData()
         {
             cluster.writeBankinit();
-            cluster.period = (int)PeriodNum.Value;
+            cluster.online_rumble_10ms = (int)(OnlineNUM.Value / 10);
+            cluster.lose_rumble_10ms = (int)(loseNUM.Value / 10);
+            cluster.Strength = (int)StrengthNUM.Value;
             cluster.analog = AnalogCBOX.Checked;
             cluster.rumble = RumbleCBOX.Checked;
             cluster.write();
         }
-
     }
 }

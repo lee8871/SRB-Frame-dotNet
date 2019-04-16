@@ -11,7 +11,7 @@ namespace SRB_CTR.nsBrain
         Random rnd = new Random();
         public Brain_Test(SrbFrame f):base(f)
         {
-            period_in_ms = 2;
+            period_in_ms = 1;
         }
 
 
@@ -45,7 +45,7 @@ namespace SRB_CTR.nsBrain
         {
             motors[2].Speed_a = 0;
             motors[2].Speed_b = -500;
-            motors[2].bulidUpD0();
+            motors[2].addAccess(0);
         }
         override public void calculate()
         {
@@ -67,7 +67,11 @@ namespace SRB_CTR.nsBrain
                     i++;
                     motors[motor_num].Speed_b = (int)(from[i] + ((to[i] - from[i]) * phase / 3000.0));
                     i++;
-                    motors[motor_num].bulidUpD0();
+                    try
+                    {
+                        motors[motor_num].addAccess(0);
+                    }
+                    catch { }
                 }
             }
             else
@@ -79,7 +83,11 @@ namespace SRB_CTR.nsBrain
                     i++;
                     motors[motor_num].Speed_b = (to[i]);
                     i++;
-                    motors[motor_num].bulidUpD0();
+                    try
+                    {
+                        motors[motor_num].addAccess(0);
+                    }
+                    catch { }
                 }
             }
         }

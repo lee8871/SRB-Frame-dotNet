@@ -41,6 +41,8 @@ namespace SRB.NodeType.PS2_Handle
         public int rumble_l { set => setBankByte(((byte)value.enterRound(0, 255)), 0); }
         public int rumble_r { set => setBankByte(((byte)value.enterRound(0, 255)), 1); }
 
+        public override string Help_net_work => 
+            "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E6%89%8B%E6%9F%84%E8%8A%82%E7%82%B9.md";
         public void setRumble(int rumble)
         {
             rumble = rumble.enterRound(0, 255);

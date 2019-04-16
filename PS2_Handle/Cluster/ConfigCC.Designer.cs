@@ -29,28 +29,54 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label label2;
+            System.Windows.Forms.Label label3;
             this.AnalogCBOX = new System.Windows.Forms.CheckBox();
             this.RumbleCBOX = new System.Windows.Forms.CheckBox();
-            this.PeriodNum = new System.Windows.Forms.NumericUpDown();
+            this.OnlineNUM = new System.Windows.Forms.NumericUpDown();
+            this.loseNUM = new System.Windows.Forms.NumericUpDown();
+            this.StrengthNUM = new System.Windows.Forms.NumericUpDown();
             label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodNum)).BeginInit();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.OnlineNUM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loseNUM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StrengthNUM)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(13, 0);
+            label1.Location = new System.Drawing.Point(90, 46);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(137, 12);
+            label1.Size = new System.Drawing.Size(143, 12);
             label1.TabIndex = 0;
-            label1.Text = "Set Handle Read Period";
+            label1.Text = "Online Rumble Time (ms)";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(90, 68);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(131, 12);
+            label2.TabIndex = 0;
+            label2.Text = "Lose Rumble Time (ms)";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(90, 90);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(149, 12);
+            label3.TabIndex = 0;
+            label3.Text = "Power On Rumble Strength";
             // 
             // AnalogCBOX
             // 
             this.AnalogCBOX.AutoSize = true;
             this.AnalogCBOX.Checked = true;
             this.AnalogCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.AnalogCBOX.Location = new System.Drawing.Point(15, 42);
+            this.AnalogCBOX.Location = new System.Drawing.Point(17, 0);
             this.AnalogCBOX.Name = "AnalogCBOX";
             this.AnalogCBOX.Size = new System.Drawing.Size(126, 16);
             this.AnalogCBOX.TabIndex = 6;
@@ -62,31 +88,85 @@
             this.RumbleCBOX.AutoSize = true;
             this.RumbleCBOX.Checked = true;
             this.RumbleCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.RumbleCBOX.Location = new System.Drawing.Point(15, 64);
+            this.RumbleCBOX.Location = new System.Drawing.Point(17, 22);
             this.RumbleCBOX.Name = "RumbleCBOX";
             this.RumbleCBOX.Size = new System.Drawing.Size(90, 16);
             this.RumbleCBOX.TabIndex = 7;
             this.RumbleCBOX.Text = "Open Rumble";
             this.RumbleCBOX.UseVisualStyleBackColor = true;
             // 
-            // PeriodNum
+            // OnlineNUM
             // 
-            this.PeriodNum.Location = new System.Drawing.Point(15, 16);
-            this.PeriodNum.Maximum = new decimal(new int[] {
-            20,
+            this.OnlineNUM.Increment = new decimal(new int[] {
+            100,
             0,
             0,
             0});
-            this.PeriodNum.Minimum = new decimal(new int[] {
-            3,
+            this.OnlineNUM.Location = new System.Drawing.Point(17, 44);
+            this.OnlineNUM.Maximum = new decimal(new int[] {
+            2500,
             0,
             0,
             0});
-            this.PeriodNum.Name = "PeriodNum";
-            this.PeriodNum.Size = new System.Drawing.Size(67, 21);
-            this.PeriodNum.TabIndex = 8;
-            this.PeriodNum.Value = new decimal(new int[] {
-            3,
+            this.OnlineNUM.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.OnlineNUM.Name = "OnlineNUM";
+            this.OnlineNUM.Size = new System.Drawing.Size(67, 21);
+            this.OnlineNUM.TabIndex = 8;
+            this.OnlineNUM.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // loseNUM
+            // 
+            this.loseNUM.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.loseNUM.Location = new System.Drawing.Point(17, 66);
+            this.loseNUM.Maximum = new decimal(new int[] {
+            2500,
+            0,
+            0,
+            0});
+            this.loseNUM.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.loseNUM.Name = "loseNUM";
+            this.loseNUM.Size = new System.Drawing.Size(67, 21);
+            this.loseNUM.TabIndex = 8;
+            this.loseNUM.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // StrengthNUM
+            // 
+            this.StrengthNUM.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.StrengthNUM.Location = new System.Drawing.Point(17, 88);
+            this.StrengthNUM.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.StrengthNUM.Name = "StrengthNUM";
+            this.StrengthNUM.Size = new System.Drawing.Size(67, 21);
+            this.StrengthNUM.TabIndex = 8;
+            this.StrengthNUM.Value = new decimal(new int[] {
+            64,
             0,
             0,
             0});
@@ -95,16 +175,27 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.PeriodNum);
+            this.Controls.Add(this.StrengthNUM);
+            this.Controls.Add(this.loseNUM);
+            this.Controls.Add(this.OnlineNUM);
+            this.Controls.Add(label3);
             this.Controls.Add(this.RumbleCBOX);
+            this.Controls.Add(label2);
             this.Controls.Add(this.AnalogCBOX);
             this.Controls.Add(label1);
             this.Name = "ConfigCC";
+            this.Size = new System.Drawing.Size(300, 112);
             this.Controls.SetChildIndex(label1, 0);
             this.Controls.SetChildIndex(this.AnalogCBOX, 0);
+            this.Controls.SetChildIndex(label2, 0);
             this.Controls.SetChildIndex(this.RumbleCBOX, 0);
-            this.Controls.SetChildIndex(this.PeriodNum, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.PeriodNum)).EndInit();
+            this.Controls.SetChildIndex(label3, 0);
+            this.Controls.SetChildIndex(this.OnlineNUM, 0);
+            this.Controls.SetChildIndex(this.loseNUM, 0);
+            this.Controls.SetChildIndex(this.StrengthNUM, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.OnlineNUM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loseNUM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StrengthNUM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,6 +204,8 @@
         #endregion
         private System.Windows.Forms.CheckBox AnalogCBOX;
         private System.Windows.Forms.CheckBox RumbleCBOX;
-        private System.Windows.Forms.NumericUpDown PeriodNum;
+        private System.Windows.Forms.NumericUpDown OnlineNUM;
+        private System.Windows.Forms.NumericUpDown loseNUM;
+        private System.Windows.Forms.NumericUpDown StrengthNUM;
     }
 }

@@ -8,13 +8,15 @@ namespace SRB.NodeType.PS2_Handle
 {
     class ConfigCluster:ICluster
     {
-        public int period { get => getBankByte(1); set => setBankByte((byte)value, 1); }
         internal bool analog { get => getBankBool(0,0); set => setBankBool(value, 0,0); }
         internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
-        public int Strength { get => getBankByte(2); set => setBankByte((byte)value, 2); }
+        public int online_rumble_10ms { get => getBankByte(1); set => setBankByte((byte)value, 1); }
+        public int lose_rumble_10ms { get => getBankByte(2); set => setBankByte((byte)value, 2); }
+        public int Strength { get => getBankByte(3); set => setBankByte((byte)value, 3); }
+
 
         public ConfigCluster(BaseNode n)
-            : base(n, 11, 3)
+            : base(n, 11, 4)
         {
             
         }

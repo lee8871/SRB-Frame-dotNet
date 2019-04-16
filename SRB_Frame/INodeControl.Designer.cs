@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.ToolTips = new System.Windows.Forms.ToolTip();
             this.MappingSelectCB = new System.Windows.Forms.ComboBox();
             this.sendFreqNUM = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.sendTimer = new System.Windows.Forms.Timer();
+            this.HelpBTN = new System.Windows.Forms.Button();
             this.RunStopBTN = new System.Windows.Forms.Button();
-            this.sendTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sendFreqNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,15 +50,15 @@
             "Mapping 1",
             "Mapping 2",
             "Mapping 3"});
-            this.MappingSelectCB.Location = new System.Drawing.Point(171, 0);
+            this.MappingSelectCB.Location = new System.Drawing.Point(147, 1);
             this.MappingSelectCB.Name = "MappingSelectCB";
-            this.MappingSelectCB.Size = new System.Drawing.Size(80, 20);
+            this.MappingSelectCB.Size = new System.Drawing.Size(78, 20);
             this.MappingSelectCB.TabIndex = 25;
             this.MappingSelectCB.Text = "Mapping 1";
             // 
             // sendFreqNUM
             // 
-            this.sendFreqNUM.Location = new System.Drawing.Point(103, 0);
+            this.sendFreqNUM.Location = new System.Drawing.Point(104, 0);
             this.sendFreqNUM.Maximum = new decimal(new int[] {
             60,
             0,
@@ -70,7 +70,7 @@
             0,
             0});
             this.sendFreqNUM.Name = "sendFreqNUM";
-            this.sendFreqNUM.Size = new System.Drawing.Size(48, 21);
+            this.sendFreqNUM.Size = new System.Drawing.Size(37, 21);
             this.sendFreqNUM.TabIndex = 24;
             this.sendFreqNUM.Value = new decimal(new int[] {
             50,
@@ -88,6 +88,22 @@
             this.label1.TabIndex = 26;
             this.label1.Text = "AccessSpeed(Hz): ";
             // 
+            // sendTimer
+            // 
+            this.sendTimer.Interval = 50;
+            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
+            // 
+            // HelpBTN
+            // 
+            this.HelpBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175798;
+            this.HelpBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.HelpBTN.Location = new System.Drawing.Point(231, -1);
+            this.HelpBTN.Name = "HelpBTN";
+            this.HelpBTN.Size = new System.Drawing.Size(24, 24);
+            this.HelpBTN.TabIndex = 27;
+            this.HelpBTN.UseVisualStyleBackColor = true;
+            this.HelpBTN.Click += new System.EventHandler(this.HelpBTN_Click);
+            // 
             // RunStopBTN
             // 
             this.RunStopBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175842;
@@ -99,17 +115,13 @@
             this.RunStopBTN.UseVisualStyleBackColor = true;
             this.RunStopBTN.Click += new System.EventHandler(this.RunStopBTN_Click);
             // 
-            // sendTimer
-            // 
-            this.sendTimer.Interval = 50;
-            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
-            // 
             // INodeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.HelpBTN);
             this.Controls.Add(this.MappingSelectCB);
             this.Controls.Add(this.sendFreqNUM);
             this.Controls.Add(this.RunStopBTN);
@@ -131,5 +143,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer sendTimer;
         public System.Windows.Forms.ToolTip ToolTips;
+        protected System.Windows.Forms.Button HelpBTN;
     }
 }

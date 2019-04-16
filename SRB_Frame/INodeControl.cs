@@ -66,5 +66,9 @@ namespace SRB.Frame
         {
             this.sendTimer.Interval = (int)(1000.0 / (double)(sendFreqNUM.Value));
         }
+        private void HelpBTN_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(node.Help_net_work);
+        }
     }
 }

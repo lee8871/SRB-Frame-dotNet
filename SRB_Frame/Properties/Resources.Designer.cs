@@ -83,6 +83,16 @@ namespace SRB_Frame.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap _1175798 {
+            get {
+                object obj = ResourceManager.GetObject("1175798", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap _1175836 {
             get {
                 object obj = ResourceManager.GetObject("1175836", resourceCulture);

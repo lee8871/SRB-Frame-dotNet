@@ -7,6 +7,7 @@ namespace SRB.Frame
 {
     public class BaseNode : IByteBank
     {
+        public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
         ISRB_Master parent = null;
         public ISRB_Master Parent
         {

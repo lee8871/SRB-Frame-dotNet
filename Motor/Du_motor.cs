@@ -13,6 +13,8 @@ namespace SRB.NodeType.Du_motor
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
         internal MappingCluster Mapping0_clu;
+        public override string Help_net_work =>
+            "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
 
         public int Speed_a { set => setSpeedA(value); }
         public int Speed_b { set => setSpeedB(value); }
@@ -88,12 +90,7 @@ namespace SRB.NodeType.Du_motor
         {
             init();
         }
-        public void bulidUpD0()
-        {
-            this.addAccess(0);
-            // byte[] data = { (byte)temp_a, (byte)(temp_a >> 8), (byte)temp_b, (byte)(temp_b >> 8) };
-            // this.addAccess(new Access(this, Access.PortEnum.D0, data));
-        }
+
 
         public override System.Windows.Forms.Control  getClusterControl()
         {

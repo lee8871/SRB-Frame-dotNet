@@ -93,6 +93,9 @@ namespace SRB.NodeType.Charger
         }
 
 
+        public override string Help_net_work => 
+            "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E4%B8%A4%E8%8A%82%E9%94%82%E7%94%B5%E6%B1%A0%E5%85%85%E7%94%B5%E8%8A%82%E7%82%B9.md";
+
         public void play(string s)
         {
             buzzer_commend = MorseEnter.morseToByte(s);
