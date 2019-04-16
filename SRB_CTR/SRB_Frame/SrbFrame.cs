@@ -16,8 +16,11 @@ namespace SRB_CTR
         private ISRB_Driver srb;
         public bool Is_port_opend
         {
-            get { return srb.Is_opened(); }
+            get { return srb.Is_opened; }
         }
+
+
+
         FrameForm _nodes_form;
         public FrameForm Nodes_form
         {

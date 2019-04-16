@@ -26,7 +26,7 @@ namespace SRB.Frame
                 }
             }
         }
-        public enum StatusEnum { NoSend, SendWaitRecv, NoRecv, RecvedDone, RecvedBadPkg, SendFail };
+        public enum StatusEnum { NoSend, SendWaitRecv, USBTimeOut, BusTimeOut, RecvedDone, RecvedBadPkg, SendFail };
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
 
@@ -136,16 +136,18 @@ namespace SRB.Frame
                 case StatusEnum.SendFail:
                     //TODO: Bus Master device is not open or port is not selected
                     break;
-                case StatusEnum.NoRecv:
+                case StatusEnum.USBTimeOut:
                 case StatusEnum.RecvedBadPkg:
                     //TODO: may something run on bus,  is not my error so log it.
                     break;
                 case StatusEnum.SendWaitRecv:
                     //TODO: may something run on bus,  is not my error so log it.
-                    this._status = StatusEnum.NoRecv;
+                    this._status = StatusEnum.USBTimeOut;
                     break;
                 case StatusEnum.NoSend:
-                    throw new Exception("An access DONE when no send,You should check SRB_MASTR.cs");
+                    this._status = StatusEnum.USBTimeOut;
+                    //throw new Exception("An access DONE when no send,You should check SRB_MASTR.cs");
+                    break;
 
 
             }

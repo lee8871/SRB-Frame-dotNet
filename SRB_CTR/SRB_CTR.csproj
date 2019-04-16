@@ -144,7 +144,6 @@
     <Compile Include="SRB_Frame\AccessDisplayer.Designer.cs">
       <DependentUpon>AccessDisplayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_Frame\RawData.cs" />
     <Compile Include="SRB_Frame\ISRB_Driver.cs" />
     <Compile Include="SRB_Frame\SRB_Master_Uart.cs" />
     <Compile Include="SRB_Frame\SRB_master_uart_uc.cs">
@@ -155,7 +154,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SRB_Frame\UartRawData.cs" />
     <Compile Include="support.cs" />
     <Compile Include="uint8.cs" />
     <EmbeddedResource Include="nsBrain\ControPanel.resx">

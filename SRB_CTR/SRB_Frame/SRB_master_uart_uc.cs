@@ -26,7 +26,7 @@ namespace SRB_CTR
 
         void setPortState() 
         {
-            if (background.Is_opened())
+            if (background.Is_opened)
             {
                 this.comSelectCB.BackColor = Color.LightGreen;
             }

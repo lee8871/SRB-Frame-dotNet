@@ -58,12 +58,12 @@
             // 
             // sendFreqNUM
             // 
-            this.sendFreqNUM.Increment = new decimal(new int[] {
-            10,
+            this.sendFreqNUM.Location = new System.Drawing.Point(103, 0);
+            this.sendFreqNUM.Maximum = new decimal(new int[] {
+            60,
             0,
             0,
             0});
-            this.sendFreqNUM.Location = new System.Drawing.Point(103, 0);
             this.sendFreqNUM.Minimum = new decimal(new int[] {
             1,
             0,

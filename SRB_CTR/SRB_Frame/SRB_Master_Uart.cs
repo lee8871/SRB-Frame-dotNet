@@ -13,7 +13,7 @@ namespace SRB_CTR
         SRB_master_uart_uc config_form;
         public string getPortName()
         {
-            if (Is_opened())
+            if (Is_opened)
             {
                 return mainComPort.Port;
             }
@@ -51,9 +51,12 @@ namespace SRB_CTR
         }
 
 
-        public override bool Is_opened()
+        public override bool Is_opened
         {
-            return mainComPort.Opened; 
+            get
+            {
+                return mainComPort.Opened;
+            }
         }
 
         internal void OpenPort(string portName)
@@ -65,7 +68,7 @@ namespace SRB_CTR
 
         internal void ClosePort()
         {
-            if (Is_opened())
+            if (Is_opened)
             {
                 mainComPort.Close();
                 mainComPort.ClearReceiveBuf();
@@ -111,7 +114,7 @@ namespace SRB_CTR
             {
                 acs_num = acs.Length;
             }
-            if (this.Is_opened() == false)
+            if (this.Is_opened == false)
             {
                 for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
                 {

@@ -29,7 +29,7 @@ namespace SRB_CTR
 
         void setPortState() 
         {
-            if (backstage.Is_opened())
+            if (backstage.Is_opened)
             {
                 this.comSelectCB.BackColor = Color.LightGreen;
                 renameBT.Enabled = true;
@@ -47,22 +47,27 @@ namespace SRB_CTR
             string[] comNumTable = backstage.getPortTable();
             comSelectCB.Items.AddRange(comNumTable);
         }
+        public override void Refresh()
+        {
+            setPortState();
+            base.Refresh();
+        }
 
 
-        void comSelectCB_Click(object sender, EventArgs e)
+        private void comSelectCB_Click(object sender, EventArgs e)
         {
             getUartTable();
             if ((comSelectCB.Text != "---")&& (comSelectCB.Text != ""))
             {
-                backstage.OpenPort(comSelectCB.Text);
+                backstage.openPort(comSelectCB.Text);
             }
             setPortState();
         }
-        void comSelectCB_TextChanged(object sender, EventArgs e)
+        private void comSelectCB_TextChanged(object sender, EventArgs e)
         {
             if ((comSelectCB.Text != "---")&& (comSelectCB.Text != "") )
             {
-                backstage.OpenPort(comSelectCB.Text);
+                backstage.openPort(comSelectCB.Text);
             }
             setPortState();
         }
@@ -86,7 +91,7 @@ namespace SRB_CTR
             }
             else
             {
-                if (backstage.Is_opened() == false)
+                if (backstage.Is_opened == false)
                 {
                     MessageBox.Show("The Port is Not Opened!");
 
