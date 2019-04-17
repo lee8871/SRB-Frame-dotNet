@@ -211,10 +211,9 @@ namespace SRB_CTR
         {
             setPortState();
             addrShowStep();
-
-
-
         }
+
+
         private void addrShowStep()
         {
             if (is_addr_show_on)
@@ -239,17 +238,30 @@ namespace SRB_CTR
                 addr_show_sno++;
             }
         }
-
+        bool last_port_status =false;
         private void setPortState()
         {
-            if (frame.Is_port_opend)
+            bool port_status;
+            port_status = frame.Is_port_opend;
+            if (port_status != last_port_status)
             {
-                this.srbRunning();
+                if (frame.Is_port_opend)
+                {
+                    this.srbRunning();
+                }
+                else
+                {
+                    this.srbStoped();
+                }
+                if (config_ctrl != null)
+                {
+                    if (config_ctrl.Visible)
+                    {
+                        config_ctrl.Refresh();
+                    }
+                }
             }
-            else
-            {
-                this.srbStoped();
-            }
+            last_port_status = port_status;
         }
 
 

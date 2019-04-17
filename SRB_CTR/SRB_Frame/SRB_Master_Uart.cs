@@ -10,14 +10,14 @@ namespace SRB_CTR
 {
     class SRB_Master_Uart : ISRB_Driver
     {
-        SerialPort oldComPort
-        ComPort mainComPort;
+        SerialPort mainComPort;
+       //ComPort mainComPort;
         SRB_master_uart_uc config_form;
         public string getPortName()
         {
             if (Is_opened)
             {
-                return mainComPort.Port;
+                return mainComPort.PortName;
             }
             else
             {
@@ -34,9 +34,24 @@ namespace SRB_CTR
         }
         public SRB_Master_Uart()
         {
-            mainComPort = new ComPort();
-            mainComPort.BaudRate = 57600;
-            OpenPort("COM5");
+            mainComPort = new SerialPort();
+            mainComPort.BaudRate = 2500000;
+            mainComPort.RtsEnable = true;
+            mainComPort.ReadTimeout = 2;
+            string[] port_names = getPortTable();
+            switch(port_names[0])
+            {
+                case "COM1":
+                case "COM2":
+                    if (port_names.Length>=2)
+                    {
+                        openPort(port_names[1]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
         }
         public override System.Windows.Forms.Control getConfigControl()
         {
@@ -55,17 +70,28 @@ namespace SRB_CTR
 
         public override bool Is_opened
         {
-            get
-            {
-                return mainComPort.Opened;
-            }
+            get{ return mainComPort.IsOpen; }
         }
 
-        internal void OpenPort(string portName)
+
+         internal void openPort(string portName)
         {
             ClosePort();
-            mainComPort.Port = portName;
-            mainComPort.Open();
+            mainComPort.PortName = portName;
+            try
+            {
+                mainComPort.Open();
+            }
+            catch { }
+        }
+        void OpenPort()
+        {
+            ClosePort();
+            try
+            {
+                mainComPort.Open();
+            }
+            catch { }
         }
 
         internal void ClosePort()
@@ -73,8 +99,6 @@ namespace SRB_CTR
             if (Is_opened)
             {
                 mainComPort.Close();
-                mainComPort.ClearReceiveBuf();
-                mainComPort.ClearSendBuf();
             }
         }
 
@@ -84,6 +108,8 @@ namespace SRB_CTR
         {
             return System.IO.Ports.SerialPort.GetPortNames();
         }
+
+
         byte[] all_bytes_buffer = new byte[128 * 74];
         byte[] one_ac_bytes_buffer = new byte[74];
         Access[] acs;
@@ -118,41 +144,45 @@ namespace SRB_CTR
             }
             if (this.Is_opened == false)
             {
-                for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                OpenPort();
+                if (this.Is_opened == false)
                 {
-                    acs[acs_counter].sendFail();
+                    for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                    {
+                        acs[acs_counter].sendFail();
+                    }
+                    return false;
                 }
-                return false;
             }
             if(acs_num>128) 
             {
                 throw new Exception(string.Format("Max num of accesses to send is 128"));
             }
-            original_send_ba = null;
-            original_recv_ba = null;
+            //original_send_ba = null;
+            //original_recv_ba = null;
             this.acs = acs;
             this.acs_num = acs_num;
 
             time_record = Stopwatch.GetTimestamp();
 
-            sendAccess();
-
-            last_send_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
-            time_record += last_send_time_cost;
-
-            recvAccess();
-
-            last_recv_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
-            time_record += last_recv_time_cost;
-
+            if(sendAccess()==true)
+            {
+                last_send_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
+                time_record += last_send_time_cost;
+                if(recvAccess()==true)
+                {
+                    last_recv_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
+                    time_record += last_recv_time_cost;
+                    return true;
+                }
+            }
+            OpenPort();
             for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
             {
                 if (acs[acs_counter].Status == Access.StatusEnum.SendWaitRecv)
                 {
                     acs[acs_counter].sendFail();
                 }
-               // acs[acs_counter].original_SendByte = original_send_ba;
-                //acs[acs_counter].original_RecvByte = original_recv_ba;
             }
             return true;
         }
@@ -165,11 +195,11 @@ namespace SRB_CTR
 
 
 
-        private byte[] original_send_ba;
-        private byte[] original_recv_ba;
+        //private byte[] original_send_ba;
+        //private byte[] original_recv_ba;
         int send_buffer_counter = 0;
 
-        private void sendAccess()
+        private bool sendAccess()
         {
             send_buffer_counter = 0;
             for(int acs_counter = 0; acs_counter<acs_num; acs_counter++)
@@ -180,20 +210,21 @@ namespace SRB_CTR
                 ac.sendTime = t;
                 ac.sendDone();
             }
-            if (record_port_data)
-            {
-                //UartRawData raw = new UartRawData();
-                //original_send_ba = new byte[send_buffer_counter];
-                //Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
-            }
+            //if (record_port_data)
+            //{
+            //    //UartRawData raw = new UartRawData();
+            //    //original_send_ba = new byte[send_buffer_counter];
+            //    //Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
+            //}
             try
             { 
-                this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
+                this.mainComPort.Write(all_bytes_buffer,0, send_buffer_counter);
             }
             catch
             {
-
+                return false;
             }
+            return true;
         }
 
         private int toUartByteArray(Access ac, byte sno)
@@ -234,9 +265,9 @@ namespace SRB_CTR
         long recv_begin_time;
         byte[] recv_temp = new byte[100];
         int recv_counter;
-        private void recvAccess()
+        private bool recvAccess()
         {
-            int recv_buffer_counter = 0;
+           // int recv_buffer_counter = 0;
             bool Escaping = false; 
 
             current_sno = 0xf8;
@@ -248,21 +279,27 @@ namespace SRB_CTR
 
             while (true)
             {
-                recv_counter = this.mainComPort.Read(ref recv_temp, 100);
-
-                if (record_port_data)
+                try
                 {
-                    for (int i = 0; i < recv_counter; i++)
-                    {
-                        all_bytes_buffer[recv_buffer_counter++] = recv_temp[i];
-                    }
+                    recv_counter = mainComPort.BytesToRead;
+                    this.mainComPort.Read(recv_temp, 0, recv_counter);
                 }
-
+                catch
+                {
+                    return false;
+                }
+                //if (record_port_data)
+                //{
+                //    for (int i = 0; i < recv_counter; i++)
+                //    {
+                //        all_bytes_buffer[recv_buffer_counter++] = recv_temp[i];
+                //    }
+                //}
                 if (Stopwatch.GetTimestamp() > (recv_begin_time + 100000))
                 {
                     if (recv_counter == 0)
                     {
-                        break;
+                        return false;
                     }
                 }
                 for (int i = 0; i < recv_counter; i++)
@@ -299,13 +336,13 @@ namespace SRB_CTR
                 }
                 if (recv_acs_num == acs_num)
                 {
-                    break ;
+                    //这是关于记录接收到的数据的代码,上面删掉了类似的if (record_port_data)
+                    //{
+                    //    original_recv_ba = new byte[recv_buffer_counter];
+                    //    Array.Copy(all_bytes_buffer, original_recv_ba, recv_buffer_counter);
+                    //}
+                    return true;
                 }
-            }
-            if (record_port_data)
-            {
-                original_recv_ba = new byte[recv_buffer_counter];
-                Array.Copy(all_bytes_buffer, original_recv_ba, recv_buffer_counter);
             }
         }
         byte current_sno ;

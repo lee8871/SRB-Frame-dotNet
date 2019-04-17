@@ -140,7 +140,7 @@
             this.SRB_config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uSBToolStripMenuItem,
             this.uARTToolStripMenuItem});
-            this.SRB_config.Image = global::SRB_CTR.Properties.Resources._1175746;
+            this.SRB_config.Image = global::SRB_CTR.Properties.Resources._1175759;
             this.SRB_config.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SRB_config.Name = "SRB_config";
             this.SRB_config.Size = new System.Drawing.Size(39, 27);
@@ -151,14 +151,14 @@
             // uSBToolStripMenuItem
             // 
             this.uSBToolStripMenuItem.Name = "uSBToolStripMenuItem";
-            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uSBToolStripMenuItem.Text = "USB";
             this.uSBToolStripMenuItem.Click += new System.EventHandler(this.uSBToolStripMenuItem_Click);
             // 
             // uARTToolStripMenuItem
             // 
             this.uARTToolStripMenuItem.Name = "uARTToolStripMenuItem";
-            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uARTToolStripMenuItem.Text = "UART";
             this.uARTToolStripMenuItem.Click += new System.EventHandler(this.uARTToolStripMenuItem_Click);
             // 
@@ -245,7 +245,7 @@
             this.beginAddrShowBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(271, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN

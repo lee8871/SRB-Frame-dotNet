@@ -42,6 +42,12 @@ namespace SRB_CTR
             comSelectCB.Items.Clear();
             comSelectCB.Items.AddRange(comNumTable);
         }
+        public override void Refresh()
+        {
+            setPortState();
+            base.Refresh();
+        }
+
 
 
         void comSelectCB_Click(object sender, EventArgs e)
@@ -53,7 +59,7 @@ namespace SRB_CTR
         {
             if (comSelectCB.Text != "")
             {
-                background.OpenPort(comSelectCB.Text);
+                background.openPort(comSelectCB.Text);
             }
             setPortState();
         }
