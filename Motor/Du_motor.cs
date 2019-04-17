@@ -8,7 +8,7 @@ using SRB.Frame.Cluster;
 
 namespace SRB.NodeType.Du_motor
 {
-    public class Cn : BaseNode
+    public class Node : BaseNode
     {
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
@@ -79,13 +79,13 @@ namespace SRB.NodeType.Du_motor
                 new byte[] {0,4,2,3,0,1}
             });
         }
-        public Cn(byte addr, ISRB_Master f = null)
+        public Node(byte addr, ISRB_Master f = null)
             : base(addr, f)
         {
             init();
         }
 
-        public Cn(BaseNode n)
+        public Node(BaseNode n)
             : base(n)
         {
             init();

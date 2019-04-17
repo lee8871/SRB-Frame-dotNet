@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logWriter.cs" />
+    <Compile Include="nsBrain\Brain_test2.cs" />
     <Compile Include="nsBrain\Brain_Test.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

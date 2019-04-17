@@ -42,7 +42,7 @@ namespace SRB_CTR
             ///TODO
             ///add master select 
             srb = new SRB_Master_Uart();
-            main_brain = new nsBrain.Brain_Test(this);
+            main_brain = new nsBrain.Brain_Test2(this);
             _nodes_form = new FrameForm(this);
             _nodes_form.Disposed += _nodes_form_Disposed;
             record = new SRB_Record();
@@ -230,7 +230,7 @@ but we do not have the node in table");
                     switch (n.NodeType)
                     {
                         case "Du_Motor":
-                            SRB.NodeType.Du_motor.Cn cn = new SRB.NodeType.Du_motor.Cn(n);
+                            SRB.NodeType.Du_motor.Node cn = new SRB.NodeType.Du_motor.Node(n);
                           //  Nodes_form.addNode(cn);
                             break;
                         case "Ps2_Handle":

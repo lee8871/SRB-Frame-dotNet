@@ -11,9 +11,9 @@ namespace SRB.NodeType.Du_motor
 {
     partial class Ctrl : INodeControl
     {
-        Cn node;
+        Node node;
         string Handle_text;
-        public Ctrl(Cn n) :
+        public Ctrl(Node n) :
             base(n)
         {
             node = n;
