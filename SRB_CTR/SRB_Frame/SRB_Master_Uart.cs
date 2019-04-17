@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using SRB.Frame;
+using System.IO.Ports;
 
 namespace SRB_CTR
 {
     class SRB_Master_Uart : ISRB_Driver
     {
+        SerialPort oldComPort
         ComPort mainComPort;
         SRB_master_uart_uc config_form;
         public string getPortName()
@@ -184,7 +186,14 @@ namespace SRB_CTR
                 //original_send_ba = new byte[send_buffer_counter];
                 //Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
             }
-            int 返回值 = this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
+            try
+            { 
+                this.mainComPort.Write(ref all_bytes_buffer, send_buffer_counter);
+            }
+            catch
+            {
+
+            }
         }
 
         private int toUartByteArray(Access ac, byte sno)

@@ -14,6 +14,7 @@ namespace SRB.NodeType.PS2_Handle
         public int joy_ry { get => toJoy(7); }
         public int joy_lx { get => toJoy(8); }
         public int joy_ly { get => toJoy(9); }
+        
 
         public bool handle_exist { get => getBankBool(3,0); }
 

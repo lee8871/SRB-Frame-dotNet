@@ -167,6 +167,15 @@ namespace SRB_CTR
 
         void runBTN_Click(object sender, EventArgs e)
         {
+            if(frame.isHighSpeedSupporting() == false)
+            {
+                DialogResult dr; 
+                dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Would you want to conntinue?","Brain start", MessageBoxButtons.OKCancel);
+                if(dr == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
             frame.runCalculation(); brainRunStateUpdate();
         }
         void brainRunStateUpdate()

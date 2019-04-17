@@ -63,7 +63,19 @@ namespace SRB_CTR
             }
             return srb.getConfigControl();
         }
+        public bool isHighSpeedSupporting()
+        {
+            if (srb is SRB_Master_USB)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
+
+        }
 
 
 
