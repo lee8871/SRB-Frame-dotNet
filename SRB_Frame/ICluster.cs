@@ -8,17 +8,17 @@ namespace SRB.Frame
 {
     public abstract class ICluster : IByteBank
     {
-        protected byte clustr_ID;
+        protected byte cID;
 
         protected BaseNode parent_node;
 
         public BaseNode Parent_node { get => parent_node; }
-        public byte Clustr_ID { get => clustr_ID; }
+        public byte CID { get => cID; }
 
 
         public ICluster(BaseNode n, byte ID, int banksize):base(banksize,true)
         {
-            this.clustr_ID = ID;
+            this.cID = ID;
             this.parent_node = n;
         }
         public void writeBankinit()
@@ -34,7 +34,7 @@ namespace SRB.Frame
         public virtual void write()
         {
             byte[] data = new byte[bank_write_temp.Length + 1];
-            data[0] = Clustr_ID;
+            data[0] = CID;
             for (int i = 0; i < bank_write_temp.Length; i++)
             {
                 data[i + 1] = bank_write_temp[i];
@@ -57,7 +57,7 @@ namespace SRB.Frame
 
         public void read()
         {
-            Access ac = new Access(parent_node, Access.PortEnum.Cgf, new byte[] { Clustr_ID });
+            Access ac = new Access(parent_node, Access.PortEnum.Cgf, new byte[] { CID });
             parent_node.singleAccess(ac);
         }
         public virtual void readRecv(Access ac)

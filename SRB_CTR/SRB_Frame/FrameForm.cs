@@ -12,25 +12,26 @@ namespace SRB_CTR
 {
     public partial class FrameForm : Form
     {
-        SrbFrame frame;
+        SrbFrame backLogic;
         Control config_ctrl;
+        Size nodeSize = new Size(70, 48);
         public FrameForm(SrbFrame pa)
         {
             InitializeComponent();
-            nodesTable.BackColor = System.Support.Color_blue;
-            frameCounterFLP.BackColor = System.Support.Color_blue;
+            nodesTable.BackColor = support.Color_blue;
+            frameCounterFLP.BackColor = support.Color_blue;
 
 
             frameCounterFLP.Refresh();
-            frame = pa;
+            backLogic = pa;
             setPortState();
             brainRunStateUpdate();
             stopAddrShowBTN.Visible = false;
             // cycleSet(this, null);
-            frame.eNode_register += new SrbFrame.dNodeChange(addNode);
-            frame.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
-            frame.eNode_change += new SrbFrame.dNodeChange(changeNode);
-                      System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            backLogic.eNode_register += new SrbFrame.dNodeChange(addNode);
+            backLogic.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
+            backLogic.eNode_change += new SrbFrame.dNodeChange(changeNode);
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +"  @  "+
                 System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
@@ -38,8 +39,8 @@ namespace SRB_CTR
         }
         protected override void OnClosing(CancelEventArgs e)
         {
-            frame.scan_stop = true;
-            frame.endRecord();
+            backLogic.scan_stop = true;
+            backLogic.endRecord();
             Log_Writer.is_running = false;
             base.OnClosing(e);
         }
@@ -61,35 +62,10 @@ namespace SRB_CTR
                 Button b = new Button();
                 n.Tag = b;
                 b.Tag = n;
-                b.Text = getNodeString(n);
-                this.NodeTipTT.SetToolTip(b,n.ToolTip());
-                b.BackColor = Color.GhostWhite;
-                b.Size = new Size(48, 48);
-                b.Click += new EventHandler(nodeButton_Click);
+                nodeButtonSet(b);
                 this.nodesTable.Controls.Add(b);
             }
         }
-        public void changeString(BaseNode n)
-        {
-            if (this.InvokeRequired)
-            {
-                dElegateNode d = new dElegateNode(changeNode);
-                this.Invoke(d, new object[] { n });
-            }
-            else
-            {
-                if (n.Tag == null)
-                {
-                    throw new Exception("Node dose not have a tag");
-                }
-                Button b = (Button)n.Tag;
-                b.Text = getNodeString(n);
-                this.NodeTipTT.SetToolTip(b, n.ToolTip());
-            }
-
-        }
-
-
         public void changeNode(BaseNode n)
         {
             if (this.InvokeRequired)
@@ -105,13 +81,46 @@ namespace SRB_CTR
                 }
                 Button b = (Button)n.Tag;
                 b.Tag = n;
-                b.Text = getNodeString(n);
-                this.NodeTipTT.SetToolTip(b, n.ToolTip());
-                b.BackColor = Color.GhostWhite;
-                b.Size = new Size(48, 48);
-                b.Click += new EventHandler(nodeButton_Click);
-                //this.nodesTable.Controls.Add(b);
+                nodeButtonSet(b);
             }
+        }
+
+        public void nodeStringSet(BaseNode n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(changeNode);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag == null)
+                {
+                    throw new Exception("Node dose not have a tag");
+                }
+                Button b = (Button)n.Tag;
+                b.Text = getNodeString(n);
+                if (n.Addr >= 100)
+                {
+                    b.ForeColor = support.Color_red;
+                }
+                else
+                {
+                    b.ForeColor = support.Color_dank;
+                }
+                this.NodeTipTT.SetToolTip(b, n.ToolTip());
+            }
+        }
+
+
+        private void nodeButtonSet(Button b)
+        {
+            BaseNode n = b.Tag as BaseNode;
+            b.BackColor = Color.GhostWhite;
+            b.Size = nodeSize;
+            b.Click += new EventHandler(nodeButton_Click);
+            nodeStringSet(n);
+
         }
 
         private string getNodeString(BaseNode n)
@@ -144,6 +153,8 @@ namespace SRB_CTR
             nf.ShowAt((System.Windows.Forms.Control)sender);
             changeNode(n);
         }
+
+
         #endregion
 
         #region brain config
@@ -162,35 +173,32 @@ namespace SRB_CTR
 
         void stopBTN_Click(object sender, EventArgs e)
         {
-            frame.stopCalculation(); brainRunStateUpdate();
+            backLogic.stopCalculation(); brainRunStateUpdate();
         }
 
         void runBTN_Click(object sender, EventArgs e)
         {
-            if(frame.isHighSpeedSupporting() == false)
+            if(backLogic.isHighSpeedSupporting() == false)
             {
                 DialogResult dr; 
-                dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Would you want to conntinue?","Brain start", MessageBoxButtons.OKCancel);
+                dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Are you sure to conntinue?","Brain start", MessageBoxButtons.OKCancel);
                 if(dr == DialogResult.Cancel)
                 {
                     return;
                 }
             }
-            frame.runCalculation(); brainRunStateUpdate();
+            backLogic.runCalculation(); brainRunStateUpdate();
         }
         void brainRunStateUpdate()
         {
-            if (frame.Is_calculation_running)
+            if (backLogic.Is_calculation_running)
             {
                 stopBTN.Visible =
                 !(SRB_config.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = false);
-                if (config_ctrl != null)
-                {
-                    if (config_ctrl.Visible)
-                    {
-                        config_ctrl.Hide();
-                    }
-                }
+                if (config_ctrl != null)config_ctrl.Hide();
+
+                if (scanNodeCtrl != null) scanNodeCtrl.Hide();
+                backLogic.scan_stop = true;
             }
             else
             {
@@ -210,6 +218,14 @@ namespace SRB_CTR
         private void timer1_Tick(object sender, EventArgs e)
         {
             setPortState();
+            if(scanNodeCtrl!=null)
+            {
+                if(scanNodeCtrl.Visible)
+                {
+                    scanNodeCtrl.Refresh();
+                }
+            }
+
             addrShowStep();
         }
 
@@ -220,19 +236,19 @@ namespace SRB_CTR
             {
                 if (addr_show_sno == 6000)
                 {
-                    frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                    backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                     stopAddrShowBTN_Click(this, null);
                 }
                 switch (addr_show_sno % 3)
                 {
                     case 0:
-                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
+                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
                         break;
                     case 1:
-                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
+                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
                         break;
                     case 2:
-                        frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                         break;
                 }
                 addr_show_sno++;
@@ -242,10 +258,10 @@ namespace SRB_CTR
         private void setPortState()
         {
             bool port_status;
-            port_status = frame.Is_port_opend;
+            port_status = backLogic.Is_port_opend;
             if (port_status != last_port_status)
             {
-                if (frame.Is_port_opend)
+                if (backLogic.Is_port_opend)
                 {
                     this.srbRunning();
                 }
@@ -269,13 +285,13 @@ namespace SRB_CTR
 
         private void ShowRecordBTN_r_Click(object sender, EventArgs e)
         {
-            frame.endRecord();
+            backLogic.endRecord();
             ShowRecordBTN_r.Visible = false;
             ShowRecordBTN_s.Visible = true;
         }
         private void ShowRecordBTN_s_Click(object sender, EventArgs e)
         {
-            frame.beginRecord();
+            backLogic.beginRecord();
             ShowRecordBTN_s.Visible = false;
             ShowRecordBTN_r.Visible = true;
         }
@@ -288,7 +304,7 @@ namespace SRB_CTR
             is_addr_show_on = false;
             this.stopAddrShowBTN.Visible = false;
             this.beginAddrShowBTN.Visible = true;
-            frame.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+            backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
         }
 
         private void beginAddrShowBTN_Click(object sender, EventArgs e)
@@ -318,10 +334,10 @@ namespace SRB_CTR
 
         private void uSBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (config_ctrl != frame.usbControlDisplay())
+            if (config_ctrl != backLogic.usbControlDisplay())
             {
                 frameCounterFLP.Controls.Remove(config_ctrl);
-                config_ctrl = frame.usbControlDisplay();
+                config_ctrl = backLogic.usbControlDisplay();
                 frameCounterFLP.Controls.Add(config_ctrl);
                 config_ctrl.Show();
                 this.uSBToolStripMenuItem.Checked = true;
@@ -341,10 +357,10 @@ namespace SRB_CTR
         }
         private void uARTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(config_ctrl != frame.uartControlDisplay())
+            if(config_ctrl != backLogic.uartControlDisplay())
             {
                 frameCounterFLP.Controls.Remove(config_ctrl);
-                config_ctrl = frame.uartControlDisplay();
+                config_ctrl = backLogic.uartControlDisplay();
                 frameCounterFLP.Controls.Add(config_ctrl);
                 config_ctrl.Show();
                 this.uSBToolStripMenuItem.Checked = false;
@@ -365,17 +381,29 @@ namespace SRB_CTR
 
         private void SRB_config_ButtonClick(object sender, EventArgs e)
         {
+            if (config_ctrl != null)
+            {
+                if (config_ctrl.Visible)
+                {
+                    config_ctrl.Hide();
+                }
+                else
+                {
+                    config_ctrl.Show();
+                }
+            }
 
         }
+
 
         private void ScanNodeBTN_Click(object sender, EventArgs e)
         {
             if (scanNodeCtrl == null)
             {
-                scanNodeCtrl = new scanNodeState(this.frame);
+                scanNodeCtrl = new scanNodeState(this.backLogic);
                 frameCounterFLP.Controls.Add(scanNodeCtrl);
                 scanNodeCtrl.Show();
-                this.frame.scanNodes();
+                this.backLogic.scanNodes();
             }
             else
             {
@@ -386,7 +414,6 @@ namespace SRB_CTR
                 else
                 {
                     scanNodeCtrl.Show();
-                    this.frame.scanNodes();
                 }
             }
         }

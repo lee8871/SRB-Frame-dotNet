@@ -245,7 +245,7 @@
             this.beginAddrShowBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(271, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN

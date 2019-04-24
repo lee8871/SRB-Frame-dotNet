@@ -44,5 +44,8 @@ namespace SRB.Frame.Cluster
                 cluster.factorySettingNode();
             }
         }
+
+
+
     }
 }

@@ -11,8 +11,8 @@ namespace SRB.Frame.Cluster
 
 
         public byte addr { get => bank[0]; set => bank_write_temp[0] = value; }
-        public string name { get => getBankString(1, 17); set => setBankString(value, 1, 17); }
-        public byte error_behavior { get => getBankByte(18); set => setBankByte(value,18); }
+        public string name { get => getBankString(1, 27); set => setBankString(value, 1, 27); }
+        public byte error_behavior { get => getBankByte(28); set => setBankByte(value,28); }
 
         public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
             : base(n, cID, 19)
@@ -24,17 +24,24 @@ namespace SRB.Frame.Cluster
         {
             if (ac.Recv_error == false)
             {
-                if(ac.Send_data.Length==2)
+                if (ac.Send_data.Length == 2)
                 {
-                    return;
+                    if (ac.Send_data[1] < 100)
+                    {
+                        if (addr != ac.Send_data[1])
+                        {
+                            bank[0] = ac.Send_data[1];
+                            parent_node.onAddrChanged();
+                        }
+                    }
                 }
-                if (addr != ac.Send_data[1])
+                else
                 {
                     base.writeRecv(ac);
-                    parent_node.onAddrChanged();
-                }
-                else {
-                    base.writeRecv(ac);
+                    if (addr != ac.Send_data[1])
+                    {
+                        parent_node.onAddrChanged();
+                    }
                 }
             }
         }
@@ -44,7 +51,7 @@ namespace SRB.Frame.Cluster
         }
         public override string ToString()
         {
-            return string.Format("Address Cluster", Clustr_ID.ToHexSt());
+            return string.Format("Address Cluster", CID.ToHexSt());
         }
 
         public bool isNewAddrAvaliable(byte addr)
@@ -57,7 +64,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Clustr_ID;
+            b[i++] = CID;
             switch(adt)
             {
                 case LedAddrType.Close:
@@ -90,6 +97,42 @@ namespace SRB.Frame.Cluster
             ac = new Access(null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);
 
+        }
+        public void changeAddress(byte a)
+        {
+            if (a > 100)
+            {
+                throw new Exception("Set address can not high than 100");
+            }
+            Access ac;
+            byte[] b = new byte[2];
+            int i = 0;
+            b[i++] = Cluster_ID;
+            b[i++] = a;
+            ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
+            parent_node.singleAccess(ac);
+        }
+
+        public static void randomAddrAll(ISRB_Master parent)
+        {
+            Access ac;
+            byte[] b = new byte[2];
+            int i = 0;
+            b[i++] = Cluster_ID;
+            b[i++] = 0xfa;
+            ac = new Access(null, Access.PortEnum.Cgf, b);
+            parent.singleAccess(ac);
+        }
+
+        public static void randomAddrNewNode(ISRB_Master parent)
+        {
+            Access ac;
+            byte[] b = new byte[2];
+            int i = 0;
+            b[i++] = Cluster_ID;
+            b[i++] = 0xf0;
+            ac = new Access(null, Access.PortEnum.Cgf, b);
+            parent.singleAccess(ac);
         }
     }
 }

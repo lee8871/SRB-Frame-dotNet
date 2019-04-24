@@ -38,14 +38,6 @@ namespace SRB.NodeType.PS2_Handle
 
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
-            if (node.handle_exist)
-            {
-                this.Start.Text = "Start";
-            }
-            else
-            {
-                this.Start.Text = "No Handle";
-            }
             LeftLAB.Location = new Point(left_x_base + node.joy_lx / 3, left_y_base + node.joy_ly / 3);
             RightLAB.Location = new Point(right_x_base + node.joy_rx / 3, right_y_base + node.joy_ry / 3);
             LeftLAB.Refresh();
@@ -96,11 +88,11 @@ namespace SRB.NodeType.PS2_Handle
         {
             if (keydown)
             {
-                l.ForeColor = Support.Color_red;
+                l.ForeColor = support.Color_red;
             }
             else
             {
-                l.ForeColor = Support.Color_dank;
+                l.ForeColor = support.Color_dank;
             }
         }
 

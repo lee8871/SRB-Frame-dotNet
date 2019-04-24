@@ -31,8 +31,6 @@
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label3;
-            this.AnalogCBOX = new System.Windows.Forms.CheckBox();
-            this.RumbleCBOX = new System.Windows.Forms.CheckBox();
             this.OnlineNUM = new System.Windows.Forms.NumericUpDown();
             this.loseNUM = new System.Windows.Forms.NumericUpDown();
             this.StrengthNUM = new System.Windows.Forms.NumericUpDown();
@@ -70,30 +68,6 @@
             label3.Size = new System.Drawing.Size(149, 12);
             label3.TabIndex = 0;
             label3.Text = "Power On Rumble Strength";
-            // 
-            // AnalogCBOX
-            // 
-            this.AnalogCBOX.AutoSize = true;
-            this.AnalogCBOX.Checked = true;
-            this.AnalogCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.AnalogCBOX.Location = new System.Drawing.Point(17, 0);
-            this.AnalogCBOX.Name = "AnalogCBOX";
-            this.AnalogCBOX.Size = new System.Drawing.Size(126, 16);
-            this.AnalogCBOX.TabIndex = 6;
-            this.AnalogCBOX.Text = "Read Analog Value";
-            this.AnalogCBOX.UseVisualStyleBackColor = true;
-            // 
-            // RumbleCBOX
-            // 
-            this.RumbleCBOX.AutoSize = true;
-            this.RumbleCBOX.Checked = true;
-            this.RumbleCBOX.CheckState = System.Windows.Forms.CheckState.Indeterminate;
-            this.RumbleCBOX.Location = new System.Drawing.Point(17, 22);
-            this.RumbleCBOX.Name = "RumbleCBOX";
-            this.RumbleCBOX.Size = new System.Drawing.Size(90, 16);
-            this.RumbleCBOX.TabIndex = 7;
-            this.RumbleCBOX.Text = "Open Rumble";
-            this.RumbleCBOX.UseVisualStyleBackColor = true;
             // 
             // OnlineNUM
             // 
@@ -179,16 +153,12 @@
             this.Controls.Add(this.loseNUM);
             this.Controls.Add(this.OnlineNUM);
             this.Controls.Add(label3);
-            this.Controls.Add(this.RumbleCBOX);
             this.Controls.Add(label2);
-            this.Controls.Add(this.AnalogCBOX);
             this.Controls.Add(label1);
             this.Name = "ConfigCC";
             this.Size = new System.Drawing.Size(300, 112);
             this.Controls.SetChildIndex(label1, 0);
-            this.Controls.SetChildIndex(this.AnalogCBOX, 0);
             this.Controls.SetChildIndex(label2, 0);
-            this.Controls.SetChildIndex(this.RumbleCBOX, 0);
             this.Controls.SetChildIndex(label3, 0);
             this.Controls.SetChildIndex(this.OnlineNUM, 0);
             this.Controls.SetChildIndex(this.loseNUM, 0);
@@ -202,8 +172,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox AnalogCBOX;
-        private System.Windows.Forms.CheckBox RumbleCBOX;
         private System.Windows.Forms.NumericUpDown OnlineNUM;
         private System.Windows.Forms.NumericUpDown loseNUM;
         private System.Windows.Forms.NumericUpDown StrengthNUM;

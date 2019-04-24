@@ -33,7 +33,7 @@ namespace SRB.Frame.Cluster
         }
         public override void writeRecv(Access ac)
         {
-            if (ac.Send_data.Length == 3)
+            if (ac.Send_data.Length == 2)
             {
                 return;
             }
@@ -51,24 +51,23 @@ namespace SRB.Frame.Cluster
         public void resetNode()
         {
             Access ac;
-            byte[] b = new byte[3];
+            byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Clustr_ID;
+            b[i++] = Cluster_ID;
             b[i++] = (byte)'R';
-            b[i++] = (byte)'N';
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
         public void factorySettingNode()
         {
             Access ac;
-            byte[] b = new byte[3];
+            byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Clustr_ID;
+            b[i++] = Cluster_ID;
             b[i++] = (byte)'F';
-            b[i++] = (byte)'S';
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
+
     }
 }

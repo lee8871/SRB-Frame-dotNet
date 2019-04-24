@@ -35,25 +35,38 @@ namespace SRB.Frame.Cluster
 
         protected override void DataUpdata()
         {
-            this.AddrNUM.Value = cluster.addr;
+            if (cluster.addr <= 199)
+            {
+                this.AddrNUM.Value = cluster.addr;
+            }
             this.AddrL.Text = cluster.addr.ToString();
             this.NodeNameTB.Text = cluster.name;
             this.NodeNameL.Text = cluster.name;
             int addr_color = ((int)cluster.addr).enterRound(0, 99);
-            this.highBTN.BackColor = num_to_color[cluster.addr / 10];
-            this.lowBTN.BackColor = num_to_color[cluster.addr % 10];
+            if (cluster.addr < 100)
+            {
+                this.highBTN.BackColor = num_to_color[cluster.addr / 10];
+                this.lowBTN.BackColor = num_to_color[cluster.addr % 10];
+            }
+            else
+            {
+                this.highBTN.BackColor = Color.Gray;
+                this.lowBTN.BackColor = num_to_color[0];
+
+            }
         }
 
         protected override void WriteData()
         {
             cluster.writeBankinit();
-            if (NodeNameTB.Text!="")
+            if (NodeNameTB.Text != "")
             {
                 cluster.name = NodeNameTB.Text;
             }
             byte new_addr = (byte)((int)AddrNUM.Value);
             if (new_addr == cluster.addr)
             {
+                cluster.error_behavior = 1;
                 cluster.write();
             }
             else
@@ -61,6 +74,7 @@ namespace SRB.Frame.Cluster
                 if (cluster.isNewAddrAvaliable(new_addr))
                 {
                     cluster.addr = new_addr;
+                    cluster.error_behavior = 1;
                     cluster.write();
                 }
                 else
@@ -71,6 +85,7 @@ namespace SRB.Frame.Cluster
                     if (res == DialogResult.OK)
                     {
                         cluster.addr = new_addr;
+                        cluster.error_behavior = 1;
                         cluster.write();
                     }
                 }

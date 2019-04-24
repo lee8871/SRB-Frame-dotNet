@@ -27,8 +27,6 @@ namespace SRB.NodeType.PS2_Handle
             OnlineNUM.Value = cluster.online_rumble_10ms * 10;
             loseNUM.Value = cluster.lose_rumble_10ms * 10;
             StrengthNUM.Value = cluster.Strength;
-            AnalogCBOX.CheckState = cluster.analog ? CheckState.Checked : CheckState.Unchecked;
-            RumbleCBOX.CheckState = cluster.rumble ? CheckState.Checked : CheckState.Unchecked;
         }
 
         protected override void WriteData()
@@ -37,8 +35,6 @@ namespace SRB.NodeType.PS2_Handle
             cluster.online_rumble_10ms = (int)(OnlineNUM.Value / 10);
             cluster.lose_rumble_10ms = (int)(loseNUM.Value / 10);
             cluster.Strength = (int)StrengthNUM.Value;
-            cluster.analog = AnalogCBOX.Checked;
-            cluster.rumble = RumbleCBOX.Checked;
             cluster.write();
         }
     }

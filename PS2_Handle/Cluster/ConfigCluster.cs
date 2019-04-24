@@ -8,15 +8,13 @@ namespace SRB.NodeType.PS2_Handle
 {
     class ConfigCluster:ICluster
     {
-        internal bool analog { get => getBankBool(0,0); set => setBankBool(value, 0,0); }
-        internal bool rumble { get => getBankBool(0,1); set => setBankBool(value, 0,1); }
-        public int online_rumble_10ms { get => getBankByte(1); set => setBankByte((byte)value, 1); }
-        public int lose_rumble_10ms { get => getBankByte(2); set => setBankByte((byte)value, 2); }
-        public int Strength { get => getBankByte(3); set => setBankByte((byte)value, 3); }
+        public int online_rumble_10ms { get => getBankByte(0); set => setBankByte((byte)value, 0); }
+        public int lose_rumble_10ms { get => getBankByte(1); set => setBankByte((byte)value, 1); }
+        public int Strength { get => getBankByte(2); set => setBankByte((byte)value, 2); }
 
 
         public ConfigCluster(BaseNode n)
-            : base(n, 11, 4)
+            : base(n, 11, 3)
         {
             
         }
@@ -26,7 +24,7 @@ namespace SRB.NodeType.PS2_Handle
         }
         public override string ToString()
         {
-            return string.Format("Ps2Handle Config<ID={0}>", Clustr_ID.ToHexSt());
+            return string.Format("Ps2Handle Config<ID={0}>", CID.ToHexSt());
         }
     }
 }

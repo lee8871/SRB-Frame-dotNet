@@ -20,7 +20,7 @@ namespace SRB.NodeType.Du_motor
         }
         public override string ToString()
         {
-            return string.Format("Adjest<ID={0}>", Clustr_ID.ToHexSt());
+            return string.Format("Adjest<ID={0}>", CID.ToHexSt());
         }
     }
 }

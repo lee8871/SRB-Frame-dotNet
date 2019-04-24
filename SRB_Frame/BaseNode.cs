@@ -67,6 +67,10 @@ namespace SRB.Frame
                 eDescription_change.Invoke(this, new EventArgs());
             }
         }
+        public void changeAddr(byte addr)
+        {
+            this.baseClu.changeAddress(addr);
+        }
 
         #region base method
         public override string ToString()
@@ -79,11 +83,18 @@ namespace SRB.Frame
             infoClu = new Cluster.InformationCluster(this);
             errorClu = new Cluster.ErrorCluster(this);
             register(frm);
-            clusters[baseClu.Clustr_ID] = baseClu;
-            clusters[infoClu.Clustr_ID] = infoClu;
-            clusters[errorClu.Clustr_ID] = errorClu;
-            baseClu.read();
-            infoClu.read();
+            clusters[baseClu.CID] = baseClu;
+            clusters[infoClu.CID] = infoClu;
+            clusters[errorClu.CID] = errorClu;
+            for (int i = 0; i < 3; i++)
+            {
+                baseClu.read();
+                if(Is_hareware_exist)
+                {
+                    infoClu.read();
+                    break;
+                }
+            }
             frm.nodeDescriptionChange(this);
         }
         public void ledAddr(Cluster.AddressCluster.LedAddrType adt)
@@ -285,6 +296,10 @@ namespace SRB.Frame
         public void clearNodeForm()
         {
             node_form = null;
+            foreach (ICluster c in clusters)
+            {
+
+            }
         }
         public string[] getClusterTable()
         {
@@ -321,6 +336,9 @@ namespace SRB.Frame
             }
         }
         #endregion
+        
+
+
 
         public bool isNewAddrAvaliable(byte addr)
         {

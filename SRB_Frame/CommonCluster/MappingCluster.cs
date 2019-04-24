@@ -81,7 +81,7 @@ namespace SRB.Frame.Cluster
         }
         public override string ToString()
         {
-            return string.Format("{1}<ID={0}>", Clustr_ID, description);
+            return string.Format("{1}<ID={0}>", CID, description);
         }
     }
 }

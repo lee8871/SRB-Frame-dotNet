@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace System
 {
-    public static class Support
+    public static class support
     {
         internal static Random random = new Random();
 
@@ -74,6 +74,10 @@ namespace System
             a += "]";
             return a;
         }
+
+
+
+
     }
 }
 

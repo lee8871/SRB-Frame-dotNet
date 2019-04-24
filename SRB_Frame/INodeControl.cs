@@ -17,10 +17,19 @@ namespace SRB.Frame
         {
             node = n;
             InitializeComponent();
+            this.Disposed += INodeControl_Disposed;
         }
+
+        private void INodeControl_Disposed(object sender, EventArgs e)
+        {
+            sendTimer.Stop();
+            OnAccessStop();
+        }
+
         public INodeControl()
         {
             InitializeComponent();
+
         }
 
         private void RunStopBTN_Click(object sender, EventArgs e)
@@ -70,5 +79,8 @@ namespace SRB.Frame
         {
             System.Diagnostics.Process.Start(node.Help_net_work);
         }
+
+
+
     }
 }

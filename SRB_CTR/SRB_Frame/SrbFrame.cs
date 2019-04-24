@@ -38,7 +38,7 @@ namespace SRB_CTR
         }
         public SrbFrame()
         {
-            Nodes = new BaseNode[128];
+            Nodes = new BaseNode[200];
             ///TODO
             ///add master select 
             srb = new SRB_Master_Uart();
@@ -88,6 +88,8 @@ namespace SRB_CTR
         {
             record.endRecord();
         }
+
+
 
         private void _nodes_form_Disposed(object sender, EventArgs e)
         {
@@ -195,7 +197,7 @@ but we do not have the node in table");
         Thread scan_thread;
         private int scan_addr = -1;
 
-        public int Scan_addr
+        public int Scan_status
         {
             get { return scan_addr; }
             set { scan_addr = value; }
@@ -206,9 +208,56 @@ but we do not have the node in table");
             get { return scan_progress; }
             set { scan_progress = value; }
         }
-        private int scan_max_addr = 128;
-        public void scanNodes()
+        private int scan_max_addr = 200;
+
+        public void autoSetAddress()
         {
+            if (scan_stop)
+            {
+                scan_thread = new Thread(new ThreadStart(autoSetAddressLoop));
+                scan_stop = false;
+                scan_thread.Start();
+            }
+            return;
+
+        }
+
+
+        public void classificationNode(BaseNode n)
+        {
+            switch (n.NodeType)
+            {
+                case "Du_Motor":
+                    SRB.NodeType.Du_motor.Node cn = new SRB.NodeType.Du_motor.Node(n);
+                    //  Nodes_form.addNode(cn);
+                    break;
+                case "Ps2_Handle":
+                    SRB.NodeType.PS2_Handle.Node cn2 = new SRB.NodeType.PS2_Handle.Node(n);
+                    //  Nodes_form.addNode(cn);
+                    break;
+                case "Charger_2LiB":
+                    SRB.NodeType.Charger.Node Charger = new SRB.NodeType.Charger.Node(n);
+                    //  Nodes_form.addNode(cn);
+                    break;
+                default:
+                    //   Nodes_form.addNode(n);
+                    break;
+            }
+        }
+
+
+
+        //about scan node 
+        int scan_begin;
+        int scan_end;
+        public void scanNodes(int begin = 0, int end = -1)
+        {
+            if (end < 0)
+            {
+                end = scan_max_addr;
+            }
+            scan_end = end;
+            scan_begin = begin;
             if (scan_stop)
             {
                 scan_thread = new Thread(new ThreadStart(scanNodeLoop));
@@ -218,33 +267,22 @@ but we do not have the node in table");
             return;
 
         }
+
+
+
+
+
+
         public void scanNodeLoop()
         {
-            for (int i = 0; i < scan_max_addr; i++)
+            for (int Scaning = scan_begin; Scaning < scan_end; Scaning++)
             {
-                Scan_addr = i;
-                Scan_progress = Scan_addr *1.0 / scan_max_addr;
-                BaseNode n = new BaseNode((byte)i, this);
+                Scan_status = Scaning;
+                Scan_progress = Scan_status *1.0 / scan_max_addr;
+                BaseNode n = new BaseNode((byte)Scaning, this);
                 if (n.Is_hareware_exist)
                 {
-                    switch (n.NodeType)
-                    {
-                        case "Du_Motor":
-                            SRB.NodeType.Du_motor.Node cn = new SRB.NodeType.Du_motor.Node(n);
-                          //  Nodes_form.addNode(cn);
-                            break;
-                        case "Ps2_Handle":
-                            SRB.NodeType.PS2_Handle.Node cn2 = new SRB.NodeType.PS2_Handle.Node(n);
-                          //  Nodes_form.addNode(cn);
-                            break;
-                        case "Charger_2LiB":
-                            SRB.NodeType.Charger.Node Charger = new SRB.NodeType.Charger.Node(n);
-                            //  Nodes_form.addNode(cn);
-                            break;
-                        default:
-                         //   Nodes_form.addNode(n);
-                            break;
-                    }
+                    classificationNode(n);
                 }             
                 else
                 {
@@ -252,13 +290,43 @@ but we do not have the node in table");
                 }
                 if (scan_stop)
                 {
-                    Scan_addr = -2;
+                    Scan_status = -2;
                     return;
                 }
             }
             scan_stop = true;
-            Scan_addr = -3;
+            Scan_status = -3;
         }
+        public void autoSetAddressLoop()
+        {
+            int new_addr = 10;
+            for (int i = 100; i < 164; i++)
+            {
+                Scan_status = i;
+                Scan_progress = Scan_status * 1.0 / scan_max_addr;
+                if(Nodes[i] != null)
+                { 
+                    while (Nodes[new_addr] != null)
+                    {
+                        new_addr++;
+                    }
+                    if (new_addr >= 100)
+                    {
+                        throw new Exception("Auto set addr error, Addr is high than 100");
+                    }
+                    Nodes[i].changeAddr((byte)new_addr);
+                    new_addr++;
+                }
+                if (scan_stop)
+                {
+                    Scan_status = -2;
+                    return;
+                }
+            }
+            scan_stop = true;
+            Scan_status = -3;
+        }
+
 
 
         internal void runCalculation()
@@ -312,7 +380,14 @@ but we do not have the node in table");
         }
         #endregion
 
-
+        internal void resetAllAddress()
+        {
+            SRB.Frame.Cluster.AddressCluster.randomAddrAll(this);
+        }
+        internal void resetNewNodeAddress()
+        {
+            SRB.Frame.Cluster.AddressCluster.randomAddrNewNode(this);
+        }
 
 
 

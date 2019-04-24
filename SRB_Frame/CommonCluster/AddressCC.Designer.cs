@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.NodeNameL = new System.Windows.Forms.Label();
             this.NodeNameTB = new System.Windows.Forms.TextBox();
@@ -41,16 +40,6 @@
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(9, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name:";
             // 
             // label2
             // 
@@ -65,7 +54,7 @@
             // NodeNameL
             // 
             this.NodeNameL.AutoSize = true;
-            this.NodeNameL.Location = new System.Drawing.Point(46, 49);
+            this.NodeNameL.Location = new System.Drawing.Point(9, 49);
             this.NodeNameL.Name = "NodeNameL";
             this.NodeNameL.Size = new System.Drawing.Size(95, 12);
             this.NodeNameL.TabIndex = 0;
@@ -73,9 +62,10 @@
             // 
             // NodeNameTB
             // 
-            this.NodeNameTB.Location = new System.Drawing.Point(147, 46);
+            this.NodeNameTB.Location = new System.Drawing.Point(146, 46);
+            this.NodeNameTB.MaxLength = 30;
             this.NodeNameTB.Name = "NodeNameTB";
-            this.NodeNameTB.Size = new System.Drawing.Size(100, 21);
+            this.NodeNameTB.Size = new System.Drawing.Size(150, 21);
             this.NodeNameTB.TabIndex = 1;
             this.NodeNameTB.Text = "some_NODE_12345";
             // 
@@ -96,7 +86,7 @@
             // 
             this.AddrNUM.Location = new System.Drawing.Point(147, 26);
             this.AddrNUM.Maximum = new decimal(new int[] {
-            127,
+            199,
             0,
             0,
             0});
@@ -147,12 +137,10 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Addr Color:";
             // 
-            // Ctrl
+            // AddressCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.closeBTN);
             this.Controls.Add(this.lowBTN);
             this.Controls.Add(this.highBTN);
@@ -160,13 +148,19 @@
             this.Controls.Add(this.NodeNameL);
             this.Controls.Add(this.AddrL);
             this.Controls.Add(this.NodeNameTB);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.MaximumSize = new System.Drawing.Size(300, 300);
-            this.MinimumSize = new System.Drawing.Size(300, 20);
-            this.Name = "Ctrl";
+            this.Name = "AddressCC";
             this.Size = new System.Drawing.Size(300, 70);
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
+            this.Controls.SetChildIndex(this.NodeNameTB, 0);
+            this.Controls.SetChildIndex(this.AddrL, 0);
+            this.Controls.SetChildIndex(this.NodeNameL, 0);
+            this.Controls.SetChildIndex(this.AddrNUM, 0);
+            this.Controls.SetChildIndex(this.highBTN, 0);
+            this.Controls.SetChildIndex(this.lowBTN, 0);
+            this.Controls.SetChildIndex(this.closeBTN, 0);
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,8 +168,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label NodeNameL;
         private System.Windows.Forms.TextBox NodeNameTB;

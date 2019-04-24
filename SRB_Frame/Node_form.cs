@@ -15,13 +15,14 @@ namespace SRB.Frame
         public Node_form(BaseNode n)
         {
             InitializeComponent();
-            this.clusters.BackColor = System.Support.Color_blue;
+            components = new System.ComponentModel.Container();
+            this.clusters.BackColor = System.support.Color_blue;
             node = n;
             updateText();
             string[] st_a = n.getClusterTable();
             GroupBox b;
-
             b = new GroupBox();
+            components.Add(b);
             b.Tag = null;
             b.Text = "Function test";
             b.Size = b.MinimumSize = new Size(300, 18);
@@ -35,6 +36,7 @@ namespace SRB.Frame
                 if (st_a[i] != null)
                 {
                     b = new GroupBox();
+                    components.Add(b);
                     b.Tag = i;
                     b.Text = st_a[i];
                     b.Size = b.MinimumSize = new Size(300, 18);
@@ -59,10 +61,12 @@ namespace SRB.Frame
                 if (b.Tag != null)
                 {
                     c = node.getClusterControl((int)b.Tag);
+                    components.Add(c);
                 }
                 else
                 {
                     c = node.getClusterControl();
+                    components.Add(c);
                 }
                 b.Controls.Add(c);
                 c.Dock = DockStyle.Fill;
@@ -98,10 +102,12 @@ namespace SRB.Frame
                 this.Close();
             }
         }
+
         protected override void  OnClosed(EventArgs e)
         {
-            node.clearNodeForm();
  	        base.OnClosed(e);
+            node.clearNodeForm();
+            node = null;
         }
         public void ShowAt(Control reference)
         {

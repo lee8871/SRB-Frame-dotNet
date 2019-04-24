@@ -110,7 +110,6 @@
     <Compile Include="SRB_Frame\scanNodeState.Designer.cs">
       <DependentUpon>scanNodeState.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_Frame\SRB_Master_Uart - 复制.cs" />
     <Compile Include="SRB_Frame\SRB_record.cs" />
     <Compile Include="SRB_Frame\SRB_record_uc.cs">
       <SubType>UserControl</SubType>
@@ -202,6 +201,8 @@
   <ItemGroup>
     <Content Include="110618274272.ico" />
     <Content Include="color-setting.htm" />
+    <Content Include="Resources\1175836.png" />
+    <None Include="Resources\Scan.png" />
     <None Include="Resources\pencil_512px_1175838_easyicon.net.png" />
     <None Include="Resources\1175746.png" />
     <None Include="Resources\1175759.png" />
