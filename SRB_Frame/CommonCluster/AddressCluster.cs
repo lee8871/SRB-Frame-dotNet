@@ -37,10 +37,14 @@ namespace SRB.Frame.Cluster
                 }
                 else
                 {
-                    base.writeRecv(ac);
                     if (addr != ac.Send_data[1])
                     {
+                        base.writeRecv(ac);
                         parent_node.onAddrChanged();
+                    }
+                    else
+                    {
+                        base.writeRecv(ac);
                     }
                 }
             }
