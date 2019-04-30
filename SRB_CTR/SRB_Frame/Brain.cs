@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
+using SRB.Frame;
 
 namespace SRB_CTR
 {
@@ -18,8 +19,11 @@ namespace SRB_CTR
             log.add("new Brain log!");
             log.autoFlushRun();
         }
-        public abstract void calculate();
+        protected abstract void loop();
+        protected abstract void setup();
+        protected abstract void nodesBuildUp();
 
+        protected bool[] UsedNodes = new bool[255];
 
         protected Thread calculation_thread;
         protected bool running_flag = false;
@@ -28,23 +32,9 @@ namespace SRB_CTR
             get { return running_flag; }
         }
         protected bool is_calculate_running = false;
-
-
         Log_Writer log;
 
-        protected virtual void onRun()
-        {
-            running_flag = true;
-            calculation_thread = new Thread(new ThreadStart(thLoop));
-            calculation_thread.Priority = ThreadPriority.Highest;
-            is_calculate_running = true;
-            calculation_thread.Start();
-        }
-        protected virtual void onStop()
-        {
-            is_calculate_running = false;
-        }
-        public virtual bool stop()
+        public bool stop()
         {
             if (is_calculate_running)
             {
@@ -56,7 +46,7 @@ namespace SRB_CTR
                 return false;
             }
         }
-        public virtual bool run()
+        public bool run()
         {
             if (is_calculate_running)
             {
@@ -68,16 +58,41 @@ namespace SRB_CTR
                 return true;
             }
         }
+
+
+
+
+
+
+        protected virtual void onRun()
+        {
+            nodesBuildUp();
+            running_flag = true;
+            calculation_thread = new Thread(new ThreadStart(thLoop));
+            calculation_thread.Priority = ThreadPriority.Highest;
+            is_calculate_running = true;
+            calculation_thread.Start();
+        }
+        protected virtual void onStop()
+        {
+            is_calculate_running = false;
+        }
+
+
+        #region about thread
         protected double period_in_ms = 2.5;
         protected long loop_num = 0;
         protected virtual void thLoop()
         {
             Stopwatch sw = new Stopwatch();
             double calculate_time, all_time;
+
+            setup();
+
             while (running_flag == true)
             {
                 sw.Restart();
-                calculate();
+                loop();
                 calculate_time = sw.getElapsedMs();
                 frame.sendAccess();
                 all_time = sw.getElapsedMs();
@@ -96,5 +111,7 @@ namespace SRB_CTR
             }
             onStop();
         }
+        #endregion
+
     }
 }

@@ -14,8 +14,11 @@ namespace SRB_CTR.nsBrain
             period_in_ms = 1;
         }
 
+        protected override void setup()
+        {
 
-        protected override void onRun()
+        }
+        protected override void nodesBuildUp()
         {
             for (int i = 0; i < 4; i++)
             {
@@ -28,26 +31,11 @@ namespace SRB_CTR.nsBrain
                     motors[i] = new SRB.NodeType.Du_motor.Node((byte)(i + 2), frame);
                 }
             }
-            base.onRun();
-        }
-        protected override void onStop()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                motors[i] = null;
-            }
-            base.onStop();
-        }
 
+        }
         int[] from = new int[8];
         int[] to = new int[8];
-        public void calculate3()
-        {
-            motors[2].Speed_a = 0;
-            motors[2].Speed_b = -500;
-            motors[2].addAccess(0);
-        }
-        override public void calculate()
+        protected override void loop()
         {
             long phase = (long)(loop_num * period_in_ms) % 4000;
             if (phase == 0)

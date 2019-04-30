@@ -19,9 +19,7 @@ namespace SRB_CTR.nsBrain
         {
             period_in_ms = 1;
         }
-
-
-        protected override void onRun()
+        protected override void nodesBuildUp()
         {
             foreach (BaseNode n in frame.Nodes)
             {
@@ -57,29 +55,28 @@ namespace SRB_CTR.nsBrain
                     {
                         charger = n as SRB.NodeType.Charger.Node;
                     }
-
-                    try
-                    {
-                        handle.singleAccess(3);
-                        last_up = handle.up;
-                        last_left = handle.left;
-                        last_right = handle.right;
-                        last_down = handle.down;
-                    }
-                    catch { }
                 }
             }
-            base.onRun();
         }
-        protected override void onStop()
-        {
-            base.onStop();
-        }
+
         bool last_up;
         bool last_left;
         bool last_right;
         bool last_down;
-        override public void calculate()
+
+        protected override void setup()
+        {
+            try
+            {
+                handle.singleAccess(3);
+                last_up = handle.up;
+                last_left = handle.left;
+                last_right = handle.right;
+                last_down = handle.down;
+            }
+            catch { }
+        }
+        protected override void loop()
         {
             try
             {

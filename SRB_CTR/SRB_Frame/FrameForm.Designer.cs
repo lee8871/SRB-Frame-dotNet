@@ -33,36 +33,35 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.VersionLAB = new System.Windows.Forms.ToolStripStatusLabel();
             this.uiTIMER = new System.Windows.Forms.Timer(this.components);
-            this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
-            this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
+            this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
+            this.left_UpDownSC = new System.Windows.Forms.SplitContainer();
+            this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
+            this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
+            this.nodeScanTS = new System.Windows.Forms.ToolStrip();
             this.SRB_config = new System.Windows.Forms.ToolStripSplitButton();
             this.uSBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowRecordBTN_s = new System.Windows.Forms.ToolStripButton();
             this.ShowRecordBTN_r = new System.Windows.Forms.ToolStripButton();
-            this.left_UpDownSC = new System.Windows.Forms.SplitContainer();
-            this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
-            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
-            this.nodeScanTS = new System.Windows.Forms.ToolStrip();
             this.ScanNodeBTN = new System.Windows.Forms.ToolStripButton();
             this.runBTN = new System.Windows.Forms.ToolStripButton();
             this.stopBTN = new System.Windows.Forms.ToolStripButton();
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
-            this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
+            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
             this.left_UpDownSC.Panel2.SuspendLayout();
             this.left_UpDownSC.SuspendLayout();
+            this.nodeScanTS.SuspendLayout();
             this.mainTSC.ContentPanel.SuspendLayout();
             this.mainTSC.TopToolStripPanel.SuspendLayout();
             this.mainTSC.SuspendLayout();
-            this.nodeScanTS.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -89,50 +88,89 @@
             this.uiTIMER.Interval = 1000;
             this.uiTIMER.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // BottomToolStripPanel
+            // 
+            this.BottomToolStripPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BottomToolStripPanel.Location = new System.Drawing.Point(0, 175);
+            this.BottomToolStripPanel.Name = "BottomToolStripPanel";
+            this.BottomToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BottomToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.BottomToolStripPanel.Size = new System.Drawing.Size(150, 0);
+            // 
+            // RightToolStripPanel
+            // 
+            this.RightToolStripPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.RightToolStripPanel.Location = new System.Drawing.Point(150, 25);
+            this.RightToolStripPanel.Name = "RightToolStripPanel";
+            this.RightToolStripPanel.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.RightToolStripPanel.RowMargin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.RightToolStripPanel.Size = new System.Drawing.Size(0, 150);
+            // 
+            // LeftToolStripPanel
+            // 
+            this.LeftToolStripPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LeftToolStripPanel.Location = new System.Drawing.Point(0, 25);
+            this.LeftToolStripPanel.Name = "LeftToolStripPanel";
+            this.LeftToolStripPanel.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.LeftToolStripPanel.RowMargin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.LeftToolStripPanel.Size = new System.Drawing.Size(0, 150);
+            // 
+            // ContentPanel
+            // 
+            this.ContentPanel.Size = new System.Drawing.Size(384, 554);
+            // 
+            // left_UpDownSC
+            // 
+            this.left_UpDownSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.left_UpDownSC.Location = new System.Drawing.Point(0, 0);
+            this.left_UpDownSC.Name = "left_UpDownSC";
+            this.left_UpDownSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // left_UpDownSC.Panel1
+            // 
+            this.left_UpDownSC.Panel1.Controls.Add(this.frameCounterFLP);
+            // 
+            // left_UpDownSC.Panel2
+            // 
+            this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
+            this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
+            this.left_UpDownSC.SplitterDistance = 99;
+            this.left_UpDownSC.TabIndex = 0;
+            // 
+            // frameCounterFLP
+            // 
+            this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
+            this.frameCounterFLP.Name = "frameCounterFLP";
+            this.frameCounterFLP.Size = new System.Drawing.Size(384, 99);
+            this.frameCounterFLP.TabIndex = 0;
+            // 
             // nodesTable
             // 
             this.nodesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nodesTable.Location = new System.Drawing.Point(0, 0);
             this.nodesTable.Name = "nodesTable";
-            this.nodesTable.Size = new System.Drawing.Size(384, 445);
+            this.nodesTable.Size = new System.Drawing.Size(384, 446);
             this.nodesTable.TabIndex = 0;
             // 
-            // BottomToolStripPanel
+            // nodeScanTS
             // 
-            this.BottomToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.BottomToolStripPanel.Name = "BottomToolStripPanel";
-            this.BottomToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.BottomToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.BottomToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // TopToolStripPanel
-            // 
-            this.TopToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.TopToolStripPanel.Name = "TopToolStripPanel";
-            this.TopToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.TopToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.TopToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // RightToolStripPanel
-            // 
-            this.RightToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.RightToolStripPanel.Name = "RightToolStripPanel";
-            this.RightToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.RightToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.RightToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // LeftToolStripPanel
-            // 
-            this.LeftToolStripPanel.Location = new System.Drawing.Point(0, 0);
-            this.LeftToolStripPanel.Name = "LeftToolStripPanel";
-            this.LeftToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.LeftToolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.LeftToolStripPanel.Size = new System.Drawing.Size(0, 0);
-            this.LeftToolStripPanel.UseWaitCursor = true;
-            // 
-            // ContentPanel
-            // 
-            this.ContentPanel.Size = new System.Drawing.Size(551, 557);
+            this.nodeScanTS.BackColor = System.Drawing.SystemColors.Control;
+            this.nodeScanTS.Dock = System.Windows.Forms.DockStyle.None;
+            this.nodeScanTS.ImageScalingSize = new System.Drawing.Size(23, 23);
+            this.nodeScanTS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SRB_config,
+            this.ShowRecordBTN_s,
+            this.ShowRecordBTN_r,
+            this.ScanNodeBTN,
+            this.runBTN,
+            this.stopBTN,
+            this.stopAddrShowBTN,
+            this.beginAddrShowBTN});
+            this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
+            this.nodeScanTS.Name = "nodeScanTS";
+            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
+            this.nodeScanTS.TabIndex = 4;
             // 
             // SRB_config
             // 
@@ -151,14 +189,14 @@
             // uSBToolStripMenuItem
             // 
             this.uSBToolStripMenuItem.Name = "uSBToolStripMenuItem";
-            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uSBToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.uSBToolStripMenuItem.Text = "USB";
             this.uSBToolStripMenuItem.Click += new System.EventHandler(this.uSBToolStripMenuItem_Click);
             // 
             // uARTToolStripMenuItem
             // 
             this.uARTToolStripMenuItem.Name = "uARTToolStripMenuItem";
-            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.uARTToolStripMenuItem.Text = "UART";
             this.uARTToolStripMenuItem.Click += new System.EventHandler(this.uARTToolStripMenuItem_Click);
             // 
@@ -182,71 +220,6 @@
             this.ShowRecordBTN_r.Text = " Stop Access Record ";
             this.ShowRecordBTN_r.Visible = false;
             this.ShowRecordBTN_r.Click += new System.EventHandler(this.ShowRecordBTN_r_Click);
-            // 
-            // left_UpDownSC
-            // 
-            this.left_UpDownSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.left_UpDownSC.Location = new System.Drawing.Point(0, 0);
-            this.left_UpDownSC.Name = "left_UpDownSC";
-            this.left_UpDownSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // left_UpDownSC.Panel1
-            // 
-            this.left_UpDownSC.Panel1.Controls.Add(this.frameCounterFLP);
-            // 
-            // left_UpDownSC.Panel2
-            // 
-            this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
-            this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
-            this.left_UpDownSC.SplitterDistance = 100;
-            this.left_UpDownSC.TabIndex = 0;
-            // 
-            // frameCounterFLP
-            // 
-            this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
-            this.frameCounterFLP.Name = "frameCounterFLP";
-            this.frameCounterFLP.Size = new System.Drawing.Size(384, 100);
-            this.frameCounterFLP.TabIndex = 0;
-            // 
-            // mainTSC
-            // 
-            this.mainTSC.BottomToolStripPanelVisible = false;
-            // 
-            // mainTSC.ContentPanel
-            // 
-            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
-            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
-            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTSC.LeftToolStripPanelVisible = false;
-            this.mainTSC.Location = new System.Drawing.Point(0, 0);
-            this.mainTSC.Name = "mainTSC";
-            this.mainTSC.RightToolStripPanelVisible = false;
-            this.mainTSC.Size = new System.Drawing.Size(384, 579);
-            this.mainTSC.TabIndex = 5;
-            this.mainTSC.Text = "toolStripContainer1";
-            // 
-            // mainTSC.TopToolStripPanel
-            // 
-            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
-            // 
-            // nodeScanTS
-            // 
-            this.nodeScanTS.Dock = System.Windows.Forms.DockStyle.None;
-            this.nodeScanTS.ImageScalingSize = new System.Drawing.Size(23, 23);
-            this.nodeScanTS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SRB_config,
-            this.ShowRecordBTN_s,
-            this.ShowRecordBTN_r,
-            this.ScanNodeBTN,
-            this.runBTN,
-            this.stopBTN,
-            this.stopAddrShowBTN,
-            this.beginAddrShowBTN});
-            this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
-            this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
-            this.nodeScanTS.TabIndex = 4;
             // 
             // ScanNodeBTN
             // 
@@ -300,6 +273,27 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
+            // mainTSC
+            // 
+            this.mainTSC.BottomToolStripPanelVisible = false;
+            // 
+            // mainTSC.ContentPanel
+            // 
+            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
+            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
+            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainTSC.LeftToolStripPanelVisible = false;
+            this.mainTSC.Location = new System.Drawing.Point(0, 0);
+            this.mainTSC.Name = "mainTSC";
+            this.mainTSC.RightToolStripPanelVisible = false;
+            this.mainTSC.Size = new System.Drawing.Size(384, 579);
+            this.mainTSC.TabIndex = 5;
+            this.mainTSC.Text = "toolStripContainer1";
+            // 
+            // mainTSC.TopToolStripPanel
+            // 
+            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
+            // 
             // FrameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -317,13 +311,13 @@
             this.left_UpDownSC.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).EndInit();
             this.left_UpDownSC.ResumeLayout(false);
+            this.nodeScanTS.ResumeLayout(false);
+            this.nodeScanTS.PerformLayout();
             this.mainTSC.ContentPanel.ResumeLayout(false);
             this.mainTSC.TopToolStripPanel.ResumeLayout(false);
             this.mainTSC.TopToolStripPanel.PerformLayout();
             this.mainTSC.ResumeLayout(false);
             this.mainTSC.PerformLayout();
-            this.nodeScanTS.ResumeLayout(false);
-            this.nodeScanTS.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,28 +327,27 @@
 
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Timer uiTIMER;
-        private System.Windows.Forms.FlowLayoutPanel nodesTable;
-        private System.Windows.Forms.ToolStripButton ShowRecordBTN_r;
-        private System.Windows.Forms.SplitContainer left_UpDownSC;
-        private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
         private System.Windows.Forms.ToolStripPanel topTSP;
-        private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
-        private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
-        private System.Windows.Forms.ToolStripContentPanel ContentPanel;
-        private System.Windows.Forms.ToolStripContainer mainTSC;
-        private System.Windows.Forms.ToolStripPanel TopToolStripPanel;
-        private System.Windows.Forms.ToolStrip nodeScanTS;
-        private System.Windows.Forms.ToolStripButton ScanNodeBTN;
-        private System.Windows.Forms.FlowLayoutPanel frameCounterFLP;
-        private System.Windows.Forms.ToolStripButton runBTN;
-        private System.Windows.Forms.ToolStripButton stopAddrShowBTN;
-        private System.Windows.Forms.ToolStripButton beginAddrShowBTN;
         private System.Windows.Forms.ToolTip NodeTipTT;
-        private System.Windows.Forms.ToolStripButton ShowRecordBTN_s;
+        private System.Windows.Forms.ToolStripStatusLabel VersionLAB;
+        private System.Windows.Forms.SplitContainer left_UpDownSC;
+        private System.Windows.Forms.FlowLayoutPanel frameCounterFLP;
+        private System.Windows.Forms.FlowLayoutPanel nodesTable;
+        private System.Windows.Forms.ToolStripContainer mainTSC;
+        private System.Windows.Forms.ToolStrip nodeScanTS;
         private System.Windows.Forms.ToolStripSplitButton SRB_config;
         private System.Windows.Forms.ToolStripMenuItem uSBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uARTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel VersionLAB;
+        private System.Windows.Forms.ToolStripButton ShowRecordBTN_s;
+        private System.Windows.Forms.ToolStripButton ShowRecordBTN_r;
+        private System.Windows.Forms.ToolStripButton ScanNodeBTN;
+        private System.Windows.Forms.ToolStripButton runBTN;
         private System.Windows.Forms.ToolStripButton stopBTN;
+        private System.Windows.Forms.ToolStripButton stopAddrShowBTN;
+        private System.Windows.Forms.ToolStripButton beginAddrShowBTN;
+        private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
+        private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
+        private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
+        private System.Windows.Forms.ToolStripContentPanel ContentPanel;
     }
 }

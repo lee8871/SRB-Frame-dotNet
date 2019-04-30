@@ -14,13 +14,26 @@ namespace System
         private static Color color_navy = Color.FromArgb(unchecked((int)0xff334753));
         private static Color color_blue = Color.FromArgb(unchecked((int)0xff4a8bcf));
         private static Color color_moon = Color.FromArgb(unchecked((int)0xffadb5c7));
+        private static Color 果绿色 = Color.FromArgb(unchecked((int)0xff97e7be));
+
+        private static Color 奶油色 = Color.FromArgb(unchecked((int)0xfff89168));
+
+        private static Color UIButton = Color.FromArgb(unchecked((int)0xfffb548a));
 
 
         public static Color Color_red { get => color_red; }
         public static Color Color_dank { get => color_dank; }
         public static Color Color_navy { get => color_navy; }
-        public static Color Color_blue { get => color_blue; }
         public static Color Color_moon { get => color_moon; }
+
+
+
+        public static Color Color_BackGround2 { get => UIButton; }
+        public static Color Color_BackGround { get => 果绿色; }
+
+
+
+
 
 
         internal enum YNU

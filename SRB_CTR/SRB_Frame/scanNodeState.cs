@@ -17,7 +17,7 @@ namespace SRB_CTR
         {
             this.backlogic = frame;
             InitializeComponent();
-            this.scanPB.ForeColor = support.Color_blue;
+            this.scanPB.ForeColor = support.Color_BackGround;
             this.scanPB.BackColor = support.Color_red;
         }
         public override void Refresh()

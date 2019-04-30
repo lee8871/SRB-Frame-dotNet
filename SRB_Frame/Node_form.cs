@@ -16,7 +16,7 @@ namespace SRB.Frame
         {
             InitializeComponent();
             components = new System.ComponentModel.Container();
-            this.clusters.BackColor = System.support.Color_blue;
+            this.clusters.BackColor = System.support.Color_BackGround;
             node = n;
             updateText();
             string[] st_a = n.getClusterTable();
@@ -106,7 +106,6 @@ namespace SRB.Frame
         protected override void  OnClosed(EventArgs e)
         {
  	        base.OnClosed(e);
-            node.clearNodeForm();
             node = null;
         }
         public void ShowAt(Control reference)

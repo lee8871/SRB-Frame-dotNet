@@ -113,7 +113,7 @@ namespace SRB.Frame
             this.infoClu.changeParentNode(this);
             this.errorClu = n.errorClu;
             this.errorClu.changeParentNode(this);
-            n.clearNodeForm();
+            n.closeNodeForm();
             n.parent.nodeReplace(n, this);
         }
         #endregion
@@ -291,16 +291,29 @@ namespace SRB.Frame
             {
                 node_form = new Node_form(this);
             }
+            else if(node_form.IsDisposed)
+            {
+                node_form = new Node_form(this);
+            }
             return node_form;
         }
-        public void clearNodeForm()
-        {
-            node_form = null;
-            foreach (ICluster c in clusters)
-            {
 
+        public void closeNodeForm()
+        {
+            if (node_form != null)
+            {
+                if (!(node_form.IsDisposed))
+                {
+                    node_form.close(this, new EventArgs());
+                    node_form = null;
+                }
             }
         }
+
+
+
+
+
         public string[] getClusterTable()
         {
             string[] st_a = new string[128];

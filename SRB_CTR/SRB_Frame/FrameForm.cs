@@ -18,9 +18,9 @@ namespace SRB_CTR
         public FrameForm(SrbFrame pa)
         {
             InitializeComponent();
-            nodesTable.BackColor = support.Color_blue;
-            frameCounterFLP.BackColor = support.Color_blue;
-
+            nodesTable.BackColor = support.Color_BackGround;
+            frameCounterFLP.BackColor = support.Color_BackGround;
+            this.BackColor = support.Color_BackGround2;
 
             frameCounterFLP.Refresh();
             backLogic = pa;
@@ -194,16 +194,30 @@ namespace SRB_CTR
             if (backLogic.Is_calculation_running)
             {
                 stopBTN.Visible =
-                !(SRB_config.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = false);
+                !(SRB_config.Enabled 
+                = ScanNodeBTN.Enabled
+                = runBTN.Visible 
+                = nodesTable.Enabled 
+                = false);
                 if (config_ctrl != null)config_ctrl.Hide();
-
                 if (scanNodeCtrl != null) scanNodeCtrl.Hide();
                 backLogic.scan_stop = true;
+                foreach(BaseNode n in backLogic.Nodes)
+                {
+                    if (n != null)
+                    {
+                        n.closeNodeForm();
+                    }
+                }
+
             }
             else
             {
                 stopBTN.Visible =
-                !(SRB_config.Enabled = ScanNodeBTN.Enabled = runBTN.Visible = true);
+                !(SRB_config.Enabled
+                = ScanNodeBTN.Enabled
+                = runBTN.Visible
+                = nodesTable.Enabled = true);
             }
         }
 

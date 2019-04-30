@@ -218,9 +218,12 @@ namespace SRB_CTR
             if (Is_opened)
             {
                 int len;
-                char[] data = text.ToCharArray();
-                UsbSetupPacket setup = new UsbSetupPacket(0, 7, 0x0304, 0x0409, (short)(data.Length*2));
-                selected_device.ControlTransfer(ref setup, data, data.Length*2, out len);
+                byte[] data = new byte[64];
+                int str_length = Encoding.Unicode.GetBytes(text,0,text.Length,data,2);
+                data[0] = (byte)(str_length+2);
+                data[1] = 0x03;
+                UsbSetupPacket setup = new UsbSetupPacket(0, 7, 0x0304, 0x0409, (short)(data.Length));
+                    selected_device.ControlTransfer(ref setup, data, data.Length, out len);
             }
             else
             {
