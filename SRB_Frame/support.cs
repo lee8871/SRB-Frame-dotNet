@@ -18,7 +18,7 @@ namespace System
 
         private static Color 奶油色 = Color.FromArgb(unchecked((int)0xfff89168));
 
-        private static Color UIButton = Color.FromArgb(unchecked((int)0xfffb548a));
+        private static Color color_pink = Color.FromArgb(unchecked((int)0xfffb548a));
 
 
         public static Color Color_red { get => color_red; }
@@ -28,8 +28,8 @@ namespace System
 
 
 
-        public static Color Color_BackGround2 { get => UIButton; }
-        public static Color Color_BackGround { get => 果绿色; }
+        public static Color Color_HighLight { get => color_pink; }
+        public static Color Color_BackGround { get => color_blue; }
 
 
 

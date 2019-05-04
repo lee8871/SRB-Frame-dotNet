@@ -86,14 +86,10 @@ namespace SRB.Frame
             clusters[baseClu.CID] = baseClu;
             clusters[infoClu.CID] = infoClu;
             clusters[errorClu.CID] = errorClu;
-            for (int i = 0; i < 3; i++)
+            baseClu.read();
+            if(Is_hareware_exist)
             {
-                baseClu.read();
-                if(Is_hareware_exist)
-                {
-                    infoClu.read();
-                    break;
-                }
+                infoClu.read();
             }
             frm.nodeDescriptionChange(this);
         }

@@ -53,7 +53,7 @@
             this.scanL});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(350, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -127,9 +127,10 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.toolStrip1);
-            this.MinimumSize = new System.Drawing.Size(350, 10);
+            this.MaximumSize = new System.Drawing.Size(378, 32);
+            this.MinimumSize = new System.Drawing.Size(378, 32);
             this.Name = "scanNodeState";
-            this.Size = new System.Drawing.Size(350, 30);
+            this.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

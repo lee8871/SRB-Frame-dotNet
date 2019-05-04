@@ -26,7 +26,11 @@ namespace SRB.Frame
                 }
             }
         }
-        public enum StatusEnum { NoSend, SendWaitRecv, USBTimeOut, BusTimeOut, RecvedDone, RecvedBadPkg, SendFail };
+        public enum StatusEnum {
+            NoSend, SendFail,
+            SendWaitRecv, DeviceTimeOut,
+            RecvedDone,  SrbTimeOut,BroadcasePkg ,RecvedBadPkg,
+        };
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
 
@@ -111,6 +115,29 @@ namespace SRB.Frame
                 _status = StatusEnum.RecvedDone;
             }
         }
+        public void receiveAccessBroadcast()
+        {
+            if (this.Addr == 0xff)
+            {
+                _status = StatusEnum.BroadcasePkg;
+            }
+            else
+            {
+                _status = StatusEnum.RecvedBadPkg;
+            }
+        }
+        public void receiveAccessTimeout()
+        {
+            if (this.Addr == 0xff)
+            {
+                _status = StatusEnum.RecvedBadPkg;
+            }
+            else
+            {
+                _status = StatusEnum.SrbTimeOut;
+            }
+        }
+
 
 
         public void sendDone()
@@ -120,36 +147,40 @@ namespace SRB.Frame
 
         public void sendFail()
         {
-            _status = StatusEnum.SendFail;
+            switch(_status)
+            {
+                case StatusEnum.NoSend:
+                    _status = StatusEnum.SendFail;
+                    break;
+                case StatusEnum.SendWaitRecv:
+                    _status = StatusEnum.DeviceTimeOut;
+                    break;
+                default:
+                    throw new Exception("Send fail is called but status is" + _status.ToString());
+            }
+            
         }
 
         public void onAccessDone()
         {
             switch (_status)
             {
+                case StatusEnum.BroadcasePkg:
+                    break;
                 case StatusEnum.RecvedDone:
-                    if(sender_node != null)
-                    {
-                        sender_node.accessDone(this);
-                    }
+                    sender_node.accessDone(this);
                     break;
                 case StatusEnum.SendFail:
+                case StatusEnum.DeviceTimeOut:
                     //TODO: Bus Master device is not open or port is not selected
                     break;
-                case StatusEnum.USBTimeOut:
                 case StatusEnum.RecvedBadPkg:
-                    //TODO: may something run on bus,  is not my error so log it.
+                case StatusEnum.SrbTimeOut:
+                    //TODO: may something wrong on bus,  is not my error so log it.
                     break;
                 case StatusEnum.SendWaitRecv:
-                    //TODO: may something run on bus,  is not my error so log it.
-                    this._status = StatusEnum.USBTimeOut;
-                    break;
                 case StatusEnum.NoSend:
-                    this._status = StatusEnum.USBTimeOut;
-                    //throw new Exception("An access DONE when no send,You should check SRB_MASTR.cs");
-                    break;
-
-
+                    throw new Exception("An access DONE called when " + _status.ToString() + "You should check SRB_MASTR.cs");
             }
         }
         

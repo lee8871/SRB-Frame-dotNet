@@ -36,7 +36,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -79,10 +79,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip1);
-            this.MaximumSize = new System.Drawing.Size(300, 32);
-            this.MinimumSize = new System.Drawing.Size(300, 32);
+            this.MaximumSize = new System.Drawing.Size(378, 32);
+            this.MinimumSize = new System.Drawing.Size(378, 32);
             this.Name = "SRB_master_uart_uc";
-            this.Size = new System.Drawing.Size(300, 32);
+            this.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

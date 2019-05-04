@@ -53,7 +53,7 @@ namespace SRB_CTR
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            backlogic.scan_stop = true;
+            backlogic.endScan();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)

@@ -10,7 +10,7 @@ using SRB.Frame;
 
 namespace SRB_CTR
 {
-    public class SrbFrame : ISRB_Master
+    public partial class SrbFrame : ISRB_Master, IDisposable
     {
 
         private ISRB_Driver srb;
@@ -19,22 +19,16 @@ namespace SRB_CTR
             get { return srb.Is_opened; }
         }
 
-
-
         FrameForm _nodes_form;
         public FrameForm Nodes_form
         {
-            get{return _nodes_form;}
+            get { return _nodes_form; }
         }
         IBrain main_brain;
-
         SRB_Record record;
-
-
-
         public bool Is_calculation_running
         {
-            get => main_brain.Running_flag;
+            get => main_brain.Is_running;
         }
         public SrbFrame()
         {
@@ -49,7 +43,7 @@ namespace SRB_CTR
         }
         public System.Windows.Forms.Control usbControlDisplay()
         {
-            if(!(srb is SRB_Master_USB))
+            if (!(srb is SRB_Master_USB))
             {
                 srb = new SRB_Master_USB();
             }
@@ -78,6 +72,16 @@ namespace SRB_CTR
         }
 
 
+
+        public void Dispose()
+        {
+            endScan();
+            main_brain.stop();
+            endRecord();
+            Log_Writer.No_exit_flag = false;
+            while (Is_scan_running) ;
+            while (main_brain.Is_running) ;
+        }
 
 
         public void beginRecord()
@@ -122,11 +126,11 @@ namespace SRB_CTR
             }
             n.Parent = this;
         }
-        
+
         public override void nodeAddrChange(BaseNode n)
         {
             //remove the node which addr is changed
-            for (int i = 0;i<scan_max_addr;i++)
+            for (int i = 0; i < scan_max_addr; i++)
             {
                 if (Nodes[i] == n)
                 {
@@ -168,7 +172,7 @@ namespace SRB_CTR
             }
             Nodes[addr] = to;
 
-            from.Parent = null;            
+            from.Parent = null;
             to.Parent = this;
 
             if (eNode_change != null)
@@ -182,44 +186,15 @@ namespace SRB_CTR
             if (Nodes[a] != n)
             {
                 throw new Exception(
-                    n.Describe()+@"
+                    n.Describe() + @"
 unregist and call this Frame,
-but we do not have the node in table"); 
+but we do not have the node in table");
             }
             if (eNode_unregister != null)
             {
                 eNode_unregister.Invoke(Nodes[a]);
             }
             Nodes[a] = null;
-        }
-
-        public bool scan_stop = true;
-        Thread scan_thread;
-        private int scan_addr = -1;
-
-        public int Scan_status
-        {
-            get { return scan_addr; }
-            set { scan_addr = value; }
-        }
-        private double scan_progress = 0;
-        public double Scan_progress
-        {
-            get { return scan_progress; }
-            set { scan_progress = value; }
-        }
-        private int scan_max_addr = 200;
-
-        public void autoSetAddress()
-        {
-            if (scan_stop)
-            {
-                scan_thread = new Thread(new ThreadStart(autoSetAddressLoop));
-                scan_stop = false;
-                scan_thread.Start();
-            }
-            return;
-
         }
 
 
@@ -247,87 +222,6 @@ but we do not have the node in table");
 
 
 
-        //about scan node 
-        int scan_begin;
-        int scan_end;
-        public void scanNodes(int begin = 0, int end = -1)
-        {
-            if (end < 0)
-            {
-                end = scan_max_addr;
-            }
-            scan_end = end;
-            scan_begin = begin;
-            if (scan_stop)
-            {
-                scan_thread = new Thread(new ThreadStart(scanNodeLoop));
-                scan_stop = false;
-                scan_thread.Start();
-            }
-            return;
-
-        }
-
-
-
-
-
-
-        public void scanNodeLoop()
-        {
-            for (int Scaning = scan_begin; Scaning < scan_end; Scaning++)
-            {
-                Scan_status = Scaning;
-                Scan_progress = Scan_status *1.0 / scan_max_addr;
-                BaseNode n = new BaseNode((byte)Scaning, this);
-                if (n.Is_hareware_exist)
-                {
-                    classificationNode(n);
-                }             
-                else
-                {
-                    nodeUnregister(n);
-                }
-                if (scan_stop)
-                {
-                    Scan_status = -2;
-                    return;
-                }
-            }
-            scan_stop = true;
-            Scan_status = -3;
-        }
-        public void autoSetAddressLoop()
-        {
-            int new_addr = 10;
-            for (int i = 100; i < 164; i++)
-            {
-                Scan_status = i;
-                Scan_progress = Scan_status * 1.0 / scan_max_addr;
-                if(Nodes[i] != null)
-                { 
-                    while (Nodes[new_addr] != null)
-                    {
-                        new_addr++;
-                    }
-                    if (new_addr >= 100)
-                    {
-                        throw new Exception("Auto set addr error, Addr is high than 100");
-                    }
-                    Nodes[i].changeAddr((byte)new_addr);
-                    new_addr++;
-                }
-                if (scan_stop)
-                {
-                    Scan_status = -2;
-                    return;
-                }
-            }
-            scan_stop = true;
-            Scan_status = -3;
-        }
-
-
 
         internal void runCalculation()
         {
@@ -347,7 +241,7 @@ but we do not have the node in table");
 
         internal void ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType type)
         {
-            SRB.Frame.Cluster.AddressCluster.ledAddrBroadcast(type,this);
+            SRB.Frame.Cluster.AddressCluster.ledAddrBroadcast(type, this);
         }
 
         public override void addAccess(Access ac)
@@ -388,8 +282,124 @@ but we do not have the node in table");
         {
             SRB.Frame.Cluster.AddressCluster.randomAddrNewNode(this);
         }
+    }
 
 
+    partial class SrbFrame
+    {
+        bool Is_scan_running {
+            get
+            {
+                if (scan_thread != null)
+                {
+                    return scan_thread.IsAlive;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        Thread scan_thread;
+        private int scan_addr = -1;
+        public int Scan_status
+        {
+            get { return scan_addr; }
+            set { scan_addr = value; }
+        }
+        private double scan_progress = 0;
+        public double Scan_progress
+        {
+            get { return scan_progress; }
+            set { scan_progress = value; }
+        }
+        private int scan_max_addr = 200;
 
+        bool scan_stop = true;
+        public void autoSetAddress()
+        {
+            if (Is_scan_running == false)
+            {
+                scan_thread = new Thread(new ThreadStart(autoSetAddressLoop));
+                scan_stop = false;
+                scan_thread.Start();
+            }
+            return;
+
+        }
+        //about scan node 
+        int scan_begin;
+        int scan_end;
+        public void scanNodes(int begin = 0, int end = -1)
+        {
+            if (end < 0)
+            {
+                end = scan_max_addr;
+            }
+            scan_end = end;
+            scan_begin = begin;
+            if (Is_scan_running == false)
+            {
+                scan_thread = new Thread(new ThreadStart(scanNodeLoop));
+                scan_stop = false;
+                scan_thread.Start();
+            }
+            return;
+        }
+        public void endScan()
+        {
+            scan_stop = true;
+        }
+        public void scanNodeLoop()
+        {
+            for (int Scaning = scan_begin; Scaning < scan_end; Scaning++)
+            {
+                Scan_status = Scaning;
+                Scan_progress = Scan_status * 1.0 / scan_max_addr;
+                BaseNode n = new BaseNode((byte)Scaning, this);
+                if (n.Is_hareware_exist)
+                {
+                    classificationNode(n);
+                }
+                else
+                {
+                    nodeUnregister(n);
+                }
+                if (scan_stop)
+                {
+                    Scan_status = -2;
+                    return;
+                }
+            }
+            Scan_status = -3;
+        }
+        public void autoSetAddressLoop()
+        {
+            int new_addr = 10;
+            for (int i = 100; i < 164; i++)
+            {
+                Scan_status = i;
+                Scan_progress = Scan_status * 1.0 / scan_max_addr;
+                if (Nodes[i] != null)
+                {
+                    while (Nodes[new_addr] != null)
+                    {
+                        new_addr++;
+                    }
+                    if (new_addr >= 100)
+                    {
+                        throw new Exception("Auto set addr error, Addr is high than 100");
+                    }
+                    Nodes[i].changeAddr((byte)new_addr);
+                    new_addr++;
+                }
+                if (scan_stop)
+                {
+                    Scan_status = -2;
+                    return;
+                }
+            }
+            Scan_status = -3;
+        }
     }
 }

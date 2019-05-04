@@ -13,15 +13,15 @@ using SRB.Frame;
 
 namespace SRB_CTR
 {
-    class SRB_Master_USB : ISRB_Driver
+     partial class SRB_Master_USB : ISRB_Driver
     {
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
         private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
         SRB_Master_USB_Uc config_form;
-        //Stopwatch stopwatch;
-        private Queue<object> oldDevice = new Queue<object>(); 
+        private Queue<object> oldDevice = new Queue<object>();
+        object lock_access = new object();
         public SRB_Master_USB()
         {
             scanDevice();
@@ -29,7 +29,6 @@ namespace SRB_CTR
             {
                 openPort(devicesDIC.Keys.ToArray()[0]);
             }
-            //stopwatch = new Stopwatch();
         }
 
 
@@ -52,19 +51,21 @@ namespace SRB_CTR
             set { record_port_data = value; }
         }
 
-        public string Selected_device_name {
-            get {
-            string device_name;
-            try
-            { 
-                selected_device.GetString(out device_name, 0x0409, 4);
-            }
-            catch
+        public string Selected_device_name
+        {
+            get
             {
-                return null;
+                string device_name;
+                try
+                {
+                    selected_device.GetString(out device_name, 0x0409, 4);
+                }
+                catch
+                {
+                    return null;
 
-            }
-            return device_name;
+                }
+                return device_name;
             }
         }
 
@@ -99,7 +100,7 @@ namespace SRB_CTR
         {
             if (portName == Selected_device_name)
             {
-                if(selected_device.IsOpen)
+                if (selected_device.IsOpen)
                 {
                     return true;
                 }
@@ -144,15 +145,15 @@ namespace SRB_CTR
         internal bool reopenPort()
         {
             lock (lock_access)
-            {                
+            {
                 ClosePort();
                 scanDevice();
                 UsbRegistry usb_reg;
-                if(devicesDIC.TryGetValue(last_device_name, out usb_reg) == false)
+                if (devicesDIC.TryGetValue(last_device_name, out usb_reg) == false)
                 {
                     return false;
                 }
-                selected_device = usb_reg.Device; 
+                selected_device = usb_reg.Device;
                 if (!(selected_device.Open()))
                 {
                     throw new Exception(string.Format("open USB (port)device {0} fail", Selected_device_name));
@@ -180,10 +181,6 @@ namespace SRB_CTR
         }
         public override void checkPort()
         {
-            if(last_device_name != Selected_device_name)
-            {
-                reopenPort();
-            }
         }
 
         internal void ClosePort()
@@ -193,10 +190,13 @@ namespace SRB_CTR
                 if (Is_opened)
                 {
                     oldDevice.Enqueue(srb_reader);
+                    srb_reader.Flush();
+                    srb_reader.Dispose();
                     srb_reader = null;
                     oldDevice.Enqueue(srb_writer);
+                    srb_writer.Flush();
+                    srb_writer.Dispose();
                     srb_writer = null;
-
                     IUsbDevice wholeUsbDevice = selected_device as IUsbDevice;
                     if (!ReferenceEquals(wholeUsbDevice, null))
                     {
@@ -209,6 +209,7 @@ namespace SRB_CTR
                         selected_device.Close();
                         selected_device = null;
                     }
+
                 }
             }
         }
@@ -219,11 +220,11 @@ namespace SRB_CTR
             {
                 int len;
                 byte[] data = new byte[64];
-                int str_length = Encoding.Unicode.GetBytes(text,0,text.Length,data,2);
-                data[0] = (byte)(str_length+2);
+                int str_length = Encoding.Unicode.GetBytes(text, 0, text.Length, data, 2);
+                data[0] = (byte)(str_length + 2);
                 data[1] = 0x03;
                 UsbSetupPacket setup = new UsbSetupPacket(0, 7, 0x0304, 0x0409, (short)(data.Length));
-                    selected_device.ControlTransfer(ref setup, data, data.Length, out len);
+                selected_device.ControlTransfer(ref setup, data, data.Length, out len);
             }
             else
             {
@@ -259,23 +260,27 @@ namespace SRB_CTR
             }
         }
 
+    }
+    partial class SRB_Master_USB : ISRB_Driver
+    {
+        Stopwatch stopwatch = new Stopwatch();
+
+
+
+        Access[] accesses;
+
+
+        int send_access_counter;
+        int recv_access_counter;
+        int access_num;
+        int access_error_counter;
+
         public override bool doAccess(Access ac)
         {
             Access[] acs = new Access[1];
             acs[0] = ac;
             return doAccess(acs, 1);
         }
-
-
-#region Access
-
-        Access[] accesses;
-        int send_access_counter;
-        int recv_access_counter;
-        int access_num;
-        int access_error_counter;
-
-        object lock_access = new object();
         public override bool doAccess(Access[] acs, int acs_num = -1)
         {
             lock (lock_access)
@@ -286,12 +291,14 @@ namespace SRB_CTR
                 }
                 if (this.Is_opened == false)
                 {
-                    checkPort();
-                    for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                    if (reopenPort() != true)
                     {
-                        acs[acs_counter].sendFail();
+                        for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                        {
+                            acs[acs_counter].sendFail();
+                        }
+                        return false;
                     }
-                    return false;
                 }
                 if (acs_num > 128)
                 {
@@ -304,7 +311,7 @@ namespace SRB_CTR
                 accesses = acs;
                 access_num = acs_num;
                 access_error_counter = 0;
-                //stopwatch.Restart();
+                stopwatch.Restart();
                 recv_access_counter = send_access_counter = 0;
                 sendAccess();
                 while (recv_access_counter != access_num)
@@ -319,16 +326,17 @@ namespace SRB_CTR
                         }
                         else
                         {
-                            for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
+                            for (int acs_counter = recv_access_counter; acs_counter < acs_num; acs_counter++)
                             {
                                 acs[acs_counter].sendFail();
                             }
-                            //stopwatch.Stop();
+                            stopwatch.Stop();
                             return false;
                         }
                     }
                 }
-                //stopwatch.Stop();
+                stopwatch.Stop();
+              //  stopwatch.getElapsedMs;
                 return true;
             }
         }
@@ -354,7 +362,7 @@ namespace SRB_CTR
             }
             int send_done_len;
             int send_len = i;
-            ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, 2000, out send_done_len);
+            ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, 2, out send_done_len);
             switch (ec)
             {
                 case ErrorCode.None:
@@ -371,22 +379,34 @@ namespace SRB_CTR
         }
 
 
-
         byte[] recv_from_usb_buf = new byte[64];
         private bool recvAccess()
         {
             int recv_num;
-            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 2000, out recv_num);
+            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 2, out recv_num);
             switch (ec)
             {
                 case ErrorCode.None:
                     recv_access_counter++;
                     int recv_sno = recv_from_usb_buf[0];
                     byte recv_error = recv_from_usb_buf[1];
-                    if (recv_error == 0)
+                    if (recv_error < 0x0f)//thus recv is retry times
                     {
-                        byte[] recv_access_data = new byte[recv_num - 3];
                         accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf, 3);
+                    }                                            
+                    else
+                    {
+                        switch (recv_error)
+                        {
+                            case 0xff:
+                                accesses[recv_sno].receiveAccessBroadcast();
+                                break;
+                            case 0xfe:
+                                accesses[recv_sno].receiveAccessTimeout();
+                                break;
+                            default:
+                                throw new Exception("unknow receicve error code" + recv_error);
+                        }
                     }
                     break;
                 default:
@@ -396,8 +416,5 @@ namespace SRB_CTR
             }
             return false;
         }
-
-#endregion
-
     }
 }

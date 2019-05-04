@@ -9,7 +9,7 @@ namespace SRB_CTR
 {
     class Log_Writer
     {
-        public static bool is_running = true;
+        public static bool No_exit_flag = true;
         string FileName;
         string Suffix;
         StreamWriter sw;
@@ -73,7 +73,7 @@ namespace SRB_CTR
             {
                 Thread.Sleep(1000);
                 flush();
-                if(is_running == false)
+                if(No_exit_flag == false)
                 {
                     return;
                 }

@@ -24,6 +24,7 @@
             this.comSelectCB = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.renameBT = new System.Windows.Forms.ToolStripButton();
+            this.LoseRateLAB = new System.Windows.Forms.ToolStripLabel();
             this.EnterNameTB = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -36,10 +37,11 @@
             this.CloseConnectBTN,
             this.comSelectCB,
             this.toolStripButton1,
-            this.renameBT});
+            this.renameBT,
+            this.LoseRateLAB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -87,6 +89,12 @@
             this.renameBT.Text = "Rename SRB-USB Hardware";
             this.renameBT.Click += new System.EventHandler(this.renameHardware_click);
             // 
+            // LoseRateLAB
+            // 
+            this.LoseRateLAB.Name = "LoseRateLAB";
+            this.LoseRateLAB.Size = new System.Drawing.Size(39, 27);
+            this.LoseRateLAB.Text = "{0}‰";
+            // 
             // EnterNameTB
             // 
             this.EnterNameTB.BackColor = System.Drawing.SystemColors.Window;
@@ -103,10 +111,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.EnterNameTB);
             this.Controls.Add(this.toolStrip1);
-            this.MaximumSize = new System.Drawing.Size(300, 32);
-            this.MinimumSize = new System.Drawing.Size(300, 32);
+            this.MaximumSize = new System.Drawing.Size(378, 32);
+            this.MinimumSize = new System.Drawing.Size(378, 32);
             this.Name = "SRB_Master_USB_Uc";
-            this.Size = new System.Drawing.Size(300, 32);
+            this.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -123,5 +131,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton renameBT;
         private System.Windows.Forms.TextBox EnterNameTB;
+        private System.Windows.Forms.ToolStripLabel LoseRateLAB;
     }
 }

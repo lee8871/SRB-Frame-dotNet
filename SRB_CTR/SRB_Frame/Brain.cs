@@ -11,34 +11,44 @@ namespace SRB_CTR
     abstract class IBrain
     {
         protected SrbFrame frame;
+        Log_Writer log;
         public IBrain(SrbFrame f)
         {
             frame = f;
-
             log = new Log_Writer("Brain");
             log.add("new Brain log!");
             log.autoFlushRun();
         }
-        protected abstract void loop();
-        protected abstract void setup();
-        protected abstract void nodesBuildUp();
 
-        protected bool[] UsedNodes = new bool[255];
 
+        protected abstract void nodesBuildUp();  
+        protected abstract void setup();   
+        protected abstract void loop();    
+        protected abstract void termination();   
         protected Thread calculation_thread;
-        protected bool running_flag = false;
-        public bool Running_flag
-        {
-            get { return running_flag; }
-        }
-        protected bool is_calculate_running = false;
-        Log_Writer log;
 
+
+        public  bool Is_running
+        {
+            get
+            {
+                if (calculation_thread != null)
+                {
+                    return calculation_thread.IsAlive;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        protected bool stop_running_flag = false;
         public bool stop()
         {
-            if (is_calculate_running)
+            if (Is_running)
             {
-                running_flag = false;
+
+                stop_running_flag = true;
                 return true;
             }
             else
@@ -48,69 +58,70 @@ namespace SRB_CTR
         }
         public bool run()
         {
-            if (is_calculate_running)
+            if (Is_running)
             {
                 return false;
             }
             else
             {
-                onRun();
+                stop_running_flag = false;
+                nodesBuildUp();
+                calculation_thread = new Thread(new ThreadStart(thLoop));
+                calculation_thread.Priority = ThreadPriority.Highest;
+                calculation_thread.Start();
                 return true;
             }
         }
-
-
-
-
-
-
-        protected virtual void onRun()
-        {
-            nodesBuildUp();
-            running_flag = true;
-            calculation_thread = new Thread(new ThreadStart(thLoop));
-            calculation_thread.Priority = ThreadPriority.Highest;
-            is_calculate_running = true;
-            calculation_thread.Start();
-        }
-        protected virtual void onStop()
-        {
-            is_calculate_running = false;
-        }
-
-
         #region about thread
         protected double period_in_ms = 2.5;
         protected long loop_num = 0;
+
+        delegate void dRunStep();
+        Stopwatch sw = new Stopwatch();
+        double calculate_time, all_time;
+
         protected virtual void thLoop()
         {
-            Stopwatch sw = new Stopwatch();
-            double calculate_time, all_time;
-
+            sw.Restart();
             setup();
-
-            while (running_flag == true)
+            nextRealTimeLoop(-1);
+            while (stop_running_flag == false)
             {
-                sw.Restart();
                 loop();
-                calculate_time = sw.getElapsedMs();
-                frame.sendAccess();
-                all_time = sw.getElapsedMs();
-#if DEBUG
-                log.add(string.Format("{0},{1:###0.0000},{2:###0.0000}", loop_num, calculate_time, all_time));
-#else
-                if(all_time>period_in_ms)
-                {
-                    log.add(string.Format("Not_real_time = ('{3}',{0},{1:###0.0000},{2:###0.0000},)", 
-                        loop_num,           calculate_time, 
-                        all_time,           DateTime.Now.ToString("hh:mm:ss.fff")));
-                }
-#endif
-                loop_num++;
-                while (sw.getElapsedMs() < period_in_ms) ;
+                nextRealTimeLoop(loop_num++);
             }
-            onStop();
+            termination();
+            nextRealTimeLoop(-2);
         }
+
+
+        void nextRealTimeLoop(long num)
+        {
+            calculate_time = sw.getElapsedMs();
+            frame.sendAccess();
+            all_time = sw.getElapsedMs();
+#if DEBUG
+            log.add(string.Format("{0},{1:###0.0000},{2:###0.0000}", num, calculate_time, all_time));
+#else
+            if (all_time > period_in_ms)
+            {
+                log.add(string.Format("Not_real_time = ('{3}',{0},{1:###0.0000},{2:###0.0000},)",
+                    num, calculate_time,
+                    all_time, DateTime.Now.ToString("hh:mm:ss.fff")));
+            }
+#endif
+            while (sw.getElapsedMs() < period_in_ms) ;
+            sw.Restart();
+        }
+
+
+
+
+
+
+
+
+
         #endregion
 
     }

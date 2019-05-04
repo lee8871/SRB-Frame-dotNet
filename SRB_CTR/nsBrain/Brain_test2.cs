@@ -8,17 +8,18 @@ namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test2 : IBrain
     {
+        public Brain_Test2(SrbFrame f) : base(f)
+        {
+            period_in_ms = 1;
+        }
+
+
         SRB.NodeType.Du_motor.Node left;
         SRB.NodeType.Du_motor.Node right;
         SRB.NodeType.Du_motor.Node key_control;
         SRB.NodeType.Du_motor.Node key_control2;
         SRB.NodeType.PS2_Handle.Node handle;
         SRB.NodeType.Charger.Node charger;
-        Random rnd = new Random();
-        public Brain_Test2(SrbFrame f) : base(f)
-        {
-            period_in_ms = 1;
-        }
         protected override void nodesBuildUp()
         {
             foreach (BaseNode n in frame.Nodes)
@@ -63,16 +64,15 @@ namespace SRB_CTR.nsBrain
         bool last_left;
         bool last_right;
         bool last_down;
-
         protected override void setup()
         {
+            last_up = false;
+            last_left = false;
+            last_right = false;
+            last_down = false;
             try
             {
-                handle.singleAccess(3);
-                last_up = handle.up;
-                last_left = handle.left;
-                last_right = handle.right;
-                last_down = handle.down;
+                handle.addAccess(3);
             }
             catch { }
         }
@@ -208,5 +208,41 @@ namespace SRB_CTR.nsBrain
             }
             catch { }
         }
+
+        protected override void termination()
+        {
+            try
+            {//left and right motor
+                left.Speed_a = 0;
+                left.Speed_b = 0;
+                left.addAccess(1);
+            }
+            catch { }
+
+            try
+            {
+                right.Speed_b = 0;
+                right.Speed_a = 0;
+                right.addAccess(1);
+            }
+            catch { }
+
+            try
+            {
+                key_control.Speed_a = 0;
+                key_control.Speed_b = 0;
+                key_control.addAccess(1);
+            }
+            catch { }
+
+            try
+            {
+                key_control2.Speed_a = 0;
+                key_control2.Speed_b = 0;
+                key_control2.addAccess(1);
+            }
+            catch { }
+        }
+
     }
 }

@@ -12,7 +12,7 @@ namespace SRB_CTR
 {
     public partial class FrameForm : Form
     {
-        SrbFrame backLogic;
+        SrbFrame backlogic;
         Control config_ctrl;
         Size nodeSize = new Size(70, 48);
         public FrameForm(SrbFrame pa)
@@ -20,17 +20,17 @@ namespace SRB_CTR
             InitializeComponent();
             nodesTable.BackColor = support.Color_BackGround;
             frameCounterFLP.BackColor = support.Color_BackGround;
-            this.BackColor = support.Color_BackGround2;
+            this.BackColor = support.Color_HighLight;
 
             frameCounterFLP.Refresh();
-            backLogic = pa;
+            backlogic = pa;
             setPortState();
             brainRunStateUpdate();
             stopAddrShowBTN.Visible = false;
             // cycleSet(this, null);
-            backLogic.eNode_register += new SrbFrame.dNodeChange(addNode);
-            backLogic.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
-            backLogic.eNode_change += new SrbFrame.dNodeChange(changeNode);
+            backlogic.eNode_register += new SrbFrame.dNodeChange(addNode);
+            backlogic.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
+            backlogic.eNode_change += new SrbFrame.dNodeChange(changeNode);
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +"  @  "+
@@ -39,9 +39,7 @@ namespace SRB_CTR
         }
         protected override void OnClosing(CancelEventArgs e)
         {
-            backLogic.scan_stop = true;
-            backLogic.endRecord();
-            Log_Writer.is_running = false;
+            backlogic.Dispose();
             base.OnClosing(e);
         }
         #region node Table sync
@@ -173,12 +171,14 @@ namespace SRB_CTR
 
         void stopBTN_Click(object sender, EventArgs e)
         {
-            backLogic.stopCalculation(); brainRunStateUpdate();
+            backlogic.stopCalculation();
+            while(backlogic.Is_calculation_running);
+            brainRunStateUpdate();
         }
 
         void runBTN_Click(object sender, EventArgs e)
         {
-            if(backLogic.isHighSpeedSupporting() == false)
+            if(backlogic.isHighSpeedSupporting() == false)
             {
                 DialogResult dr; 
                 dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Are you sure to conntinue?","Brain start", MessageBoxButtons.OKCancel);
@@ -187,11 +187,11 @@ namespace SRB_CTR
                     return;
                 }
             }
-            backLogic.runCalculation(); brainRunStateUpdate();
+            backlogic.runCalculation(); brainRunStateUpdate();
         }
         void brainRunStateUpdate()
         {
-            if (backLogic.Is_calculation_running)
+            if (backlogic.Is_calculation_running)
             {
                 stopBTN.Visible =
                 !(SRB_config.Enabled 
@@ -199,10 +199,10 @@ namespace SRB_CTR
                 = runBTN.Visible 
                 = nodesTable.Enabled 
                 = false);
-                if (config_ctrl != null)config_ctrl.Hide();
-                if (scanNodeCtrl != null) scanNodeCtrl.Hide();
-                backLogic.scan_stop = true;
-                foreach(BaseNode n in backLogic.Nodes)
+                if (config_ctrl != null)config_ctrl.Enabled = false;
+                if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
+                backlogic.endScan();
+                foreach(BaseNode n in backlogic.Nodes)
                 {
                     if (n != null)
                     {
@@ -218,6 +218,8 @@ namespace SRB_CTR
                 = ScanNodeBTN.Enabled
                 = runBTN.Visible
                 = nodesTable.Enabled = true);
+                if (config_ctrl != null) config_ctrl.Enabled = true;
+                if (scanNodeCtrl != null) scanNodeCtrl.Enabled = true;
             }
         }
 
@@ -250,19 +252,19 @@ namespace SRB_CTR
             {
                 if (addr_show_sno == 6000)
                 {
-                    backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                    backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                     stopAddrShowBTN_Click(this, null);
                 }
                 switch (addr_show_sno % 3)
                 {
                     case 0:
-                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
+                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
                         break;
                     case 1:
-                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
+                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
                         break;
                     case 2:
-                        backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
                         break;
                 }
                 addr_show_sno++;
@@ -272,10 +274,10 @@ namespace SRB_CTR
         private void setPortState()
         {
             bool port_status;
-            port_status = backLogic.Is_port_opend;
+            port_status = backlogic.Is_port_opend;
             if (port_status != last_port_status)
             {
-                if (backLogic.Is_port_opend)
+                if (backlogic.Is_port_opend)
                 {
                     this.srbRunning();
                 }
@@ -299,13 +301,13 @@ namespace SRB_CTR
 
         private void ShowRecordBTN_r_Click(object sender, EventArgs e)
         {
-            backLogic.endRecord();
+            backlogic.endRecord();
             ShowRecordBTN_r.Visible = false;
             ShowRecordBTN_s.Visible = true;
         }
         private void ShowRecordBTN_s_Click(object sender, EventArgs e)
         {
-            backLogic.beginRecord();
+            backlogic.beginRecord();
             ShowRecordBTN_s.Visible = false;
             ShowRecordBTN_r.Visible = true;
         }
@@ -318,7 +320,7 @@ namespace SRB_CTR
             is_addr_show_on = false;
             this.stopAddrShowBTN.Visible = false;
             this.beginAddrShowBTN.Visible = true;
-            backLogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+            backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
         }
 
         private void beginAddrShowBTN_Click(object sender, EventArgs e)
@@ -348,10 +350,10 @@ namespace SRB_CTR
 
         private void uSBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (config_ctrl != backLogic.usbControlDisplay())
+            if (config_ctrl != backlogic.usbControlDisplay())
             {
                 frameCounterFLP.Controls.Remove(config_ctrl);
-                config_ctrl = backLogic.usbControlDisplay();
+                config_ctrl = backlogic.usbControlDisplay();
                 frameCounterFLP.Controls.Add(config_ctrl);
                 config_ctrl.Show();
                 this.uSBToolStripMenuItem.Checked = true;
@@ -371,10 +373,10 @@ namespace SRB_CTR
         }
         private void uARTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(config_ctrl != backLogic.uartControlDisplay())
+            if(config_ctrl != backlogic.uartControlDisplay())
             {
                 frameCounterFLP.Controls.Remove(config_ctrl);
-                config_ctrl = backLogic.uartControlDisplay();
+                config_ctrl = backlogic.uartControlDisplay();
                 frameCounterFLP.Controls.Add(config_ctrl);
                 config_ctrl.Show();
                 this.uSBToolStripMenuItem.Checked = false;
@@ -414,10 +416,10 @@ namespace SRB_CTR
         {
             if (scanNodeCtrl == null)
             {
-                scanNodeCtrl = new scanNodeState(this.backLogic);
+                scanNodeCtrl = new scanNodeState(this.backlogic);
                 frameCounterFLP.Controls.Add(scanNodeCtrl);
                 scanNodeCtrl.Show();
-                this.backLogic.scanNodes();
+                this.backlogic.scanNodes();
             }
             else
             {

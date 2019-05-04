@@ -14,10 +14,7 @@ namespace SRB_CTR.nsBrain
             period_in_ms = 1;
         }
 
-        protected override void setup()
-        {
 
-        }
         protected override void nodesBuildUp()
         {
             for (int i = 0; i < 4; i++)
@@ -31,6 +28,10 @@ namespace SRB_CTR.nsBrain
                     motors[i] = new SRB.NodeType.Du_motor.Node((byte)(i + 2), frame);
                 }
             }
+
+        }
+        protected override void setup()
+        {
 
         }
         int[] from = new int[8];
@@ -78,6 +79,10 @@ namespace SRB_CTR.nsBrain
                     catch { }
                 }
             }
+        }
+        protected override void termination()
+        {
+
         }
 
 
