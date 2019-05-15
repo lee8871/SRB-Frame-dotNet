@@ -132,12 +132,6 @@
     <Compile Include="SRB_Frame\FrameForm.Designer.cs">
       <DependentUpon>FrameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_Frame\AccessDisplayer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SRB_Frame\AccessDisplayer.Designer.cs">
-      <DependentUpon>AccessDisplayer.cs</DependentUpon>
-    </Compile>
     <Compile Include="SRB_Frame\SRB_Master_Uart.cs" />
     <Compile Include="SRB_Frame\SRB_master_uart_uc.cs">
       <SubType>UserControl</SubType>
@@ -162,9 +156,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SRB_Frame\FrameForm.resx">
       <DependentUpon>FrameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SRB_Frame\AccessDisplayer.resx">
-      <DependentUpon>AccessDisplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SRB_Frame\SRB_master_uart_uc.resx">
       <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
