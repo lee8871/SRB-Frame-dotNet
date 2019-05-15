@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Node_dmotor",
-    "\\SRB_CTR",
-    "\\testUSB"
+    "\\Motor"
   ],
-  "SelectedNode": "\\SRB_CTR\\acSyncStream.cs",
-  "PreviewInSolutionExplorer": true
+  "PreviewInSolutionExplorer": false
 }
