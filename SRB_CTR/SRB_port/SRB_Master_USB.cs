@@ -383,7 +383,7 @@ namespace SRB.port
         private bool recvAccess()
         {
             int recv_num;
-            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 2, out recv_num);
+            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 200, out recv_num);
             switch (ec)
             {
                 case ErrorCode.None:

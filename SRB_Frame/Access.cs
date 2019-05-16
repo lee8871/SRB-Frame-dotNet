@@ -27,10 +27,38 @@ namespace SRB.Frame
             }
         }
         public enum StatusEnum {
-            NoSend, SendFail,
+            NoSend, PortColsed,
             SendWaitRecv, DeviceTimeOut,
             RecvedDone,  SrbTimeOut,BroadcasePkg ,RecvedBadPkg,
         };
+
+        public void onAccessDone()
+        {
+            switch (_status)
+            {
+                case StatusEnum.BroadcasePkg:
+                    break;
+                case StatusEnum.RecvedDone:
+                    sender_node.accessDone(this);
+                    break;
+                case StatusEnum.PortColsed:
+                case StatusEnum.DeviceTimeOut:
+                    //TODO: Bus Master device is not open or port is not selected
+                    break;
+                case StatusEnum.RecvedBadPkg:
+                case StatusEnum.SrbTimeOut:
+                    //TODO: may something wrong on bus,  is not my error so log it.
+                    break;
+                case StatusEnum.SendWaitRecv:
+                case StatusEnum.NoSend:
+                    throw new Exception("An access DONE called when " + _status.ToString() + "You should check SRB_MASTR.cs");
+            }
+        }
+
+
+
+
+
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
 
@@ -150,7 +178,7 @@ namespace SRB.Frame
             switch(_status)
             {
                 case StatusEnum.NoSend:
-                    _status = StatusEnum.SendFail;
+                    _status = StatusEnum.PortColsed;
                     break;
                 case StatusEnum.SendWaitRecv:
                     _status = StatusEnum.DeviceTimeOut;
@@ -161,29 +189,7 @@ namespace SRB.Frame
             
         }
 
-        public void onAccessDone()
-        {
-            switch (_status)
-            {
-                case StatusEnum.BroadcasePkg:
-                    break;
-                case StatusEnum.RecvedDone:
-                    sender_node.accessDone(this);
-                    break;
-                case StatusEnum.SendFail:
-                case StatusEnum.DeviceTimeOut:
-                    //TODO: Bus Master device is not open or port is not selected
-                    break;
-                case StatusEnum.RecvedBadPkg:
-                case StatusEnum.SrbTimeOut:
-                    //TODO: may something wrong on bus,  is not my error so log it.
-                    break;
-                case StatusEnum.SendWaitRecv:
-                case StatusEnum.NoSend:
-                    throw new Exception("An access DONE called when " + _status.ToString() + "You should check SRB_MASTR.cs");
-            }
-        }
-        
+
         
         public override string ToString()
         {
