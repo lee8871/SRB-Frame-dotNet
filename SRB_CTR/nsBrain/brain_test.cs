@@ -9,7 +9,7 @@ namespace SRB_CTR.nsBrain
     {
         SRB.NodeType.Du_motor.Node[] motors = new SRB.NodeType.Du_motor.Node[4];
         Random rnd = new Random();
-        public Brain_Test(SrbFrame f):base(f)
+        public Brain_Test(SRB_oneline_master f):base(f)
         {
             period_in_ms = 1;
         }

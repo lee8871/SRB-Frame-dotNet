@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SRB_CTR
+namespace SRB.port
 {
     internal partial class SRB_master_uart_uc  : UserControl
     {

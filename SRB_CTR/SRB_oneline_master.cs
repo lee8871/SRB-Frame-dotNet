@@ -7,20 +7,21 @@ using System.Drawing;
 using System.Threading;
 using System.Diagnostics;
 using SRB.Frame;
+using SRB.port;
 
 namespace SRB_CTR
 {
-    public partial class SrbFrame : ISRB_Master, IDisposable
+    public partial class SRB_oneline_master : IMaster, IDisposable
     {
 
-        private ISRB_Driver srb;
+        private IDriver srb;
         public bool Is_port_opend
         {
             get { return srb.Is_opened; }
         }
 
-        FrameForm _nodes_form;
-        public FrameForm Nodes_form
+        mainForm _nodes_form;
+        public mainForm Nodes_form
         {
             get { return _nodes_form; }
         }
@@ -30,14 +31,14 @@ namespace SRB_CTR
         {
             get => main_brain.Is_running;
         }
-        public SrbFrame()
+        public SRB_oneline_master()
         {
             Nodes = new BaseNode[200];
             ///TODO
             ///add master select 
             srb = new SRB_Master_Uart();
             main_brain = new nsBrain.Brain_Test2(this);
-            _nodes_form = new FrameForm(this);
+            _nodes_form = new mainForm(this);
             _nodes_form.Disposed += _nodes_form_Disposed;
             record = new SRB_Record();
         }
@@ -285,7 +286,7 @@ but we do not have the node in table");
     }
 
 
-    partial class SrbFrame
+    partial class SRB_oneline_master
     {
         bool Is_scan_running {
             get

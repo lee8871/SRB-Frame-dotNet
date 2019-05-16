@@ -10,12 +10,12 @@ using SRB.Frame;
 
 namespace SRB_CTR
 {
-    public partial class FrameForm : Form
+    public partial class mainForm : Form
     {
-        SrbFrame backlogic;
+        SRB_oneline_master backlogic;
         Control config_ctrl;
         Size nodeSize = new Size(70, 48);
-        public FrameForm(SrbFrame pa)
+        public mainForm(SRB_oneline_master pa)
         {
             InitializeComponent();
             nodesTable.BackColor = support.Color_BackGround;
@@ -28,9 +28,9 @@ namespace SRB_CTR
             brainRunStateUpdate();
             stopAddrShowBTN.Visible = false;
             // cycleSet(this, null);
-            backlogic.eNode_register += new SrbFrame.dNodeChange(addNode);
-            backlogic.eNode_unregister += new SrbFrame.dNodeChange(removeNode);
-            backlogic.eNode_change += new SrbFrame.dNodeChange(changeNode);
+            backlogic.eNode_register += new SRB_oneline_master.dNodeChange(addNode);
+            backlogic.eNode_unregister += new SRB_oneline_master.dNodeChange(removeNode);
+            backlogic.eNode_change += new SRB_oneline_master.dNodeChange(changeNode);
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +"  @  "+
@@ -336,7 +336,7 @@ namespace SRB_CTR
             System.Diagnostics.Process.Start("https://github.com/lee8871/SRB");
         }
 
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrameForm));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
         Image portStoped = global::SRB_CTR.Properties.Resources._1175759;
         Image portRunning = global::SRB_CTR.Properties.Resources._1175746;
         private void srbStoped()

@@ -6,9 +6,9 @@ using System.Diagnostics;
 using SRB.Frame;
 using System.IO.Ports;
 
-namespace SRB_CTR
+namespace SRB.port
 {
-    class SRB_Master_Uart : ISRB_Driver
+    class SRB_Master_Uart : IDriver
     {
         SerialPort mainComPort;
        //ComPort mainComPort;

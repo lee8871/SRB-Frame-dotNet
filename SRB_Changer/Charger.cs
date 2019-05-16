@@ -146,7 +146,7 @@ namespace SRB.NodeType.Charger
             });
         }
 
-        public Node(byte addr, ISRB_Master f = null)
+        public Node(byte addr, IMaster f = null)
             : base(addr, f)
         {
             init();

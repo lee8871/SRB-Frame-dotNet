@@ -16,7 +16,7 @@ namespace SRB.Frame
         {
             InitializeComponent();
             components = new System.ComponentModel.Container();
-            this.clusters.BackColor = System.support.Color_BackGround;
+            this.clusters.BackColor = support.Color_BackGround;
             node = n;
             updateText();
             string[] st_a = n.getClusterTable();

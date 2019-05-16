@@ -79,7 +79,7 @@ namespace SRB.NodeType.Du_motor
                 new byte[] {0,4,2,3,0,1}
             });
         }
-        public Node(byte addr, ISRB_Master f = null)
+        public Node(byte addr, IMaster f = null)
             : base(addr, f)
         {
             init();

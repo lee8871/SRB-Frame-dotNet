@@ -8,7 +8,7 @@ namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test2 : IBrain
     {
-        public Brain_Test2(SrbFrame f) : base(f)
+        public Brain_Test2(SRB_oneline_master f) : base(f)
         {
             period_in_ms = 1;
         }

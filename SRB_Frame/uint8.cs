@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace System//SRB_CTR.nsByteExtensions
+namespace SRB.Frame
 {
     public static class Expand_Byte
     {

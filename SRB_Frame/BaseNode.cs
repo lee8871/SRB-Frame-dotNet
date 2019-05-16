@@ -8,8 +8,8 @@ namespace SRB.Frame
     public class BaseNode : IByteBank
     {
         public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
-        ISRB_Master parent = null;
-        public ISRB_Master Parent
+        IMaster parent = null;
+        public IMaster Parent
         {
             get { return parent; }
             set { parent = value; }
@@ -77,7 +77,7 @@ namespace SRB.Frame
         {
             return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
         }
-        public BaseNode(byte addr, ISRB_Master frm = null) : base(256, false)
+        public BaseNode(byte addr, IMaster frm = null) : base(256, false)
         {
             baseClu = new Cluster.AddressCluster(this, addr);
             infoClu = new Cluster.InformationCluster(this);
@@ -119,7 +119,7 @@ namespace SRB.Frame
             get { return is_hardware_exist; }
         }
 
-        public void register(ISRB_Master frm)
+        public void register(IMaster frm)
         {
             frm.nodeRegister(this);
         }

@@ -10,9 +10,9 @@ namespace SRB_CTR
 {
     abstract class IBrain
     {
-        protected SrbFrame frame;
+        protected SRB_oneline_master frame;
         Log_Writer log;
-        public IBrain(SrbFrame f)
+        public IBrain(SRB_oneline_master f)
         {
             frame = f;
             log = new Log_Writer("Brain");

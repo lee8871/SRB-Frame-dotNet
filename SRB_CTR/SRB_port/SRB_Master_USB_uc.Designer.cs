@@ -1,4 +1,4 @@
-﻿namespace SRB_CTR
+﻿namespace SRB.port
 {
     partial class SRB_Master_USB_Uc
     {

@@ -11,14 +11,14 @@ namespace SRB_CTR
 {
     partial class scanNodeState : UserControl
     {
-        private SrbFrame backlogic;
+        private SRB_oneline_master backlogic;
 
-        public scanNodeState(SrbFrame frame = null)
+        public scanNodeState(SRB_oneline_master frame = null)
         {
             this.backlogic = frame;
             InitializeComponent();
-            this.scanPB.ForeColor = support.Color_BackGround;
-            this.scanPB.BackColor = support.Color_red;
+            this.scanPB.ForeColor = SRB.Frame.support.Color_BackGround;
+            this.scanPB.BackColor = SRB.Frame.support.Color_red;
         }
         public override void Refresh()
         {

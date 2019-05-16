@@ -1,4 +1,4 @@
-﻿namespace SRB_CTR
+﻿namespace SRB.port
 {
     partial class SRB_master_uart_uc
     {

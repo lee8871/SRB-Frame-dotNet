@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
-    <Compile Include="ByteBank.cs" />
+    <Compile Include="IByteBank.cs" />
     <Compile Include="INodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -89,8 +89,8 @@
     <Compile Include="CommonCluster\InformationCC.Designer.cs">
       <DependentUpon>InformationCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="ISRB_Driver.cs" />
-    <Compile Include="ISRB_Master.cs" />
+    <Compile Include="IDriver.cs" />
+    <Compile Include="IMaster.cs" />
     <Compile Include="BaseNode.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="CommonCluster\MappingCC.cs">

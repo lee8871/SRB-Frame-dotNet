@@ -82,7 +82,7 @@ namespace SRB.Frame.Cluster
             ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
-        public static void ledAddrBroadcast(LedAddrType adt, ISRB_Master parent)
+        public static void ledAddrBroadcast(LedAddrType adt, IMaster parent)
         {
             Access ac;
             byte[] b = new byte[2];
@@ -117,7 +117,7 @@ namespace SRB.Frame.Cluster
             parent_node.singleAccess(ac);
         }
 
-        public static void randomAddrAll(ISRB_Master parent)
+        public static void randomAddrAll(IMaster parent)
         {
             Access ac;
             byte[] b = new byte[2];
@@ -128,7 +128,7 @@ namespace SRB.Frame.Cluster
             parent.singleAccess(ac);
         }
 
-        public static void randomAddrNewNode(ISRB_Master parent)
+        public static void randomAddrNewNode(IMaster parent)
         {
             Access ac;
             byte[] b = new byte[2];

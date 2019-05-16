@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace System
+namespace SRB.Frame
 {
     public static class support
     {

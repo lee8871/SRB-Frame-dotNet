@@ -11,9 +11,9 @@ using LibUsbDotNet.LudnMonoLibUsb;
 using EC = LibUsbDotNet.Main.ErrorCode;
 using SRB.Frame;
 
-namespace SRB_CTR
+namespace SRB.port
 {
-     partial class SRB_Master_USB : ISRB_Driver
+     partial class SRB_Master_USB : IDriver
     {
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
@@ -261,7 +261,7 @@ namespace SRB_CTR
         }
 
     }
-    partial class SRB_Master_USB : ISRB_Driver
+    partial class SRB_Master_USB : IDriver
     {
         Stopwatch stopwatch = new Stopwatch();
 

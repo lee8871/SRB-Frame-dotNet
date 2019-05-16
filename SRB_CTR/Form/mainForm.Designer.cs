@@ -1,6 +1,6 @@
 ﻿namespace SRB_CTR
 {
-    partial class FrameForm
+    partial class mainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrameForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.VersionLAB = new System.Windows.Forms.ToolStripStatusLabel();
             this.uiTIMER = new System.Windows.Forms.Timer(this.components);

@@ -98,7 +98,7 @@ namespace SRB.NodeType.PS2_Handle
             });
         }
 
-        public Node(byte addr, ISRB_Master f = null)
+        public Node(byte addr, IMaster f = null)
             : base(addr, f)
         {
             init();
