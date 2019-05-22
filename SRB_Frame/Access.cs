@@ -56,9 +56,6 @@ namespace SRB.Frame
         }
 
 
-
-
-
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
 
@@ -113,21 +110,29 @@ namespace SRB.Frame
             _status = StatusEnum.NoSend;
         }
 
-        public void receiveAccess(byte bfc, byte[] data, int offset)
+        public bool receiveAccess(byte bfc, byte[] data, int offset)
         {
-            this._recv_bfc = bfc;
-            if((data.Length-offset) > this.Recv_data_len)
+            if (Status == StatusEnum.SendWaitRecv)
             {
-                this._recv_data = new byte[this.Recv_data_len];
-                for(int i = 0; i< this.Recv_data_len;i++)
+                this._recv_bfc = bfc;
+                if ((data.Length - offset) > this.Recv_data_len)
                 {
-                    _recv_data[i] = data[i + offset];
+                    this._recv_data = new byte[this.Recv_data_len];
+                    for (int i = 0; i < this.Recv_data_len; i++)
+                    {
+                        _recv_data[i] = data[i + offset];
+                    }
+                    _status = StatusEnum.RecvedDone;
                 }
-                _status = StatusEnum.RecvedDone;
+                else
+                {
+                    _status = StatusEnum.RecvedBadPkg;
+                }
+                return true;
             }
             else
             {
-                _status = StatusEnum.RecvedBadPkg;
+                return false;
             }
         }
         public void receiveAccess(byte bfc, byte[] data)
@@ -184,7 +189,7 @@ namespace SRB.Frame
                     _status = StatusEnum.DeviceTimeOut;
                     break;
                 default:
-                    throw new Exception("Send fail is called but status is" + _status.ToString());
+                    break;
             }
             
         }

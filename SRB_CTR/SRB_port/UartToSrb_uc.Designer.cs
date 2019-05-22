@@ -1,6 +1,6 @@
 ﻿namespace SRB.port
 {
-    partial class SRB_master_uart_uc
+    partial class UartToSrb_uc
     {
         /// <summary>
         /// Required designer variable.
@@ -17,7 +17,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SRB_master_uart_uc));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UartToSrb_uc));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.CloseConnectBTN = new System.Windows.Forms.ToolStripButton();

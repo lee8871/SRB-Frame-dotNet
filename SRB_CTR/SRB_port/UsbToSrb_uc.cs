@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace SRB.port
 {
-    internal partial class SRB_Master_USB_Uc  : UserControl
+    internal partial class UsbToSrb_uc  : UserControl
     {
-        SRB_Master_USB backstage;
-        internal SRB_Master_USB_Uc(SRB_Master_USB p)
+        UsbToSrb backstage;
+        internal UsbToSrb_uc(UsbToSrb p)
         {
             InitializeComponent();
             backstage = p; 

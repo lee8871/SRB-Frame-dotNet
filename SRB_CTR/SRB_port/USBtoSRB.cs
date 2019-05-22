@@ -13,16 +13,16 @@ using SRB.Frame;
 
 namespace SRB.port
 {
-     partial class SRB_Master_USB : IDriver
+     partial class UsbToSrb : IBus
     {
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
         private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
-        SRB_Master_USB_Uc config_form;
+        UsbToSrb_uc config_form;
         private Queue<object> oldDevice = new Queue<object>();
         object lock_access = new object();
-        public SRB_Master_USB()
+        public UsbToSrb()
         {
             scanDevice();
             if (devicesDIC.Count == 1)
@@ -73,7 +73,7 @@ namespace SRB.port
         {
             if (config_form == null)
             {
-                config_form = new SRB_Master_USB_Uc(this);
+                config_form = new UsbToSrb_uc(this);
             }
             return config_form;
         }
@@ -261,26 +261,27 @@ namespace SRB.port
         }
 
     }
-    partial class SRB_Master_USB : IDriver
+    partial class UsbToSrb : IBus
     {
         Stopwatch stopwatch = new Stopwatch();
 
 
-
-        Access[] accesses;
-
-
-        int send_access_counter;
-        int recv_access_counter;
-        int access_num;
-        int access_error_counter;
+        const int access_bank_length = 128;
+        Access[] accesses = new Access[access_bank_length];
+        LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
+        LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
 
         public override bool doAccess(Access ac)
         {
-            Access[] acs = new Access[1];
-            acs[0] = ac;
-            return doAccess(acs, 1);
+            lock (lock_access)
+            {
+                accesses[in_point.pointMove()] = ac;
+                return access();
+            }
+
         }
+
+        
         public override bool doAccess(Access[] acs, int acs_num = -1)
         {
             lock (lock_access)
@@ -289,18 +290,7 @@ namespace SRB.port
                 {
                     acs_num = acs.Length;
                 }
-                if (this.Is_opened == false)
-                {
-                    if (reopenPort() != true)
-                    {
-                        for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
-                        {
-                            acs[acs_counter].sendFail();
-                        }
-                        return false;
-                    }
-                }
-                if (acs_num > 128)
+                if (acs_num > access_bank_length)
                 {
                     throw new Exception(string.Format("Max num of accesses to send is 128"));
                 }
@@ -308,51 +298,106 @@ namespace SRB.port
                 {
                     return false;
                 }
-                accesses = acs;
-                access_num = acs_num;
-                access_error_counter = 0;
-                stopwatch.Restart();
-                recv_access_counter = send_access_counter = 0;
-                sendAccess();
-                while (recv_access_counter != access_num)
+                for (int i = 0; i < acs_num; i++)
                 {
-                    sendAccess();
-                    recvAccess();
-                    if (access_error_counter >2)
+                    accesses[in_point.pointMove()] = acs[i];
+                }
+                return access();
+            }
+        }
+        private bool access()
+        {
+            lock (lock_access)
+            {
+                if (this.Is_opened == false)
+                {
+                    if (reopenPort() != true)
                     {
-                        if (reopenPort() == true)
+                        LoopQueuePointer from = new LoopQueuePointer(out_point);
+                        while (in_point != from)
                         {
-                            access_error_counter = 0;
+                            accesses[from.pointMove()].sendFail();
+                        }
+                        out_point.jumpTo(in_point);
+                        return false;
+                    }
+                }
+                int access_error_counter = 0;
+                stopwatch.Restart();
+
+                LoopQueuePointer send = new LoopQueuePointer(out_point);
+
+                if (sendAccess(send.Point))
+                    send.pointMove();
+                else
+                    access_error_counter++;
+
+                while (true)
+                {
+                    if (in_point != send)
+                    {
+                        if (sendAccess(send.Point) == false)
+                        {
+                            access_error_counter++;
                         }
                         else
                         {
-                            for (int acs_counter = recv_access_counter; acs_counter < acs_num; acs_counter++)
-                            {
-                                acs[acs_counter].sendFail();
-                            }
-                            stopwatch.Stop();
-                            return false;
+                            send.pointMove();
                         }
                     }
+                    else
+                    {
+                        if(isPkgWaitRecv() == false)
+                        {
+                            out_point.jumpTo(in_point);
+                            stopwatch.Stop();
+                            return true;
+                        }
+                    }
+                    if (recvAccess() == false)
+                    {
+                        access_error_counter++;
+                    }
+                    if (access_error_counter >2)
+                    {
+                        reopenPort();
+                        LoopQueuePointer from = new LoopQueuePointer(out_point);
+                        while (in_point != from)
+                        {
+                            accesses[from.pointMove()].sendFail();
+                        }
+                        out_point.jumpTo(in_point);
+                        stopwatch.Stop();
+                        return false;
+                    }
                 }
-                stopwatch.Stop();
-              //  stopwatch.getElapsedMs;
-                return true;
             }
+        }
+        private bool isPkgWaitRecv()
+        {
+            foreach(Access a in accesses)
+            {
+                if(a!=null)
+                {
+                    if(a.Status == Access.StatusEnum.SendWaitRecv)
+                    {
+                        return true;
+                    }
+                    if (a.Status == Access.StatusEnum.NoSend)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         byte[] send_to_usb_buf = new byte[64];
-        private void sendAccess()
+        private bool sendAccess(int point )
         {
-            if (send_access_counter >= access_num)
-            {
-                return;
-            }
-
-            Access access = accesses[send_access_counter];
-
+            Access access = accesses[point];
             int i = 0;
-            send_to_usb_buf[i++] = (byte)send_access_counter;
+            send_to_usb_buf[i++] = (byte)point;
             send_to_usb_buf[i++] = access.Addr;
             send_to_usb_buf[i++] = access.Send_bfc;
 
@@ -369,52 +414,52 @@ namespace SRB.port
                     DateTime t = DateTime.Now;
                     access.sendTime = t;
                     access.sendDone();
-                    send_access_counter++;//发送成功了,转向下一个
-                    break;
+                    return true;
                 default:
-                    access_error_counter++;
                     //throw new Exception(ec.ToString());
-                    break;
+                    return false;
             }
         }
 
 
         byte[] recv_from_usb_buf = new byte[64];
+
+
         private bool recvAccess()
         {
             int recv_num;
-            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 200, out recv_num);
+            ErrorCode ec = srb_reader.Read(recv_from_usb_buf, 2000, out recv_num);
             switch (ec)
             {
                 case ErrorCode.None:
-                    recv_access_counter++;
                     int recv_sno = recv_from_usb_buf[0];
-                    byte recv_error = recv_from_usb_buf[1];
-                    if (recv_error < 0x0f)//thus recv is retry times
+                    if (accesses[recv_sno] != null)
                     {
-                        accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf, 3);
-                    }                                            
-                    else
-                    {
-                        switch (recv_error)
+                        byte recv_error = recv_from_usb_buf[1];
+                        if (recv_error < 0x0f)//thus recv_error is retry times
                         {
-                            case 0xff:
-                                accesses[recv_sno].receiveAccessBroadcast();
-                                break;
-                            case 0xfe:
-                                accesses[recv_sno].receiveAccessTimeout();
-                                break;
-                            default:
-                                throw new Exception("unknow receicve error code" + recv_error);
+                            accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf, 3);
+                        }
+                        else
+                        {
+                            switch (recv_error)
+                            {
+                                case 0xff:
+                                    accesses[recv_sno].receiveAccessBroadcast();
+                                    break;
+                                case 0xfe:
+                                    accesses[recv_sno].receiveAccessTimeout();
+                                    break;
+                                default:
+                                    throw new Exception("unknow receicve error code" + recv_error);
+                            }
                         }
                     }
-                    break;
+                    return true;
                 default:
                     //throw new Exception(ec.ToString());
-                    access_error_counter++;
-                    break;
+                    return false;
             }
-            return false;
         }
     }
 }

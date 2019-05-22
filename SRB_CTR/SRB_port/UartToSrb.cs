@@ -8,11 +8,11 @@ using System.IO.Ports;
 
 namespace SRB.port
 {
-    class SRB_Master_Uart : IDriver
+    class UartToSrb : IBus
     {
         SerialPort mainComPort;
        //ComPort mainComPort;
-        SRB_master_uart_uc config_form;
+        UartToSrb_uc config_form;
         public string getPortName()
         {
             if (Is_opened)
@@ -32,7 +32,7 @@ namespace SRB.port
             get { return record_port_data; }
             set { record_port_data = value; }
         }
-        public SRB_Master_Uart()
+        public UartToSrb()
         {
             mainComPort = new SerialPort();
             mainComPort.BaudRate = 2500000;
@@ -49,6 +49,7 @@ namespace SRB.port
                     }
                     break;
                 default:
+                    openPort(port_names[0]);
                     break;
             }
 
@@ -57,7 +58,7 @@ namespace SRB.port
         {
             if(config_form == null)
             {
-                config_form = new SRB_master_uart_uc(this);
+                config_form = new UartToSrb_uc(this);
             }
             return config_form;
         }

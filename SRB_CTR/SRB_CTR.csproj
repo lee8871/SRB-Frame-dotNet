@@ -117,12 +117,13 @@
     <Compile Include="Form\SRB_record_uc.Designer.cs">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_port\SRB_Master_USB.cs" />
-    <Compile Include="SRB_port\SRB_Master_USB_uc.cs">
+    <Compile Include="SRB_port\LoopQueuePointer.cs" />
+    <Compile Include="SRB_port\UsbToSrb.cs" />
+    <Compile Include="SRB_port\UsbToSrb_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SRB_port\SRB_Master_USB_uc.Designer.cs">
-      <DependentUpon>SRB_Master_USB_uc.cs</DependentUpon>
+    <Compile Include="SRB_port\UsbToSrb_uc.Designer.cs">
+      <DependentUpon>UsbToSrb_uc.cs</DependentUpon>
     </Compile>
     <Compile Include="others\Expand_Stopwatch.cs" />
     <Compile Include="SRB_oneline_master.cs" />
@@ -132,12 +133,12 @@
     <Compile Include="Form\mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_port\SRB_Master_Uart.cs" />
-    <Compile Include="SRB_port\SRB_master_uart_uc.cs">
+    <Compile Include="SRB_port\UartToSrb.cs" />
+    <Compile Include="SRB_port\UartToSrb_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SRB_port\SRB_master_uart_uc.Designer.cs">
-      <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
+    <Compile Include="SRB_port\UartToSrb_uc.Designer.cs">
+      <DependentUpon>UartToSrb_uc.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -151,14 +152,14 @@
     <EmbeddedResource Include="Form\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SRB_port\SRB_Master_USB_uc.resx">
-      <DependentUpon>SRB_Master_USB_uc.cs</DependentUpon>
+    <EmbeddedResource Include="SRB_port\UsbToSrb_uc.resx">
+      <DependentUpon>UsbToSrb_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SRB_port\SRB_master_uart_uc.resx">
-      <DependentUpon>SRB_master_uart_uc.cs</DependentUpon>
+    <EmbeddedResource Include="SRB_port\UartToSrb_uc.resx">
+      <DependentUpon>UartToSrb_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

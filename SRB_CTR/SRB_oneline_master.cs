@@ -14,7 +14,7 @@ namespace SRB_CTR
     public partial class SRB_oneline_master : IMaster, IDisposable
     {
 
-        private IDriver srb;
+        private IBus srb;
         public bool Is_port_opend
         {
             get { return srb.Is_opened; }
@@ -36,7 +36,7 @@ namespace SRB_CTR
             Nodes = new BaseNode[200];
             ///TODO
             ///add master select 
-            srb = new SRB_Master_Uart();
+            srb = new UartToSrb();
             main_brain = new nsBrain.Brain_Test2(this);
             _nodes_form = new mainForm(this);
             _nodes_form.Disposed += _nodes_form_Disposed;
@@ -44,23 +44,23 @@ namespace SRB_CTR
         }
         public System.Windows.Forms.Control usbControlDisplay()
         {
-            if (!(srb is SRB_Master_USB))
+            if (!(srb is UsbToSrb))
             {
-                srb = new SRB_Master_USB();
+                srb = new UsbToSrb();
             }
             return srb.getConfigControl();
         }
         public System.Windows.Forms.Control uartControlDisplay()
         {
-            if (!(srb is SRB_Master_Uart))
+            if (!(srb is UartToSrb))
             {
-                srb = new SRB_Master_Uart();
+                srb = new UartToSrb();
             }
             return srb.getConfigControl();
         }
         public bool isHighSpeedSupporting()
         {
-            if (srb is SRB_Master_USB)
+            if (srb is UsbToSrb)
             {
                 return true;
             }

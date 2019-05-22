@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace SRB.port
 {
-    internal partial class SRB_master_uart_uc  : UserControl
+    internal partial class UartToSrb_uc  : UserControl
     {
-        SRB_Master_Uart background;
-        internal SRB_master_uart_uc(SRB_Master_Uart bs)
+        UartToSrb background;
+        internal UartToSrb_uc(UartToSrb bs)
         {
             InitializeComponent();
             background = bs; 

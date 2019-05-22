@@ -89,7 +89,7 @@
     <Compile Include="CommonCluster\InformationCC.Designer.cs">
       <DependentUpon>InformationCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDriver.cs" />
+    <Compile Include="IBus.cs" />
     <Compile Include="IMaster.cs" />
     <Compile Include="BaseNode.cs" />
     <Compile Include="Mapping.cs" />
