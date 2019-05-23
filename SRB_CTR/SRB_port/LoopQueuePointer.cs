@@ -4,7 +4,6 @@
     {
         private int size;
         private int point;
-        public int Point { get => point;  }
 
         public LoopQueuePointer(int s)
         {
@@ -24,21 +23,34 @@
         {
             point = b.point;
         }
-        public int pointMove()
+        public static implicit operator int(LoopQueuePointer a)
         {
-            int rev = point;
-            point++;
-            if (point >= size)
+            return a.point;
+        }
+        public static LoopQueuePointer operator ++(LoopQueuePointer a)
+        {
+            a.point++;
+            if (a.point >= a.size)
             {
-                point -= size;
+                a.point -= a.size;
             }
-            return rev;
+            return a;
+        }
+        public static LoopQueuePointer operator --(LoopQueuePointer a)
+        {
+            a.point--;
+            if (a.point <0)
+            {
+                a.point += a.size;
+            }
+            return a;
         }
         public static int operator - (LoopQueuePointer a, LoopQueuePointer b){        
             int rev = a.point - b.point;
             if (rev < 0) rev += a.size;
             return rev;
         }
+
         public static bool operator== (LoopQueuePointer a, LoopQueuePointer b)
         {
             return (a.point == b.point);

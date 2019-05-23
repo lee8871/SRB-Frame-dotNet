@@ -8,6 +8,7 @@ using LibUsbDotNet;
 using LibUsbDotNet.LibUsb;
 using LibUsbDotNet.Main;
 using LibUsbDotNet.LudnMonoLibUsb;
+using LibUsbDotNet.DeviceNotify;
 using EC = LibUsbDotNet.Main.ErrorCode;
 using SRB.Frame;
 
@@ -15,15 +16,26 @@ namespace SRB.port
 {
      partial class UsbToSrb : IBus
     {
+        const int idVendor = 0x16c0;
+        const int idProduct = 0x05dc;
+
+        public IDeviceNotifier UsbDeviceNotifier = DeviceNotifier.OpenDeviceNotifier();
+
+        private Queue<object> oldDevice = new Queue<object>();
+
+        private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
+
+        UsbToSrb_uc config_form;
+
+        object lock_access = new object();
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
-        private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
-        UsbToSrb_uc config_form;
-        private Queue<object> oldDevice = new Queue<object>();
-        object lock_access = new object();
+
+        string last_device_name = null;
         public UsbToSrb()
         {
+            UsbDeviceNotifier.OnDeviceNotify += UsbDeviceNotifier_OnDeviceNotify;
             scanDevice();
             if (devicesDIC.Count == 1)
             {
@@ -31,6 +43,20 @@ namespace SRB.port
             }
         }
 
+        private void UsbDeviceNotifier_OnDeviceNotify(object sender, DeviceNotifyEventArgs e)
+        {
+            if (e.Device.SerialNumber == last_device_name)
+            {
+                if(e.EventType == EventType.DeviceRemoveComplete)
+                {
+                    this.ClosePort();
+                }
+                if(e.EventType == EventType.DeviceArrival)
+                {
+                    this.reopenPort();
+                }
+            }
+        }
 
         public string getPortName()
         {
@@ -95,7 +121,6 @@ namespace SRB.port
                 return selected_device.IsOpen;
             }
         }
-        string last_device_name = null;
         internal bool openPort(string portName)
         {
             if (portName == Selected_device_name)
@@ -225,6 +250,7 @@ namespace SRB.port
                 data[1] = 0x03;
                 UsbSetupPacket setup = new UsbSetupPacket(0, 7, 0x0304, 0x0409, (short)(data.Length));
                 selected_device.ControlTransfer(ref setup, data, data.Length, out len);
+                last_device_name = text;
             }
             else
             {
@@ -250,6 +276,10 @@ namespace SRB.port
             {
                 if (regDevice.Device != null)
                 {
+                    if((regDevice.Vid != idVendor)||(regDevice.Pid != idProduct))
+                    {
+                        continue;
+                    }
                     regDevice.Device.GetString(out product_name, 0x0409, 2);
                     if (product_name == "SRB-USB")
                     {
@@ -266,7 +296,7 @@ namespace SRB.port
         Stopwatch stopwatch = new Stopwatch();
 
 
-        const int access_bank_length = 128;
+        const int access_bank_length = 256;
         Access[] accesses = new Access[access_bank_length];
         LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
         LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
@@ -275,7 +305,8 @@ namespace SRB.port
         {
             lock (lock_access)
             {
-                accesses[in_point.pointMove()] = ac;
+                accesses[in_point] = ac;
+                in_point++;
                 return access();
             }
 
@@ -300,7 +331,8 @@ namespace SRB.port
                 }
                 for (int i = 0; i < acs_num; i++)
                 {
-                    accesses[in_point.pointMove()] = acs[i];
+                    accesses[in_point] = acs[i];
+                    in_point++;
                 }
                 return access();
             }
@@ -311,24 +343,25 @@ namespace SRB.port
             {
                 if (this.Is_opened == false)
                 {
-                    if (reopenPort() != true)
-                    {
+                    //if (reopenPort() != true)
+                    //{
                         LoopQueuePointer from = new LoopQueuePointer(out_point);
                         while (in_point != from)
                         {
-                            accesses[from.pointMove()].sendFail();
+                            accesses[from].sendFail();
+                            from++;
                         }
                         out_point.jumpTo(in_point);
                         return false;
-                    }
+                    //}
                 }
                 int access_error_counter = 0;
                 stopwatch.Restart();
 
                 LoopQueuePointer send = new LoopQueuePointer(out_point);
 
-                if (sendAccess(send.Point))
-                    send.pointMove();
+                if (sendAccess(send))
+                    send++;
                 else
                     access_error_counter++;
 
@@ -336,13 +369,13 @@ namespace SRB.port
                 {
                     if (in_point != send)
                     {
-                        if (sendAccess(send.Point) == false)
+                        if (sendAccess(send) == false)
                         {
                             access_error_counter++;
                         }
                         else
                         {
-                            send.pointMove();
+                            send++;
                         }
                     }
                     else
@@ -364,7 +397,8 @@ namespace SRB.port
                         LoopQueuePointer from = new LoopQueuePointer(out_point);
                         while (in_point != from)
                         {
-                            accesses[from.pointMove()].sendFail();
+                            accesses[from].sendFail();
+                            from++;
                         }
                         out_point.jumpTo(in_point);
                         stopwatch.Stop();
