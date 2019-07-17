@@ -38,11 +38,11 @@ namespace SRB_CTR
         {
             newFile(); 
             is_running = true;
-            flush_thread = new Thread(new ThreadStart(thAutoFlush));
+            flush_thread = new Thread(new ThreadStart(autoFlushTH));
             flush_thread.Priority = ThreadPriority.Lowest;
             flush_thread.Start();
         }
-        private void thAutoFlush()
+        private void autoFlushTH()
         {
             while (is_running)
             {

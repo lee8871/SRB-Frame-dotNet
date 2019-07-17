@@ -8,7 +8,8 @@ namespace SRB.Frame
     public class Access
     {
         //about Note
-        public DateTime sendTime;
+        DateTime sendTime;
+        DateTime recvTime;
         public string description = "";
 
         private BaseNode sender_node;        
@@ -58,14 +59,9 @@ namespace SRB.Frame
 
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
-
-
         public enum PortEnum { D0, D1, D2, D3, Cmd, Cgf, Rpt, Res };
-
-
         private PortEnum _port;
-        public PortEnum Port { get => _port; }
-    
+        public PortEnum Port { get => _port; }  
 
         //_send_data is set by constructor
         private byte[] _send_data;
@@ -110,8 +106,10 @@ namespace SRB.Frame
             _status = StatusEnum.NoSend;
         }
 
+
         public bool receiveAccess(byte bfc, byte[] data, int offset)
         {
+            recvTime = DateTime.Now;
             if (Status == StatusEnum.SendWaitRecv)
             {
                 this._recv_bfc = bfc;
@@ -137,6 +135,7 @@ namespace SRB.Frame
         }
         public void receiveAccess(byte bfc, byte[] data)
         {
+            recvTime = DateTime.Now;
             this._recv_bfc = bfc;
             this._recv_data = data;
             if ((data.Length) != this.Recv_data_len)
@@ -150,6 +149,7 @@ namespace SRB.Frame
         }
         public void receiveAccessBroadcast()
         {
+            recvTime = DateTime.Now;
             if (this.Addr == 0xff)
             {
                 _status = StatusEnum.BroadcasePkg;
@@ -161,6 +161,7 @@ namespace SRB.Frame
         }
         public void receiveAccessTimeout()
         {
+            recvTime = DateTime.Now;
             if (this.Addr == 0xff)
             {
                 _status = StatusEnum.RecvedBadPkg;
@@ -170,23 +171,23 @@ namespace SRB.Frame
                 _status = StatusEnum.SrbTimeOut;
             }
         }
-
-
-
         public void sendDone()
         {
             _status = StatusEnum.SendWaitRecv;
+            sendTime = DateTime.Now;
         }
-
         public void sendFail()
         {
-            switch(_status)
+            switch (_status)
             {
                 case StatusEnum.NoSend:
                     _status = StatusEnum.PortColsed;
+                    sendTime = DateTime.Now;
+                    recvTime = DateTime.Now;
                     break;
                 case StatusEnum.SendWaitRecv:
                     _status = StatusEnum.DeviceTimeOut;
+                    recvTime = DateTime.Now;
                     break;
                 default:
                     break;

@@ -207,8 +207,6 @@ namespace SRB.port
             {
                 Access ac = acs[acs_counter];
                 toUartByteArray(ac, (byte)acs_counter);
-                DateTime t = DateTime.Now;
-                ac.sendTime = t;
                 ac.sendDone();
             }
             //if (record_port_data)

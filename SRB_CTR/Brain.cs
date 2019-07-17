@@ -11,13 +11,9 @@ namespace SRB_CTR
     abstract class IBrain
     {
         protected SRB_oneline_master frame;
-        Log_Writer log;
         public IBrain(SRB_oneline_master f)
         {
             frame = f;
-            log = new Log_Writer("Brain");
-            log.add("new Brain log!");
-            log.autoFlushRun();
         }
 
 
@@ -100,16 +96,12 @@ namespace SRB_CTR
             calculate_time = sw.getElapsedMs();
             frame.sendAccess();
             all_time = sw.getElapsedMs();
-#if DEBUG
-            log.add(string.Format("{0},{1:###0.0000},{2:###0.0000}", num, calculate_time, all_time));
-#else
             if (all_time > period_in_ms)
             {
-                log.add(string.Format("Not_real_time = ('{3}',{0},{1:###0.0000},{2:###0.0000},)",
+                Console.WriteLine(string.Format("'{3}' Not_real_time = (,num = {0},calculate_time = {1:###0.0000},usb_time = {2:###0.0000},)",
                     num, calculate_time,
-                    all_time, DateTime.Now.ToString("hh:mm:ss.fff")));
+                    (all_time- calculate_time), DateTime.Now.ToString("hh:mm:ss.fff")));
             }
-#endif
             while (sw.getElapsedMs() < period_in_ms) ;
             sw.Restart();
         }

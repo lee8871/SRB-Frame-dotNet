@@ -24,8 +24,8 @@ namespace SRB_CTR
             cp = Process.GetCurrentProcess();
             cp.PriorityClass = ProcessPriorityClass.RealTime;
             // showfortest();
-            SRB_oneline_master mainB = new SRB_oneline_master();
-            Application.Run(mainB.Nodes_form);
+            SRB_oneline_master main_srb = new SRB_oneline_master();
+            Application.Run(main_srb.Nodes_form);
         
         }
 	}

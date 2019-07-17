@@ -22,7 +22,6 @@ namespace SRB_CTR
                 ,logName, DateTime.Now.ToString("yyyyMMdd-HH-mm-ss"));
             newFile();
         }
-
         object sw_lock = new object();
         public void add(string st)
         {
@@ -52,7 +51,7 @@ namespace SRB_CTR
         {
             if(running_flag == false)
             {
-                flush_thread = new Thread(new ThreadStart(thAutoFlush));
+                flush_thread = new Thread(new ThreadStart(autoFlushTH));
                 flush_thread.Priority = ThreadPriority.Lowest;
                 running_flag = true;
                 flush_thread.Start();
@@ -67,7 +66,7 @@ namespace SRB_CTR
             }
         }
 
-        private void thAutoFlush()
+        private void autoFlushTH()
         {
             while(running_flag)
             {

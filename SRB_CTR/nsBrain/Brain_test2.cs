@@ -10,7 +10,7 @@ namespace SRB_CTR.nsBrain
     {
         public Brain_Test2(SRB_oneline_master f) : base(f)
         {
-            period_in_ms = 1;
+            period_in_ms = 2;
         }
 
 
