@@ -28,11 +28,11 @@ namespace SRB_CTR.nsBrain
                 {
                     if (n is SRB.NodeType.Du_motor.Node)
                     {
-                        if (n.Name == "left")
+                        if (n.Name == "Left")
                         {
                             left = n as SRB.NodeType.Du_motor.Node;
                         }
-                        if (n.Name == "right")
+                        if (n.Name == "Right")
                         {
                             right = n as SRB.NodeType.Du_motor.Node;
                         }
@@ -47,7 +47,7 @@ namespace SRB_CTR.nsBrain
                     }
                     else if (n is SRB.NodeType.PS2_Handle.Node)
                     {
-                        if (n.Name == "brain test")
+                        if (n.Name == "Handle")
                         {
                             handle = n as SRB.NodeType.PS2_Handle.Node;
                         }

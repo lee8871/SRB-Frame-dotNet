@@ -364,4 +364,5 @@ Press h to open a hovercard with more details.
 
 */.suo
 */storage.ide
+/libusb/*
 

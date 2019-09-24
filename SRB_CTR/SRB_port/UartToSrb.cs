@@ -39,20 +39,22 @@ namespace SRB.port
             mainComPort.RtsEnable = true;
             mainComPort.ReadTimeout = 2;
             string[] port_names = getPortTable();
-            switch(port_names[0])
+            if (port_names.Length != 0)
             {
-                case "COM1":
-                case "COM2":
-                    if (port_names.Length>=2)
-                    {
-                        openPort(port_names[1]);
-                    }
-                    break;
-                default:
-                    openPort(port_names[0]);
-                    break;
+                switch (port_names[0])
+                {
+                    case "COM1":
+                    case "COM2":
+                        if (port_names.Length >= 2)
+                        {
+                            openPort(port_names[1]);
+                        }
+                        break;
+                    default:
+                        openPort(port_names[0]);
+                        break;
+                }
             }
-
         }
         public override System.Windows.Forms.Control getConfigControl()
         {
