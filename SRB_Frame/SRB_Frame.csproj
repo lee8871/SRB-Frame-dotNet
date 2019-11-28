@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -148,9 +148,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\MappingCC.resx">
       <DependentUpon>MappingCC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="INodeControl.zh.resx">
-      <DependentUpon>INodeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Node_form.resx">
       <DependentUpon>Node_form.cs</DependentUpon>

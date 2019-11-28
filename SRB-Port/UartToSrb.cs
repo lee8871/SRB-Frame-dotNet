@@ -8,7 +8,7 @@ using System.IO.Ports;
 
 namespace SRB.port
 {
-    class UartToSrb : IBus
+    public class UartToSrb : IBus
     {
         SerialPort mainComPort;
        //ComPort mainComPort;

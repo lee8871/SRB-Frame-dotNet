@@ -32,7 +32,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -79,9 +79,6 @@
     <ApplicationIcon>110618274272.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LibUsbDotNet">
-      <HintPath>..\libusb\LibUsbDotNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -117,14 +114,6 @@
     <Compile Include="Form\SRB_record_uc.Designer.cs">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </Compile>
-    <Compile Include="SRB_port\LoopQueuePointer.cs" />
-    <Compile Include="SRB_port\UsbToSrb.cs" />
-    <Compile Include="SRB_port\UsbToSrb_uc.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SRB_port\UsbToSrb_uc.Designer.cs">
-      <DependentUpon>UsbToSrb_uc.cs</DependentUpon>
-    </Compile>
     <Compile Include="others\Expand_Stopwatch.cs" />
     <Compile Include="SRB_oneline_master.cs" />
     <Compile Include="Form\mainForm.cs">
@@ -132,13 +121,6 @@
     </Compile>
     <Compile Include="Form\mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SRB_port\UartToSrb.cs" />
-    <Compile Include="SRB_port\UartToSrb_uc.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SRB_port\UartToSrb_uc.Designer.cs">
-      <DependentUpon>UartToSrb_uc.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,14 +134,8 @@
     <EmbeddedResource Include="Form\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SRB_port\UsbToSrb_uc.resx">
-      <DependentUpon>UsbToSrb_uc.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SRB_port\UartToSrb_uc.resx">
-      <DependentUpon>UartToSrb_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -181,11 +157,11 @@
   <ItemGroup>
     <Content Include="110618274272.ico" />
     <Content Include="others\color-setting.htm" />
-    <Content Include="Resources\1175836.png" />
-    <None Include="Resources\Scan.png" />
-    <None Include="Resources\pencil_512px_1175838_easyicon.net.png" />
-    <None Include="Resources\1175746.png" />
-    <None Include="Resources\1175759.png" />
+    <Content Include="Resources\Connect.png" />
+    <Content Include="Resources\Disconnect.png" />
+    <Content Include="Resources\Edit.png" />
+    <Content Include="Resources\Pause.png" />
+    <Content Include="Resources\Scan.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -221,6 +197,10 @@
       <Project>{93c7fdaa-b077-4f0f-8e4e-d7be53ccd779}</Project>
       <Name>SRB_Node_PS2_Handle</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SRB-Port\SRB-Port.csproj">
+      <Project>{326c8eda-5aa5-4a0f-a26a-574844427c2a}</Project>
+      <Name>SRB-Port</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB_Changer\SRB_Node_Charger.csproj">
       <Project>{66701bdf-b018-4712-a6de-9b78b020b981}</Project>
       <Name>SRB_Node_Charger</Name>
@@ -230,10 +210,12 @@
       <Name>SRB_Frame</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>md "log"
-md "record"
+    <PostBuildEvent>if not exist ./log (md "log")
+
+if not exist ./record (md "record")
 
 if "$(ConfigurationName)"=="Release" (D:\cloud-bank360\V\SRB-Frame-dotNet\SRB_CTR\bin\Release\publish.bat)</PostBuildEvent>
   </PropertyGroup>

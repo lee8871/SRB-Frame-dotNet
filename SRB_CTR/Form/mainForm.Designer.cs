@@ -178,7 +178,7 @@
             this.SRB_config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uSBToolStripMenuItem,
             this.uARTToolStripMenuItem});
-            this.SRB_config.Image = global::SRB_CTR.Properties.Resources._1175759;
+            this.SRB_config.Image = global::SRB_CTR.Properties.Resources.Disconnect;
             this.SRB_config.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SRB_config.Name = "SRB_config";
             this.SRB_config.Size = new System.Drawing.Size(39, 27);

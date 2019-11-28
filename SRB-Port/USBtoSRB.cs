@@ -13,7 +13,7 @@ using SRB.Frame;
 
 namespace SRB.port
 {
-     partial class UsbToSrb : IBus
+    public partial class UsbToSrb : IBus
     {
         const int idVendor = 0x16c0;
         const int idProduct = 0x05dc;

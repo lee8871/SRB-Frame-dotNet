@@ -1,6 +1,6 @@
 ﻿namespace SRB.port
 {
-    partial class UsbToSrb_uc
+    public partial class UsbToSrb_uc
     {
         /// <summary>
         /// Required designer variable.
@@ -82,7 +82,7 @@
             // renameBT
             // 
             this.renameBT.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.renameBT.Image = global::SRB_CTR.Properties.Resources.pencil_512px_1175838_easyicon_net;
+            this.renameBT.Image = ((System.Drawing.Image)(resources.GetObject("renameBT.Image")));
             this.renameBT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.renameBT.Name = "renameBT";
             this.renameBT.Size = new System.Drawing.Size(27, 27);
@@ -105,7 +105,7 @@
             this.EnterNameTB.TabIndex = 2;
             this.EnterNameTB.Visible = false;
             // 
-            // SRB_Master_USB_Uc
+            // UsbToSrb_uc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,7 +113,7 @@
             this.Controls.Add(this.toolStrip1);
             this.MaximumSize = new System.Drawing.Size(378, 32);
             this.MinimumSize = new System.Drawing.Size(378, 32);
-            this.Name = "SRB_Master_USB_Uc";
+            this.Name = "UsbToSrb_uc";
             this.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

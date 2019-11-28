@@ -14,7 +14,6 @@ namespace SRB.Frame
         public abstract void nodeReplace(BaseNode from, BaseNode to);
         public abstract void nodeRegister(BaseNode node);
         public abstract void nodeUnregister(BaseNode node);
-
         public abstract void addAccess(Access ac);
         public abstract void sendAccess();
         public abstract void singleAccess(Access ac);

@@ -337,15 +337,13 @@ namespace SRB_CTR
         }
 
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-        Image portStoped = global::SRB_CTR.Properties.Resources._1175759;
-        Image portRunning = global::SRB_CTR.Properties.Resources._1175746;
         private void srbStoped()
         {
-            this.SRB_config.Image = portStoped;
+            this.SRB_config.Image = Properties.Resources.Disconnect;
         }
         private void srbRunning()
         {
-            this.SRB_config.Image = portRunning;
+            this.SRB_config.Image = Properties.Resources.Connect;
         }
 
         private void uSBToolStripMenuItem_Click(object sender, EventArgs e)
