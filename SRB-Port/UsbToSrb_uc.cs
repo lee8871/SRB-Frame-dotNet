@@ -1,33 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.port
 {
-    public partial class UsbToSrb_uc  : UserControl
+    public partial class UsbToSrb_uc : UserControl
     {
-        UsbToSrb backstage;
+        private UsbToSrb backstage;
         public UsbToSrb_uc(UsbToSrb p)
         {
             InitializeComponent();
-            backstage = p; 
+            backstage = p;
             comSelectCB.Click += new EventHandler(comSelectCB_Click);
-           // comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
-            comSelectCB.SelectedIndexChanged+= new EventHandler(comSelectCB_TextChanged);
+            // comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
+            comSelectCB.SelectedIndexChanged += new EventHandler(comSelectCB_TextChanged);
             getUartTable();
             this.comSelectCB.Text = backstage.getPortName();
             this.EnterNameTB.KeyDown += EnterNameTB_KeyDown;
             setPortState();
         }
 
-
-
-        void setPortState() 
+        private void setPortState()
         {
             if (backstage.Is_opened)
             {
@@ -57,7 +50,7 @@ namespace SRB.port
         private void comSelectCB_Click(object sender, EventArgs e)
         {
             getUartTable();
-            if ((comSelectCB.Text != "---")&& (comSelectCB.Text != ""))
+            if ((comSelectCB.Text != "---") && (comSelectCB.Text != ""))
             {
                 backstage.openPort(comSelectCB.Text);
             }
@@ -65,7 +58,7 @@ namespace SRB.port
         }
         private void comSelectCB_TextChanged(object sender, EventArgs e)
         {
-            if ((comSelectCB.Text != "---")&& (comSelectCB.Text != "") )
+            if ((comSelectCB.Text != "---") && (comSelectCB.Text != ""))
             {
                 backstage.openPort(comSelectCB.Text);
             }
@@ -87,7 +80,7 @@ namespace SRB.port
         {
             if (this.EnterNameTB.Visible)
             {
-                rename() ;
+                rename();
             }
             else
             {
@@ -130,7 +123,7 @@ namespace SRB.port
             {
                 backstage.changeName(this.EnterNameTB.Text);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
                 return false;

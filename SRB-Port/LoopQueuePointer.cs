@@ -39,23 +39,24 @@
         public static LoopQueuePointer operator --(LoopQueuePointer a)
         {
             a.point--;
-            if (a.point <0)
+            if (a.point < 0)
             {
                 a.point += a.size;
             }
             return a;
         }
-        public static int operator - (LoopQueuePointer a, LoopQueuePointer b){        
+        public static int operator -(LoopQueuePointer a, LoopQueuePointer b)
+        {
             int rev = a.point - b.point;
             if (rev < 0) rev += a.size;
             return rev;
         }
 
-        public static bool operator== (LoopQueuePointer a, LoopQueuePointer b)
+        public static bool operator ==(LoopQueuePointer a, LoopQueuePointer b)
         {
             return (a.point == b.point);
         }
-        public static bool operator!=(LoopQueuePointer a, LoopQueuePointer b)
+        public static bool operator !=(LoopQueuePointer a, LoopQueuePointer b)
         {
             return (a.point != b.point);
         }

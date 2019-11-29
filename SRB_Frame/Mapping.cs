@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SRB.Frame
 {
-    class Mapping
+    internal class Mapping
     {
         private byte[] up_mapping;
         private byte[] down_mapping;
 
-        public int upMapping(int num) {
+        public int upMapping(int num)
+        {
             return (int)up_mapping[num];
         }
-        public int downMapping(int num) {
+        public int downMapping(int num)
+        {
             return (int)down_mapping[num];
         }
 
@@ -29,14 +28,14 @@ namespace SRB.Frame
             }
             int up_len = raw[0];
             int down_len = raw[1];
-            if (raw.Length < 2+ up_len+ down_len)
+            if (raw.Length < 2 + up_len + down_len)
             {
                 throw new Exception(string.Format("The Mapping Raw Array has" +
                     "up_len = {0}, " +
                     "down_len = {1}," +
                     "the totle length shold be {2} ," +
                     "but the Raw Array length is {3}",
-                   up_len, down_len, up_len+down_len+ 2, raw.Length));
+                   up_len, down_len, up_len + down_len + 2, raw.Length));
             }
             else
             {

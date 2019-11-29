@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using SRB.Frame;
 
 namespace SRB.Frame.Cluster
 {
-    partial class MappingCC  : IClusterControl
+    internal partial class MappingCC : IClusterControl
     {
-        MappingCluster cluster;
+        private MappingCluster cluster;
         public MappingCC(MappingCluster c) : base(c)
         {
             InitializeComponent();
@@ -29,7 +21,8 @@ namespace SRB.Frame.Cluster
         {
             string error;
             byte[] up = UpRTC.Text.ToByteAsCArroy(out error);
-            if (up != null) { 
+            if (up != null)
+            {
                 if (cluster.setMapping(up))
                 {
                     cluster.write();
@@ -41,8 +34,8 @@ namespace SRB.Frame.Cluster
         {
             string error;
             byte[] up = UpRTC.Text.ToByteAsCArroy(out error);
-            if(up!=null)
-            {                
+            if (up != null)
+            {
                 StatusLAB.Text = cluster.checkMapping(up);
             }
             else

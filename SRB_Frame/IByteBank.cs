@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRB.Frame
 {
@@ -74,7 +70,7 @@ namespace SRB.Frame
 
         protected bool getBankBool(int diff, int bit_diff = 0)
         {
-            if( (bit_diff >= 8)|| (bit_diff <0 ))
+            if ((bit_diff >= 8) || (bit_diff < 0))
             {
                 throw new Exception("bit_diff shold less than 8");
             }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 namespace SRB.Frame.Cluster
 {
@@ -12,7 +9,7 @@ namespace SRB.Frame.Cluster
 
         public byte addr { get => bank[0]; set => bank_write_temp[0] = value; }
         public string name { get => getBankString(1, 27); set => setBankString(value, 1, 27); }
-        public byte error_behavior { get => getBankByte(28); set => setBankByte(value,28); }
+        public byte error_behavior { get => getBankByte(28); set => setBankByte(value, 28); }
 
         public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
             : base(n, cID, 19)
@@ -60,19 +57,19 @@ namespace SRB.Frame.Cluster
 
         public bool isNewAddrAvaliable(byte addr)
         {
-            return  parent_node.isNewAddrAvaliable(addr);
+            return parent_node.isNewAddrAvaliable(addr);
         }
-        public enum LedAddrType{High,Low,Close};
+        public enum LedAddrType { High, Low, Close };
         public void ledAddr(LedAddrType adt)
         {
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
             b[i++] = CID;
-            switch(adt)
+            switch (adt)
             {
                 case LedAddrType.Close:
-                    b[i++] = 0xf5;break;
+                    b[i++] = 0xf5; break;
                 case LedAddrType.High:
                     b[i++] = 0xf4; break;
                 case LedAddrType.Low:

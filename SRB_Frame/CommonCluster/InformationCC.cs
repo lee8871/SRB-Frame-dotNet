@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 
@@ -12,7 +6,7 @@ namespace SRB.Frame.Cluster
 {
     public partial class InformationCC : IClusterControl
     {
-        InformationCluster cluster;
+        private InformationCluster cluster;
         public InformationCC(InformationCluster c) : base(c)
         {
             InitializeComponent();
@@ -23,9 +17,9 @@ namespace SRB.Frame.Cluster
         protected override void DataUpdata()
         {
             this.typeL.Text = "Type: " + cluster.type;
-            this.versionL.Text = 
+            this.versionL.Text =
             string.Format("Version: Node-{0}.{1}  SRB-{2}.{3}  ", cluster.major_version, cluster.minor_version,
-            cluster.SRB_major_version,cluster.SRB_minor_version);
+            cluster.SRB_major_version, cluster.SRB_minor_version);
         }
 
 

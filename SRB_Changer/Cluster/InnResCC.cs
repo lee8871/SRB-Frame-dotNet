@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using SRB.Frame;
+﻿using SRB.Frame;
+using System;
 
 namespace SRB.NodeType.Charger
 {
-    partial class InnResCC : IClusterControl
+    internal partial class InnResCC : IClusterControl
     {
-        InnResCluster cluster;
+        private InnResCluster cluster;
         public InnResCC(InnResCluster c) : base(c)
         {
             InitializeComponent();
@@ -24,7 +16,7 @@ namespace SRB.NodeType.Charger
 
         protected override void DataUpdata()
         {
-            string a ="";
+            string a = "";
             for (int i = 0; i < 15; i++)
             {
                 a += cluster.mOhm(i) + " mΩ  ";

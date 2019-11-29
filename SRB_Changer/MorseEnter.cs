@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SRB.NodeType.Charger
@@ -61,10 +56,7 @@ namespace SRB.NodeType.Charger
             }
         }
 
-
-
-
-        static Dictionary<char, string> Morse = new Dictionary<char, string>()
+        private static Dictionary<char, string> Morse = new Dictionary<char, string>()
         {
             {'A' , ".-"},
             {'B' , "-..."},
@@ -149,8 +141,8 @@ namespace SRB.NodeType.Charger
 
         static public string byteToMorse(byte b)
         {
-            char[] c = new char[8] ;
-            int i = 0, counter = 0 ;
+            char[] c = new char[8];
+            int i = 0, counter = 0;
             for (; i < 8; i++)
             {
                 if ((b & (1 << i)) != 0)
@@ -163,11 +155,11 @@ namespace SRB.NodeType.Charger
             {
                 if ((b & (1 << i)) != 0)
                 {
-                    c[counter]='-'; counter++;
+                    c[counter] = '-'; counter++;
                 }
                 else
                 {
-                    c[counter]= '.'; counter++;
+                    c[counter] = '.'; counter++;
                 }
             }
             return new string(c, 0, counter);

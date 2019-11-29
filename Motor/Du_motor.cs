@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using SRB.Frame;
+﻿using SRB.Frame;
 using SRB.Frame.Cluster;
+using System;
 
 namespace SRB.NodeType.Du_motor
 {
@@ -92,7 +88,7 @@ namespace SRB.NodeType.Du_motor
         }
 
 
-        public override System.Windows.Forms.Control  getClusterControl()
+        public override System.Windows.Forms.Control getClusterControl()
         {
             return new Ctrl(this);
         }

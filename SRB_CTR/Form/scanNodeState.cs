@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB_CTR
 {
-    partial class scanNodeState : UserControl
+    internal partial class scanNodeState : UserControl
     {
         private SRB_oneline_master backlogic;
 
@@ -40,7 +34,9 @@ namespace SRB_CTR
             }
             base.Refresh();
         }
-        bool ContrulsEnable{
+
+        private bool ContrulsEnable
+        {
             set
             {
                 StartBTN.Visible = value;

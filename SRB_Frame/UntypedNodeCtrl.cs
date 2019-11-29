@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-
-using SRB.Frame;
-namespace SRB.Frame{
+namespace SRB.Frame
+{
     public partial class UntypedNodeCtrl : UserControl
     {
-        BaseNode node;  
+        private BaseNode node;
         public UntypedNodeCtrl(BaseNode n)
         {
             node = n;
             InitializeComponent();
-            nameL.Text = "Type = \"" +n.NodeType +"\"";
+            nameL.Text = "Type = \"" + n.NodeType + "\"";
             node.eDataAccessRecv += Node_eDataAccessRecv;
         }
 
@@ -28,7 +21,7 @@ namespace SRB.Frame{
 
         private void nameL_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -36,13 +29,13 @@ namespace SRB.Frame{
         {
             string error;
             byte[] ba = sendRTB.Text.ToByteAsCArroy(out error);
-            sendRTB.Text = ba.ToArrayString();  
+            sendRTB.Text = ba.ToArrayString();
             node.singleAccess(new Access(node, Access.PortEnum.D0, ba));
         }
 
         private void accessTimerOnBTN_Click(object sender, EventArgs e)
         {
-            if(AccessT.Enabled==true)
+            if (AccessT.Enabled == true)
             {
                 AccessT.Enabled = false;
                 accessTimerOnBTN.Text = "Run Access/100ms";

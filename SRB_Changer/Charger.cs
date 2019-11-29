@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using SRB.Frame;
+﻿using SRB.Frame;
 using SRB.Frame.Cluster;
+using System;
 
 namespace SRB.NodeType.Charger
 {
@@ -24,23 +20,26 @@ namespace SRB.NodeType.Charger
 
         public byte buzzer_commend { set => setBankByte(value, 10); }
 
-        public bool cmd_charge_enable {
-            get => getBankBool(11,0);
-            set => setBankBool(value, 11,0);
+        public bool cmd_charge_enable
+        {
+            get => getBankBool(11, 0);
+            set => setBankBool(value, 11, 0);
         }
-        public bool is_Mute {
-            get => getBankBool(11,1);
+        public bool is_Mute
+        {
+            get => getBankBool(11, 1);
             set => setBankBool(value, 11, 1);
         }
-        public bool is_PowerLEDRun {
+        public bool is_PowerLEDRun
+        {
             get => getBankBool(11, 2);
             set => setBankBool(value, 11, 2);
         }
         public string getStatues()
         {
-            if(is_charging)
+            if (is_charging)
             {
-                if((!is_charge_done)&&(is_jack_in)&&(is_charge_open))
+                if ((!is_charge_done) && (is_jack_in) && (is_charge_open))
                 {
                     return "Charging";
                 }
@@ -51,7 +50,7 @@ namespace SRB.NodeType.Charger
             }
             else
             {
-                if(is_charge_done)
+                if (is_charge_done)
                 {
                     if ((is_jack_in) && (is_charge_open))
                     {
@@ -67,7 +66,7 @@ namespace SRB.NodeType.Charger
                     if (!(is_charge_open))
                     {
                         if ((is_jack_in))
-                        { 
+                        {
                             return "Charge is Closed";
                         }
                         else
@@ -75,7 +74,7 @@ namespace SRB.NodeType.Charger
                             return "Discharging";
                         }
                     }
-                    else 
+                    else
                     {
                         if ((is_jack_in))
                         {
@@ -93,7 +92,7 @@ namespace SRB.NodeType.Charger
         }
 
 
-        public override string Help_net_work => 
+        public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E4%B8%A4%E8%8A%82%E9%94%82%E7%94%B5%E6%B1%A0%E5%85%85%E7%94%B5%E8%8A%82%E7%82%B9.md";
 
         public void play(string s)
@@ -126,7 +125,7 @@ namespace SRB.NodeType.Charger
             inn_res_clu = new InnResCluster(this);
             clusters[inn_res_clu.CID] = inn_res_clu;
 
-            Mapping0_clu = new MappingCluster(3, this,"Mapping0");
+            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
             clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -150,7 +149,7 @@ namespace SRB.NodeType.Charger
             : base(addr, f)
         {
             init();
-        }        
+        }
         public Node(BaseNode n)
             : base(n)
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SRB.Frame
+﻿namespace SRB.Frame
 {
     public static class Expand_Byte
     {
@@ -31,13 +26,13 @@ namespace SRB.Frame
             return new string(ca, 0, 2);
         }
 
-       static public int enterRound(this int i,int min ,int max)
+        static public int enterRound(this int i, int min, int max)
         {
             if (i >= max)
             {
                 return max;
             }
-            if(i<=min)
+            if (i <= min)
             {
                 return min;
             }
@@ -49,27 +44,27 @@ namespace SRB.Frame
             return b.ToHexSt();
         }
         static public string ToHexSt(this byte[] ba, int len = -1)
-       {
-           if (ba == null)
-           {
-               return "<null>";
-           }
-           if (len == -1)
-           {
-               len = ba.Length;
-               if (len == 0)
-               {
-                   return "<empty>";
-               }
-           }
-           string s = "";
-           for(int i = 0;i<len;i++)
-           {
-               byte b = ba[i];
-               s += b.ToHexSt() + ' ';
-           }
-           return s;
-       }
+        {
+            if (ba == null)
+            {
+                return "<null>";
+            }
+            if (len == -1)
+            {
+                len = ba.Length;
+                if (len == 0)
+                {
+                    return "<empty>";
+                }
+            }
+            string s = "";
+            for (int i = 0; i < len; i++)
+            {
+                byte b = ba[i];
+                s += b.ToHexSt() + ' ';
+            }
+            return s;
+        }
 
         static public string ToArrayString(this byte[] ba, int len = -1)
         {
@@ -112,7 +107,7 @@ namespace SRB.Frame
             else
                 return true;
         }
-        static public byte writeBit(ref this byte b , int diff, bool value)
+        static public byte writeBit(ref this byte b, int diff, bool value)
         {
             if (value)
                 b |= (byte)(1 << diff);
@@ -139,38 +134,38 @@ namespace SRB.Frame
             for (int i = 0; i < len; i++)
             {
                 byte b = ba[i];
-                s += "0x"+b.ToHexSt() + ',';
+                s += "0x" + b.ToHexSt() + ',';
             }
-            return "("+s+")";
+            return "(" + s + ")";
         }
         static public byte[] SubArray(this byte[] ba, int len)
-       {
-           if (ba == null)
-           {
-               return null;
-           }
-           byte[] nba = new byte[len];
-           for (int i = 0; i < len; i++)
-           {
-               nba[i] = ba[i];
-           }
-           return nba;
-       }
-       static public byte ByteLow(this ushort u16)
-       {
-           return (byte)(u16);
-       }
-       static public byte ByteHigh(this ushort u16)
-       {
-           return (byte)(u16 >> 8);
-       }
-       static public ushort GetUint16(this byte[] b, int num)
-       {
-           return (ushort)((int)b[num] + (((int)b[num + 1]) << 8));
-       }
-        public static byte[] ToByteAsCArroy(this string st,out string error)
         {
-           // TODO:
+            if (ba == null)
+            {
+                return null;
+            }
+            byte[] nba = new byte[len];
+            for (int i = 0; i < len; i++)
+            {
+                nba[i] = ba[i];
+            }
+            return nba;
+        }
+        static public byte ByteLow(this ushort u16)
+        {
+            return (byte)(u16);
+        }
+        static public byte ByteHigh(this ushort u16)
+        {
+            return (byte)(u16 >> 8);
+        }
+        static public ushort GetUint16(this byte[] b, int num)
+        {
+            return (ushort)((int)b[num] + (((int)b[num + 1]) << 8));
+        }
+        public static byte[] ToByteAsCArroy(this string st, out string error)
+        {
+            // TODO:
             //change inpot 0x
             int begin = st.IndexOf('{');
             int end = st.IndexOf('}');
@@ -202,7 +197,7 @@ namespace SRB.Frame
             {//调试错误 这里应该处理空数组
                 if (sta[i].Length == 0)
                 {
-                    error = "Number "+i+" is missing";
+                    error = "Number " + i + " is missing";
                     return null;
                 }
                 int provider;

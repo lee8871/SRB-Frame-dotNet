@@ -1,15 +1,15 @@
-﻿using System;
+﻿using SRB.Frame;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using SRB.Frame;
 
 namespace SRB.NodeType.PS2_Handle
 {
-    partial class PS2HandleControl : INodeControl
+    internal partial class PS2HandleControl : INodeControl
     {
-        Node node;
-        int left_x_base, left_y_base, right_x_base, right_y_base;
-        public PS2HandleControl(Node n):
+        private Node node;
+        private int left_x_base, left_y_base, right_x_base, right_y_base;
+        public PS2HandleControl(Node n) :
             base(n)
         {
             node = n;
@@ -73,13 +73,14 @@ namespace SRB.NodeType.PS2_Handle
         private void RumbleBT_R_Click(object sender, EventArgs e)
         {
             node.rumble_r = 100;
-            if (is_running==false)
+            if (is_running == false)
             {
                 node.singleAccess(0);
             }
         }
-        int counter = 0;     
-        private void setColor(Label l,bool keydown)
+
+        private int counter = 0;
+        private void setColor(Label l, bool keydown)
         {
             if (keydown)
             {

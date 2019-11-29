@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿using SRB.Frame;
+using System;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using SRB.Frame;
 
 namespace SRB.NodeType.Charger
 {
-    partial class ChangerControl : INodeControl
+    internal partial class ChangerControl : INodeControl
     {
-        Node node;
+        private Node node;
 
         public ChangerControl(Node n) :
             base(n)
@@ -22,7 +17,7 @@ namespace SRB.NodeType.Charger
             MorseTB.KeyPress += MorseTB_KeyPress;
             node.eBankChangeByAccess += Node_eBankChangeByAccess;
             node.eDataAccessRecv += Node_eDataAccessRecv;
-            node.singleAccess(2,0);
+            node.singleAccess(2, 0);
             this.ToolTips.SetToolTip(PlayBTN, "Click to play morse.");
             this.ToolTips.SetToolTip(BatteryPowerLedBTN, "Click to Toggle Voltage LED On PCB.");
             this.ToolTips.SetToolTip(MuteBTN, "Click to Enable or disable buzzer alram.");
@@ -36,11 +31,11 @@ namespace SRB.NodeType.Charger
 
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
-            this.BatteryValueLAB.Text =( ((double)node.battery_voltage) / 1000.0).ToString("0.000") + "V";
+            this.BatteryValueLAB.Text = (((double)node.battery_voltage) / 1000.0).ToString("0.000") + "V";
             this.ChangeVottageBar.Value = node.battery_voltage.enterRound(6000, 8400); ;
             this.ChargeTimerLAB.Text = node.charge_second.ToString() + "S";
-            this.CapacityLAB.Text = ((node.capacity*100.0)/1024).ToString("0.0") + "%";
-            this.statusLAB.Text = node.getStatues(); 
+            this.CapacityLAB.Text = ((node.capacity * 100.0) / 1024).ToString("0.0") + "%";
+            this.statusLAB.Text = node.getStatues();
             if (node.cmd_charge_enable)
             {
                 this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
@@ -49,7 +44,7 @@ namespace SRB.NodeType.Charger
             {
                 this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175309;
             }
-            if(node.is_Mute)
+            if (node.is_Mute)
             {
                 this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175310;
             }
@@ -57,7 +52,7 @@ namespace SRB.NodeType.Charger
             {
                 this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175710;
             }
-            if(node.is_PowerLEDRun)
+            if (node.is_PowerLEDRun)
             {
                 this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175695;
             }
@@ -112,7 +107,8 @@ namespace SRB.NodeType.Charger
         }
         private void MorseCharTB_TextChanged(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 MorseTB.Text = MorseEnter.charToMorse(MorseCharTB.Text.ToUpper().ToArray()[0]);
             }
             catch
@@ -156,7 +152,7 @@ namespace SRB.NodeType.Charger
         }
 
         private void MuteBTN_Click(object sender, EventArgs e)
-        {     
+        {
             node.is_Mute = !node.is_Mute;
             if (is_running == false)
             {

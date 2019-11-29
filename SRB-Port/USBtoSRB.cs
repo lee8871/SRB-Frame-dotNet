@@ -1,37 +1,31 @@
-﻿using System;
+﻿using LibUsbDotNet;
+using LibUsbDotNet.DeviceNotify;
+using LibUsbDotNet.Main;
+using SRB.Frame;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
-using LibUsbDotNet;
-using LibUsbDotNet.LibUsb;
-using LibUsbDotNet.Main;
-using LibUsbDotNet.LudnMonoLibUsb;
-using LibUsbDotNet.DeviceNotify;
-using EC = LibUsbDotNet.Main.ErrorCode;
-using SRB.Frame;
 
 namespace SRB.port
 {
     public partial class UsbToSrb : IBus
     {
-        const int idVendor = 0x16c0;
-        const int idProduct = 0x05dc;
+        private const int idVendor = 0x16c0;
+        private const int idProduct = 0x05dc;
 
         public IDeviceNotifier UsbDeviceNotifier = DeviceNotifier.OpenDeviceNotifier();
 
         private Queue<object> oldDevice = new Queue<object>();
 
         private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
-
-        UsbToSrb_uc config_form;
-
-        object lock_access = new object();
+        private UsbToSrb_uc config_form;
+        private object lock_access = new object();
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
-
-        string last_device_name = null;
+        private string last_device_name = null;
         public UsbToSrb()
         {
             UsbDeviceNotifier.OnDeviceNotify += UsbDeviceNotifier_OnDeviceNotify;
@@ -46,11 +40,11 @@ namespace SRB.port
         {
             if (e.Device.SerialNumber == last_device_name)
             {
-                if(e.EventType == EventType.DeviceRemoveComplete)
+                if (e.EventType == EventType.DeviceRemoveComplete)
                 {
                     this.ClosePort();
                 }
-                if(e.EventType == EventType.DeviceArrival)
+                if (e.EventType == EventType.DeviceArrival)
                 {
                     this.reopenPort();
                 }
@@ -69,7 +63,8 @@ namespace SRB.port
             }
 
         }
-        bool record_port_data = true;
+
+        private bool record_port_data = true;
         public bool Record_port_data
         {
             get { return record_port_data; }
@@ -277,7 +272,7 @@ namespace SRB.port
                 {
                     if (regDevice.Device != null)
                     {
-                        if((regDevice.Vid != idVendor)||(regDevice.Pid != idProduct))
+                        if ((regDevice.Vid != idVendor) || (regDevice.Pid != idProduct))
                         {
                             continue;
                         }
@@ -294,15 +289,14 @@ namespace SRB.port
         }
 
     }
-    partial class UsbToSrb : IBus
+
+    public partial class UsbToSrb : IBus
     {
-        Stopwatch stopwatch = new Stopwatch();
-
-
-        const int access_bank_length = 256;
-        Access[] accesses = new Access[access_bank_length];
-        LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
-        LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
+        private Stopwatch stopwatch = new Stopwatch();
+        private const int access_bank_length = 256;
+        private Access[] accesses = new Access[access_bank_length];
+        private LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
+        private LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
 
         public override bool doAccess(Access ac)
         {
@@ -314,8 +308,9 @@ namespace SRB.port
             }
 
         }
-        int SEND_FAIL_ERROR = 1;
-        int USB_TIMEOUT = 2;
+
+        private int SEND_FAIL_ERROR = 1;
+        private int USB_TIMEOUT = 2;
         public override bool doAccess(Access[] acs, int acs_num = -1)
         {
             lock (lock_access)
@@ -348,14 +343,14 @@ namespace SRB.port
                 {
                     //if (reopenPort() != true)
                     //{
-                        LoopQueuePointer send_fail_point = new LoopQueuePointer(out_point);
-                        while (in_point != send_fail_point)
-                        {
-                            accesses[send_fail_point].sendFail();
-                            send_fail_point++;
-                        }
-                        out_point.jumpTo(in_point);
-                        return false;
+                    LoopQueuePointer send_fail_point = new LoopQueuePointer(out_point);
+                    while (in_point != send_fail_point)
+                    {
+                        accesses[send_fail_point].sendFail();
+                        send_fail_point++;
+                    }
+                    out_point.jumpTo(in_point);
+                    return false;
                     //}
                 }
                 int access_error_counter = 0;
@@ -381,23 +376,23 @@ namespace SRB.port
                     }
                     else
                     {
-                        if(isPkgWaitRecv() == false)
+                        if (isPkgWaitRecv() == false)
                         {
                             out_point.jumpTo(in_point);
                             stopwatch.Stop();
-                            if(access_error_counter!=0)
+                            if (access_error_counter != 0)
                             {
-                                Console.WriteLine("access error counter is "+ access_error_counter);
+                                Console.WriteLine("access error counter is " + access_error_counter);
                             }
                             return true;
                         }
                     }
-                    while(recvAccess() == false)
+                    while (recvAccess() == false)
                     {
                         if (access_error_counter++ >= SEND_FAIL_ERROR) goto accessLoop_sendfail;
                     }
                 }
-                accessLoop_sendfail:
+            accessLoop_sendfail:
                 Console.WriteLine("USB: send fail" + DateTime.Now);
                 USB_TIMEOUT++;
                 Console.WriteLine("USB_TIMEOUT is setted to " + USB_TIMEOUT);
@@ -415,11 +410,11 @@ namespace SRB.port
         }
         private bool isPkgWaitRecv()
         {
-            foreach(Access a in accesses)
+            foreach (Access a in accesses)
             {
-                if(a!=null)
+                if (a != null)
                 {
-                    if(a.Status == Access.StatusEnum.SendWaitRecv)
+                    if (a.Status == Access.StatusEnum.SendWaitRecv)
                     {
                         return true;
                     }
@@ -432,8 +427,8 @@ namespace SRB.port
             return false;
         }
 
-        byte[] send_to_usb_buf = new byte[64];
-        private bool sendAccess(int point )
+        private byte[] send_to_usb_buf = new byte[64];
+        private bool sendAccess(int point)
         {
             Access access = accesses[point];
             int i = 0;
@@ -459,8 +454,7 @@ namespace SRB.port
             }
         }
 
-
-        byte[] recv_from_usb_buf = new byte[64];
+        private byte[] recv_from_usb_buf = new byte[64];
         private bool recvAccess()
         {
             int recv_num;

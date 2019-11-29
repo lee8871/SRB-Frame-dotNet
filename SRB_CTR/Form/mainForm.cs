@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SRB.Frame;
+using System;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using SRB.Frame;
 
 namespace SRB_CTR
 {
     public partial class mainForm : Form
     {
-        SRB_oneline_master backlogic;
-        Control config_ctrl;
-        Size nodeSize = new Size(70, 48);
+        private SRB_oneline_master backlogic;
+        private Control config_ctrl;
+        private Size nodeSize = new Size(70, 48);
         public mainForm(SRB_oneline_master pa)
         {
             InitializeComponent();
@@ -31,9 +27,9 @@ namespace SRB_CTR
             backlogic.eNode_register += new SRB_oneline_master.dNodeChange(addNode);
             backlogic.eNode_unregister += new SRB_oneline_master.dNodeChange(removeNode);
             backlogic.eNode_change += new SRB_oneline_master.dNodeChange(changeNode);
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +"  @  "+
+            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  @  " +
                 System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
 
         }
@@ -143,7 +139,8 @@ namespace SRB_CTR
                 this.nodesTable.Controls.Remove(b);
             }
         }
-        void nodeButton_Click(object sender, EventArgs e)
+
+        private void nodeButton_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
             BaseNode n = (BaseNode)(b.Tag);
@@ -169,40 +166,41 @@ namespace SRB_CTR
         //    }
         //}
 
-        void stopBTN_Click(object sender, EventArgs e)
+        private void stopBTN_Click(object sender, EventArgs e)
         {
             backlogic.stopCalculation();
-            while(backlogic.Is_calculation_running);
+            while (backlogic.Is_calculation_running) ;
             brainRunStateUpdate();
         }
 
-        void runBTN_Click(object sender, EventArgs e)
+        private void runBTN_Click(object sender, EventArgs e)
         {
-            if(backlogic.isHighSpeedSupporting() == false)
+            if (backlogic.isHighSpeedSupporting() == false)
             {
-                DialogResult dr; 
-                dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Are you sure to conntinue?","Brain start", MessageBoxButtons.OKCancel);
-                if(dr == DialogResult.Cancel)
+                DialogResult dr;
+                dr = MessageBox.Show(this, "Now you are using UART which is too slow to run brain. Are you sure to conntinue?", "Brain start", MessageBoxButtons.OKCancel);
+                if (dr == DialogResult.Cancel)
                 {
                     return;
                 }
             }
             backlogic.runCalculation(); brainRunStateUpdate();
         }
-        void brainRunStateUpdate()
+
+        private void brainRunStateUpdate()
         {
             if (backlogic.Is_calculation_running)
             {
                 stopBTN.Visible =
-                !(SRB_config.Enabled 
+                !(SRB_config.Enabled
                 = ScanNodeBTN.Enabled
-                = runBTN.Visible 
-                = nodesTable.Enabled 
+                = runBTN.Visible
+                = nodesTable.Enabled
                 = false);
-                if (config_ctrl != null)config_ctrl.Enabled = false;
+                if (config_ctrl != null) config_ctrl.Enabled = false;
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
                 backlogic.endScan();
-                foreach(BaseNode n in backlogic.Nodes)
+                foreach (BaseNode n in backlogic.Nodes)
                 {
                     if (n != null)
                     {
@@ -234,9 +232,9 @@ namespace SRB_CTR
         private void timer1_Tick(object sender, EventArgs e)
         {
             setPortState();
-            if(scanNodeCtrl!=null)
+            if (scanNodeCtrl != null)
             {
-                if(scanNodeCtrl.Visible)
+                if (scanNodeCtrl.Visible)
                 {
                     scanNodeCtrl.Refresh();
                 }
@@ -270,7 +268,8 @@ namespace SRB_CTR
                 addr_show_sno++;
             }
         }
-        bool last_port_status =false;
+
+        private bool last_port_status = false;
         private void setPortState()
         {
             bool port_status;
@@ -312,7 +311,7 @@ namespace SRB_CTR
             ShowRecordBTN_r.Visible = true;
         }
 
-        scanNodeState scanNodeCtrl;
+        private scanNodeState scanNodeCtrl;
         private bool is_addr_show_on = false;
         private int addr_show_sno = 0;
         private void stopAddrShowBTN_Click(object sender, EventArgs e)
@@ -336,7 +335,7 @@ namespace SRB_CTR
             System.Diagnostics.Process.Start("https://github.com/lee8871/SRB");
         }
 
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
         private void srbStoped()
         {
             this.SRB_config.Image = Properties.Resources.Disconnect;
@@ -359,7 +358,7 @@ namespace SRB_CTR
             }
             else
             {
-                if(config_ctrl.Visible)
+                if (config_ctrl.Visible)
                 {
                     config_ctrl.Hide();
                 }
@@ -371,7 +370,7 @@ namespace SRB_CTR
         }
         private void uARTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(config_ctrl != backlogic.uartControlDisplay())
+            if (config_ctrl != backlogic.uartControlDisplay())
             {
                 frameCounterFLP.Controls.Remove(config_ctrl);
                 config_ctrl = backlogic.uartControlDisplay();

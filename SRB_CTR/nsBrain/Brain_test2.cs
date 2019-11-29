@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRB.Frame;
-using SRB_CTR;
+﻿using SRB.Frame;
 namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test2 : IBrain
@@ -13,13 +8,12 @@ namespace SRB_CTR.nsBrain
             period_in_ms = 2;
         }
 
-
-        SRB.NodeType.Du_motor.Node left;
-        SRB.NodeType.Du_motor.Node right;
-        SRB.NodeType.Du_motor.Node key_control;
-        SRB.NodeType.Du_motor.Node key_control2;
-        SRB.NodeType.PS2_Handle.Node handle;
-        SRB.NodeType.Charger.Node charger;
+        private SRB.NodeType.Du_motor.Node left;
+        private SRB.NodeType.Du_motor.Node right;
+        private SRB.NodeType.Du_motor.Node key_control;
+        private SRB.NodeType.Du_motor.Node key_control2;
+        private SRB.NodeType.PS2_Handle.Node handle;
+        private SRB.NodeType.Charger.Node charger;
         protected override void nodesBuildUp()
         {
             foreach (BaseNode n in frame.Nodes)
@@ -60,10 +54,10 @@ namespace SRB_CTR.nsBrain
             }
         }
 
-        bool last_up;
-        bool last_left;
-        bool last_right;
-        bool last_down;
+        private bool last_up;
+        private bool last_left;
+        private bool last_right;
+        private bool last_down;
         protected override void setup()
         {
             last_up = false;

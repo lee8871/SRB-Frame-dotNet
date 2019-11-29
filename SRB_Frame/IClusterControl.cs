@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.Frame
 {
     public partial class IClusterControl : UserControl
     {
-        ICluster cluster;
+        private ICluster cluster;
         private bool enable_write = true;
 
         public bool Enable_write { get => enable_write; set => OnEnable_write(value); }
@@ -20,7 +14,7 @@ namespace SRB.Frame
         {
             this.writeBTN.Visible = enable_write = value;
         }
-        public IClusterControl(ICluster c =null)
+        public IClusterControl(ICluster c = null)
         {
             InitializeComponent();
             this.writeBTN.Visible = enable_write;

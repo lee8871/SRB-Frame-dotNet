@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace System
 {
@@ -411,5 +408,5 @@ namespace System
             B = B * 255;
             return new ColorRGB((int)R, (int)G, (int)B);
         }
-    }  
+    }
 }

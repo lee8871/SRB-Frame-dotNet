@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using SRB.Frame;
-
-namespace SRB.Frame.Cluster.ud
+﻿namespace SRB.Frame.Cluster.ud
 {
-    partial class MappingCC  : IClusterControl
+    internal partial class MappingCC : IClusterControl
     {
-        MappingCluster cluster;
+        private MappingCluster cluster;
         public MappingCC(MappingCluster c) : base(c)
         {
             InitializeComponent();

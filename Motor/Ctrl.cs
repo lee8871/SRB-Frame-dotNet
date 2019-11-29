@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using SRB.Frame;
+using System;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using SRB.Frame;
 namespace SRB.NodeType.Du_motor
 {
-    partial class Ctrl : INodeControl
+    internal partial class Ctrl : INodeControl
     {
-        Node node;
-        string Handle_text;
+        private Node node;
+        private string Handle_text;
         public Ctrl(Node n) :
             base(n)
         {
@@ -20,8 +15,9 @@ namespace SRB.NodeType.Du_motor
             InitializeComponent();
             Handle_text = handleBTN.Text;
         }
-        int x;
-        int y;
+
+        private int x;
+        private int y;
         protected override void OnAccess()
         {
             if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
@@ -34,8 +30,8 @@ namespace SRB.NodeType.Du_motor
                     node.Speed_a = (x + y);
                     node.Speed_b = (x - y);
                     this.handleBTN.Text = Handle_text + "\n" + (x + y) + " × " + (x - y);
-                } 
-                else if(this.StopBTN.Capture)
+                }
+                else if (this.StopBTN.Capture)
                 {
                     x = 0;
                     y = 0;

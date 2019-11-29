@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
+﻿
 using SRB.Frame;
 
 namespace SRB.NodeType.PS2_Handle
 {
-    partial class ConfigCC : IClusterControl
+    internal partial class ConfigCC : IClusterControl
     {
-        ConfigCluster cluster;
+        private ConfigCluster cluster;
         public ConfigCC(ConfigCluster c) : base(c)
         {
             InitializeComponent();

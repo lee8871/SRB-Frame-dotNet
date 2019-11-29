@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using SRB.Frame;
+﻿using SRB.Frame;
+using System;
 
 namespace SRB.NodeType.Du_motor
 {
-    partial class ConfigCC : IClusterControl
+    internal partial class ConfigCC : IClusterControl
     {
-        ConfigCluster cluster;
+        private ConfigCluster cluster;
         public ConfigCC(ConfigCluster c) : base(c)
         {
             InitializeComponent();
@@ -40,7 +33,7 @@ namespace SRB.NodeType.Du_motor
                     return 1600;
                 case "20kHz":
                     return 800;
-                default :
+                default:
                     return 1600;
             }
         }
@@ -88,7 +81,8 @@ namespace SRB.NodeType.Du_motor
                     break;
             }
         }
-        string last_behavior;
+
+        private string last_behavior;
         public void setLoseBehaviorBC()
         {
             switch (cluster.lose_behavior)

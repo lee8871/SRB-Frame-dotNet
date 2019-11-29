@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.Frame
 {
     public partial class Node_form : Form
     {
-        BaseNode node;
+        private BaseNode node;
         public Node_form(BaseNode n)
         {
             InitializeComponent();
@@ -31,7 +26,7 @@ namespace SRB.Frame
             b.BackColor = Color.FromKnownColor(KnownColor.Control);
             this.clusters.Controls.Add(b);
 
-            for (int i =0;i<128;i++)
+            for (int i = 0; i < 128; i++)
             {
                 if (st_a[i] != null)
                 {
@@ -41,7 +36,7 @@ namespace SRB.Frame
                     b.Text = st_a[i];
                     b.Size = b.MinimumSize = new Size(300, 18);
                     b.MaximumSize = new Size(300, 300);
-                    b.Click +=new EventHandler(b_Click);
+                    b.Click += new EventHandler(b_Click);
                     b.BackColor = Color.FromKnownColor(KnownColor.Control);
                     this.clusters.Controls.Add(b);
                 }
@@ -72,7 +67,7 @@ namespace SRB.Frame
                 c.Dock = DockStyle.Fill;
                 c.Enabled = false;
             }
-            else 
+            else
             {
                 c = b.Controls[0];
             }
@@ -103,9 +98,9 @@ namespace SRB.Frame
             }
         }
 
-        protected override void  OnClosed(EventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
- 	        base.OnClosed(e);
+            base.OnClosed(e);
             node = null;
         }
         public void ShowAt(Control reference)
@@ -114,16 +109,17 @@ namespace SRB.Frame
             this.Show();
             this.Focus();
         }
-        private Point LocationOnClient(Control c) 
+        private Point LocationOnClient(Control c)
         {
             Point retval = new Point(0, 0);
             retval.Offset(new Point(c.Size.Width / 2, c.Size.Height / 2 + 20));
-            do{ 
+            do
+            {
                 retval.Offset(c.Location);
                 c = c.Parent;
-            } 
-            while(c!= null); 
-            return retval; 
+            }
+            while (c != null);
+            return retval;
         }
 
         private void read_clusterMS_Click(object sender, EventArgs e)

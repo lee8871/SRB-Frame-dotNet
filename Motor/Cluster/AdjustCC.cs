@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using SRB.Frame;
+using System;
 using System.Windows.Forms;
-using SRB.Frame;
 
 namespace SRB.NodeType.Du_motor
 {
-    partial class AdjustCC : IClusterControl
+    internal partial class AdjustCC : IClusterControl
     {
         private const string No_adjust = "NoAdjust";
-        AdjustCluster cluster;
+        private AdjustCluster cluster;
         public AdjustCC(AdjustCluster c) : base(c)
         {
             InitializeComponent();
@@ -33,7 +27,7 @@ namespace SRB.NodeType.Du_motor
                 default:
                     return "NoAdjust";
             }
-        }        
+        }
         public int nameToAdj(string st)
         {
             switch (st)
@@ -59,7 +53,7 @@ namespace SRB.NodeType.Du_motor
             motorBTogCBOX.CheckState = cluster.motor_b_tog ? CheckState.Checked : CheckState.Unchecked;
         }
         protected override void WriteData()
-        { 
+        {
             cluster.writeBankinit();
             cluster.adj = (byte)nameToAdj(AdjCB.Text);
             cluster.motor_a_tog = motorATogCBOX.Checked;

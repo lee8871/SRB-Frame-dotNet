@@ -1,13 +1,9 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Threading;
-using System.Diagnostics;
 using SRB.Frame;
 using SRB.port;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SRB_CTR
 {
@@ -20,13 +16,14 @@ namespace SRB_CTR
             get { return srb.Is_opened; }
         }
 
-        mainForm _nodes_form;
+        private mainForm _nodes_form;
         public mainForm Nodes_form
         {
             get { return _nodes_form; }
         }
-        IBrain main_brain;
-        SRB_Record record;
+
+        private IBrain main_brain;
+        private SRB_Record record;
         public bool Is_calculation_running
         {
             get => main_brain.Is_running;
@@ -237,8 +234,8 @@ but we do not have the node in table");
         #endregion
 
         #region Access
-        object lock_access_queue = new object();
-        Queue<Access> access_queue = new Queue<Access>();
+        private object lock_access_queue = new object();
+        private Queue<Access> access_queue = new Queue<Access>();
 
         internal void ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType type)
         {
@@ -285,10 +282,10 @@ but we do not have the node in table");
         }
     }
 
-
-    partial class SRB_oneline_master
+    public partial class SRB_oneline_master
     {
-        bool Is_scan_running {
+        private bool Is_scan_running
+        {
             get
             {
                 if (scan_thread != null)
@@ -301,7 +298,8 @@ but we do not have the node in table");
                 }
             }
         }
-        Thread scan_thread;
+
+        private Thread scan_thread;
         private int scan_addr = -1;
         public int Scan_status
         {
@@ -315,8 +313,7 @@ but we do not have the node in table");
             set { scan_progress = value; }
         }
         private int scan_max_addr = 200;
-
-        bool scan_stop = true;
+        private bool scan_stop = true;
         public void autoSetAddress()
         {
             if (Is_scan_running == false)
@@ -328,9 +325,10 @@ but we do not have the node in table");
             return;
 
         }
+
         //about scan node 
-        int scan_begin;
-        int scan_end;
+        private int scan_begin;
+        private int scan_end;
         public void scanNodes(int begin = 0, int end = -1)
         {
             if (end < 0)

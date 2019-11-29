@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using SRB.Frame;
+﻿using SRB.Frame;
 using SRB.Frame.Cluster;
+using System;
 
 namespace SRB.NodeType.PS2_Handle
 {
@@ -31,24 +27,24 @@ namespace SRB.NodeType.PS2_Handle
         public int pressure_r2 { get => getBankByte(20); }
 
         public bool select { get => !getBankBool(3, 0); }
-        public bool L3 { get =>! getBankBool(3, 1); }
-        public bool R3 { get =>! getBankBool(3, 2); }
+        public bool L3 { get => !getBankBool(3, 1); }
+        public bool R3 { get => !getBankBool(3, 2); }
         public bool start { get => !getBankBool(3, 3); }
 
-        public bool up { get =>! getBankBool(3, 4); }
+        public bool up { get => !getBankBool(3, 4); }
         public bool right { get => !getBankBool(3, 5); }
-        public bool down { get =>!getBankBool(3, 6); }
+        public bool down { get => !getBankBool(3, 6); }
         public bool left { get => !getBankBool(3, 7); }
 
-        public bool L2 { get =>! getBankBool(4, 0); }
-        public bool R2 { get =>! getBankBool(4, 1); }
-        public bool L1 { get =>! getBankBool(4, 2); }
-        public bool R1 { get =>! getBankBool(4, 3); }
+        public bool L2 { get => !getBankBool(4, 0); }
+        public bool R2 { get => !getBankBool(4, 1); }
+        public bool L1 { get => !getBankBool(4, 2); }
+        public bool R1 { get => !getBankBool(4, 3); }
 
-        public bool trag { get =>! getBankBool(4, 4); }
+        public bool trag { get => !getBankBool(4, 4); }
         public bool circle { get => !getBankBool(4, 5); }
-        public bool cross { get =>! getBankBool(4, 6); }
-        public bool square { get =>! getBankBool(4, 7); }
+        public bool cross { get => !getBankBool(4, 6); }
+        public bool square { get => !getBankBool(4, 7); }
 
 
 
@@ -56,7 +52,7 @@ namespace SRB.NodeType.PS2_Handle
         public int rumble_l { set => setBankByte(((byte)value.enterRound(0, 255)), 0); }
         public int rumble_r { set => setBankByte(((byte)value.enterRound(0, 255)), 1); }
 
-        public override string Help_net_work => 
+        public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E6%89%8B%E6%9F%84%E8%8A%82%E7%82%B9.md";
         public void setRumble(int rumble)
         {
@@ -67,7 +63,7 @@ namespace SRB.NodeType.PS2_Handle
             int data = bank[byte_location];
             data -= 128;
             if (data < 0)
-            { 
+            {
                 data++;
             }
             return data;
@@ -81,7 +77,7 @@ namespace SRB.NodeType.PS2_Handle
             cfg_clu = new ConfigCluster(this);
             clusters[cfg_clu.CID] = cfg_clu;
 
-            Mapping0_clu = new MappingCluster(3, this,"Mapping0");
+            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
             clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -92,8 +88,8 @@ namespace SRB.NodeType.PS2_Handle
         {
             bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[]{6,3,	3,4,5,6,7,8,		0,1,2},
-                new byte[]{4,3,	5,6,7,8, 			0,1,2},
+                new byte[]{6,3, 3,4,5,6,7,8,        0,1,2},
+                new byte[]{4,3, 5,6,7,8,            0,1,2},
                 new byte[]{18,3,    3,4,5, 6,7,8,   9,10,11,   12,13,14,   15,16,17,  18,19,20 ,    0,1,2},
             });
         }
@@ -103,7 +99,7 @@ namespace SRB.NodeType.PS2_Handle
         {
             init();
         }
-        
+
         public Node(BaseNode n)
             : base(n)
         {

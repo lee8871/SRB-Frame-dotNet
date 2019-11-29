@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.Frame.Cluster
 {
-    partial class AddressCC : IClusterControl
+    internal partial class AddressCC : IClusterControl
     {
-        AddressCluster cluster;
+        private AddressCluster cluster;
         public AddressCC(AddressCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
             cluster.read();
         }
-        Color[] num_to_color = {
+
+        private Color[] num_to_color = {
             Color.White,
             Color.Pink,
             Color.FromArgb(255,126,126),

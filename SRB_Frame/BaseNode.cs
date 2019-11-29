@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SRB.Frame
 {
     public class BaseNode : IByteBank
     {
+        private IBus bus;
         public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
-        IMaster parent = null;
+
+        private IMaster parent = null;
         public IMaster Parent
         {
             get { return parent; }
             set { parent = value; }
         }
         public object Tag;
-        bool is_hardware_exist = false;
-        int access_fail_counter = 0;
+        private bool is_hardware_exist = false;
+        private int access_fail_counter = 0;
         protected bool Can_post_access
         {
             get { return (parent != null); }
@@ -51,9 +50,9 @@ namespace SRB.Frame
             }
             if (eAddr_change != null)
             {
-                eAddr_change.Invoke(this,new EventArgs());
+                eAddr_change.Invoke(this, new EventArgs());
             }
-           // 为什么地址变了就要更新描述呢?应该在外部选择合并触发 onDescriptionChanged();
+            // 为什么地址变了就要更新描述呢?应该在外部选择合并触发 onDescriptionChanged();
         }
         virtual public void onDescriptionChanged()
         {
@@ -87,7 +86,7 @@ namespace SRB.Frame
             clusters[infoClu.CID] = infoClu;
             clusters[errorClu.CID] = errorClu;
             baseClu.read();
-            if(Is_hareware_exist)
+            if (Is_hareware_exist)
             {
                 infoClu.read();
             }
@@ -133,7 +132,7 @@ namespace SRB.Frame
             if (this.node_form != null)
             {
                 //this.nf.Close();
-                this.node_form.close(this,null);
+                this.node_form.close(this, null);
             }
         }
 
@@ -179,7 +178,7 @@ namespace SRB.Frame
         {
             public bool Handled = false;
             public Access ac;
-            public AccessEventArgs(Access access):base()
+            public AccessEventArgs(Access access) : base()
             {
                 ac = access;
             }
@@ -201,7 +200,7 @@ namespace SRB.Frame
                         {
                             eDataAccessRecv.Invoke(this, e);
                         }
-                        if(e.Handled==false)
+                        if (e.Handled == false)
                         {
                             OnDataAccessDone(ac);
                         }
@@ -265,7 +264,7 @@ namespace SRB.Frame
             }
             if (recv_len != 0)
             {
-                if(eBankChangeByAccess!=null)
+                if (eBankChangeByAccess != null)
                 {
                     eBankChangeByAccess.Invoke(this, new EventArgs());
                 }
@@ -280,14 +279,14 @@ namespace SRB.Frame
 
         #endregion
         #region Form
-        Node_form node_form;
+        private Node_form node_form;
         public Node_form getForm()
         {
             if (node_form == null)
             {
                 node_form = new Node_form(this);
             }
-            else if(node_form.IsDisposed)
+            else if (node_form.IsDisposed)
             {
                 node_form = new Node_form(this);
             }
@@ -345,7 +344,7 @@ namespace SRB.Frame
             }
         }
         #endregion
-        
+
 
 
 

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SRB.Frame;
+using System;
 using System.Diagnostics;
-using SRB.Frame;
 using System.IO.Ports;
 
 namespace SRB.port
 {
     public class UartToSrb : IBus
     {
-        SerialPort mainComPort;
-       //ComPort mainComPort;
-        UartToSrb_uc config_form;
+        private SerialPort mainComPort;
+
+        //ComPort mainComPort;
+        private UartToSrb_uc config_form;
         public string getPortName()
         {
             if (Is_opened)
@@ -26,7 +24,7 @@ namespace SRB.port
 
         }
 
-        bool record_port_data = true;
+        private bool record_port_data = true;
         public bool Record_port_data
         {
             get { return record_port_data; }
@@ -58,7 +56,7 @@ namespace SRB.port
         }
         public override System.Windows.Forms.Control getConfigControl()
         {
-            if(config_form == null)
+            if (config_form == null)
             {
                 config_form = new UartToSrb_uc(this);
             }
@@ -73,11 +71,11 @@ namespace SRB.port
 
         public override bool Is_opened
         {
-            get{ return mainComPort.IsOpen; }
+            get { return mainComPort.IsOpen; }
         }
 
 
-         internal void openPort(string portName)
+        internal void openPort(string portName)
         {
             ClosePort();
             mainComPort.PortName = portName;
@@ -87,7 +85,8 @@ namespace SRB.port
             }
             catch { }
         }
-        void OpenPort()
+
+        private void OpenPort()
         {
             ClosePort();
             try
@@ -112,34 +111,30 @@ namespace SRB.port
             return System.IO.Ports.SerialPort.GetPortNames();
         }
 
-
-        byte[] all_bytes_buffer = new byte[128 * 74];
-        byte[] one_ac_bytes_buffer = new byte[74];
-        Access[] acs;
-        int acs_num;
-
-
-
-        int last_send_time_cost = 0;
+        private byte[] all_bytes_buffer = new byte[128 * 74];
+        private byte[] one_ac_bytes_buffer = new byte[74];
+        private Access[] acs;
+        private int acs_num;
+        private int last_send_time_cost = 0;
         public int Last_send_time_cost
         {
             get { return last_send_time_cost; }
         }
 
-        int last_recv_time_cost = 0;
+        private int last_recv_time_cost = 0;
         public int Last_recv_time_cost
         {
             get { return last_recv_time_cost; }
         }
 
-        long time_record;
+        private long time_record;
         public override bool doAccess(Access ac)
         {
             Access[] acs = new Access[1];
             acs[0] = ac;
             return doAccess(acs, 1);
         }
-        public override bool doAccess(Access[] acs,int acs_num = -1)
+        public override bool doAccess(Access[] acs, int acs_num = -1)
         {
             if (acs_num == -1)
             {
@@ -157,7 +152,7 @@ namespace SRB.port
                     return false;
                 }
             }
-            if(acs_num>128) 
+            if (acs_num > 128)
             {
                 throw new Exception(string.Format("Max num of accesses to send is 128"));
             }
@@ -168,11 +163,11 @@ namespace SRB.port
 
             time_record = Stopwatch.GetTimestamp();
 
-            if(sendAccess()==true)
+            if (sendAccess() == true)
             {
                 last_send_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
                 time_record += last_send_time_cost;
-                if(recvAccess()==true)
+                if (recvAccess() == true)
                 {
                     last_recv_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
                     time_record += last_recv_time_cost;
@@ -200,12 +195,12 @@ namespace SRB.port
 
         //private byte[] original_send_ba;
         //private byte[] original_recv_ba;
-        int send_buffer_counter = 0;
+        private int send_buffer_counter = 0;
 
         private bool sendAccess()
         {
             send_buffer_counter = 0;
-            for(int acs_counter = 0; acs_counter<acs_num; acs_counter++)
+            for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
             {
                 Access ac = acs[acs_counter];
                 toUartByteArray(ac, (byte)acs_counter);
@@ -218,8 +213,8 @@ namespace SRB.port
             //    //Array.Copy(all_bytes_buffer, original_send_ba, send_buffer_counter);
             //}
             try
-            { 
-                this.mainComPort.Write(all_bytes_buffer,0, send_buffer_counter);
+            {
+                this.mainComPort.Write(all_bytes_buffer, 0, send_buffer_counter);
             }
             catch
             {
@@ -252,24 +247,14 @@ namespace SRB.port
             return i;
         }
 
-
-
-
-
-
-
-
-
-
-
-        int recv_acs_num;
-        long recv_begin_time;
-        byte[] recv_temp = new byte[100];
-        int recv_counter;
+        private int recv_acs_num;
+        private long recv_begin_time;
+        private byte[] recv_temp = new byte[100];
+        private int recv_counter;
         private bool recvAccess()
         {
-           // int recv_buffer_counter = 0;
-            bool Escaping = false; 
+            // int recv_buffer_counter = 0;
+            bool Escaping = false;
 
             current_sno = 0xf8;
             recv_ac_counter = -1;
@@ -346,14 +331,15 @@ namespace SRB.port
                 }
             }
         }
-        byte current_sno ;
-        int recv_ac_counter;
-        int recv_ac_length;
+
+        private byte current_sno;
+        private int recv_ac_counter;
+        private int recv_ac_length;
         private void recvSno(byte sno)
         {
             recv_ac_counter = 0;
             current_sno = sno;
-           // acs[current_sno].Status = Access.StatusEnum.RecvedBadPkg;
+            // acs[current_sno].Status = Access.StatusEnum.RecvedBadPkg;
         }
         private void recvData(byte data)
         {
@@ -374,7 +360,7 @@ namespace SRB.port
             }
         }
 
-        public void fromUartGetBytes(Access ac,byte[] bytes, int length)
+        public void fromUartGetBytes(Access ac, byte[] bytes, int length)
         {
             byte bfc = bytes[0];
             int len = (int)(bfc & 0x1f);

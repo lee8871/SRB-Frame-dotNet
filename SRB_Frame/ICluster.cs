@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.Frame
@@ -16,7 +13,7 @@ namespace SRB.Frame
         public byte CID { get => cID; }
 
 
-        public ICluster(BaseNode n, byte ID, int banksize):base(banksize,true)
+        public ICluster(BaseNode n, byte ID, int banksize) : base(banksize, true)
         {
             this.cID = ID;
             this.parent_node = n;
@@ -39,7 +36,7 @@ namespace SRB.Frame
             {
                 data[i + 1] = bank_write_temp[i];
             }
-            Access ac = new Access(parent_node, Access.PortEnum.Cgf , data);
+            Access ac = new Access(parent_node, Access.PortEnum.Cgf, data);
             parent_node.singleAccess(ac);
 
         }
@@ -86,7 +83,7 @@ namespace SRB.Frame
 
         public virtual void OnDataChangded()
         {
-            if(eDataChanged!=null)
+            if (eDataChanged != null)
             {
                 eDataChanged.Invoke(this, new EventArgs());
             }

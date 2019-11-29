@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
 namespace SRB.Frame.Cluster
 {
-    public class InformationCluster:ICluster
+    public class InformationCluster : ICluster
     {
         public const byte Cluster_ID = 1;
-        public string type  { get => getBankString(6,17);   }
+        public string type { get => getBankString(6, 17); }
         public int major_version { get => getBankByte(0); }
         public int minor_version { get => getBankByte(1); }
         public int SRB_major_version { get => getBankByte(2); }

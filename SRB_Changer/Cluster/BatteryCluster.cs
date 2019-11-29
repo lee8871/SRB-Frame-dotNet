@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRB.Frame;
+﻿using SRB.Frame;
 
 namespace SRB.NodeType.Charger
 {
-    class BatteryCluster:ICluster
+    internal class BatteryCluster : ICluster
     {
         internal int Low_voltage { get => getBankUshort(0); set => setBankUshort((ushort)value, 0); }
         internal int Max_charge_current { get => getBankUshort(2); set => setBankUshort((ushort)value, 2); }
@@ -19,7 +15,7 @@ namespace SRB.NodeType.Charger
         internal BatteryCluster(Frame.BaseNode n)
             : base(n, 11, 5)
         {
-            
+
         }
         public override System.Windows.Forms.UserControl createControl()
         {

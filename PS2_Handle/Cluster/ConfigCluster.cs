@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRB.Frame;
+﻿using SRB.Frame;
 
 namespace SRB.NodeType.PS2_Handle
 {
-    class ConfigCluster:ICluster
+    internal class ConfigCluster : ICluster
     {
         public int online_rumble_10ms { get => getBankByte(0); set => setBankByte((byte)value, 0); }
         public int lose_rumble_10ms { get => getBankByte(1); set => setBankByte((byte)value, 1); }
@@ -16,7 +12,7 @@ namespace SRB.NodeType.PS2_Handle
         public ConfigCluster(BaseNode n)
             : base(n, 11, 3)
         {
-            
+
         }
         public override System.Windows.Forms.UserControl createControl()
         {

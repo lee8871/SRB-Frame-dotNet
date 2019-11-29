@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SRB.Frame
 {
     public partial class INodeControl : UserControl
     {
-        BaseNode node;
+        private BaseNode node;
         public bool is_running { get => sendTimer.Enabled; }
         public INodeControl(BaseNode n)
         {
@@ -37,7 +31,7 @@ namespace SRB.Frame
             if (sendTimer.Enabled)
             {
                 this.RunStopBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175842;
-                sendTimer.Stop() ;
+                sendTimer.Stop();
                 OnAccessStop();
             }
             else

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SRB.Frame;
+using System;
+using System.IO;
 using System.Text;
 using System.Threading;
-using System.IO;
-using SRB.Frame;
 
 namespace SRB_CTR
 {
-    class SRB_Record
+    internal class SRB_Record
     {
         private bool is_running = false;
         private string fileName;
@@ -20,10 +18,10 @@ namespace SRB_CTR
         private Thread flush_thread;
         private object sw_lock = new object();
 
-        public string FileName { get => fileName;  }
+        public string FileName { get => fileName; }
         public bool Is_running { get => is_running; }
-        public string Path { get => path;  }
-        public string Suffix { get => suffix;  }
+        public string Path { get => path; }
+        public string Suffix { get => suffix; }
         private SRB_record_uc form;
 
         public SRB_Record(string suf = ".json")
@@ -36,7 +34,7 @@ namespace SRB_CTR
 
         public void beginRecord()
         {
-            newFile(); 
+            newFile();
             is_running = true;
             flush_thread = new Thread(new ThreadStart(autoFlushTH));
             flush_thread.Priority = ThreadPriority.Lowest;

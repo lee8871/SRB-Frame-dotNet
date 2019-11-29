@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRB_CTR;
 namespace SRB_CTR.nsBrain
 {
-    internal class Brain_Test:IBrain
+    internal class Brain_Test : IBrain
     {
-        SRB.NodeType.Du_motor.Node[] motors = new SRB.NodeType.Du_motor.Node[4];
-        Random rnd = new Random();
-        public Brain_Test(SRB_oneline_master f):base(f)
+        private SRB.NodeType.Du_motor.Node[] motors = new SRB.NodeType.Du_motor.Node[4];
+        private Random rnd = new Random();
+        public Brain_Test(SRB_oneline_master f) : base(f)
         {
             period_in_ms = 1;
         }
@@ -34,8 +30,9 @@ namespace SRB_CTR.nsBrain
         {
 
         }
-        int[] from = new int[8];
-        int[] to = new int[8];
+
+        private int[] from = new int[8];
+        private int[] to = new int[8];
         protected override void loop()
         {
             long phase = (long)(loop_num * period_in_ms) % 4000;

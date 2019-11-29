@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SRB.Frame;
 
 namespace SRB.Frame.Cluster
 {
-    public class MappingCluster:ICluster
+    public class MappingCluster : ICluster
     {
-        private const int totle_length=28;
-        public int up_len { get => getBankByte(0);}
-        public int down_len { get => getBankByte(1);}
+        private const int totle_length = 28;
+        public int up_len { get => getBankByte(0); }
+        public int down_len { get => getBankByte(1); }
         public byte[] up_mapping { get => getBankByteArray(2, up_len); }
         public byte[] down_mapping { get => getBankByteArray(2 + up_len, down_len); }
         public byte[] mapping { get => getBankByteArray(0, up_len + 2 + down_len); }
@@ -19,7 +15,7 @@ namespace SRB.Frame.Cluster
         public MappingCluster(byte ID, BaseNode n, string dsc = null)
             : base(n, ID, 30)
         {
-            if(dsc == null)
+            if (dsc == null)
             {
                 dsc = "Mapping" + (ID - 3);
             }
@@ -27,7 +23,7 @@ namespace SRB.Frame.Cluster
         }
         public void setMapping(byte[] up, byte[] down)
         {
-            if(up.Length+down.Length> totle_length)
+            if (up.Length + down.Length > totle_length)
             {
                 throw new Exception("totleLengthshold less than 28");
             }
@@ -35,7 +31,7 @@ namespace SRB.Frame.Cluster
             bank_write_temp = new byte[up.Length + down.Length + 2];
             bank_write_temp[i++] = (byte)up.Length;
             bank_write_temp[i++] = (byte)down.Length;
-            foreach(byte b in up)
+            foreach (byte b in up)
             {
                 bank_write_temp[i++] = b;
             }
@@ -46,7 +42,7 @@ namespace SRB.Frame.Cluster
         }
         public bool setMapping(byte[] mba)
         {
-            if (checkMapping(mba)=="done")
+            if (checkMapping(mba) == "done")
             {
                 bank_write_temp = mba;
                 return true;

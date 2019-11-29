@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using SRB_CTR;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 
 
 
 namespace SRB_CTR
 {
-	static class Program
-	{
+    internal static class Program
+    {
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Process cp;
             Application.EnableVisualStyles();
@@ -26,7 +23,7 @@ namespace SRB_CTR
             // showfortest();
             SRB_oneline_master main_srb = new SRB_oneline_master();
             Application.Run(main_srb.Nodes_form);
-        
+
         }
-	}
+    }
 }
