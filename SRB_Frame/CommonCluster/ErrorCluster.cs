@@ -3,14 +3,12 @@ namespace SRB.Frame.Cluster
 {
     public class ErrorCluster : ICluster
     {
-        public const byte Cluster_ID = 2;
-        public string error_text { get => bank.getBankString(4, 24); }
-        public int file { get => bank.getBankUshort(0); }
-        public int line { get => bank.getBankUshort(2); }
-        public byte[] parameter { get => getParameter(); }
+        public string error_text { get => bank.getBankString(1, 24); }
+        public int err_num { get => (int)bank.getBankByte(0); }
+        public byte[] parameter { get => bank.getBankByteArray(25, 5); }
 
-        public ErrorCluster(BaseNode n, byte ID = Cluster_ID)
-            : base(n, ID, 28) { }
+        public ErrorCluster(BaseNode n)
+            : base(n, 2, 30) { }
         public override void write()
         {
             throw new Exception("read only cluster can not write.");
@@ -18,26 +16,6 @@ namespace SRB.Frame.Cluster
         public override void writeRecv(Access ac)
         {
             throw new Exception("read only cluster can not write.");
-        }
-        public byte[] getParameter()
-        {
-            int diff = 4;
-            int srt_len = 24;
-            int i = 0, j = 0;
-            for (; i < srt_len; i++)
-            {
-                if (bank[i + diff] == 0)
-                {
-                    i++;
-                    break;
-                }
-            }
-            byte[] rev = new byte[srt_len - i];
-            for (; i < srt_len; i++)
-            {
-                rev[j++] = bank[i + diff];
-            }
-            return rev;
         }
         public override System.Windows.Forms.UserControl createControl()
         {

@@ -13,7 +13,7 @@ namespace SRB.NodeType.Charger
         internal bool power_on_led_enable { get => bank.getBankBool(8, 2); set => bank.setBankBool(value, 8, 2); }
 
         internal BatteryCluster(Frame.BaseNode n)
-            : base(n, 11, 5)
+            : base(n, 11, 9)
         {
 
         }

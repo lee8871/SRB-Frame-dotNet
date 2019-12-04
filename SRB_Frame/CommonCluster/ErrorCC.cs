@@ -13,7 +13,6 @@
         protected override void DataUpdata()
         {
             this.errorTextL.Text = cluster.error_text + cluster.parameter.ToArrayString();
-            this.pageLineL.Text = string.Format("Page{0}.Lines{1}", cluster.file, cluster.line);
-        }
+            this.pageLineL.Text = string.Format("err{0}:", cluster.err_num);        }
     }
 }

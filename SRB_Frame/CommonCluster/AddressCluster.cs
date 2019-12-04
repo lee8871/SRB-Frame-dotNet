@@ -4,15 +4,12 @@ namespace SRB.Frame.Cluster
 {
     public class AddressCluster : ICluster
     {
-        public const byte Cluster_ID = 0;
-
-
         public byte addr { get => bank[0]; set => bank.temp[0] = value; }
         public string name { get => bank.getBankString(1, 27); set => bank.setBankString(value, 1, 27); }
         public byte error_behavior { get => bank.getBankByte(28); set => bank.setBankByte(value, 28); }
 
-        public AddressCluster(BaseNode n, byte address, byte cID = Cluster_ID)
-            : base(n, cID, 29)
+        public AddressCluster(BaseNode n, byte address)
+            : base(n, 0, 29)
         {
             bank[0] = address;//此处为特殊操作,This Cluster must init address before used.
         }
@@ -84,7 +81,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = 0;
             switch (adt)
             {
                 case LedAddrType.Close:
@@ -108,7 +105,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = cID;
             b[i++] = a;
             ac = new Access(this,this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
@@ -119,7 +116,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = 0;
             b[i++] = 0xfa;
             ac = new Access(null, null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);
@@ -130,7 +127,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = 0;
             b[i++] = 0xf0;
             ac = new Access(null, null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);

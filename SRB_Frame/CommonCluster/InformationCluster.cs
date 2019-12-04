@@ -5,7 +5,6 @@ namespace SRB.Frame.Cluster
 {
     public class InformationCluster : ICluster
     {
-        public const byte Cluster_ID = 1;
         public string type { get => bank.getBankString(6, 17); }
         public int major_version { get => bank.getBankByte(0); }
         public int minor_version { get => bank.getBankByte(1); }
@@ -13,8 +12,8 @@ namespace SRB.Frame.Cluster
         public int SRB_minor_version { get => bank.getBankByte(3); }
         public int time_stamp { get => bank.getBankUshort(4); }
 
-        public InformationCluster(BaseNode n, byte ID = Cluster_ID)
-            : base(n, ID, 23)
+        public InformationCluster(BaseNode n)
+            : base(n, 1, 23)
         {
             char[] ca = "Unknow".ToCharArray();
             int i;
@@ -50,7 +49,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = cID;
             b[i++] = (byte)'R';
             ac = new Access(this,this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
@@ -60,7 +59,7 @@ namespace SRB.Frame.Cluster
             Access ac;
             byte[] b = new byte[2];
             int i = 0;
-            b[i++] = Cluster_ID;
+            b[i++] = cID;
             b[i++] = (byte)'F';
             ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);

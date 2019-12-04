@@ -17,10 +17,7 @@ namespace SRB.Frame
         public object Tag;
         private bool is_hardware_exist = false;
         private int access_fail_counter = 0;
-        protected bool Can_post_access
-        {
-            get { return (parent != null); }
-        }
+
         public byte Addr
         {
             get { return baseClu.addr; }
@@ -33,6 +30,8 @@ namespace SRB.Frame
         {
             get { return this.infoClu.type; }
         }
+
+
         protected ICluster[] clusters = new ICluster[128];
 
         protected Cluster.AddressCluster baseClu;
@@ -44,7 +43,7 @@ namespace SRB.Frame
 
         virtual public void onAddrChanged()
         {
-            this.parent.nodeAddrChange(this);
+            //this.parent.nodeAddrChange(this);
             if (node_form != null)
             {
                 node_form.updateText();
@@ -57,7 +56,7 @@ namespace SRB.Frame
         }
         virtual public void onDescriptionChanged()
         {
-            this.parent.nodeDescriptionChange(this);
+            //this.parent.nodeDescriptionChange(this);
             if (node_form != null)
             {
                 node_form.updateText();
@@ -77,13 +76,13 @@ namespace SRB.Frame
         {
             return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
         }
-        public BaseNode(byte addr, IMaster frm = null)
+        public BaseNode(byte addr, IBus bus)
         {
             bank = new ByteBank(256, false);
             baseClu = new Cluster.AddressCluster(this, addr);
             infoClu = new Cluster.InformationCluster(this);
             errorClu = new Cluster.ErrorCluster(this);
-            register(frm);
+            //register(frm);
             clusters[baseClu.CID] = baseClu;
             clusters[infoClu.CID] = infoClu;
             clusters[errorClu.CID] = errorClu;
@@ -92,7 +91,7 @@ namespace SRB.Frame
             {
                 infoClu.read();
             }
-            frm.nodeDescriptionChange(this);
+            //frm.nodeDescriptionChange(this);
         }
         public void ledAddr(Cluster.AddressCluster.LedAddrType adt)
         {

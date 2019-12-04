@@ -10,7 +10,7 @@ namespace SRB.NodeType.Charger
         }
 
         internal InnResCluster(Frame.BaseNode n)
-            : base(n, 13, 5)
+            : base(n, 13, 30)
         {
 
         }
