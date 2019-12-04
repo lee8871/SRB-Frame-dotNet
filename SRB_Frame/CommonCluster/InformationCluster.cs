@@ -52,7 +52,7 @@ namespace SRB.Frame.Cluster
             int i = 0;
             b[i++] = Cluster_ID;
             b[i++] = (byte)'R';
-            ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
+            ac = new Access(this,this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
         public void factorySettingNode()
@@ -62,7 +62,7 @@ namespace SRB.Frame.Cluster
             int i = 0;
             b[i++] = Cluster_ID;
             b[i++] = (byte)'F';
-            ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
+            ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
 

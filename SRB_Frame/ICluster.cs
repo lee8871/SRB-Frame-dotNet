@@ -3,12 +3,10 @@ using System.Windows.Forms;
 
 namespace SRB.Frame
 {
-    public abstract class ICluster : IByteBank
+    public abstract class ICluster : IByteBank, IAccesser
     {
         protected byte cID;
-
         protected BaseNode parent_node;
-
         public BaseNode Parent_node { get => parent_node; }
         public byte CID { get => cID; }
 
@@ -26,6 +24,32 @@ namespace SRB.Frame
                 bank_write_temp[i] = bank[i];
             }
         }
+        public void accessDone(Access ac)
+        {
+            if (ac.Port != Access.PortEnum.Cgf)
+            {
+                throw new Exception("Data type should Cfg,but get " + ac.Port.ToString()) ;
+            }
+            if (ac.Recv_data == null)
+            {
+                throw new Exception("cfg_receive a null recv_data");
+            }
+            if ((ac.Recv_error) || (ac.Recv_busy))
+            {
+                return;
+            }
+            if (ac.Send_data.Length == 1)
+            {
+                readRecv(ac);
+            }
+            else
+            {
+                writeRecv(ac);
+            }
+        }
+
+
+
 
 
         public virtual void write()
@@ -36,7 +60,7 @@ namespace SRB.Frame
             {
                 data[i + 1] = bank_write_temp[i];
             }
-            Access ac = new Access(parent_node, Access.PortEnum.Cgf, data);
+            Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, data);
             parent_node.singleAccess(ac);
 
         }
@@ -54,7 +78,7 @@ namespace SRB.Frame
 
         public void read()
         {
-            Access ac = new Access(parent_node, Access.PortEnum.Cgf, new byte[] { CID });
+            Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] { CID });
             parent_node.singleAccess(ac);
         }
         public virtual void readRecv(Access ac)

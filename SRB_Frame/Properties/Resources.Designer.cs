@@ -109,5 +109,15 @@ namespace SRB_Frame.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap thunder_512px_1175878_easyicon_net {
+            get {
+                object obj = ResourceManager.GetObject("thunder_512px_1175878_easyicon.net", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

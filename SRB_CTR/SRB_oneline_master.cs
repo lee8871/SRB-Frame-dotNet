@@ -280,6 +280,17 @@ but we do not have the node in table");
         {
             SRB.Frame.Cluster.AddressCluster.randomAddrNewNode(this);
         }
+
+        internal void testUpdate(byte address)
+        {
+            BaseNode n = Nodes[address];
+            if (n == null)
+            {
+                n = new BaseNode(address, this);
+            }
+            UpdateForm uf = new UpdateForm(n);
+            uf.Show();
+        }
     }
 
     public partial class SRB_oneline_master

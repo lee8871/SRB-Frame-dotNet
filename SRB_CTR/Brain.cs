@@ -11,8 +11,6 @@ namespace SRB_CTR
         {
             frame = f;
         }
-
-
         protected abstract void nodesBuildUp();
         protected abstract void setup();
         protected abstract void loop();

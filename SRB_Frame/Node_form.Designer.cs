@@ -56,7 +56,7 @@
             this.MinimizeBox = false;
             this.Name = "Node_form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "</";
+            this.Text = "</NodeName>";
             this.ResumeLayout(false);
             this.PerformLayout();
 

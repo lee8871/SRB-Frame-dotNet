@@ -76,7 +76,7 @@ namespace SRB.Frame.Cluster
                     b[i++] = 0xf3; break;
 
             }
-            ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
+            ac = new Access(this,this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
         public static void ledAddrBroadcast(LedAddrType adt, IMaster parent)
@@ -95,7 +95,7 @@ namespace SRB.Frame.Cluster
                     b[i++] = 0xf3; break;
 
             }
-            ac = new Access(null, Access.PortEnum.Cgf, b);
+            ac = new Access(null, null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);
 
         }
@@ -110,7 +110,7 @@ namespace SRB.Frame.Cluster
             int i = 0;
             b[i++] = Cluster_ID;
             b[i++] = a;
-            ac = new Access(this.parent_node, Access.PortEnum.Cgf, b);
+            ac = new Access(this,this.parent_node, Access.PortEnum.Cgf, b);
             parent_node.singleAccess(ac);
         }
 
@@ -121,7 +121,7 @@ namespace SRB.Frame.Cluster
             int i = 0;
             b[i++] = Cluster_ID;
             b[i++] = 0xfa;
-            ac = new Access(null, Access.PortEnum.Cgf, b);
+            ac = new Access(null, null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);
         }
 
@@ -132,7 +132,7 @@ namespace SRB.Frame.Cluster
             int i = 0;
             b[i++] = Cluster_ID;
             b[i++] = 0xf0;
-            ac = new Access(null, Access.PortEnum.Cgf, b);
+            ac = new Access(null, null, Access.PortEnum.Cgf, b);
             parent.singleAccess(ac);
         }
     }

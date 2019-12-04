@@ -2,7 +2,7 @@
 
 namespace SRB.Frame
 {
-    public class BaseNode : IByteBank
+    public class BaseNode : IByteBank, IAccesser
     {
         private IBus bus;
         public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
@@ -151,7 +151,7 @@ namespace SRB.Frame
             {
                 pd[i] = bank[mapping.downMapping(i)];
             }
-            return new Access(this, (Access.PortEnum)port, pd);
+            return new Access(this, this, (Access.PortEnum)port, pd);
         }
 
         public virtual void addAccess(Access ac)
@@ -183,70 +183,47 @@ namespace SRB.Frame
                 ac = access;
             }
         }
+        public void active()
+        {
+            is_hardware_exist = true;
+            access_fail_counter = 0;
+        }
+        public void lose()
+        {
+            access_fail_counter++;
+            if (access_fail_counter >= 3)
+            {
+                is_hardware_exist = false;
+            }
+
+        }
+
+
+
         public void accessDone(Access ac)
         {
-            if (ac.Status == Access.StatusEnum.RecvedDone)
+            switch (ac.Port)
             {
-                is_hardware_exist = true;
-                access_fail_counter = 0;
-                switch (ac.Port)
-                {
-                    case Access.PortEnum.D0:
-                    case Access.PortEnum.D1:
-                    case Access.PortEnum.D2:
-                    case Access.PortEnum.D3:
-                        AccessEventArgs e = new AccessEventArgs(ac);
-                        if (eDataAccessRecv != null)
-                        {
-                            eDataAccessRecv.Invoke(this, e);
-                        }
-                        if (e.Handled == false)
-                        {
-                            OnDataAccessDone(ac);
-                        }
-                        break;
-                    case Access.PortEnum.Cmd:
-                        cmdAccessDone(ac);
-                        break;
-                    case Access.PortEnum.Cgf:
-                        cfgAccessDone(ac);
-                        break;
-
-                }
-            }
-            else
-            {
-                access_fail_counter++;
-                if (access_fail_counter >= 3)
-                {
-                    is_hardware_exist = false;
-                }
+                case Access.PortEnum.D0:
+                case Access.PortEnum.D1:
+                case Access.PortEnum.D2:
+                case Access.PortEnum.D3:
+                    AccessEventArgs e = new AccessEventArgs(ac);
+                    if (eDataAccessRecv != null)
+                    {
+                        eDataAccessRecv.Invoke(this, e);
+                    }
+                    if (e.Handled == false)
+                    {
+                        OnDataAccessDone(ac);
+                    }
+                    break;
+                default:
+                    throw new Exception("Receive not data");
             }
         }
 
-        protected void cfgAccessDone(Access ac)
-        {
-            int clusterID = ac.Send_data[0];
-            if (clusters[clusterID] != null)
-            {
-                if (ac.Recv_data == null)
-                {
-                    throw new Exception("cfg_receive a null recv_data");
-                }
-                if ((ac.Recv_error) || (ac.Recv_busy))
-                {
-                    return;
-                }
-                if (ac.Send_data.Length == 1)
-                {
-                    clusters[clusterID].readRecv(ac);
-                }
-                else
-                {
-                    clusters[clusterID].writeRecv(ac);
-                }
-            }
-        }
+
         public event EventHandler eBankChangeByAccess;
         protected virtual void OnDataAccessDone(Access ac)
         {

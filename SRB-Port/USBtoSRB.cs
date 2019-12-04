@@ -138,7 +138,7 @@ namespace SRB.port
                     throw new Exception(string.Format("open USB (port)device {0} fail", portName));
                 }
                 IUsbDevice wholeUsbDevice = selected_device as IUsbDevice;
-                if (!ReferenceEquals(wholeUsbDevice, null))
+                if (wholeUsbDevice is object)
                 {
                     // This is a "whole" USB device. Before it can be used, 
                     // the desired configuration and interface must be selected.

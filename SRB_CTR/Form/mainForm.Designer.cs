@@ -42,6 +42,7 @@
             this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
             this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
             this.nodeScanTS = new System.Windows.Forms.ToolStrip();
+            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
             this.SRB_config = new System.Windows.Forms.ToolStripSplitButton();
             this.uSBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,7 @@
             this.stopBTN = new System.Windows.Forms.ToolStripButton();
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
-            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
@@ -134,7 +135,7 @@
             // 
             this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
             this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
-            this.left_UpDownSC.SplitterDistance = 99;
+            this.left_UpDownSC.SplitterDistance = 98;
             this.left_UpDownSC.TabIndex = 0;
             // 
             // frameCounterFLP
@@ -142,7 +143,7 @@
             this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
             this.frameCounterFLP.Name = "frameCounterFLP";
-            this.frameCounterFLP.Size = new System.Drawing.Size(384, 99);
+            this.frameCounterFLP.Size = new System.Drawing.Size(384, 98);
             this.frameCounterFLP.TabIndex = 0;
             // 
             // nodesTable
@@ -150,7 +151,7 @@
             this.nodesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nodesTable.Location = new System.Drawing.Point(0, 0);
             this.nodesTable.Name = "nodesTable";
-            this.nodesTable.Size = new System.Drawing.Size(384, 446);
+            this.nodesTable.Size = new System.Drawing.Size(384, 447);
             this.nodesTable.TabIndex = 0;
             // 
             // nodeScanTS
@@ -166,11 +167,34 @@
             this.runBTN,
             this.stopBTN,
             this.stopAddrShowBTN,
-            this.beginAddrShowBTN});
+            this.beginAddrShowBTN,
+            this.toolStripButton1});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(159, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(298, 30);
             this.nodeScanTS.TabIndex = 4;
+            // 
+            // mainTSC
+            // 
+            this.mainTSC.BottomToolStripPanelVisible = false;
+            // 
+            // mainTSC.ContentPanel
+            // 
+            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
+            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
+            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainTSC.LeftToolStripPanelVisible = false;
+            this.mainTSC.Location = new System.Drawing.Point(0, 0);
+            this.mainTSC.Name = "mainTSC";
+            this.mainTSC.RightToolStripPanelVisible = false;
+            this.mainTSC.Size = new System.Drawing.Size(384, 579);
+            this.mainTSC.TabIndex = 5;
+            this.mainTSC.Text = "toolStripContainer1";
+            // 
+            // mainTSC.TopToolStripPanel
+            // 
+            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
+            this.mainTSC.TopToolStripPanel.Click += new System.EventHandler(this.mainTSC_TopToolStripPanel_Click);
             // 
             // SRB_config
             // 
@@ -273,28 +297,17 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
-            // mainTSC
+            // toolStripButton1
             // 
-            this.mainTSC.BottomToolStripPanelVisible = false;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(27, 27);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
             // 
-            // mainTSC.ContentPanel
-            // 
-            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
-            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
-            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTSC.LeftToolStripPanelVisible = false;
-            this.mainTSC.Location = new System.Drawing.Point(0, 0);
-            this.mainTSC.Name = "mainTSC";
-            this.mainTSC.RightToolStripPanelVisible = false;
-            this.mainTSC.Size = new System.Drawing.Size(384, 579);
-            this.mainTSC.TabIndex = 5;
-            this.mainTSC.Text = "toolStripContainer1";
-            // 
-            // mainTSC.TopToolStripPanel
-            // 
-            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
-            // 
-            // FrameForm
+            // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -303,7 +316,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 640);
-            this.Name = "FrameForm";
+            this.Name = "mainForm";
             this.Text = "Simple Robot Bus";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -349,5 +362,6 @@
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

@@ -30,7 +30,7 @@ namespace SRB.Frame
             string error;
             byte[] ba = sendRTB.Text.ToByteAsCArroy(out error);
             sendRTB.Text = ba.ToArrayString();
-            node.singleAccess(new Access(node, Access.PortEnum.D0, ba));
+            node.singleAccess(new Access(node,node, Access.PortEnum.D0, ba));
         }
 
         private void accessTimerOnBTN_Click(object sender, EventArgs e)

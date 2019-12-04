@@ -10,6 +10,7 @@ namespace SRB.Frame
         public string description = "";
 
         private BaseNode sender_node;
+        private IAccesser accesser;
         public byte Addr
         {
             get
@@ -38,11 +39,14 @@ namespace SRB.Frame
                 case StatusEnum.BroadcasePkg:
                     break;
                 case StatusEnum.RecvedDone:
-                    sender_node.accessDone(this);
+                    sender_node.active();
+                    accesser.accessDone(this);
                     break;
                 case StatusEnum.PortColsed:
-                case StatusEnum.DeviceTimeOut:
                     //TODO: Bus Master device is not open or port is not selected
+                    break;
+                case StatusEnum.DeviceTimeOut:
+                    sender_node.lose();
                     break;
                 case StatusEnum.RecvedBadPkg:
                 case StatusEnum.SrbTimeOut:
@@ -57,7 +61,7 @@ namespace SRB.Frame
 
         private StatusEnum _status;
         public StatusEnum Status { get => _status; }
-        public enum PortEnum { D0, D1, D2, D3, Cmd, Cgf, Rpt, Res };
+        public enum PortEnum { D0, D1, D2, D3, Udp, Cgf, Rpt, Res };
         private PortEnum _port;
         public PortEnum Port { get => _port; }
 
@@ -96,8 +100,9 @@ namespace SRB.Frame
 
 
 
-        public Access(BaseNode n, PortEnum p, byte[] send_d)
+        public Access(IAccesser a, BaseNode n, PortEnum p, byte[] send_d)
         {
+            accesser = a;
             sender_node = n;
             _send_data = send_d;
             _port = p;
@@ -242,10 +247,6 @@ namespace SRB.Frame
             );
             return st;
         }
-
-
-
-
 
         private static byte[] Crc_table =
         {

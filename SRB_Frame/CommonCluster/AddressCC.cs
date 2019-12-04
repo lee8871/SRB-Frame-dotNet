@@ -103,5 +103,10 @@ namespace SRB.Frame.Cluster
         {
             this.cluster.ledAddr(AddressCluster.LedAddrType.Close);
         }
+
+        private void Update_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

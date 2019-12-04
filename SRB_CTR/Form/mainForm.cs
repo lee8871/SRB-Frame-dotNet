@@ -408,6 +408,16 @@ namespace SRB_CTR
 
         }
 
+        private void mainTSC_TopToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        {
+            backlogic.testUpdate(50) ;
+
+        }
 
         private void ScanNodeBTN_Click(object sender, EventArgs e)
         {
