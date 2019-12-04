@@ -5,11 +5,11 @@ namespace SRB.Frame.Cluster
     public class MappingCluster : ICluster
     {
         private const int totle_length = 28;
-        public int up_len { get => getBankByte(0); }
-        public int down_len { get => getBankByte(1); }
-        public byte[] up_mapping { get => getBankByteArray(2, up_len); }
-        public byte[] down_mapping { get => getBankByteArray(2 + up_len, down_len); }
-        public byte[] mapping { get => getBankByteArray(0, up_len + 2 + down_len); }
+        public int up_len { get => bank.getBankByte(0); }
+        public int down_len { get => bank.getBankByte(1); }
+        public byte[] up_mapping { get => bank.getBankByteArray(2, up_len); }
+        public byte[] down_mapping { get => bank.getBankByteArray(2 + up_len, down_len); }
+        public byte[] mapping { get => bank.getBankByteArray(0, up_len + 2 + down_len); }
         public EventHandler eMappingChanged;
         public string description;
         public MappingCluster(byte ID, BaseNode n, string dsc = null)
@@ -28,23 +28,23 @@ namespace SRB.Frame.Cluster
                 throw new Exception("totleLengthshold less than 28");
             }
             int i = 0;
-            bank_write_temp = new byte[up.Length + down.Length + 2];
-            bank_write_temp[i++] = (byte)up.Length;
-            bank_write_temp[i++] = (byte)down.Length;
+            bank.temp[i++] = (byte)up.Length;
+            bank.temp[i++] = (byte)down.Length;
             foreach (byte b in up)
             {
-                bank_write_temp[i++] = b;
+                bank.temp[i++] = b;
             }
             foreach (byte b in down)
             {
-                bank_write_temp[i++] = b;
+                bank.temp[i++] = b;
             }
         }
         public bool setMapping(byte[] mba)
         {
             if (checkMapping(mba) == "done")
             {
-                bank_write_temp = mba;
+                for(int i =0;i < bank.Length;i++)
+                bank.temp[i]= mba[i];
                 return true;
             }
             return false;

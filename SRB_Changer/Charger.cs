@@ -6,34 +6,34 @@ namespace SRB.NodeType.Charger
 {
     public class Node : BaseNode
     {
-        public byte buzzer_now { get => getBankByte(0); }
+        public byte buzzer_now => bank.getBankByte(0);
 
-        public bool is_charge_open { get => getBankBool(1, 0); }
-        public bool is_charging { get => getBankBool(1, 1); }
-        public bool is_charge_done { get => getBankBool(1, 2); }
-        public bool is_jack_in { get => getBankBool(1, 3); }
+        public bool is_charge_open => bank.getBankBool(1, 0);
+        public bool is_charging => bank.getBankBool(1, 1);
+        public bool is_charge_done => bank.getBankBool(1, 2);
+        public bool is_jack_in => bank.getBankBool(1, 3);
 
-        public int battery_voltage { get => (int)getBankUshort(2); }
-        public ushort battery_ADC { get => getBankUshort(4); }
-        public int charge_second { get => (int)getBankUshort(6); }
-        public int capacity { get => (short)getBankUshort(8); }
+        public int battery_voltage => (int)bank.getBankUshort(2);
+        public ushort battery_ADC => bank.getBankUshort(4);
+        public int charge_second => (int)bank.getBankUshort(6);
+        public int capacity => (short)bank.getBankUshort(8);
 
-        public byte buzzer_commend { set => setBankByte(value, 10); }
+        public byte buzzer_commend { set => bank.setBankByte(value, 10); }
 
         public bool cmd_charge_enable
         {
-            get => getBankBool(11, 0);
-            set => setBankBool(value, 11, 0);
+            get => bank.getBankBool(11, 0);
+            set => bank.setBankBool(value, 11, 0);
         }
         public bool is_Mute
         {
-            get => getBankBool(11, 1);
-            set => setBankBool(value, 11, 1);
+            get => bank.getBankBool(11, 1);
+            set => bank.setBankBool(value, 11, 1);
         }
         public bool is_PowerLEDRun
         {
-            get => getBankBool(11, 2);
-            set => setBankBool(value, 11, 2);
+            get => bank.getBankBool(11, 2);
+            set => bank.setBankBool(value, 11, 2);
         }
         public string getStatues()
         {

@@ -60,42 +60,27 @@ namespace SRB.Frame
 
 
         private StatusEnum _status;
-        public StatusEnum Status { get => _status; }
+        public StatusEnum Status => _status;
         public enum PortEnum { D0, D1, D2, D3, Udp, Cgf, Rpt, Res };
         private PortEnum _port;
-        public PortEnum Port { get => _port; }
+        public PortEnum Port => _port;
 
         //_send_data is set by constructor
         private byte[] _send_data;
-        public byte[] Send_data { get => _send_data; }
+        public byte[] Send_data => _send_data;
 
         //_recv_data is set by recv
         private byte[] _recv_data;
 
-        public byte[] Recv_data { get => _recv_data; }
+        public byte[] Recv_data => _recv_data;
 
-        public byte Send_bfc
-        {
-            get { return (byte)((int)_port * 32 + _send_data.Length); }
-        }
+        public byte Send_bfc => (byte)((int)_port * 32 + _send_data.Length);
         private byte _recv_bfc;
 
-        public bool Recv_error
-        {
-            get { return (_recv_bfc & (1 << 7)) != 0; }
-        }
-        public bool Recv_busy
-        {
-            get { return (_recv_bfc & (1 << 6)) != 0; }
-        }
-        public bool Recv_event
-        {
-            get { return (_recv_bfc & (1 << 5)) != 0; }
-        }
-        public int Recv_data_len
-        {
-            get { return (int)(_recv_bfc & 0x1f); }
-        }
+        public bool Recv_error => (_recv_bfc & (1 << 7)) != 0;
+        public bool Recv_busy => (_recv_bfc & (1 << 6)) != 0;
+        public bool Recv_event => (_recv_bfc & (1 << 5)) != 0;
+        public int Recv_data_len => (int)(_recv_bfc & 0x1f);
 
 
 

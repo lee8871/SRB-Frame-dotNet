@@ -6,12 +6,12 @@ namespace SRB.Frame.Cluster
     public class InformationCluster : ICluster
     {
         public const byte Cluster_ID = 1;
-        public string type { get => getBankString(6, 17); }
-        public int major_version { get => getBankByte(0); }
-        public int minor_version { get => getBankByte(1); }
-        public int SRB_major_version { get => getBankByte(2); }
-        public int SRB_minor_version { get => getBankByte(3); }
-        public int time_stamp { get => getBankUshort(4); }
+        public string type { get => bank.getBankString(6, 17); }
+        public int major_version { get => bank.getBankByte(0); }
+        public int minor_version { get => bank.getBankByte(1); }
+        public int SRB_major_version { get => bank.getBankByte(2); }
+        public int SRB_minor_version { get => bank.getBankByte(3); }
+        public int time_stamp { get => bank.getBankUshort(4); }
 
         public InformationCluster(BaseNode n, byte ID = Cluster_ID)
             : base(n, ID, 23)

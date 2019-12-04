@@ -2,8 +2,9 @@
 
 namespace SRB.Frame
 {
-    public class BaseNode : IByteBank, IAccesser
+    public class BaseNode :  IAccesser
     {
+        public ByteBank bank;
         private IBus bus;
         public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
 
@@ -76,8 +77,9 @@ namespace SRB.Frame
         {
             return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
         }
-        public BaseNode(byte addr, IMaster frm = null) : base(256, false)
+        public BaseNode(byte addr, IMaster frm = null)
         {
+            bank = new ByteBank(256, false);
             baseClu = new Cluster.AddressCluster(this, addr);
             infoClu = new Cluster.InformationCluster(this);
             errorClu = new Cluster.ErrorCluster(this);
@@ -96,8 +98,9 @@ namespace SRB.Frame
         {
             baseClu.ledAddr(adt);
         }
-        public BaseNode(BaseNode n) : base(256, false)
+        public BaseNode(BaseNode n)
         {
+            bank = n.bank;
             this.Tag = n.Tag;
             this.is_hardware_exist = n.is_hardware_exist;
             this.access_fail_counter = n.access_fail_counter;

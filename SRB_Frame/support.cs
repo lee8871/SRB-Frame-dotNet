@@ -19,15 +19,15 @@ namespace SRB.Frame
         private static Color color_pink = Color.FromArgb(unchecked((int)0xfffb548a));
 
 
-        public static Color Color_red { get => color_red; }
-        public static Color Color_dank { get => color_dank; }
-        public static Color Color_navy { get => color_navy; }
-        public static Color Color_moon { get => color_moon; }
+        public static Color Color_red => color_red;
+        public static Color Color_dank => color_dank;
+        public static Color Color_navy => color_navy;
+        public static Color Color_moon => color_moon;
 
 
 
-        public static Color Color_HighLight { get => color_pink; }
-        public static Color Color_BackGround { get => color_blue; }
+        public static Color Color_HighLight => color_pink;
+        public static Color Color_BackGround => color_blue;
 
 
 

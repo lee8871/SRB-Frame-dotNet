@@ -69,10 +69,7 @@ namespace SRB.port
         }
 
 
-        public override bool Is_opened
-        {
-            get { return mainComPort.IsOpen; }
-        }
+        public override bool Is_opened => mainComPort.IsOpen;
 
 
         internal void openPort(string portName)
@@ -116,16 +113,10 @@ namespace SRB.port
         private Access[] acs;
         private int acs_num;
         private int last_send_time_cost = 0;
-        public int Last_send_time_cost
-        {
-            get { return last_send_time_cost; }
-        }
+        public int Last_send_time_cost => last_send_time_cost;
 
         private int last_recv_time_cost = 0;
-        public int Last_recv_time_cost
-        {
-            get { return last_recv_time_cost; }
-        }
+        public int Last_recv_time_cost => last_recv_time_cost;
 
         private long time_record;
         public override bool doAccess(Access ac)

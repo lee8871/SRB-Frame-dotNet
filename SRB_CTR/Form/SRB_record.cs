@@ -18,10 +18,10 @@ namespace SRB_CTR
         private Thread flush_thread;
         private object sw_lock = new object();
 
-        public string FileName { get => fileName; }
-        public bool Is_running { get => is_running; }
-        public string Path { get => path; }
-        public string Suffix { get => suffix; }
+        public string FileName => fileName;
+        public bool Is_running => is_running;
+        public string Path => path;
+        public string Suffix => suffix;
         private SRB_record_uc form;
 
         public SRB_Record(string suf = ".json")

@@ -16,8 +16,8 @@ namespace SRB.Frame
             return (int)down_mapping[num];
         }
 
-        public int Up_len { get => up_mapping.Length; }
-        public int Down_len { get => down_mapping.Length; }
+        public int Up_len => up_mapping.Length;
+        public int Down_len => down_mapping.Length;
         public Mapping(byte[] raw)
         {
             if (raw.Length < 2)

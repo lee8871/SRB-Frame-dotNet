@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="Access.cs" />
     <Compile Include="Ahex.cs" />
+    <Compile Include="ByteBank.cs" />
     <Compile Include="IAccesser.cs" />
-    <Compile Include="IByteBank.cs" />
     <Compile Include="INodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

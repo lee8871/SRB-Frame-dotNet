@@ -4,9 +4,9 @@ namespace SRB.Frame.Cluster
     public class ErrorCluster : ICluster
     {
         public const byte Cluster_ID = 2;
-        public string error_text { get => getBankString(4, 24); }
-        public int file { get => getBankUshort(0); }
-        public int line { get => getBankUshort(2); }
+        public string error_text { get => bank.getBankString(4, 24); }
+        public int file { get => bank.getBankUshort(0); }
+        public int line { get => bank.getBankUshort(2); }
         public byte[] parameter { get => getParameter(); }
 
         public ErrorCluster(BaseNode n, byte ID = Cluster_ID)

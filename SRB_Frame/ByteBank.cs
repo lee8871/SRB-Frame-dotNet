@@ -1,56 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SRB.Frame
 {
-    public abstract class IByteBank
+    public class ByteBank
     {
-        protected byte[] bank;
-        protected byte[] bank_write_temp;
-        private int bank_length;
-        protected IByteBank(int bank_length, bool write_to_temp)
+        public byte this[int i] { get => ba[i]; set=> ba[i]=value; }
+        private byte[] ba;
+        private byte[] ba_temp;
+        private int length;
+        private bool is_write_to_temp;
+        public int Length => length;
+        public byte[] temp => ba_temp;
+
+
+        public ByteBank(int bank_length, bool is_write_to_temp)
         {
-            this.bank_length = bank_length;
-            bank = new byte[bank_length];
-            if (write_to_temp)
+            this.is_write_to_temp = is_write_to_temp;
+            this.length = bank_length;
+            ba = new byte[bank_length];
+            if (is_write_to_temp)
             {
-                bank_write_temp = new byte[bank_length];
+                ba_temp = new byte[bank_length];
             }
             else
             {
-                bank_write_temp = bank;
+                ba_temp = ba;
             }
         }
-        protected string getBankString(int diff, int max_len = -1)
+
+        internal void writeDone()
+        {
+            if (is_write_to_temp == false)
+            {
+                throw new Exception("这个bank不是双缓冲的，不能进行初始化");
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                ba[i] = ba_temp[i];
+            }
+        }
+        public void writeInit()
+        {
+            if (is_write_to_temp == false)
+            {
+                throw new Exception("这个bank不是双缓冲的，不能进行初始化");
+            }
+            for (int i = 0; i < Length; i++)
+            {
+                ba_temp[i] = ba[i];
+            }
+        }
+
+        public string getBankString(int diff, int max_len = -1)
         {
             if (max_len == -1)
             {
-                max_len = bank_length;
+                max_len = length;
             }
             char[] cs = new char[max_len];
             int i;
             for (i = 0; i < max_len; i++)
             {
-                if (bank[diff + i] == 0)
+                if (ba[diff + i] == 0)
                 {
                     break;
                 }
                 else
                 {
-                    cs[i] = (char)bank[diff + i];
+                    cs[i] = (char)ba[diff + i];
                 }
             }
             string rev = new string(cs, 0, i);
             return rev;
         }
-        protected void setBankString(string str, int diff, int max_len = -1)
+        public void setBankString(string str, int diff, int max_len = -1)
         {
             if (max_len == -1)
             {
-                max_len = bank_length;
+                max_len = length;
             }
             char[] ca = str.ToCharArray();
             if (ca.Length >= max_len)//there should a \0 in the end. So ca len shold small than max 
@@ -65,22 +92,22 @@ namespace SRB.Frame
             int i;
             for (i = 0; i < ca.Length; i++)
             {
-                bank_write_temp[diff + i] = (byte)ca[i];
+                ba_temp[diff + i] = (byte)ca[i];
             }
-            bank_write_temp[diff + i] = (byte)'\0';
+            ba_temp[diff + i] = (byte)'\0';
             return;
         }
 
 
-        protected bool getBankBool(int diff, int bit_diff = 0)
+        public bool getBankBool(int diff, int bit_diff = 0)
         {
-            if( (bit_diff >= 8)|| (bit_diff <0 ))
+            if ((bit_diff >= 8) || (bit_diff < 0))
             {
                 throw new Exception("bit_diff shold less than 8");
             }
-            return ((bank[diff] & (1 << bit_diff)) != 0);
+            return ((ba[diff] & (1 << bit_diff)) != 0);
         }
-        protected void setBankBool(bool b, int diff, int bit_diff = 0)
+        public void setBankBool(bool b, int diff, int bit_diff = 0)
         {
             if ((bit_diff >= 8) || (bit_diff < 0))
             {
@@ -88,53 +115,53 @@ namespace SRB.Frame
             }
             if (b)
             {
-                bank_write_temp[diff] |= (byte)(1ul << bit_diff);
+                ba_temp[diff] |= (byte)(1ul << bit_diff);
             }
             else
             {
-                bank_write_temp[diff] &= ((byte)(~(1ul << bit_diff)));
+                ba_temp[diff] &= ((byte)(~(1ul << bit_diff)));
             }
         }
 
 
-        protected byte getBankByte(int diff)
+        public byte getBankByte(int diff)
         {
-            return bank[diff];
+            return ba[diff];
         }
-        protected void setBankByte(byte val, int diff)
+        public void setBankByte(byte val, int diff)
         {
-            bank_write_temp[diff] = val;
+            ba_temp[diff] = val;
             return;
         }
 
 
-        protected ushort getBankUshort(int diff)
+        public ushort getBankUshort(int diff)
         {
             ushort rev = 0;
-            rev += bank[diff + 1];
+            rev += ba[diff + 1];
             rev <<= 8;
-            rev += bank[diff]; ;
+            rev += ba[diff]; ;
             return rev;
         }
-        protected void setBankUshort(ushort val, int diff)
+        public void setBankUshort(ushort val, int diff)
         {
-            bank_write_temp[diff] = (byte)val;
+            ba_temp[diff] = (byte)val;
             val >>= 8;
-            bank_write_temp[diff + 1] = (byte)val;
+            ba_temp[diff + 1] = (byte)val;
             return;
         }
 
 
-        protected byte[] getBankByteArray(int diff, int len)
+        public byte[] getBankByteArray(int diff, int len)
         {
             byte[] ba = new byte[len];
             for (int i = 0; i < len; i++)
             {
-                ba[i] = bank[diff + i];
+                ba[i] = this.ba[diff + i];
             }
             return ba;
         }
-        protected void setBankByteArray(byte[] ba, int diff, int len = -1)
+        public void setBankByteArray(byte[] ba, int diff, int len = -1)
         {
             if (len == -1)
             {
@@ -142,7 +169,7 @@ namespace SRB.Frame
             }
             for (int i = 0; i < len; i++)
             {
-                bank_write_temp[diff + i] = ba[i];
+                ba_temp[diff + i] = ba[i];
             }
             return;
         }

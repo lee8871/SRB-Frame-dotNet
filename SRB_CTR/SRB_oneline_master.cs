@@ -11,23 +11,14 @@ namespace SRB_CTR
     {
 
         private IBus srb;
-        public bool Is_port_opend
-        {
-            get { return srb.Is_opened; }
-        }
+        public bool Is_port_opend => srb.Is_opened;
 
         private mainForm _nodes_form;
-        public mainForm Nodes_form
-        {
-            get { return _nodes_form; }
-        }
+        public mainForm Nodes_form => _nodes_form;
 
         private IBrain main_brain;
         private SRB_Record record;
-        public bool Is_calculation_running
-        {
-            get => main_brain.Is_running;
-        }
+        public bool Is_calculation_running => main_brain.Is_running;
         public SRB_oneline_master()
         {
             Nodes = new BaseNode[200];

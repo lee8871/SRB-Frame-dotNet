@@ -4,9 +4,9 @@ namespace SRB.NodeType.Du_motor
 {
     internal class AdjustCluster : ICluster
     {
-        public byte adj { get => getBankByte(0); set => setBankByte(value, 0); }
-        public bool motor_a_tog { get => getBankBool(1); set => setBankBool(value, 1); }
-        public bool motor_b_tog { get => getBankBool(2); set => setBankBool(value, 2); }
+        public byte adj { get => bank.getBankByte(0); set => bank.setBankByte(value, 0); }
+        public bool motor_a_tog { get => bank.getBankBool(1); set => bank.setBankBool(value, 1); }
+        public bool motor_b_tog { get => bank.getBankBool(2); set => bank.setBankBool(value, 2); }
 
         public AdjustCluster(BaseNode n)
             : base(n, 11, 3) { }

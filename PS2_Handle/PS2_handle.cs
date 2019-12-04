@@ -6,51 +6,51 @@ namespace SRB.NodeType.PS2_Handle
 {
     public class Node : BaseNode
     {
-        public int joy_rx { get => toJoy(5); }
-        public int joy_ry { get => toJoy(6); }
-        public int joy_lx { get => toJoy(7); }
-        public int joy_ly { get => toJoy(8); }
+        public int joy_rx => toJoy(5);
+        public int joy_ry => toJoy(6);
+        public int joy_lx => toJoy(7);
+        public int joy_ly => toJoy(8);
 
-        public int pressure_u { get => getBankByte(9); }
-        public int pressure_r { get => getBankByte(10); }
-        public int pressure_d { get => getBankByte(11); }
-        public int pressure_l { get => getBankByte(12); }
+        public int pressure_u => bank.getBankByte(9);
+        public int pressure_r => bank.getBankByte(10);
+        public int pressure_d => bank.getBankByte(11);
+        public int pressure_l => bank.getBankByte(12);
 
-        public int pressure_trag { get => getBankByte(13); }
-        public int pressure_cir { get => getBankByte(14); }
-        public int pressure_cros { get => getBankByte(15); }
-        public int pressure_squ { get => getBankByte(16); }
+        public int pressure_trag => bank.getBankByte(13);
+        public int pressure_cir => bank.getBankByte(14);
+        public int pressure_cros => bank.getBankByte(15);
+        public int pressure_squ => bank.getBankByte(16);
 
-        public int pressure_l1 { get => getBankByte(17); }
-        public int pressure_r1 { get => getBankByte(18); }
-        public int pressure_l2 { get => getBankByte(19); }
-        public int pressure_r2 { get => getBankByte(20); }
+        public int pressure_l1 => bank.getBankByte(17);
+        public int pressure_r1 => bank.getBankByte(18);
+        public int pressure_l2 => bank.getBankByte(19);
+        public int pressure_r2 => bank.getBankByte(20);
 
-        public bool select { get => !getBankBool(3, 0); }
-        public bool L3 { get => !getBankBool(3, 1); }
-        public bool R3 { get => !getBankBool(3, 2); }
-        public bool start { get => !getBankBool(3, 3); }
+        public bool select => !bank.getBankBool(3, 0);
+        public bool L3 => !bank.getBankBool(3, 1);
+        public bool R3 => !bank.getBankBool(3, 2);
+        public bool start => !bank.getBankBool(3, 3);
 
-        public bool up { get => !getBankBool(3, 4); }
-        public bool right { get => !getBankBool(3, 5); }
-        public bool down { get => !getBankBool(3, 6); }
-        public bool left { get => !getBankBool(3, 7); }
+        public bool up => !bank.getBankBool(3, 4);
+        public bool right => !bank.getBankBool(3, 5);
+        public bool down => !bank.getBankBool(3, 6);
+        public bool left => !bank.getBankBool(3, 7);
 
-        public bool L2 { get => !getBankBool(4, 0); }
-        public bool R2 { get => !getBankBool(4, 1); }
-        public bool L1 { get => !getBankBool(4, 2); }
-        public bool R1 { get => !getBankBool(4, 3); }
+        public bool L2 => !bank.getBankBool(4, 0);
+        public bool R2 => !bank.getBankBool(4, 1);
+        public bool L1 => !bank.getBankBool(4, 2);
+        public bool R1 => !bank.getBankBool(4, 3);
 
-        public bool trag { get => !getBankBool(4, 4); }
-        public bool circle { get => !getBankBool(4, 5); }
-        public bool cross { get => !getBankBool(4, 6); }
-        public bool square { get => !getBankBool(4, 7); }
+        public bool trag => !bank.getBankBool(4, 4);
+        public bool circle => !bank.getBankBool(4, 5);
+        public bool cross => !bank.getBankBool(4, 6);
+        public bool square => !bank.getBankBool(4, 7);
 
 
 
-        public int rumble_l_strength { set => setBankByte((byte)(value.enterRound(0, 255)), 2); }
-        public int rumble_l { set => setBankByte(((byte)value.enterRound(0, 255)), 0); }
-        public int rumble_r { set => setBankByte(((byte)value.enterRound(0, 255)), 1); }
+        public int rumble_l_strength { set => bank.setBankByte((byte)(value.enterRound(0, 255)), 2); }
+        public int rumble_l { set => bank.setBankByte(((byte)value.enterRound(0, 255)), 0); }
+        public int rumble_r { set => bank.setBankByte(((byte)value.enterRound(0, 255)), 1); }
 
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E6%89%8B%E6%9F%84%E8%8A%82%E7%82%B9.md";

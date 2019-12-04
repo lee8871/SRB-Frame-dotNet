@@ -6,7 +6,7 @@ namespace SRB.NodeType.Charger
     {
         internal int mOhm(int num)
         {
-            return (short)getBankUshort(num * 2);
+            return (short)bank.getBankUshort(num * 2);
         }
 
         internal InnResCluster(Frame.BaseNode n)
