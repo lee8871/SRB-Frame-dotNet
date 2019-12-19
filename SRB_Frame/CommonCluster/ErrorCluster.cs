@@ -1,7 +1,7 @@
 ﻿using System;
-namespace SRB.Frame.Cluster
+namespace SRB.Frame
 {
-    public class ErrorCluster : ICluster
+    public class ErrorCluster : BaseNode.ICluster
     {
         public string error_text { get => bank.getBankString(1, 24); }
         public int err_num { get => (int)bank.getBankByte(0); }
@@ -17,7 +17,7 @@ namespace SRB.Frame.Cluster
         {
             throw new Exception("read only cluster can not write.");
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new ErrorCC(this);
         }

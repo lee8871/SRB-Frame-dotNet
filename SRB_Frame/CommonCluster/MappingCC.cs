@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SRB.Frame.Cluster
+namespace SRB.Frame
 {
     internal partial class MappingCC : IClusterControl
     {

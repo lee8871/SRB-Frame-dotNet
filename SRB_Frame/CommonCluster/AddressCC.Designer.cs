@@ -1,4 +1,4 @@
-﻿namespace SRB.Frame.Cluster
+﻿namespace SRB.Frame
 {
     partial class AddressCC
     {
@@ -38,7 +38,6 @@
             this.lowBTN = new System.Windows.Forms.Button();
             this.closeBTN = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.Update = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,11 +85,6 @@
             // AddrNUM
             // 
             this.AddrNUM.Location = new System.Drawing.Point(147, 26);
-            this.AddrNUM.Maximum = new decimal(new int[] {
-            199,
-            0,
-            0,
-            0});
             this.AddrNUM.Name = "AddrNUM";
             this.AddrNUM.Size = new System.Drawing.Size(50, 21);
             this.AddrNUM.TabIndex = 7;
@@ -138,23 +132,10 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Addr Color:";
             // 
-            // Update
-            // 
-            this.Update.BackgroundImage = global::SRB_Frame.Properties.Resources.thunder_512px_1175878_easyicon_net;
-            this.Update.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Update.Location = new System.Drawing.Point(185, 0);
-            this.Update.Name = "Update";
-            this.Update.Size = new System.Drawing.Size(23, 23);
-            this.Update.TabIndex = 9;
-            this.Update.UseMnemonic = false;
-            this.Update.UseVisualStyleBackColor = true;
-            this.Update.Click += new System.EventHandler(this.Update_Click);
-            // 
             // AddressCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Update);
             this.Controls.Add(this.closeBTN);
             this.Controls.Add(this.lowBTN);
             this.Controls.Add(this.highBTN);
@@ -175,7 +156,6 @@
             this.Controls.SetChildIndex(this.highBTN, 0);
             this.Controls.SetChildIndex(this.lowBTN, 0);
             this.Controls.SetChildIndex(this.closeBTN, 0);
-            this.Controls.SetChildIndex(this.Update, 0);
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -193,6 +173,5 @@
         private System.Windows.Forms.Button lowBTN;
         private System.Windows.Forms.Button closeBTN;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button Update;
     }
 }

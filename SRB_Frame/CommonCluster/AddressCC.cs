@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SRB.Frame.Cluster
+namespace SRB.Frame
 {
     internal partial class AddressCC : IClusterControl
     {
-        private AddressCluster cluster;
-        public AddressCC(AddressCluster c) : base(c)
+        private BaseNode.AddressCluster cluster;
+        public AddressCC(BaseNode.AddressCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
@@ -31,7 +31,7 @@ namespace SRB.Frame.Cluster
 
         protected override void DataUpdata()
         {
-            if (cluster.addr <= 199)
+            if (cluster.addr <= 99)
             {
                 this.AddrNUM.Value = cluster.addr;
             }
@@ -91,17 +91,17 @@ namespace SRB.Frame.Cluster
 
         private void highBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(AddressCluster.LedAddrType.High);
+            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.High);
         }
 
         private void lowBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(AddressCluster.LedAddrType.Low);
+            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.Low);
         }
 
         private void closeBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(AddressCluster.LedAddrType.Close);
+            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.Close);
         }
 
         private void Update_Click(object sender, EventArgs e)

@@ -7,17 +7,17 @@ namespace SRB.NodeType.Charger
 {
     internal partial class ChangerControl : INodeControl
     {
-        private Node node;
+        private Interpreter datas;
 
-        public ChangerControl(Node n) :
+        public ChangerControl(BaseNode n) :
             base(n)
         {
-            node = n;
+            datas = (Interpreter)n.Datas;
             InitializeComponent();
             MorseTB.KeyPress += MorseTB_KeyPress;
-            node.eBankChangeByAccess += Node_eBankChangeByAccess;
-            node.eDataAccessRecv += Node_eDataAccessRecv;
-            node.singleAccess(2, 0);
+            n.eBankChangeByAccess += Node_eBankChangeByAccess;
+            n.eDataAccessRecv += Node_eDataAccessRecv;
+            datas.addDataAccess(2,false, 0);
             this.ToolTips.SetToolTip(PlayBTN, "Click to play morse.");
             this.ToolTips.SetToolTip(BatteryPowerLedBTN, "Click to Toggle Voltage LED On PCB.");
             this.ToolTips.SetToolTip(MuteBTN, "Click to Enable or disable buzzer alram.");
@@ -26,17 +26,17 @@ namespace SRB.NodeType.Charger
 
         private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
         {
-            this.node.buzzer_commend = 0x80;
+            this.datas.buzzer_commend = 0x80;
         }
 
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
-            this.BatteryValueLAB.Text = (((double)node.battery_voltage) / 1000.0).ToString("0.000") + "V";
-            this.ChangeVottageBar.Value = node.battery_voltage.enterRound(6000, 8400); ;
-            this.ChargeTimerLAB.Text = node.charge_second.ToString() + "S";
-            this.CapacityLAB.Text = ((node.capacity * 100.0) / 1024).ToString("0.0") + "%";
-            this.statusLAB.Text = node.getStatues();
-            if (node.cmd_charge_enable)
+            this.BatteryValueLAB.Text = (((double)datas.battery_voltage) / 1000.0).ToString("0.000") + "V";
+            this.ChangeVottageBar.Value = datas.battery_voltage.enterRound(6000, 8400); ;
+            this.ChargeTimerLAB.Text = datas.charge_second.ToString() + "S";
+            this.CapacityLAB.Text = ((datas.capacity * 100.0) / 1024).ToString("0.0") + "%";
+            this.statusLAB.Text = datas.getStatues();
+            if (datas.cmd_charge_enable)
             {
                 this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
             }
@@ -44,7 +44,7 @@ namespace SRB.NodeType.Charger
             {
                 this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175309;
             }
-            if (node.is_Mute)
+            if (datas.is_Mute)
             {
                 this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175310;
             }
@@ -52,7 +52,7 @@ namespace SRB.NodeType.Charger
             {
                 this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175710;
             }
-            if (node.is_PowerLEDRun)
+            if (datas.is_PowerLEDRun)
             {
                 this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175695;
             }
@@ -119,10 +119,10 @@ namespace SRB.NodeType.Charger
 
         private void PlayBTN_Click(object sender, EventArgs e)
         {
-            node.play(MorseTB.Text);
+            datas.play(MorseTB.Text);
             if (is_running == false)
             {
-                node.singleAccess(1);
+                datas.addDataAccess(1);
             }
 
         }
@@ -130,33 +130,33 @@ namespace SRB.NodeType.Charger
 
         private void sendTimer_Tick(object sender, EventArgs e)
         {
-            node.singleAccess(1);
+            datas.addDataAccess(1);
         }
 
         private void BatteryPowerLedBTN_Click(object sender, EventArgs e)
         {
-            node.is_PowerLEDRun = !node.is_PowerLEDRun;
+            datas.is_PowerLEDRun = !datas.is_PowerLEDRun;
             if (is_running == false)
             {
-                node.singleAccess(1);
+                datas.addDataAccess(1);
             }
         }
 
         private void ChangeEnableBTN_Click(object sender, EventArgs e)
         {
-            node.cmd_charge_enable = !node.cmd_charge_enable;
+            datas.cmd_charge_enable = !datas.cmd_charge_enable;
             if (is_running == false)
             {
-                node.singleAccess(1);
+                datas.addDataAccess(1);
             }
         }
 
         private void MuteBTN_Click(object sender, EventArgs e)
         {
-            node.is_Mute = !node.is_Mute;
+            datas.is_Mute = !datas.is_Mute;
             if (is_running == false)
             {
-                node.singleAccess(1);
+                datas.addDataAccess(1);
             }
         }
     }

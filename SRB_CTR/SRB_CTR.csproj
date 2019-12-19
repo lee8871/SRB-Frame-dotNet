@@ -78,6 +78,7 @@
   <PropertyGroup>
     <ApplicationIcon>110618274272.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,15 +93,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Updater\SRB_update_uc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Updater\SRB_update_uc.Designer.cs">
+      <DependentUpon>SRB_update_uc.cs</DependentUpon>
+    </Compile>
     <Compile Include="others\logWriter.cs" />
-    <Compile Include="nsBrain\Brain_test2.cs" />
-    <Compile Include="nsBrain\Brain_Test.cs" />
+    <Compile Include="others\nsBrain\Brain_test2.cs" />
+    <Compile Include="others\nsBrain\Brain_Test.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Brain.cs" />
+    <Compile Include="IBrain.cs" />
     <Compile Include="Form\scanNodeState.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,7 +122,8 @@
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </Compile>
     <Compile Include="others\Expand_Stopwatch.cs" />
-    <Compile Include="SRB_oneline_master.cs" />
+    <Compile Include="Specializer.cs" />
+    <Compile Include="SrbOnelineMaster.cs" />
     <Compile Include="Form\mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,17 +133,19 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="others\ColorHelper.cs" />
+    <Compile Include="Updater\SupLoader.cs" />
+    <Compile Include="Updater\UpdateAll.cs" />
     <EmbeddedResource Include="Form\scanNodeState.resx">
       <DependentUpon>scanNodeState.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\SRB_record_uc.byn.resx">
-      <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Updater\SRB_update_uc.resx">
+      <DependentUpon>SRB_update_uc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -160,6 +170,7 @@
     <Content Include="Resources\Connect.png" />
     <Content Include="Resources\Disconnect.png" />
     <Content Include="Resources\Edit.png" />
+    <None Include="Resources\File.png" />
     <Content Include="Resources\Pause.png" />
     <Content Include="Resources\Scan.png" />
   </ItemGroup>

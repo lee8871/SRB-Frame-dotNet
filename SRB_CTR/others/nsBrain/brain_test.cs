@@ -3,16 +3,16 @@ namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test : IBrain
     {
-        private SRB.NodeType.Du_motor.Node[] motors = new SRB.NodeType.Du_motor.Node[4];
+        private SRB.NodeType.Du_motor.Interpreter[] motors = new SRB.NodeType.Du_motor.Interpreter[4];
         private Random rnd = new Random();
-        public Brain_Test(SRB_oneline_master f) : base(f)
+        public Brain_Test(SrbOnelineMaster f) : base(f)
         {
             period_in_ms = 1;
         }
 
 
         protected override void nodesBuildUp()
-        {
+        {/*
             for (int i = 0; i < 4; i++)
             {
                 if (motors[i] == null)
@@ -23,7 +23,7 @@ namespace SRB_CTR.nsBrain
                 {
                     motors[i] = new SRB.NodeType.Du_motor.Node((byte)(i + 2), frame);
                 }
-            }
+            }*/
 
         }
         protected override void setup()
@@ -55,7 +55,7 @@ namespace SRB_CTR.nsBrain
                     i++;
                     try
                     {
-                        motors[motor_num].addAccess(0);
+                        motors[motor_num].addDataAccess(0);
                     }
                     catch { }
                 }
@@ -71,7 +71,7 @@ namespace SRB_CTR.nsBrain
                     i++;
                     try
                     {
-                        motors[motor_num].addAccess(0);
+                        motors[motor_num].addDataAccess(0);
                     }
                     catch { }
                 }

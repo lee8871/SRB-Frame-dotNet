@@ -5,7 +5,7 @@ namespace SRB.Frame
 {
     public partial class IClusterControl : UserControl
     {
-        private ICluster cluster;
+        private BaseNode.ICluster cluster;
         private bool enable_write = true;
 
         public bool Enable_write { get => enable_write; set => OnEnable_write(value); }
@@ -14,7 +14,7 @@ namespace SRB.Frame
         {
             this.writeBTN.Visible = enable_write = value;
         }
-        public IClusterControl(ICluster c = null)
+        public IClusterControl(BaseNode.ICluster c = null)
         {
             InitializeComponent();
             this.writeBTN.Visible = enable_write;

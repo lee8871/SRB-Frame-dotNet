@@ -1,10 +1,9 @@
 ﻿using SRB.Frame;
-using SRB.Frame.Cluster;
 using System;
 
 namespace SRB.NodeType.Charger
 {
-    public class Node : BaseNode
+    public class Interpreter : BaseNode.INodeInterpreter
     {
         public byte buzzer_now => bank.getBankByte(0);
 
@@ -116,16 +115,16 @@ namespace SRB.NodeType.Charger
         internal InnResCluster inn_res_clu;
         public void init()
         {
-            cfg_clu = new BatteryCluster(this);
+            cfg_clu = new BatteryCluster(Node);
             clusters[cfg_clu.CID] = cfg_clu;
 
-            morse_clu = new MorseCluster(this);
+            morse_clu = new MorseCluster(Node);
             clusters[morse_clu.CID] = morse_clu;
 
-            inn_res_clu = new InnResCluster(this);
+            inn_res_clu = new InnResCluster(Node);
             clusters[inn_res_clu.CID] = inn_res_clu;
 
-            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
+            Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
             clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -137,7 +136,7 @@ namespace SRB.NodeType.Charger
         }
         private void updataMapping(object sender, EventArgs e)
         {
-            bankInit(new byte[][]{
+            Node.bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
                 new byte[]  {10,2, 0,1, 2,3, 4,5, 6,7, 8,9,10,11}       ,
                 new byte[]  {1,0,11},
@@ -145,23 +144,15 @@ namespace SRB.NodeType.Charger
             });
         }
 
-        public Node(byte addr, IMaster f = null)
-            : base(addr, f)
-        {
-            init();
-        }
-        public Node(BaseNode n)
+        public Interpreter(BaseNode n)
             : base(n)
         {
             init();
         }
-        public override System.Windows.Forms.Control getClusterControl()
+        protected override System.Windows.Forms.Control createControl()
         {
-            return new ChangerControl(this);
+            return new ChangerControl(this.Node);
         }
-        public override string Describe()
-        {
-            return @"";
-        }
+        public override string Describe => @"";
     }
 }

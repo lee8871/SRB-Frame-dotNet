@@ -173,14 +173,18 @@
   <data name="&gt;&gt;typeL.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="factorySettingBTN.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
   <data name="factorySettingBTN.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt, style=Bold</value>
   </data>
   <data name="factorySettingBTN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>193, 34</value>
+    <value>205, 0</value>
   </data>
   <data name="factorySettingBTN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 23</value>
+    <value>27, 27</value>
   </data>
   <data name="factorySettingBTN.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -197,17 +201,17 @@
   <data name="&gt;&gt;factorySettingBTN.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="ResetNodeBTN.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
   <data name="ResetNodeBTN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 34</value>
+    <value>179, 0</value>
   </data>
   <data name="ResetNodeBTN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>27, 27</value>
   </data>
   <data name="ResetNodeBTN.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
-  </data>
-  <data name="ResetNodeBTN.Text" xml:space="preserve">
-    <value>Reset</value>
   </data>
   <data name="&gt;&gt;ResetNodeBTN.Name" xml:space="preserve">
     <value>ResetNodeBTN</value>
@@ -221,31 +225,28 @@
   <data name="&gt;&gt;ResetNodeBTN.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="Update.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 39</value>
+  <data name="Update.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 0</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 12</value>
+  <data name="Update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 27</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="Update.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Factory Setting:</value>
+  <data name="&gt;&gt;Update.Name" xml:space="preserve">
+    <value>Update</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;Update.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;Update.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;Update.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -254,11 +255,8 @@
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 12</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 60</value>
-  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>InformationControl</value>
+    <value>InformationCC</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>SRB.Frame.IClusterControl, SRB_Frame, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>

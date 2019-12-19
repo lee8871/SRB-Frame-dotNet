@@ -1,10 +1,9 @@
 ﻿using SRB.Frame;
-using SRB.Frame.Cluster;
 using System;
 
 namespace SRB.NodeType.Du_motor
 {
-    public class Node : BaseNode
+    public class Interpreter : BaseNode.INodeInterpreter
     {
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
@@ -54,11 +53,11 @@ namespace SRB.NodeType.Du_motor
         }
         public void init()
         {
-            motor_clu = new ConfigCluster(this);
+            motor_clu = new ConfigCluster(Node);
             clusters[motor_clu.CID] = motor_clu;
-            adj_clu = new AdjustCluster(this);
+            adj_clu = new AdjustCluster(Node);
             clusters[adj_clu.CID] = adj_clu;
-            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
+            Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
             clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -68,33 +67,24 @@ namespace SRB.NodeType.Du_motor
 
         private void updataMapping(object sender, EventArgs e)
         {
-            bankInit(new byte[][]{
+            Node.bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
                 new byte[] {0,4,0,1,2,3}                  ,
                 new byte[] {0,2,0,2}             ,
                 new byte[] {0,4,2,3,0,1}
             });
         }
-        public Node(byte addr, IMaster f = null)
-            : base(addr, f)
-        {
-            init();
-        }
-
-        public Node(BaseNode n)
+        public Interpreter(BaseNode n)
             : base(n)
         {
             init();
         }
 
 
-        public override System.Windows.Forms.Control getClusterControl()
+        protected override System.Windows.Forms.Control createControl()
         {
-            return new Ctrl(this);
+            return new Ctrl(Node);
         }
-        public override string Describe()
-        {
-            return @"This node drivers two motors. Without speed or force sensor";
-        }
+        public override string Describe => @"This node drivers two motors. Without speed or force sensor";
     }
 }

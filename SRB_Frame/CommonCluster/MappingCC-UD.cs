@@ -1,4 +1,4 @@
-﻿namespace SRB.Frame.Cluster.ud
+﻿namespace SRB.Frame.ud
 {
     internal partial class MappingCC : IClusterControl
     {

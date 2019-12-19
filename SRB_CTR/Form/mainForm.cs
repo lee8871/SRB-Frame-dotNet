@@ -8,10 +8,10 @@ namespace SRB_CTR
 {
     public partial class mainForm : Form
     {
-        private SRB_oneline_master backlogic;
+        private SrbOnelineMaster backlogic;
         private Control config_ctrl;
         private Size nodeSize = new Size(70, 48);
-        public mainForm(SRB_oneline_master pa)
+        public mainForm(SrbOnelineMaster pa)
         {
             InitializeComponent();
             nodesTable.BackColor = support.Color_BackGround;
@@ -24,9 +24,6 @@ namespace SRB_CTR
             brainRunStateUpdate();
             stopAddrShowBTN.Visible = false;
             // cycleSet(this, null);
-            backlogic.eNode_register += new SRB_oneline_master.dNodeChange(addNode);
-            backlogic.eNode_unregister += new SRB_oneline_master.dNodeChange(removeNode);
-            backlogic.eNode_change += new SRB_oneline_master.dNodeChange(changeNode);
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  @  " +
@@ -58,51 +55,8 @@ namespace SRB_CTR
                 b.Tag = n;
                 nodeButtonSet(b);
                 this.nodesTable.Controls.Add(b);
-            }
-        }
-        public void changeNode(BaseNode n)
-        {
-            if (this.InvokeRequired)
-            {
-                dElegateNode d = new dElegateNode(changeNode);
-                this.Invoke(d, new object[] { n });
-            }
-            else
-            {
-                if (n.Tag == null)
-                {
-                    throw new Exception("Node dose not have a tag");
-                }
-                Button b = (Button)n.Tag;
-                b.Tag = n;
-                nodeButtonSet(b);
-            }
-        }
-
-        public void nodeStringSet(BaseNode n)
-        {
-            if (this.InvokeRequired)
-            {
-                dElegateNode d = new dElegateNode(changeNode);
-                this.Invoke(d, new object[] { n });
-            }
-            else
-            {
-                if (n.Tag == null)
-                {
-                    throw new Exception("Node dose not have a tag");
-                }
-                Button b = (Button)n.Tag;
-                b.Text = getNodeString(n);
-                if (n.Addr >= 100)
-                {
-                    b.ForeColor = support.Color_red;
-                }
-                else
-                {
-                    b.ForeColor = support.Color_dank;
-                }
-                this.NodeTipTT.SetToolTip(b, n.ToolTip());
+                n.eChangeDescription += new dNodeUpdateEvent(nodeStringSet);
+                n.eDispossing += new dNodeUpdateEvent(removeNode);
             }
         }
 
@@ -116,10 +70,47 @@ namespace SRB_CTR
             nodeStringSet(n);
 
         }
+        public void nodeStringSet(BaseNode n)
+        {
+            if (this.InvokeRequired)
+            {
+                dElegateNode d = new dElegateNode(nodeStringSet);
+                this.Invoke(d, new object[] { n });
+            }
+            else
+            {
+                if (n.Tag == null)
+                {
+                    throw new Exception("Node dose not have a tag");
+                }
+                Button b = (Button)n.Tag;
+                if (n.Is_in_update)
+                {
+                    b.Text = string.Format("A:{0}\n{1}", n.Addr,"Update");
+                    b.ForeColor = support.Color_navy;
+
+                }
+                else
+                {
+                    b.Text = getNodeString(n);
+                    if (n.Addr >= 100)
+                    {
+                        b.ForeColor = support.Color_red;
+                    }
+                    else
+                    {
+                        b.ForeColor = support.Color_dank;
+                    }
+                }
+                this.NodeTipTT.SetToolTip(b, n.GetToolTip());
+            }
+        }
+
+
 
         private string getNodeString(BaseNode n)
         {
-            return string.Format("A:{0}\n{1}", n.Addr, n.Name);
+            return string.Format("{0}\n{1}", n.Addr, n.Name);
         }
 
         public void removeNode(BaseNode n)
@@ -145,8 +136,8 @@ namespace SRB_CTR
             Button b = (Button)sender;
             BaseNode n = (BaseNode)(b.Tag);
             Node_form nf = n.getForm();
-            nf.ShowAt((System.Windows.Forms.Control)sender);
-            changeNode(n);
+            nf.showAt((System.Windows.Forms.Control)sender);
+           // changeNode(n);
         }
 
 
@@ -200,7 +191,7 @@ namespace SRB_CTR
                 if (config_ctrl != null) config_ctrl.Enabled = false;
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
                 backlogic.endScan();
-                foreach (BaseNode n in backlogic.Nodes)
+                foreach (BaseNode n in backlogic.Bus)
                 {
                     if (n != null)
                     {
@@ -250,19 +241,19 @@ namespace SRB_CTR
             {
                 if (addr_show_sno == 6000)
                 {
-                    backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                    backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
                     stopAddrShowBTN_Click(this, null);
                 }
                 switch (addr_show_sno % 3)
                 {
                     case 0:
-                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.High);
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.High);
                         break;
                     case 1:
-                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Low);
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Low);
                         break;
                     case 2:
-                        backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
                         break;
                 }
                 addr_show_sno++;
@@ -273,10 +264,10 @@ namespace SRB_CTR
         private void setPortState()
         {
             bool port_status;
-            port_status = backlogic.Is_port_opend;
+            port_status = backlogic.Bus.Is_opened; 
             if (port_status != last_port_status)
             {
-                if (backlogic.Is_port_opend)
+                if (backlogic.Bus.Is_opened)
                 {
                     this.srbRunning();
                 }
@@ -319,7 +310,7 @@ namespace SRB_CTR
             is_addr_show_on = false;
             this.stopAddrShowBTN.Visible = false;
             this.beginAddrShowBTN.Visible = true;
-            backlogic.ledAddrAll(SRB.Frame.Cluster.AddressCluster.LedAddrType.Close);
+            backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
         }
 
         private void beginAddrShowBTN_Click(object sender, EventArgs e)
@@ -412,10 +403,26 @@ namespace SRB_CTR
         {
 
         }
-
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        private UpdateAll_uc update_all_ctrll;
+        private void updateAll_Click(object sender, EventArgs e)
         {
-            backlogic.testUpdate(50) ;
+            if (update_all_ctrll == null)
+            {
+                update_all_ctrll = new UpdateAll_uc(this.backlogic);
+                frameCounterFLP.Controls.Add(update_all_ctrll);
+                update_all_ctrll.Show();
+            }
+            else
+            {
+                if (update_all_ctrll.Visible)
+                {
+                    update_all_ctrll.Hide();
+                }
+                else
+                {
+                    update_all_ctrll.Show();
+                }
+            }
 
         }
 

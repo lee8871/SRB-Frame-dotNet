@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace SRB_CTR
 {
-    internal class SRB_Record
+    internal class SRB_Record:ISRB_Record
     {
         private bool is_running = false;
         private string fileName;
@@ -62,7 +62,7 @@ namespace SRB_CTR
         }
 
 
-        public void add(Access ac)
+        public void addAccess(Access ac)
         {
             if (is_running)
             {

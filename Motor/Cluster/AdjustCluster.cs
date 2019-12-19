@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Du_motor
 {
-    internal class AdjustCluster : ICluster
+    internal class AdjustCluster : BaseNode.ICluster
     {
         public byte adj { get => bank.getBankByte(0); set => bank.setBankByte(value, 0); }
         public bool motor_a_tog { get => bank.getBankBool(1); set => bank.setBankBool(value, 1); }
@@ -10,7 +10,7 @@ namespace SRB.NodeType.Du_motor
 
         public AdjustCluster(BaseNode n)
             : base(n, 11, 3) { }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new AdjustCC(this);
         }

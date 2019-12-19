@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class MorseCluster : ICluster
+    internal class MorseCluster : BaseNode.ICluster
     {
         internal byte power_on { get => bank.getBankByte(0); set => bank.setBankByte(value, 0); }
         internal byte jack_in_vot_low { get => bank.getBankByte(1); set => bank.setBankByte(value, 1); }
@@ -16,7 +16,7 @@ namespace SRB.NodeType.Charger
             : base(n, 12, 8)
         {
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new MorseCC(this);
         }

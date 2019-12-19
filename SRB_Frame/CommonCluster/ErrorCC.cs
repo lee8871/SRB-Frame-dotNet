@@ -1,4 +1,4 @@
-﻿namespace SRB.Frame.Cluster
+﻿namespace SRB.Frame
 {
     internal partial class ErrorCC : IClusterControl
     {

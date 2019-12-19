@@ -13,13 +13,53 @@ namespace SRB.Frame
             components = new System.ComponentModel.Container();
             this.clusters.BackColor = support.Color_BackGround;
             node = n;
+            Node_eUpdateModeChanging(this, null);
+            node.eUpdateModeChanging += Node_eUpdateModeChanging;
+        }
+
+        private void Node_eUpdateModeChanging(object sender, EventArgs e)
+        {
+            foreach (var c in this.clusters.Controls)
+            {
+                GroupBox b = c as GroupBox;
+                if (b.Controls.Count != 0)
+                {
+                    b.Controls[0].Dispose();
+                }
+            }
+            this.clusters.Controls.Clear();
+            if (node.Is_in_update)
+            {
+                initUpdate();
+            }
+            else
+            {
+                initNormal();
+            }
+        }
+
+        public void initUpdate()
+        {
             updateText();
-            string[] st_a = n.getClusterTable();
             GroupBox b;
             b = new GroupBox();
             components.Add(b);
-            b.Tag = null;
-            b.Text = "Function test";
+            b.Tag = node.Updater;
+            b.Text = node.Updater.ToString();
+            b.Size = b.MinimumSize = new Size(300, 18);
+            b.MaximumSize = new Size(300, 300);
+            b.Click += new EventHandler(b_Click);
+            b.BackColor = Color.FromKnownColor(KnownColor.Control);
+            this.clusters.Controls.Add(b);
+        }
+        public void initNormal() 
+        {
+            updateText();
+            GroupBox b;
+            b = new GroupBox();
+            components.Add(b);
+            b.Tag = node.Datas;
+            b.Text = node.Datas.ToString();
             b.Size = b.MinimumSize = new Size(300, 18);
             b.MaximumSize = new Size(300, 300);
             b.Click += new EventHandler(b_Click);
@@ -28,12 +68,13 @@ namespace SRB.Frame
 
             for (int i = 0; i < 128; i++)
             {
-                if (st_a[i] != null)
+                BaseNode.INodeControlOwner cluster = node.getClusters(i);
+                if (cluster != null)
                 {
                     b = new GroupBox();
                     components.Add(b);
-                    b.Tag = i;
-                    b.Text = st_a[i];
+                    b.Tag = cluster;
+                    b.Text = cluster.ToString();
                     b.Size = b.MinimumSize = new Size(300, 18);
                     b.MaximumSize = new Size(300, 300);
                     b.Click += new EventHandler(b_Click);
@@ -53,16 +94,8 @@ namespace SRB.Frame
             Control c;
             if (b.Controls.Count == 0)
             {
-                if (b.Tag != null)
-                {
-                    c = node.getClusterControl((int)b.Tag);
-                    components.Add(c);
-                }
-                else
-                {
-                    c = node.getClusterControl();
-                    components.Add(c);
-                }
+                c = (b.Tag as BaseNode.INodeControlOwner).getControl();
+                components.Add(c);
                 b.Controls.Add(c);
                 c.Dock = DockStyle.Fill;
                 c.Enabled = false;
@@ -71,6 +104,7 @@ namespace SRB.Frame
             {
                 c = b.Controls[0];
             }
+
             if (c.Enabled)
             {
                 c.Enabled = false;
@@ -103,7 +137,7 @@ namespace SRB.Frame
             base.OnClosed(e);
             node = null;
         }
-        public void ShowAt(Control reference)
+        public void showAt(Control reference)
         {
             this.Location = LocationOnClient(reference);
             this.Show();
@@ -122,9 +156,7 @@ namespace SRB.Frame
             return retval;
         }
 
-        private void read_clusterMS_Click(object sender, EventArgs e)
-        {
-
-        }
     }
+
+
 }

@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class InnResCluster : ICluster
+    internal class InnResCluster : BaseNode.ICluster
     {
         internal int mOhm(int num)
         {
@@ -14,7 +14,7 @@ namespace SRB.NodeType.Charger
         {
 
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new InnResCC(this);
         }

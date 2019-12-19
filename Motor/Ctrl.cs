@@ -6,12 +6,12 @@ namespace SRB.NodeType.Du_motor
 {
     internal partial class Ctrl : INodeControl
     {
-        private Node node;
+        private Interpreter datas;
         private string Handle_text;
-        public Ctrl(Node n) :
+        public Ctrl(BaseNode n) :
             base(n)
         {
-            node = n;
+            datas = (Interpreter)n.Datas;
             InitializeComponent();
             Handle_text = handleBTN.Text;
         }
@@ -27,22 +27,22 @@ namespace SRB.NodeType.Du_motor
                     Point moues = this.PointToClient(Control.MousePosition);
                     x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
                     y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
-                    node.Speed_a = (x + y);
-                    node.Speed_b = (x - y);
+                    datas.Speed_a = (x + y);
+                    datas.Speed_b = (x - y);
                     this.handleBTN.Text = Handle_text + "\n" + (x + y) + " × " + (x - y);
                 }
                 else if (this.StopBTN.Capture)
                 {
                     x = 0;
                     y = 0;
-                    node.Speed_a = (x + y);
-                    node.Speed_b = (x - y);
+                    datas.Speed_a = (x + y);
+                    datas.Speed_b = (x - y);
                     this.handleBTN.Text = Handle_text + "\n" + (x + y) + " × " + (x - y);
                 }
                 else if (this.BrakeBTN.Capture)
                 {
-                    node.Brake_a = 10000;
-                    node.Brake_b = 10000;
+                    datas.Brake_a = 10000;
+                    datas.Brake_b = 10000;
                     this.handleBTN.Text = Handle_text + "\n" + "Braking";
 
                 }

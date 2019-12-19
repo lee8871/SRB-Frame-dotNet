@@ -2,12 +2,12 @@
 using System.Windows.Forms;
 
 
-namespace SRB.Frame.Cluster
+namespace SRB.Frame
 {
     public partial class InformationCC : IClusterControl
     {
-        private InformationCluster cluster;
-        public InformationCC(InformationCluster c) : base(c)
+        private BaseNode.InformationCluster cluster;
+        public InformationCC(BaseNode.InformationCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
@@ -39,7 +39,9 @@ namespace SRB.Frame.Cluster
             }
         }
 
-
-
+        private void Update_Click(object sender, EventArgs e)
+        {
+            cluster.gotoUpdateMode();
+        }
     }
 }

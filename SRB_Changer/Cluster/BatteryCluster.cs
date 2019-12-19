@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class BatteryCluster : ICluster
+    internal class BatteryCluster : BaseNode.ICluster
     {
         internal int Low_voltage { get => bank.getBankUshort(0); set => bank.setBankUshort((ushort)value, 0); }
         internal int Max_charge_current { get => bank.getBankUshort(2); set => bank.setBankUshort((ushort)value, 2); }
@@ -17,7 +17,7 @@ namespace SRB.NodeType.Charger
         {
 
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new BatteryCC(this);
         }

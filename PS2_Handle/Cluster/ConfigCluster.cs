@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.PS2_Handle
 {
-    internal class ConfigCluster : ICluster
+    internal class ConfigCluster : BaseNode.ICluster
     {
         public int online_rumble_10ms { get => bank.getBankByte(0); set => bank.setBankByte((byte)value, 0); }
         public int lose_rumble_10ms { get => bank.getBankByte(1); set => bank.setBankByte((byte)value, 1); }
@@ -14,7 +14,7 @@ namespace SRB.NodeType.PS2_Handle
         {
 
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new ConfigCC(this);
         }

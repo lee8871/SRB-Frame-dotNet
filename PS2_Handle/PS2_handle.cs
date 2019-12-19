@@ -1,10 +1,9 @@
 ﻿using SRB.Frame;
-using SRB.Frame.Cluster;
 using System;
 
 namespace SRB.NodeType.PS2_Handle
 {
-    public class Node : BaseNode
+    public class Interpreter : BaseNode.INodeInterpreter
     {
         public int joy_rx => toJoy(5);
         public int joy_ry => toJoy(6);
@@ -74,10 +73,10 @@ namespace SRB.NodeType.PS2_Handle
 
         public void init()
         {
-            cfg_clu = new ConfigCluster(this);
+            cfg_clu = new ConfigCluster(Node);
             clusters[cfg_clu.CID] = cfg_clu;
 
-            Mapping0_clu = new MappingCluster(3, this, "Mapping0");
+            Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
             clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
@@ -86,7 +85,7 @@ namespace SRB.NodeType.PS2_Handle
 
         private void updataMapping(object sender, EventArgs e)
         {
-            bankInit(new byte[][]{
+            Node.bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
                 new byte[]{6,3, 3,4,5,6,7,8,        0,1,2},
                 new byte[]{4,3, 5,6,7,8,            0,1,2},
@@ -94,33 +93,17 @@ namespace SRB.NodeType.PS2_Handle
             });
         }
 
-        public Node(byte addr, IMaster f = null)
-            : base(addr, f)
-        {
-            init();
-        }
 
-        public Node(BaseNode n)
+        public Interpreter(BaseNode n)
             : base(n)
         {
             init();
         }
-        public void bulidUpD0()
+
+        protected override System.Windows.Forms.Control createControl()
         {
-            this.addAccess(0, 0);
+            return new PS2HandleControl(Node);
         }
-        public void bulidUpD0(ushort ms)
-        {
-            rumble_l = ms;
-            this.addAccess(0);
-        }
-        public override System.Windows.Forms.Control getClusterControl()
-        {
-            return new PS2HandleControl(this);
-        }
-        public override string Describe()
-        {
-            return @"";
-        }
+        public override string Describe => @"";
     }
 }

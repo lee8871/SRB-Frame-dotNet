@@ -2,6 +2,10 @@
 
 namespace SRB.Frame
 {
+    public interface IAccesser
+    {
+        void accessDone(Access acs);
+    }
     public class Access
     {
         //about Note

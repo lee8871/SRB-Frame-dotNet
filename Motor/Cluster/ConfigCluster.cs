@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Du_motor
 {
-    internal class ConfigCluster : ICluster
+    internal class ConfigCluster : BaseNode.ICluster
     {
         public ushort min_pwm_a { get => bank.getBankUshort(0); set => bank.setBankUshort(value, 0); }
         public ushort min_pwm_b { get => bank.getBankUshort(2); set => bank.setBankUshort(value, 2); }
@@ -14,7 +14,7 @@ namespace SRB.NodeType.Du_motor
             : base(n, 10, 8)
         {
         }
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new ConfigCC(this);
         }

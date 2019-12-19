@@ -20,8 +20,9 @@ namespace SRB_CTR
             Application.SetCompatibleTextRenderingDefault(false);
             cp = Process.GetCurrentProcess();
             cp.PriorityClass = ProcessPriorityClass.RealTime;
-            // showfortest();
-            SRB_oneline_master main_srb = new SRB_oneline_master();
+
+            SRB.Frame.BaseNode.specializer = new Specializer();
+            SrbOnelineMaster main_srb = new SrbOnelineMaster();
             Application.Run(main_srb.Nodes_form);
 
         }

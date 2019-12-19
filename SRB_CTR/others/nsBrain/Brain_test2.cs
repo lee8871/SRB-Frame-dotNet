@@ -3,52 +3,52 @@ namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test2 : IBrain
     {
-        public Brain_Test2(SRB_oneline_master f) : base(f)
+        public Brain_Test2(SrbOnelineMaster f) : base(f)
         {
             period_in_ms = 2;
         }
 
-        private SRB.NodeType.Du_motor.Node left;
-        private SRB.NodeType.Du_motor.Node right;
-        private SRB.NodeType.Du_motor.Node key_control;
-        private SRB.NodeType.Du_motor.Node key_control2;
-        private SRB.NodeType.PS2_Handle.Node handle;
-        private SRB.NodeType.Charger.Node charger;
+        private SRB.NodeType.Du_motor.Interpreter left;
+        private SRB.NodeType.Du_motor.Interpreter right;
+        private SRB.NodeType.Du_motor.Interpreter key_control;
+        private SRB.NodeType.Du_motor.Interpreter key_control2;
+        private SRB.NodeType.PS2_Handle.Interpreter handle;
+        private SRB.NodeType.Charger.Interpreter charger;
         protected override void nodesBuildUp()
         {
-            foreach (BaseNode n in frame.Nodes)
+            foreach (BaseNode n in frame.Bus)
             {
                 if (n != null)
                 {
-                    if (n is SRB.NodeType.Du_motor.Node)
+                    if (n.Datas is SRB.NodeType.Du_motor.Interpreter)
                     {
                         if (n.Name == "Left")
                         {
-                            left = n as SRB.NodeType.Du_motor.Node;
+                            left = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
                         if (n.Name == "Right")
                         {
-                            right = n as SRB.NodeType.Du_motor.Node;
+                            right = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
                         if (n.Name == "key ctrl")
                         {
-                            key_control = n as SRB.NodeType.Du_motor.Node;
+                            key_control = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
                         if (n.Name == "key ctrl 2")
                         {
-                            key_control2 = n as SRB.NodeType.Du_motor.Node;
+                            key_control2 = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
                     }
-                    else if (n is SRB.NodeType.PS2_Handle.Node)
+                    else if (n.Datas is SRB.NodeType.PS2_Handle.Interpreter)
                     {
                         if (n.Name == "Handle")
                         {
-                            handle = n as SRB.NodeType.PS2_Handle.Node;
+                            handle = n.Datas as SRB.NodeType.PS2_Handle.Interpreter;
                         }
                     }
-                    else if (n is SRB.NodeType.Charger.Node)
+                    else if (n.Datas is SRB.NodeType.Charger.Interpreter)
                     {
-                        charger = n as SRB.NodeType.Charger.Node;
+                        charger = n.Datas as SRB.NodeType.Charger.Interpreter;
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace SRB_CTR.nsBrain
             last_down = false;
             try
             {
-                handle.addAccess(3);
+                handle.addDataAccess(3);
             }
             catch { }
         }
@@ -84,7 +84,7 @@ namespace SRB_CTR.nsBrain
                     }
                     try
                     {
-                        charger.addAccess(1);
+                        charger.addDataAccess(1);
                     }
                     catch { }
                     charger.buzzer_commend = 0x80;
@@ -98,7 +98,7 @@ namespace SRB_CTR.nsBrain
                     }
                     try
                     {
-                        charger.addAccess(1);
+                        charger.addDataAccess(1);
                     }
                     catch { }
                     charger.buzzer_commend = 0x80;
@@ -113,7 +113,7 @@ namespace SRB_CTR.nsBrain
                     }
                     try
                     {
-                        charger.addAccess(1);
+                        charger.addDataAccess(1);
                     }
                     catch { }
                     charger.buzzer_commend = 0x80;
@@ -128,7 +128,7 @@ namespace SRB_CTR.nsBrain
                     }
                     try
                     {
-                        charger.addAccess(1);
+                        charger.addDataAccess(1);
                     }
                     catch { }
                     charger.buzzer_commend = 0x80;
@@ -154,7 +154,7 @@ namespace SRB_CTR.nsBrain
                 {
                     left.Speed_b = handle.joy_lx - handle.joy_ly;
                 }
-                left.addAccess(1);
+                left.addDataAccess(1);
             }
             catch { }
 
@@ -176,7 +176,7 @@ namespace SRB_CTR.nsBrain
                 {
                     right.Speed_a = handle.joy_rx - handle.joy_ry;
                 }
-                right.addAccess(1);
+                right.addDataAccess(1);
             }
             catch { }
 
@@ -184,7 +184,7 @@ namespace SRB_CTR.nsBrain
             {
                 key_control.Speed_a = handle.pressure_l1 - handle.pressure_l2;
                 key_control.Speed_b = handle.pressure_r1 - handle.pressure_r2;
-                key_control.addAccess(1);
+                key_control.addDataAccess(1);
             }
             catch { }
 
@@ -192,13 +192,13 @@ namespace SRB_CTR.nsBrain
             {
                 key_control2.Speed_a = handle.pressure_trag - handle.pressure_cros;
                 key_control2.Speed_b = handle.pressure_squ - handle.pressure_cir;
-                key_control2.addAccess(1);
+                key_control2.addDataAccess(1);
             }
             catch { }
 
             try
             {
-                handle.addAccess(3);
+                handle.addDataAccess(3);
             }
             catch { }
         }
@@ -209,7 +209,7 @@ namespace SRB_CTR.nsBrain
             {//left and right motor
                 left.Speed_a = 0;
                 left.Speed_b = 0;
-                left.addAccess(1);
+                left.addDataAccess(1);
             }
             catch { }
 
@@ -217,7 +217,7 @@ namespace SRB_CTR.nsBrain
             {
                 right.Speed_b = 0;
                 right.Speed_a = 0;
-                right.addAccess(1);
+                right.addDataAccess(1);
             }
             catch { }
 
@@ -225,7 +225,7 @@ namespace SRB_CTR.nsBrain
             {
                 key_control.Speed_a = 0;
                 key_control.Speed_b = 0;
-                key_control.addAccess(1);
+                key_control.addDataAccess(1);
             }
             catch { }
 
@@ -233,7 +233,7 @@ namespace SRB_CTR.nsBrain
             {
                 key_control2.Speed_a = 0;
                 key_control2.Speed_b = 0;
-                key_control2.addAccess(1);
+                key_control2.addDataAccess(1);
             }
             catch { }
         }

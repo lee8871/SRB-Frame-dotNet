@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace SRB.Frame
 {
+
     public partial class INodeControl : UserControl
     {
         private BaseNode node;
@@ -23,7 +24,6 @@ namespace SRB.Frame
         public INodeControl()
         {
             InitializeComponent();
-
         }
 
         private void RunStopBTN_Click(object sender, EventArgs e)
@@ -59,8 +59,7 @@ namespace SRB.Frame
 
         virtual protected void OnAccess()
         {
-
-            node.singleAccess(this.MappingSelectCB.SelectedIndex);
+            node.Datas.addDataAccess(this.MappingSelectCB.SelectedIndex,true);
         }
 
 

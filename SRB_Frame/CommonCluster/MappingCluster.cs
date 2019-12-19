@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SRB.Frame.Cluster
+namespace SRB.Frame
 {
-    public class MappingCluster : ICluster
+    public class MappingCluster : BaseNode.ICluster
     {
         private const int totle_length = 28;
         public int up_len { get => bank.getBankByte(0); }
@@ -43,8 +43,15 @@ namespace SRB.Frame.Cluster
         {
             if (checkMapping(mba) == "done")
             {
-                for(int i =0;i < bank.Length;i++)
-                bank.temp[i]= mba[i];
+                int length = mba.Length;
+                if(length> bank.Length)
+                {
+                    length = bank.Length;
+                }
+                for (int i = 0; i < length; i++)
+                {
+                    bank.temp[i] = mba[i];
+                }
                 return true;
             }
             return false;
@@ -71,7 +78,7 @@ namespace SRB.Frame.Cluster
             return "done";
         }
 
-        public override System.Windows.Forms.UserControl createControl()
+        protected override System.Windows.Forms.Control createControl()
         {
             return new MappingCC(this);
         }

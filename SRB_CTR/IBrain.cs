@@ -6,8 +6,8 @@ namespace SRB_CTR
 {
     internal abstract class IBrain
     {
-        protected SRB_oneline_master frame;
-        public IBrain(SRB_oneline_master f)
+        protected SrbOnelineMaster frame;
+        public IBrain(SrbOnelineMaster f)
         {
             frame = f;
         }
@@ -88,7 +88,7 @@ namespace SRB_CTR
         private void nextRealTimeLoop(long num)
         {
             calculate_time = sw.getElapsedMs();
-            frame.sendAccess();
+            frame.Bus.sendAccess();
             all_time = sw.getElapsedMs();
             if (all_time > period_in_ms)
             {

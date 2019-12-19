@@ -29,28 +29,22 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IClusterControl));
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.readBTN = new System.Windows.Forms.Button();
             this.writeBTN = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
-            // 
             // readBTN
             // 
+            this.readBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175882;
             resources.ApplyResources(this.readBTN, "readBTN");
-            this.readBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._11756821;
             this.readBTN.Name = "readBTN";
             this.readBTN.UseVisualStyleBackColor = true;
             this.readBTN.Click += new System.EventHandler(this.OnReadClick);
             // 
             // writeBTN
             // 
+            this.writeBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175763;
             resources.ApplyResources(this.writeBTN, "writeBTN");
-            this.writeBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._11757631;
             this.writeBTN.Name = "writeBTN";
             this.writeBTN.UseVisualStyleBackColor = true;
             this.writeBTN.Click += new System.EventHandler(this.OnWriteClick);
@@ -69,6 +63,5 @@
         #endregion
         private System.Windows.Forms.Button readBTN;
         private System.Windows.Forms.Button writeBTN;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -36,6 +36,7 @@
             this.AutoSetAddressBTN = new System.Windows.Forms.ToolStripButton();
             this.RandomNewNodeBTN = new System.Windows.Forms.ToolStripButton();
             this.randomAllAddressBTN = new System.Windows.Forms.ToolStripButton();
+            this.ScanUpdateBTN = new System.Windows.Forms.ToolStripButton();
             this.scanL = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +51,7 @@
             this.AutoSetAddressBTN,
             this.RandomNewNodeBTN,
             this.randomAllAddressBTN,
+            this.ScanUpdateBTN,
             this.scanL});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -114,6 +116,16 @@
             this.randomAllAddressBTN.Text = "Random All Address";
             this.randomAllAddressBTN.Click += new System.EventHandler(this.randomAllAddressBTN_Click);
             // 
+            // ScanUpdateBTN
+            // 
+            this.ScanUpdateBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ScanUpdateBTN.Image = ((System.Drawing.Image)(resources.GetObject("ScanUpdateBTN.Image")));
+            this.ScanUpdateBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ScanUpdateBTN.Name = "ScanUpdateBTN";
+            this.ScanUpdateBTN.Size = new System.Drawing.Size(27, 27);
+            this.ScanUpdateBTN.Text = "toolStripButton1";
+            this.ScanUpdateBTN.Click += new System.EventHandler(this.scanUpdateBTN_Click);
+            // 
             // scanL
             // 
             this.scanL.Name = "scanL";
@@ -148,5 +160,6 @@
         private System.Windows.Forms.ToolStripButton randomAllAddressBTN;
         private System.Windows.Forms.ToolStripButton RandomNewNodeBTN;
         private System.Windows.Forms.ToolStripButton StartBTN;
+        private System.Windows.Forms.ToolStripButton ScanUpdateBTN;
     }
 }

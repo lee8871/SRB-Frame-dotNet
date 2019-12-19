@@ -5,9 +5,9 @@ namespace SRB_CTR
 {
     internal partial class scanNodeState : UserControl
     {
-        private SRB_oneline_master backlogic;
+        private SrbOnelineMaster backlogic;
 
-        public scanNodeState(SRB_oneline_master frame = null)
+        public scanNodeState(SrbOnelineMaster frame = null)
         {
             this.backlogic = frame;
             InitializeComponent();
@@ -84,6 +84,11 @@ namespace SRB_CTR
         private void StartBTN_Click(object sender, EventArgs e)
         {
             this.backlogic.scanNodes();
+        }
+
+        private void scanUpdateBTN_Click(object sender, EventArgs e)
+        {
+            this.backlogic.scanUpdateNodes();
         }
     }
 }

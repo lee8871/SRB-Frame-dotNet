@@ -42,7 +42,6 @@
             this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
             this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
             this.nodeScanTS = new System.Windows.Forms.ToolStrip();
-            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
             this.SRB_config = new System.Windows.Forms.ToolStripSplitButton();
             this.uSBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +52,8 @@
             this.stopBTN = new System.Windows.Forms.ToolStripButton();
             this.stopAddrShowBTN = new System.Windows.Forms.ToolStripButton();
             this.beginAddrShowBTN = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.updateAllBTN = new System.Windows.Forms.ToolStripButton();
+            this.mainTSC = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
             this.left_UpDownSC.Panel1.SuspendLayout();
@@ -168,33 +168,11 @@
             this.stopBTN,
             this.stopAddrShowBTN,
             this.beginAddrShowBTN,
-            this.toolStripButton1});
+            this.updateAllBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
             this.nodeScanTS.Size = new System.Drawing.Size(298, 30);
             this.nodeScanTS.TabIndex = 4;
-            // 
-            // mainTSC
-            // 
-            this.mainTSC.BottomToolStripPanelVisible = false;
-            // 
-            // mainTSC.ContentPanel
-            // 
-            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
-            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
-            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTSC.LeftToolStripPanelVisible = false;
-            this.mainTSC.Location = new System.Drawing.Point(0, 0);
-            this.mainTSC.Name = "mainTSC";
-            this.mainTSC.RightToolStripPanelVisible = false;
-            this.mainTSC.Size = new System.Drawing.Size(384, 579);
-            this.mainTSC.TabIndex = 5;
-            this.mainTSC.Text = "toolStripContainer1";
-            // 
-            // mainTSC.TopToolStripPanel
-            // 
-            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
-            this.mainTSC.TopToolStripPanel.Click += new System.EventHandler(this.mainTSC_TopToolStripPanel_Click);
             // 
             // SRB_config
             // 
@@ -297,15 +275,37 @@
             this.beginAddrShowBTN.Text = "Begin Addr show";
             this.beginAddrShowBTN.Click += new System.EventHandler(this.beginAddrShowBTN_Click);
             // 
-            // toolStripButton1
+            // updateAllBTN
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(27, 27);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            this.updateAllBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.updateAllBTN.Image = ((System.Drawing.Image)(resources.GetObject("updateAllBTN.Image")));
+            this.updateAllBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.updateAllBTN.Name = "updateAllBTN";
+            this.updateAllBTN.Size = new System.Drawing.Size(27, 27);
+            this.updateAllBTN.Text = "Update All";
+            this.updateAllBTN.Click += new System.EventHandler(this.updateAll_Click);
+            // 
+            // mainTSC
+            // 
+            this.mainTSC.BottomToolStripPanelVisible = false;
+            // 
+            // mainTSC.ContentPanel
+            // 
+            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
+            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
+            this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainTSC.LeftToolStripPanelVisible = false;
+            this.mainTSC.Location = new System.Drawing.Point(0, 0);
+            this.mainTSC.Name = "mainTSC";
+            this.mainTSC.RightToolStripPanelVisible = false;
+            this.mainTSC.Size = new System.Drawing.Size(384, 579);
+            this.mainTSC.TabIndex = 5;
+            this.mainTSC.Text = "toolStripContainer1";
+            // 
+            // mainTSC.TopToolStripPanel
+            // 
+            this.mainTSC.TopToolStripPanel.Controls.Add(this.nodeScanTS);
+            this.mainTSC.TopToolStripPanel.Click += new System.EventHandler(this.mainTSC_TopToolStripPanel_Click);
             // 
             // mainForm
             // 
@@ -362,6 +362,6 @@
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton updateAllBTN;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SRB.Frame.Cluster.ud
+﻿namespace SRB.Frame.ud
 {
     partial class MappingCC
     {
