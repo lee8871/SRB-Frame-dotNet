@@ -7,7 +7,7 @@ namespace SRB_CTR
         private SrbOnelineMaster frame;
         public UpdateAll(SrbOnelineMaster master)
         {
-            sup_loader = new SupLoader("D:/SRB-Update");
+            sup_loader = new SupLoader("./update");
             this.frame = master;
         }
         public void gotoUpdateModeAll()

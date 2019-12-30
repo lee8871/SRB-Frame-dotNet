@@ -228,6 +228,8 @@
 
 if not exist ./record (md "record")
 
+if not exist ./update (md "update")
+
 if "$(ConfigurationName)"=="Release" (D:\cloud-bank360\V\SRB-Frame-dotNet\SRB_CTR\bin\Release\publish.bat)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

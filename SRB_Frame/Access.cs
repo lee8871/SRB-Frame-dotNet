@@ -37,7 +37,7 @@ namespace SRB.Frame
         };
 
         public void onAccessDone()
-        {
+        {//todo add Exception and log record
             switch (_status)
             {
                 case StatusEnum.BroadcasePkg:
