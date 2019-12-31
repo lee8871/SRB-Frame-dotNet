@@ -72,9 +72,9 @@ namespace SRB_CTR.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Connect {
+        internal static System.Drawing.Bitmap connect {
             get {
-                object obj = ResourceManager.GetObject("Connect", resourceCulture);
+                object obj = ResourceManager.GetObject("connect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -82,9 +82,9 @@ namespace SRB_CTR.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Disconnect {
+        internal static System.Drawing.Bitmap disconnect {
             get {
-                object obj = ResourceManager.GetObject("Disconnect", resourceCulture);
+                object obj = ResourceManager.GetObject("disconnect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

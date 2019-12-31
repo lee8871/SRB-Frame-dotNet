@@ -93,6 +93,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Updater\SRB_update_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -102,11 +107,6 @@
     <Compile Include="others\logWriter.cs" />
     <Compile Include="others\nsBrain\Brain_test2.cs" />
     <Compile Include="others\nsBrain\Brain_Test.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="IBrain.cs" />
     <Compile Include="Form\scanNodeState.cs">
       <SubType>UserControl</SubType>
@@ -167,8 +167,8 @@
   <ItemGroup>
     <Content Include="110618274272.ico" />
     <Content Include="others\color-setting.htm" />
-    <Content Include="Resources\Connect.png" />
-    <Content Include="Resources\Disconnect.png" />
+    <None Include="Resources\connect.png" />
+    <None Include="Resources\disconnect.png" />
     <Content Include="Resources\Edit.png" />
     <None Include="Resources\File.png" />
     <Content Include="Resources\Pause.png" />

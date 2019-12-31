@@ -26,6 +26,11 @@ namespace SRB_CTR
         {
             backlogic.Update_all.gotoUpdateModeAllFromPowerOn();
         }
+        private void scanUpdateBTN_Click(object sender, System.EventArgs e)
+        {
+
+            this.backlogic.scanUpdateNodes();
+        }
     }
 
 }

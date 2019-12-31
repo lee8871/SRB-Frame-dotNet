@@ -23,6 +23,7 @@
             this.gotoUpdateAllBTN = new System.Windows.Forms.ToolStripButton();
             this.GotoUpdateByPowerOnBTN = new System.Windows.Forms.ToolStripButton();
             this.BurnBTN = new System.Windows.Forms.ToolStripButton();
+            this.ScanUpdateBTN = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -31,12 +32,13 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileBTN,
+            this.ScanUpdateBTN,
             this.gotoUpdateAllBTN,
             this.GotoUpdateByPowerOnBTN,
             this.BurnBTN});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(300, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
             this.toolStrip1.TabIndex = 0;
             // 
             // FileBTN
@@ -78,13 +80,23 @@
             this.BurnBTN.Text = "Auto Burn All";
             this.BurnBTN.Click += new System.EventHandler(this.BurnBTN_Click);
             // 
+            // ScanUpdateBTN
+            // 
+            this.ScanUpdateBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ScanUpdateBTN.Image = ((System.Drawing.Image)(resources.GetObject("ScanUpdateBTN.Image")));
+            this.ScanUpdateBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ScanUpdateBTN.Name = "ScanUpdateBTN";
+            this.ScanUpdateBTN.Size = new System.Drawing.Size(27, 27);
+            this.ScanUpdateBTN.Text = "Scan Updating Node";
+            this.ScanUpdateBTN.Click += new System.EventHandler(this.scanUpdateBTN_Click);
+            // 
             // UpdateAll_uc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip1);
             this.Name = "UpdateAll_uc";
-            this.Size = new System.Drawing.Size(300, 120);
+            this.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -99,5 +111,6 @@
         private System.Windows.Forms.ToolStripButton GotoUpdateByPowerOnBTN;
         private System.Windows.Forms.ToolStripButton gotoUpdateAllBTN;
         private System.Windows.Forms.ToolStripButton BurnBTN;
+        private System.Windows.Forms.ToolStripButton ScanUpdateBTN;
     }
 }

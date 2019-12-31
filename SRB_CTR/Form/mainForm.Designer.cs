@@ -171,7 +171,7 @@
             this.updateAllBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(298, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(186, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // SRB_config
@@ -180,7 +180,7 @@
             this.SRB_config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uSBToolStripMenuItem,
             this.uARTToolStripMenuItem});
-            this.SRB_config.Image = global::SRB_CTR.Properties.Resources.Disconnect;
+            this.SRB_config.Image = global::SRB_CTR.Properties.Resources.disconnect;
             this.SRB_config.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SRB_config.Name = "SRB_config";
             this.SRB_config.Size = new System.Drawing.Size(39, 27);

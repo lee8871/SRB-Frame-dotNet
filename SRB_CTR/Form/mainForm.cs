@@ -286,14 +286,18 @@ namespace SRB_CTR
             last_port_status = port_status;
         }
 
-
+        int showRecordBtnFlag = 0;
 
 
         private void ShowRecordBTN_r_Click(object sender, EventArgs e)
         {
-            backlogic.endRecord();
-            ShowRecordBTN_r.Visible = false;
-            ShowRecordBTN_s.Visible = true;
+            if (showRecordBtnFlag == 0)
+            {
+                backlogic.endRecord();
+                showRecordBtnFlag = 1;
+                ShowRecordBTN_r.Visible = false;
+                ShowRecordBTN_s.Visible = true;
+            }
         }
         private void ShowRecordBTN_s_Click(object sender, EventArgs e)
         {
@@ -301,6 +305,7 @@ namespace SRB_CTR
             ShowRecordBTN_s.Visible = false;
             ShowRecordBTN_r.Visible = true;
         }
+
 
         private scanNodeState scanNodeCtrl;
         private bool is_addr_show_on = false;
@@ -329,11 +334,11 @@ namespace SRB_CTR
         private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
         private void srbStoped()
         {
-            this.SRB_config.Image = Properties.Resources.Disconnect;
+            this.SRB_config.Image = Properties.Resources.disconnect;
         }
         private void srbRunning()
         {
-            this.SRB_config.Image = Properties.Resources.Connect;
+            this.SRB_config.Image = Properties.Resources.connect;
         }
 
         private void uSBToolStripMenuItem_Click(object sender, EventArgs e)
@@ -403,24 +408,24 @@ namespace SRB_CTR
         {
 
         }
-        private UpdateAll_uc update_all_ctrll;
+        private UpdateAll_uc update_all_ctrl;
         private void updateAll_Click(object sender, EventArgs e)
         {
-            if (update_all_ctrll == null)
+            if (update_all_ctrl == null)
             {
-                update_all_ctrll = new UpdateAll_uc(this.backlogic);
-                frameCounterFLP.Controls.Add(update_all_ctrll);
-                update_all_ctrll.Show();
+                update_all_ctrl = new UpdateAll_uc(this.backlogic);
+                frameCounterFLP.Controls.Add(update_all_ctrl);
+                update_all_ctrl.Show();
             }
             else
             {
-                if (update_all_ctrll.Visible)
+                if (update_all_ctrl.Visible)
                 {
-                    update_all_ctrll.Hide();
+                    update_all_ctrl.Hide();
                 }
                 else
                 {
-                    update_all_ctrll.Show();
+                    update_all_ctrl.Show();
                 }
             }
 

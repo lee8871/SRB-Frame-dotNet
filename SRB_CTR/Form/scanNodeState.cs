@@ -21,16 +21,20 @@ namespace SRB_CTR
             {
                 case -1:
                     ContrulsEnable = true;
-                    this.scanL.Text = "Scan is not begin."; break;
+                   // this.scanL.Text = "Scan is not begin."; 
+                    break;
                 case -2:
                     ContrulsEnable = true;
-                    this.scanL.Text = "Scan Stoped"; break;
+                   // this.scanL.Text = "Scan Stoped";
+                    break;
                 case -3:
                     ContrulsEnable = true;
-                    this.scanL.Text = "Scan Done"; break;
+                   // this.scanL.Text = "Scan Done"; 
+                    break;
                 default:
                     ContrulsEnable = false;
-                    this.scanL.Text = string.Format("Scan node{0}.", backlogic.Scan_status); break;
+                   // this.scanL.Text = string.Format("Scan node{0}.", backlogic.Scan_status); 
+                    break;
             }
             base.Refresh();
         }
@@ -84,11 +88,6 @@ namespace SRB_CTR
         private void StartBTN_Click(object sender, EventArgs e)
         {
             this.backlogic.scanNodes();
-        }
-
-        private void scanUpdateBTN_Click(object sender, EventArgs e)
-        {
-            this.backlogic.scanUpdateNodes();
         }
     }
 }
