@@ -22,7 +22,6 @@ namespace SRB_CTR
             backlogic = pa;
             setPortState();
             brainRunStateUpdate();
-            stopAddrShowBTN.Visible = false;
             // cycleSet(this, null);
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -222,6 +221,7 @@ namespace SRB_CTR
         public double us_calculation = 0, us_communation = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            ShowRecordBTN_changeImage();
             setPortState();
             if (scanNodeCtrl != null)
             {
@@ -230,35 +230,11 @@ namespace SRB_CTR
                     scanNodeCtrl.Refresh();
                 }
             }
-
             addrShowStep();
         }
 
 
-        private void addrShowStep()
-        {
-            if (is_addr_show_on)
-            {
-                if (addr_show_sno == 6000)
-                {
-                    backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
-                    stopAddrShowBTN_Click(this, null);
-                }
-                switch (addr_show_sno % 3)
-                {
-                    case 0:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.High);
-                        break;
-                    case 1:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Low);
-                        break;
-                    case 2:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
-                        break;
-                }
-                addr_show_sno++;
-            }
-        }
+
 
         private bool last_port_status = false;
         private void setPortState()
@@ -288,43 +264,97 @@ namespace SRB_CTR
 
         int showRecordBtnFlag = 0;
 
-
-        private void ShowRecordBTN_r_Click(object sender, EventArgs e)
+        Image[] showRecordBtn_Images =
+            { Properties.Resources.record0,
+            Properties.Resources.record1,
+            Properties.Resources.record2,
+            Properties.Resources.record3,
+            Properties.Resources.record4 };
+        private void ShowRecordBTN_Click(object sender, EventArgs e)
         {
             if (showRecordBtnFlag == 0)
             {
-                backlogic.endRecord();
                 showRecordBtnFlag = 1;
-                ShowRecordBTN_r.Visible = false;
-                ShowRecordBTN_s.Visible = true;
+                ShowRecordBTN.Image = showRecordBtn_Images[showRecordBtnFlag];
+                backlogic.endRecord();
+            }
+            else
+            {
+                showRecordBtnFlag = 0;
+                ShowRecordBTN.Image = showRecordBtn_Images[showRecordBtnFlag];
+                backlogic.beginRecord();
             }
         }
-        private void ShowRecordBTN_s_Click(object sender, EventArgs e)
+        private void ShowRecordBTN_changeImage()
         {
-            backlogic.beginRecord();
-            ShowRecordBTN_s.Visible = false;
-            ShowRecordBTN_r.Visible = true;
+            if (showRecordBtnFlag != 0)
+            {
+                showRecordBtnFlag++;
+                if(showRecordBtnFlag == 5)
+                {
+                    showRecordBtnFlag = 1;
+                }
+                ShowRecordBTN.Image = showRecordBtn_Images[showRecordBtnFlag];
+            }
+
         }
 
 
         private scanNodeState scanNodeCtrl;
-        private bool is_addr_show_on = false;
-        private int addr_show_sno = 0;
-        private void stopAddrShowBTN_Click(object sender, EventArgs e)
+        private int addrShowBTN_flag = 0;
+        private int addr_show_status = 0;
+        Image[] AddrShowBTN_Images =
+            { Properties.Resources.AddrLed0,
+            Properties.Resources.AddrLed1,
+            Properties.Resources.AddrLed2,};
+        private void AddrShowBTN_Click(object sender, EventArgs e)
         {
-            is_addr_show_on = false;
-            this.stopAddrShowBTN.Visible = false;
-            this.beginAddrShowBTN.Visible = true;
-            backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
+
+            if (addrShowBTN_flag == 0)
+            {
+                addrShowBTN_flag = 1;
+                AddrShowBTN.Image = AddrShowBTN_Images[addrShowBTN_flag];
+                backlogic.endRecord();
+            }
+            else
+            {
+                addrShowBTN_flag = 0;
+                AddrShowBTN.Image = AddrShowBTN_Images[addrShowBTN_flag];
+                backlogic.beginRecord();
+                backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
+            }
+
         }
 
-        private void beginAddrShowBTN_Click(object sender, EventArgs e)
+        private void addrShowStep()
         {
-            is_addr_show_on = true;
-            addr_show_sno = 0;
-            this.stopAddrShowBTN.Visible = true;
-            this.beginAddrShowBTN.Visible = false;
+            if (addrShowBTN_flag!=0)
+            {
+                addr_show_status++;
+                addr_show_status %= 3;
+                switch (addr_show_status)
+                {
+                    case 0:
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.High);
+                        break;
+                    case 1:
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Low);
+                        break;
+                    case 2:
+                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
+                        break;
+                }
+                addrShowBTN_flag++;
+                if (addrShowBTN_flag == 3)
+                {
+                    addrShowBTN_flag = 1;
+                }
+                AddrShowBTN.Image = AddrShowBTN_Images[addrShowBTN_flag];
+
+            }
         }
+
+
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -401,11 +431,6 @@ namespace SRB_CTR
                     config_ctrl.Show();
                 }
             }
-
-        }
-
-        private void mainTSC_TopToolStripPanel_Click(object sender, EventArgs e)
-        {
 
         }
         private UpdateAll_uc update_all_ctrl;

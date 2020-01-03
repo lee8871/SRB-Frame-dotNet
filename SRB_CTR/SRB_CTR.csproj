@@ -135,14 +135,14 @@
     <Compile Include="others\ColorHelper.cs" />
     <Compile Include="Updater\SupLoader.cs" />
     <Compile Include="Updater\UpdateAll.cs" />
+    <EmbeddedResource Include="Form\mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\scanNodeState.resx">
       <DependentUpon>scanNodeState.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\mainForm.resx">
-      <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Updater\SRB_update_uc.resx">
       <DependentUpon>SRB_update_uc.cs</DependentUpon>
@@ -169,9 +169,18 @@
     <Content Include="others\color-setting.htm" />
     <None Include="Resources\connect.png" />
     <None Include="Resources\disconnect.png" />
+    <None Include="Resources\110618274272.ico" />
+    <None Include="Resources\AddrLed0.png" />
+    <None Include="Resources\AddrLed1.png" />
+    <None Include="Resources\AddrLed2.png" />
     <Content Include="Resources\Edit.png" />
     <None Include="Resources\File.png" />
     <Content Include="Resources\Pause.png" />
+    <None Include="Resources\record0.png" />
+    <None Include="Resources\record1.png" />
+    <None Include="Resources\record2.png" />
+    <None Include="Resources\record3.png" />
+    <None Include="Resources\record4.png" />
     <Content Include="Resources\Scan.png" />
   </ItemGroup>
   <ItemGroup>
