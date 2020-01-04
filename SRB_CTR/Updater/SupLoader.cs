@@ -25,7 +25,7 @@ namespace SRB_CTR
             SupFile rev_sf=null;
             foreach(var sf in sup_files)
             {
-                foreach(string file_hc in sf.Hardware_code)
+                foreach(string file_hc in sf.Hardware_codes_array)
                 {
                     if(hc == file_hc)
                     {

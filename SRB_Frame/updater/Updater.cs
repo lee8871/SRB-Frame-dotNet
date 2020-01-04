@@ -10,10 +10,39 @@ namespace SRB.Frame{
         public class SrbUpdater : INodeControlOwner, IAccesser
         {
             BaseNode node;
+
+            int node_version_major ;
+            int node_version_miner ;
+            int srb_version_major  ;
+            int srb_version_miner;
+
+            public int Node_version_major => node_version_major;
+            public int Node_version_miner => node_version_miner;
+            public int Srb_version_major => srb_version_major;
+            public int Srb_version_miner => srb_version_miner;
+            public int Node_version_num => node_version_major * 1000 + node_version_miner;
+            public int Srb_version_num => srb_version_major * 1000 + srb_version_miner;
+
+
             public SrbUpdater(BaseNode node)
             {
                 this.node = node;
             }
+
+            public void gotoUpdateMode()
+            {
+                node.infoClu.read();
+                node_version_major = node.infoClu.major_version;
+                node_version_miner = node.infoClu.minor_version;
+                srb_version_major = node.infoClu.SRB_major_version;
+                srb_version_miner = node.infoClu.SRB_minor_version;
+
+                node.infoClu.resetNode();
+                hold(); 
+                sendInfoPkg();
+            }
+
+
             const byte UDT_CMD_WRITE0 = 0;
             const byte UDT_CMD_WRITE1 = 1;
             const byte UDT_CMD_WRITE2 = 2;
@@ -24,11 +53,12 @@ namespace SRB.Frame{
             const byte UDT_CMD_INFO = 7;
             const byte UDT_CMD_END = 8;
 
-            string file_info;
             string hardware_code;
-            public string File_information => file_info;
+            public string File_information => sup_file.Dscription;
             public string Hardware_code => hardware_code;
+
             SupFile sup_file;
+            public SupFile Sup_file=>sup_file;
             public void loadFile(string path)
             {
                 sup_file = new SupFile(path);

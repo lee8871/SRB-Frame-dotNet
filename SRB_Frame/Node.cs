@@ -127,22 +127,21 @@ namespace SRB.Frame
 
         public void gotoUpdateMode()
         {
+
             if (is_in_update == false)
             {
                 if (updater == null)
                 {
                     updater = new SrbUpdater(this);
                 }
-                this.infoClu.resetNode();
                 try
                 {
-                    updater.hold();
+                    updater.gotoUpdateMode();
                 }
                 catch (SrbUpdater.UpdateTimeoutException e)
                 {
                     return;
                 }
-                updater.sendInfoPkg();
                 is_in_update = true;
                 if (eUpdateModeChanging != null)
                 {

@@ -62,6 +62,7 @@
             // 
             this.BurnBTN.BackgroundImage = global::SRB_Frame.Properties.Resources.burn;
             resources.ApplyResources(this.BurnBTN, "BurnBTN");
+            this.BurnBTN.Cursor = System.Windows.Forms.Cursors.Default;
             this.BurnBTN.Name = "BurnBTN";
             this.BurnBTN.UseVisualStyleBackColor = true;
             this.BurnBTN.Click += new System.EventHandler(this.BurnBTN_Click);

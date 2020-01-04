@@ -18,6 +18,19 @@ namespace SRB.Frame.updater
         string description;
         string srb_version;
         string node_version;
+        int node_version_major;
+        int node_version_miner;
+        int srb_version_major;
+        int srb_version_miner;
+
+        public int Node_version_major => node_version_major;
+        public int Node_version_miner => node_version_miner;
+        public int Srb_version_major => srb_version_major;
+        public int Srb_version_miner => srb_version_miner;
+
+        public int Node_version_num => node_version_major * 1000 + node_version_miner;
+        public int Srb_version_num => srb_version_major * 1000 + srb_version_miner;
+
         int time_stamp;
         string node_type;
 
@@ -37,7 +50,7 @@ namespace SRB.Frame.updater
         public string Node_version => node_version;
         public int Time_stamp => time_stamp;
         public string Node_type => node_type;
-        public string[] Hardware_code => hardware_code;
+        public string[] Hardware_codes_array => hardware_code;
         public string Dscripbuild_timetion => build_time;
         public SupFile(string file)
         {
@@ -93,6 +106,7 @@ namespace SRB.Frame.updater
         void lodeArgument(string st, Queue<string> hc_queue)
         {
             int sep_location = st.IndexOf('=');
+            
             if (sep_location == -1)
             {
                 return;
@@ -103,9 +117,15 @@ namespace SRB.Frame.updater
             {
                 case "srb_version":
                     srb_version = value;
+                    sep_location = value.IndexOf('.');
+                    srb_version_major = Convert.ToInt32(value.Substring(0, sep_location));
+                    srb_version_miner = Convert.ToInt32(value.Substring(1+ sep_location));
                     break;
                 case "node_version":
                     node_version = value;
+                    sep_location = value.IndexOf('.');
+                    node_version_major = Convert.ToInt32(value.Substring(0, sep_location));
+                    node_version_miner = Convert.ToInt32(value.Substring(1 + sep_location));
                     break;
                 case "time_stamp":
                     time_stamp = Convert.ToInt32(value);

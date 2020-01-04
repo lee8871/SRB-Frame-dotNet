@@ -7,7 +7,6 @@ using System.Threading;
 
 namespace SRB_CTR
 {
-    //新版本的测试
     public partial class SrbOnelineMaster : IDisposable
     {
 
