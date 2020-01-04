@@ -276,13 +276,13 @@ namespace SRB_CTR
             {
                 showRecordBtnFlag = 1;
                 ShowRecordBTN.Image = showRecordBtn_Images[showRecordBtnFlag];
-                backlogic.endRecord();
+                backlogic.beginRecord();
             }
             else
             {
                 showRecordBtnFlag = 0;
                 ShowRecordBTN.Image = showRecordBtn_Images[showRecordBtnFlag];
-                backlogic.beginRecord();
+                backlogic.endRecord();
             }
         }
         private void ShowRecordBTN_changeImage()

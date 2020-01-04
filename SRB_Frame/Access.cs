@@ -50,7 +50,10 @@ namespace SRB.Frame
                     //TODO: Bus Master device is not open or port is not selected
                     break;
                 case StatusEnum.DeviceTimeOut:
-                    sender_node.lose();
+                    if (sender_node != null)
+                    {
+                        sender_node.lose();
+                    }
                     break;
                 case StatusEnum.RecvedBadPkg:
                 case StatusEnum.SrbTimeOut:
