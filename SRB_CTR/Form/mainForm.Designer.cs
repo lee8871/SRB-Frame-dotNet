@@ -120,6 +120,7 @@
             // left_UpDownSC
             // 
             this.left_UpDownSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.left_UpDownSC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.left_UpDownSC.Location = new System.Drawing.Point(0, 0);
             this.left_UpDownSC.Name = "left_UpDownSC";
             this.left_UpDownSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -132,23 +133,26 @@
             // 
             this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
             this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
-            this.left_UpDownSC.SplitterDistance = 98;
+            this.left_UpDownSC.SplitterDistance = 249;
+            this.left_UpDownSC.SplitterWidth = 8;
             this.left_UpDownSC.TabIndex = 0;
             // 
             // frameCounterFLP
             // 
+            this.frameCounterFLP.AutoSize = true;
             this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
             this.frameCounterFLP.Name = "frameCounterFLP";
-            this.frameCounterFLP.Size = new System.Drawing.Size(384, 98);
+            this.frameCounterFLP.Size = new System.Drawing.Size(384, 249);
             this.frameCounterFLP.TabIndex = 0;
             // 
             // nodesTable
             // 
+            this.nodesTable.AutoSize = true;
             this.nodesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nodesTable.Location = new System.Drawing.Point(0, 0);
             this.nodesTable.Name = "nodesTable";
-            this.nodesTable.Size = new System.Drawing.Size(384, 447);
+            this.nodesTable.Size = new System.Drawing.Size(384, 292);
             this.nodesTable.TabIndex = 0;
             // 
             // nodeScanTS
@@ -166,7 +170,7 @@
             this.updateAllBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(244, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(186, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // SRB_config
@@ -238,12 +242,12 @@
             this.stopBTN.Visible = false;
             this.stopBTN.Click += new System.EventHandler(this.stopBTN_Click);
             // 
-            // beginAddrShowBTN
+            // AddrShowBTN
             // 
             this.AddrShowBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.AddrShowBTN.Image = global::SRB_CTR.Properties.Resources.AddrLed0;
             this.AddrShowBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AddrShowBTN.Name = "beginAddrShowBTN";
+            this.AddrShowBTN.Name = "AddrShowBTN";
             this.AddrShowBTN.Size = new System.Drawing.Size(27, 27);
             this.AddrShowBTN.Text = "Begin Addr show";
             this.AddrShowBTN.Click += new System.EventHandler(this.AddrShowBTN_Click);
@@ -293,7 +297,9 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.left_UpDownSC.Panel1.ResumeLayout(false);
+            this.left_UpDownSC.Panel1.PerformLayout();
             this.left_UpDownSC.Panel2.ResumeLayout(false);
+            this.left_UpDownSC.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).EndInit();
             this.left_UpDownSC.ResumeLayout(false);
             this.nodeScanTS.ResumeLayout(false);

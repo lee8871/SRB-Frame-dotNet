@@ -17,10 +17,6 @@ namespace SRB_CTR
 
         }
 
-        private void BurnBTN_Click(object sender, System.EventArgs e)
-        {
-            backlogic.Update_all.burnAll();
-        }
 
         private void GotoUpdateByPowerOnBTN_Click(object sender, System.EventArgs e)
         {
@@ -31,6 +27,44 @@ namespace SRB_CTR
 
             this.backlogic.scanUpdateNodes();
         }
+
+        private void FileBTN_Click(object sender, System.EventArgs e)
+        {
+            backlogic.Update_all.loadFiles("./update");
+            infoRTC.Clear();
+            infoRTC.AppendText("lode file from './update'.\n" +
+                 backlogic.Update_all.Sup_loader.ToString()); 
+
+        }
+
+        private void BurnBTN_Click(object sender, System.EventArgs e)
+        {
+            backlogic.Update_all.burnAll(appendInfo);
+        }
+        public void appendInfo(string st)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => { appendInfo(st); }));
+            }
+            else
+            {
+                if (st == null)
+                {
+                    infoRTC.Clear();
+                }
+                else { 
+                    infoRTC.AppendText(st);
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 
 }

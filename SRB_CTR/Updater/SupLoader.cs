@@ -5,10 +5,16 @@ using System.IO;
 
 namespace SRB_CTR
 {
-    class SupLoader
+    public class SupLoader
     {
-        SupFile[] sup_files;
-        public SupLoader(string path)
+        SupFile[] sup_files = new SupFile[0];
+        public int File_counter => sup_files.Length;
+        public bool Is_file_loaded => (sup_files.Length != 0);
+        public SupLoader()
+        {
+
+        }
+        public void LoadFiles(string path)
         {
             Queue<SupFile> sf_queue = new Queue<SupFile>();
             DirectoryInfo d = new DirectoryInfo(path);
@@ -38,6 +44,22 @@ namespace SRB_CTR
                 }
             }
             return rev_sf;
+        }
+        public override string ToString()
+        {
+            string rev = string.Format("{0} file(s) loaded:\n", File_counter );
+            foreach (var file in sup_files)
+            {
+                rev += string.Format("{0}, SRBv.{1}, NODEv.{2}\n\tFor hardware: ", 
+                      file.Node_type, file.Srb_version, file.Node_version);
+                foreach(var hc in file.Hardware_codes_array)
+                {
+                    rev += hc + ", ";
+                }
+                rev += "\n";
+            }
+            return rev;
+
         }
 
     }

@@ -16,7 +16,7 @@ namespace SRB_CTR
             InitializeComponent();
             nodesTable.BackColor = support.Color_BackGround;
             frameCounterFLP.BackColor = support.Color_BackGround;
-            this.BackColor = support.Color_HighLight;
+           // this.BackColor = support.Color_HighLight;
 
             frameCounterFLP.Refresh();
             backlogic = pa;
