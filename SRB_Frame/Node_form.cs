@@ -19,6 +19,12 @@ namespace SRB.Frame
 
         private void Node_eUpdateModeChanging(object sender, EventArgs e)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => { Node_eUpdateModeChanging(sender,e); }));
+                return;
+            }
+            
             foreach (var c in this.clusters.Controls)
             {
                 GroupBox b = c as GroupBox;

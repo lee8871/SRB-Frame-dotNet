@@ -34,33 +34,38 @@ namespace SRB_CTR
         public delegate void appendInfo(string st);
         private Thread burning_thread;
         private appendInfo dAppendInfo;
+        private bool is_burn_all_running = false;
         public void burnAll(appendInfo delegateInfo)
         {
-            dAppendInfo = delegateInfo;
-            if (sup_loader.Is_file_loaded)
+            if (is_burn_all_running == false)
             {
-                burning_thread = new Thread(new ThreadStart(burnAllTh));
-                burning_thread.Start();
-            }
-            else
-            {
-                dAppendInfo(null);
-                dAppendInfo("Update all fail. No sup file.\n");
+                dAppendInfo = delegateInfo;
+                if (sup_loader.Is_file_loaded)
+                {
+                    is_burn_all_running = true;
+                    burning_thread = new Thread(new ThreadStart(burnAllTh));
+                    burning_thread.Start();
+                }
+                else
+                {
+                    dAppendInfo(null);
+                    dAppendInfo("Update all fail. No sup file.\n");
 
+                }
             }
         }
         private void burnAllTh()
         {
+            System.Collections.Generic.Queue<BaseNode> node_to_update=new System.Collections.Generic.Queue<BaseNode>();
             dAppendInfo(null);
-            int totle_node = 0;
             foreach (BaseNode n in frame.Bus)
             {
                 if (n.Is_in_update == true)
                 {
-                    totle_node++;
+                    node_to_update.Enqueue(n);
                 }
             }
-            if(totle_node == 0)
+            if(node_to_update.Count == 0)
             {
                 dAppendInfo("No Node in update mode. " +
                     "You may connect new nodes or set some nodes to update mode, than try burn all.\n");
@@ -68,36 +73,33 @@ namespace SRB_CTR
             else
             {
                 dAppendInfo(string.Format(
-                    "{0} node(s) waiting to be burn.\n\n", totle_node));
+                    "{0} node(s) waiting to be burn.\n\n", node_to_update.Count));
                 int node_counter = 0;
-                foreach (BaseNode n in frame.Bus)
+                foreach (BaseNode n in node_to_update)
                 {
                     node_counter++;
-                    if (n.Is_in_update == true)
+                    string hc = n.Updater.Hardware_code;
+                    dAppendInfo(string.Format(
+                        "node {0}/{1} burning. hardware code is {2}\n", 
+                        node_counter, node_to_update.Count, hc));
+
+                    var sup_file = sup_loader.findByHardwareCode(hc);
+                    if (sup_file != null)
                     {
-                        string hc = n.Updater.Hardware_code;
+                        n.Updater.loadFile(sup_file);
+                        n.Updater.update();
+                        n.gotoNormalMode();
                         dAppendInfo(string.Format(
-                            "node {0}/{1} burning. hardware code is {2}\n", 
-                            node_counter,totle_node, hc));
-
-                        var sup_file = sup_loader.findByHardwareCode(hc);
-                        if (sup_file != null)
-                        {
-                            n.Updater.loadFile(sup_file);
-                            n.Updater.update();
-                            n.gotoNormalMode();
-                            dAppendInfo(string.Format(
-                                "\tburning done\n", hc));
-                        }
-                        else
-                        {
-                            dAppendInfo(string.Format(
-                                "\t.sup file not found for {0}, burning cancled", hc));
-                        }
-
+                            "\tburning done\n", hc));
+                    }
+                    else
+                    {
+                        dAppendInfo(string.Format(
+                            "\t.sup file not found for {0}, burning cancled", hc));
                     }
                 }
             }
+            is_burn_all_running = false;
         }
     }
 }

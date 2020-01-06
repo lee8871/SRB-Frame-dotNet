@@ -186,9 +186,11 @@ namespace SRB_CTR
                 = ScanNodeBTN.Enabled
                 = runBTN.Visible
                 = nodesTable.Enabled
+                = updateAllBTN.Enabled
                 = false);
                 if (config_ctrl != null) config_ctrl.Enabled = false;
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
+                if (update_all_ctrl != null) update_all_ctrl.Enabled = false;
                 backlogic.endScan();
                 foreach (BaseNode n in backlogic.Bus)
                 {
@@ -205,9 +207,12 @@ namespace SRB_CTR
                 !(SRB_config.Enabled
                 = ScanNodeBTN.Enabled
                 = runBTN.Visible
-                = nodesTable.Enabled = true);
+                = nodesTable.Enabled
+                = updateAllBTN.Enabled 
+                = true);
                 if (config_ctrl != null) config_ctrl.Enabled = true;
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = true;
+                if (update_all_ctrl != null) update_all_ctrl.Enabled = true;
             }
         }
 
