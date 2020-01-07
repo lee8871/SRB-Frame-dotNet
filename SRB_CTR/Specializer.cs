@@ -8,13 +8,13 @@ namespace SRB_CTR
         {
             switch (n.NodeType)
             {
-                case "Du_Motor":
+                case "MotorX2":
                     n.Datas = new SRB.NodeType.Du_motor.Interpreter(n);
                     break;
-                case "Ps2_Handle":
+                case "Joystick":
                     n.Datas = new SRB.NodeType.PS2_Handle.Interpreter(n);
                     break;
-                case "Charger_2LiB":
+                case "ChargerLiBat2":
                     n.Datas = new SRB.NodeType.Charger.Interpreter(n);
                     break;
                 default:
