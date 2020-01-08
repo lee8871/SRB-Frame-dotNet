@@ -14,7 +14,7 @@ namespace SRB_CTR
                 case "Joystick":
                     n.Datas = new SRB.NodeType.PS2_Handle.Interpreter(n);
                     break;
-                case "ChargerLiBat2":
+                case "LiBatT2":
                     n.Datas = new SRB.NodeType.Charger.Interpreter(n);
                     break;
                 default:
