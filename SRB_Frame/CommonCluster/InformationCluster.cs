@@ -7,12 +7,12 @@ namespace SRB.Frame
     {
         public class InformationCluster : BaseNode.ICluster
         {
-            public string type { get => bank.getBankString(6, 17); }
+            public string type { get => bank.getBankString(8, 17); }
             public int major_version { get => bank.getBankByte(0); }
             public int minor_version { get => bank.getBankByte(1); }
             public int SRB_major_version { get => bank.getBankByte(2); }
             public int SRB_minor_version { get => bank.getBankByte(3); }
-            public int time_stamp { get => bank.getBankUshort(4); }
+            public uint time_stamp { get => bank.getBankUint(4); }
             BaseNode node;
             public InformationCluster(BaseNode n)
                 : base(n, 1, 23)
