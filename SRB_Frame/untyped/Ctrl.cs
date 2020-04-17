@@ -5,7 +5,8 @@ namespace SRB.Frame.untyped
     internal partial class Ctrl : INodeControl
     {
         private Interpreter datas;
-        public Ctrl(BaseNode n)
+        public Ctrl(BaseNode n) :
+            base(n)
         {
             datas = (Interpreter)n.Datas; ;
             InitializeComponent();

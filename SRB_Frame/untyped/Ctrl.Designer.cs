@@ -28,21 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sendRTB = new System.Windows.Forms.RichTextBox();
+            this.mappingRTB = new System.Windows.Forms.RichTextBox();
+            this.MappingBTN = new System.Windows.Forms.Button();
             this.recvRTB = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // sendRTB
+            // mappingRTB
             // 
-            this.sendRTB.Location = new System.Drawing.Point(7, 44);
-            this.sendRTB.Name = "sendRTB";
-            this.sendRTB.Size = new System.Drawing.Size(284, 48);
-            this.sendRTB.TabIndex = 1;
-            this.sendRTB.Text = "";
+            this.mappingRTB.Location = new System.Drawing.Point(7, 27);
+            this.mappingRTB.Name = "mappingRTB";
+            this.mappingRTB.Size = new System.Drawing.Size(218, 48);
+            this.mappingRTB.TabIndex = 1;
+            this.mappingRTB.Text = "";
+            // 
+            // MappingBTN
+            // 
+            this.MappingBTN.Location = new System.Drawing.Point(231, 39);
+            this.MappingBTN.Name = "MappingBTN";
+            this.MappingBTN.Size = new System.Drawing.Size(60, 36);
+            this.MappingBTN.TabIndex = 28;
+            this.MappingBTN.Text = "Mapping";
+            this.MappingBTN.UseVisualStyleBackColor = true;
             // 
             // recvRTB
             // 
-            this.recvRTB.Location = new System.Drawing.Point(7, 98);
+            this.recvRTB.Location = new System.Drawing.Point(6, 81);
             this.recvRTB.Name = "recvRTB";
             this.recvRTB.Size = new System.Drawing.Size(284, 48);
             this.recvRTB.TabIndex = 2;
@@ -53,13 +63,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.Controls.Add(this.MappingBTN);
             this.Controls.Add(this.recvRTB);
-            this.Controls.Add(this.sendRTB);
+            this.Controls.Add(this.mappingRTB);
             this.MinimumSize = new System.Drawing.Size(300, 50);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 149);
-            this.Controls.SetChildIndex(this.sendRTB, 0);
+            this.Size = new System.Drawing.Size(300, 132);
+            this.Controls.SetChildIndex(this.mappingRTB, 0);
             this.Controls.SetChildIndex(this.recvRTB, 0);
+            this.Controls.SetChildIndex(this.MappingBTN, 0);
             this.Controls.SetChildIndex(this.RunStopBTN, 0);
             this.Controls.SetChildIndex(this.HelpBTN, 0);
             this.ResumeLayout(false);
@@ -68,7 +80,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.RichTextBox sendRTB;
+        private System.Windows.Forms.RichTextBox mappingRTB;
+        private System.Windows.Forms.Button MappingBTN;
         private System.Windows.Forms.RichTextBox recvRTB;
     }
 }
