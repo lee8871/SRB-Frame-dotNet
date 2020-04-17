@@ -30,13 +30,13 @@ namespace SRB.Frame
         {
             if (sendTimer.Enabled)
             {
-                this.RunStopBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175842;
+                this.RunStopBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175842;
                 sendTimer.Stop();
                 OnAccessStop();
             }
             else
             {
-                this.RunStopBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175836;
+                this.RunStopBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175836;
                 OnAccessStart();
                 sendTimer.Start();
             }

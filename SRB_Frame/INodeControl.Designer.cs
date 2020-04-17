@@ -95,7 +95,7 @@
             // 
             // HelpBTN
             // 
-            this.HelpBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175798;
+            this.HelpBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175798;
             this.HelpBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.HelpBTN.Location = new System.Drawing.Point(231, -1);
             this.HelpBTN.Name = "HelpBTN";
@@ -106,7 +106,7 @@
             // 
             // RunStopBTN
             // 
-            this.RunStopBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175842;
+            this.RunStopBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175842;
             this.RunStopBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RunStopBTN.Location = new System.Drawing.Point(257, -1);
             this.RunStopBTN.Name = "RunStopBTN";

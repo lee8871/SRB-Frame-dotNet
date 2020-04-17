@@ -35,7 +35,7 @@
             // 
             // readBTN
             // 
-            this.readBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175882;
+            this.readBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175882;
             resources.ApplyResources(this.readBTN, "readBTN");
             this.readBTN.Name = "readBTN";
             this.readBTN.UseVisualStyleBackColor = true;
@@ -43,7 +43,7 @@
             // 
             // writeBTN
             // 
-            this.writeBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175763;
+            this.writeBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175763;
             resources.ApplyResources(this.writeBTN, "writeBTN");
             this.writeBTN.Name = "writeBTN";
             this.writeBTN.UseVisualStyleBackColor = true;

@@ -44,7 +44,7 @@
             // 
             // ResetBTN
             // 
-            this.ResetBTN.BackgroundImage = global::SRB_Frame.Properties.Resources.HighLight;
+            this.ResetBTN.BackgroundImage = global::SRB.Frame.Properties.Resources.HighLight;
             resources.ApplyResources(this.ResetBTN, "ResetBTN");
             this.ResetBTN.Name = "ResetBTN";
             this.ResetBTN.UseVisualStyleBackColor = true;
@@ -52,7 +52,7 @@
             // 
             // openBTN
             // 
-            this.openBTN.BackgroundImage = global::SRB_Frame.Properties.Resources.Open;
+            this.openBTN.BackgroundImage = global::SRB.Frame.Properties.Resources.Open;
             resources.ApplyResources(this.openBTN, "openBTN");
             this.openBTN.Name = "openBTN";
             this.openBTN.UseVisualStyleBackColor = true;
@@ -60,7 +60,7 @@
             // 
             // BurnBTN
             // 
-            this.BurnBTN.BackgroundImage = global::SRB_Frame.Properties.Resources.burn;
+            this.BurnBTN.BackgroundImage = global::SRB.Frame.Properties.Resources.burn;
             resources.ApplyResources(this.BurnBTN, "BurnBTN");
             this.BurnBTN.Cursor = System.Windows.Forms.Cursors.Default;
             this.BurnBTN.Name = "BurnBTN";

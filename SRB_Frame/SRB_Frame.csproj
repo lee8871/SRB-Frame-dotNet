@@ -7,8 +7,8 @@
     <ProjectGuid>{CCF5E553-8DC8-490F-8386-8414C1791833}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SRB_Frame</RootNamespace>
-    <AssemblyName>SRB_Frame</AssemblyName>
+    <RootNamespace>SRB.Frame</RootNamespace>
+    <AssemblyName>dotnetlib-SRB</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -153,6 +153,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\InformationCC.resx">
       <DependentUpon>InformationCC.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\MappingCC-UD.resx">
       <DependentUpon>MappingCC-UD.cs</DependentUpon>

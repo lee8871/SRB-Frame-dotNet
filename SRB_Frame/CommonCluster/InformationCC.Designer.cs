@@ -51,7 +51,7 @@
             // factorySettingBTN
             // 
             this.factorySettingBTN.BackColor = System.Drawing.SystemColors.Control;
-            this.factorySettingBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175784;
+            this.factorySettingBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175784;
             resources.ApplyResources(this.factorySettingBTN, "factorySettingBTN");
             this.factorySettingBTN.ForeColor = System.Drawing.Color.Crimson;
             this.factorySettingBTN.Name = "factorySettingBTN";
@@ -60,7 +60,7 @@
             // 
             // ResetNodeBTN
             // 
-            this.ResetNodeBTN.BackgroundImage = global::SRB_Frame.Properties.Resources._1175854;
+            this.ResetNodeBTN.BackgroundImage = global::SRB.Frame.Properties.Resources._1175854;
             resources.ApplyResources(this.ResetNodeBTN, "ResetNodeBTN");
             this.ResetNodeBTN.Name = "ResetNodeBTN";
             this.ResetNodeBTN.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             // 
             // Update
             // 
-            this.Update.BackgroundImage = global::SRB_Frame.Properties.Resources.update;
+            this.Update.BackgroundImage = global::SRB.Frame.Properties.Resources.update;
             resources.ApplyResources(this.Update, "Update");
             this.Update.Name = "Update";
             this.Update.UseMnemonic = false;

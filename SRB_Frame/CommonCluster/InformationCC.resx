@@ -268,6 +268,6 @@
     <value>InformationCC</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>SRB.Frame.IClusterControl, SRB_Frame, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>SRB.Frame.IClusterControl, SRB.Frame, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
