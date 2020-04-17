@@ -91,7 +91,7 @@ namespace SRB.Frame
         }
 
         public void updateText()
-        {
+        {//TODO这里在升级过程中会报告错误，Node是不存在的
             this.Text = node.ToString();
         }
         public void b_Click(object sender, EventArgs e)
