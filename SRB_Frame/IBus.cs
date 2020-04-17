@@ -52,6 +52,17 @@ namespace SRB.Frame
             node_list.Clear();
         }
 
+        public void removeAllUpdateNode()
+        {
+            for (int i = node_list.Count - 1; i >= 0; i--)
+            {
+                if (node_list[i].Is_in_update)
+                {
+                    node_list[i].Dispose();
+                    node_list.RemoveAt(i);
+                }
+            }
+        }
         public void checkNodes()
         {
 
