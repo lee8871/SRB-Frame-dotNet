@@ -20,6 +20,7 @@ namespace SRB.Frame
             this.versionL.Text =
             string.Format("Version: Node-{0}.{1}  SRB-{2}.{3}  ", cluster.major_version, cluster.minor_version,
             cluster.SRB_major_version, cluster.SRB_minor_version);
+            TimeStampTT.SetToolTip(this.versionL, "TimeStamp = " + cluster.time_stamp);
         }
 
 
@@ -43,5 +44,6 @@ namespace SRB.Frame
         {
             cluster.gotoUpdateMode();
         }
+
     }
 }

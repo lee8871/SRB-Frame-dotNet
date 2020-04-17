@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformationCC));
             this.versionL = new System.Windows.Forms.Label();
             this.typeL = new System.Windows.Forms.Label();
             this.factorySettingBTN = new System.Windows.Forms.Button();
             this.ResetNodeBTN = new System.Windows.Forms.Button();
             this.Update = new System.Windows.Forms.Button();
+            this.TimeStampTT = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // versionL
@@ -72,6 +74,7 @@
             this.Update.UseMnemonic = false;
             this.Update.UseVisualStyleBackColor = true;
             this.Update.Click += new System.EventHandler(this.Update_Click);
+
             // 
             // InformationCC
             // 
@@ -100,5 +103,6 @@
         private System.Windows.Forms.Button factorySettingBTN;
         private System.Windows.Forms.Button ResetNodeBTN;
         private System.Windows.Forms.Button Update;
+        private System.Windows.Forms.ToolTip TimeStampTT;
     }
 }
