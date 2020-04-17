@@ -9,7 +9,7 @@ namespace SRB_CTR
 {
     public partial class SrbOnelineMaster : IDisposable
     {
-
+        public static int scan_max_addr = 227;
         private IBus bus;
         public IBus Bus => bus;
 
@@ -159,7 +159,6 @@ namespace SRB_CTR
             get { return scan_progress; }
             set { scan_progress = value; }
         }
-        private int scan_max_addr = 200;
         private bool scan_stop = true;
         public void autoSetAddress()
         {
@@ -199,11 +198,14 @@ namespace SRB_CTR
         private void scanNodeLoop()
         {
             bus.removeAllNode();
+            BaseNode n = bus.createTempNode(0);
+            n.checkNodeAccessable();
+            bus.removeAllNode();
             for (int scan_num = scan_begin; scan_num < scan_end; scan_num++)
             {
                 Scan_status = scan_num;
                 Scan_progress = Scan_status * 1.0 / scan_max_addr;
-                BaseNode n = bus.createTempNode((byte)scan_num);
+                n = bus.createTempNode((byte)scan_num);
                 n.checkNodeAccessable();
                 if (n.Is_hareware_exist)
                 {
@@ -220,6 +222,7 @@ namespace SRB_CTR
         }
         public void scanUpdateNodes(int begin = 0, int end = -1)
         {
+            bus.removeAllUpdateNode();
             if (end < 0)
             {
                 end = scan_max_addr;
@@ -263,7 +266,7 @@ namespace SRB_CTR
         public void autoSetAddressLoop()
         {
             byte new_addr = 10;
-            for (byte i = 100; i < 164; i++)
+            for (byte i = 100; i < 227; i++)
             {
                 Scan_status = i;
                 Scan_progress = Scan_status * 1.0 / scan_max_addr;
