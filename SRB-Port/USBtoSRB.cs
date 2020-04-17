@@ -78,7 +78,14 @@ namespace SRB.port
                 string device_name;
                 try
                 {
-                    selected_device.GetString(out device_name, 0x0409, 4);
+                    if (selected_device != null)
+                    {
+                        selected_device.GetString(out device_name, 0x0409, 4);
+                    }
+                    else
+                    {
+                        return null;
+                    }                   
                 }
                 catch
                 {
