@@ -12,7 +12,7 @@ namespace SRB_CTR
                     n.Datas = new SRB.NodeType.Du_motor.Interpreter(n);
                     break;
                 case "Joystick":
-                    n.Datas = new SRB.NodeType.PS2_Handle.Interpreter(n);
+                    n.Datas = new SRB.NodeType.Joystick.Interpreter(n);
                     break;
                 case "LiBatT2":
                     n.Datas = new SRB.NodeType.Charger.Interpreter(n);

@@ -187,7 +187,7 @@
             // 
             // BatteryPowerLedBTN
             // 
-            this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175695;
+            this.BatteryPowerLedBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175695;
             this.BatteryPowerLedBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BatteryPowerLedBTN.Location = new System.Drawing.Point(193, 117);
             this.BatteryPowerLedBTN.Name = "BatteryPowerLedBTN";
@@ -198,7 +198,7 @@
             // 
             // PlayBTN
             // 
-            this.PlayBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175826;
+            this.PlayBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175826;
             this.PlayBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.PlayBTN.Location = new System.Drawing.Point(159, 117);
             this.PlayBTN.Name = "PlayBTN";
@@ -209,7 +209,7 @@
             // 
             // ChangeEnableBTN
             // 
-            this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
+            this.ChangeEnableBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175709;
             this.ChangeEnableBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ChangeEnableBTN.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ChangeEnableBTN.Location = new System.Drawing.Point(261, 117);
@@ -221,7 +221,7 @@
             // 
             // MuteBTN
             // 
-            this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175710;
+            this.MuteBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175710;
             this.MuteBTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.MuteBTN.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MuteBTN.Location = new System.Drawing.Point(227, 117);

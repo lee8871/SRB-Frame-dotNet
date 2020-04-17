@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{66701BDF-B018-4712-A6DE-9B78B020B981}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SRB_Changer</RootNamespace>
-    <AssemblyName>SRB_Changer</AssemblyName>
+	<RootNamespace>SRB.NodeType.LiBatT2</RootNamespace>
+    <AssemblyName>dotnetlib-SRB-LiBatT2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -12,7 +12,7 @@ namespace SRB_CTR.nsBrain
         private SRB.NodeType.Du_motor.Interpreter right;
         private SRB.NodeType.Du_motor.Interpreter key_control;
         private SRB.NodeType.Du_motor.Interpreter key_control2;
-        private SRB.NodeType.PS2_Handle.Interpreter handle;
+        private SRB.NodeType.Joystick.Interpreter handle;
         private SRB.NodeType.Charger.Interpreter charger;
         protected override void nodesBuildUp()
         {
@@ -39,11 +39,11 @@ namespace SRB_CTR.nsBrain
                             key_control2 = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
                     }
-                    else if (n.Datas is SRB.NodeType.PS2_Handle.Interpreter)
+                    else if (n.Datas is SRB.NodeType.Joystick.Interpreter)
                     {
                         if (n.Name == "Handle")
                         {
-                            handle = n.Datas as SRB.NodeType.PS2_Handle.Interpreter;
+                            handle = n.Datas as SRB.NodeType.Joystick.Interpreter;
                         }
                     }
                     else if (n.Datas is SRB.NodeType.Charger.Interpreter)

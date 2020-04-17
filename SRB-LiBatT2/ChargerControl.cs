@@ -38,27 +38,27 @@ namespace SRB.NodeType.Charger
             this.statusLAB.Text = datas.getStatues();
             if (datas.cmd_charge_enable)
             {
-                this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175709;
+                this.ChangeEnableBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175709;
             }
             else
             {
-                this.ChangeEnableBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175309;
+                this.ChangeEnableBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175309;
             }
             if (datas.is_Mute)
             {
-                this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175310;
+                this.MuteBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175310;
             }
             else
             {
-                this.MuteBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175710;
+                this.MuteBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175710;
             }
             if (datas.is_PowerLEDRun)
             {
-                this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175695;
+                this.BatteryPowerLedBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175695;
             }
             else
             {
-                this.BatteryPowerLedBTN.BackgroundImage = global::SRB_Changer.Properties.Resources._1175295;
+                this.BatteryPowerLedBTN.BackgroundImage = global::SRB.NodeType.LiBatT2.Properties.Resources._1175295;
             }
         }
 
