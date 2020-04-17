@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{93C7FDAA-B077-4F0F-8E4E-D7BE53CCD779}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PS2_Handle</RootNamespace>
-    <AssemblyName>PS2_Handle</AssemblyName>
+    <RootNamespace>SRB.NodeType.Joystick</RootNamespace>
+    <AssemblyName>dotnetlib-SRB-Joystick</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

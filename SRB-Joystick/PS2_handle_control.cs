@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.NodeType.Joystick
 {
     internal partial class PS2HandleControl : INodeControl
     {

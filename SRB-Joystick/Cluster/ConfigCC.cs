@@ -1,7 +1,7 @@
 ﻿
 using SRB.Frame;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.NodeType.Joystick
 {
     internal partial class ConfigCC : IClusterControl
     {

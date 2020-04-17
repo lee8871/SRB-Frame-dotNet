@@ -1,7 +1,7 @@
 ﻿using SRB.Frame;
 using System;
 
-namespace SRB.NodeType.PS2_Handle
+namespace SRB.NodeType.Joystick
 {
     public class Interpreter : BaseNode.INodeInterpreter
     {

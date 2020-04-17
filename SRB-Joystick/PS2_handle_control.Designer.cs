@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.PS2_Handle
+﻿namespace SRB.NodeType.Joystick
 {
     partial class PS2HandleControl
     {
@@ -235,7 +235,7 @@
             // 
             // Rumble_R_BTN
             // 
-            this.Rumble_R_BTN.BackgroundImage = global::PS2_Handle.Properties.Resources._1175695;
+            this.Rumble_R_BTN.BackgroundImage = global::SRB.NodeType.Joystick.Properties.Resources._1175695;
             this.Rumble_R_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Rumble_R_BTN.Location = new System.Drawing.Point(257, 130);
             this.Rumble_R_BTN.Name = "Rumble_R_BTN";
@@ -270,7 +270,7 @@
             // RightLAB
             // 
             this.RightLAB.BackColor = System.Drawing.Color.Transparent;
-            this.RightLAB.BackgroundImage = global::PS2_Handle.Properties.Resources._1175867;
+            this.RightLAB.BackgroundImage = global::SRB.NodeType.Joystick.Properties.Resources._1175867;
             this.RightLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.RightLAB.Location = new System.Drawing.Point(206, 82);
             this.RightLAB.Name = "RightLAB";
@@ -281,7 +281,7 @@
             // LeftLAB
             // 
             this.LeftLAB.BackColor = System.Drawing.Color.Transparent;
-            this.LeftLAB.BackgroundImage = global::PS2_Handle.Properties.Resources._1175867;
+            this.LeftLAB.BackgroundImage = global::SRB.NodeType.Joystick.Properties.Resources._1175867;
             this.LeftLAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.LeftLAB.Location = new System.Drawing.Point(48, 82);
             this.LeftLAB.Name = "LeftLAB";
@@ -291,7 +291,7 @@
             // 
             // Rumble_L_BTN
             // 
-            this.Rumble_L_BTN.BackgroundImage = global::PS2_Handle.Properties.Resources._1175695;
+            this.Rumble_L_BTN.BackgroundImage = global::SRB.NodeType.Joystick.Properties.Resources._1175695;
             this.Rumble_L_BTN.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Rumble_L_BTN.Location = new System.Drawing.Point(0, 130);
             this.Rumble_L_BTN.Name = "Rumble_L_BTN";

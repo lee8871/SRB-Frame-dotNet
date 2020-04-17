@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.PS2_Handle
+﻿namespace SRB.NodeType.Joystick
 {
     partial class ConfigCC
     {
