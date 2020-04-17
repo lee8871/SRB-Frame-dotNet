@@ -1,7 +1,7 @@
 ﻿using SRB.Frame;
 using System;
 
-namespace SRB.NodeType.Du_motor
+namespace SRB.NodeType.PhotoElecX6
 {
     internal partial class ConfigCC : IClusterControl
     {

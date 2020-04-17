@@ -1,6 +1,6 @@
 ﻿using SRB.Frame;
 
-namespace SRB.NodeType.Du_motor
+namespace SRB.NodeType.PhotoElecX6
 {
     internal class AdjustCluster : BaseNode.ICluster
     {

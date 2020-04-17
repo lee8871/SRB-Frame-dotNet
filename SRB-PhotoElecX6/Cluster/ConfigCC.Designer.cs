@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.Du_motor
+﻿namespace SRB.NodeType.PhotoElecX6
 {
     partial class ConfigCC
     {

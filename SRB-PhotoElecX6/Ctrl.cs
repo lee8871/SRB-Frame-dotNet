@@ -2,7 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-namespace SRB.NodeType.Du_motor
+namespace SRB.NodeType.PhotoElecX6
 {
     internal partial class Ctrl : INodeControl
     {
