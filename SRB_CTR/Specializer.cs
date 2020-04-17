@@ -17,6 +17,9 @@ namespace SRB_CTR
                 case "LiBatT2":
                     n.Datas = new SRB.NodeType.Charger.Interpreter(n);
                     break;
+                case "PhotoElecX6":
+                    n.Datas = new SRB.NodeType.PhotoElecX6.Interpreter(n);
+                    break;
                 default:
                     n.Datas = new SRB.Frame.untyped.Interpreter(n);
                     break;
