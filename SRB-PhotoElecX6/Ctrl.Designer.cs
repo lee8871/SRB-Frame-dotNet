@@ -28,64 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.handleBTN = new System.Windows.Forms.Button();
-            this.BrakeBTN = new System.Windows.Forms.Button();
-            this.StopBTN = new System.Windows.Forms.Button();
+            this.countBTN = new System.Windows.Forms.Button();
+            this.RAWBTN = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // handleBTN
+            // countBTN
             // 
-            this.handleBTN.Location = new System.Drawing.Point(6, 26);
-            this.handleBTN.Name = "handleBTN";
-            this.handleBTN.Size = new System.Drawing.Size(145, 94);
-            this.handleBTN.TabIndex = 9;
-            this.handleBTN.Text = "Motor Control Joystick";
-            this.handleBTN.UseVisualStyleBackColor = true;
-            this.handleBTN.Click += new System.EventHandler(this.handleBTN_Click);
+            this.countBTN.Location = new System.Drawing.Point(231, 39);
+            this.countBTN.Name = "countBTN";
+            this.countBTN.Size = new System.Drawing.Size(66, 31);
+            this.countBTN.TabIndex = 29;
+            this.countBTN.Text = "0";
+            this.countBTN.UseVisualStyleBackColor = true;
+            this.countBTN.Click += new System.EventHandler(this.countBTN_Click);
             // 
-            // BrakeBTN
+            // RAWBTN
             // 
-            this.BrakeBTN.Location = new System.Drawing.Point(157, 26);
-            this.BrakeBTN.Name = "BrakeBTN";
-            this.BrakeBTN.Size = new System.Drawing.Size(60, 44);
-            this.BrakeBTN.TabIndex = 27;
-            this.BrakeBTN.Text = "Brake";
-            this.BrakeBTN.UseVisualStyleBackColor = true;
-            this.BrakeBTN.Click += new System.EventHandler(this.BrakeBTN_Click);
-            // 
-            // StopBTN
-            // 
-            this.StopBTN.Location = new System.Drawing.Point(157, 76);
-            this.StopBTN.Name = "StopBTN";
-            this.StopBTN.Size = new System.Drawing.Size(60, 44);
-            this.StopBTN.TabIndex = 28;
-            this.StopBTN.Text = "Stop";
-            this.StopBTN.UseVisualStyleBackColor = true;
-            this.StopBTN.Click += new System.EventHandler(this.StopBTN_Click);
+            this.RAWBTN.Location = new System.Drawing.Point(147, 39);
+            this.RAWBTN.Name = "RAWBTN";
+            this.RAWBTN.Size = new System.Drawing.Size(78, 31);
+            this.RAWBTN.TabIndex = 30;
+            this.RAWBTN.Text = "RAW export";
+            this.RAWBTN.UseVisualStyleBackColor = true;
+            this.RAWBTN.Click += new System.EventHandler(this.RAWBTN_Click);
             // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.StopBTN);
-            this.Controls.Add(this.BrakeBTN);
-            this.Controls.Add(this.handleBTN);
+            this.Controls.Add(this.RAWBTN);
+            this.Controls.Add(this.countBTN);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 123);
-            this.Controls.SetChildIndex(this.handleBTN, 0);
+            this.Size = new System.Drawing.Size(300, 73);
+            this.Controls.SetChildIndex(this.HelpBTN, 0);
             this.Controls.SetChildIndex(this.RunStopBTN, 0);
-            this.Controls.SetChildIndex(this.BrakeBTN, 0);
-            this.Controls.SetChildIndex(this.StopBTN, 0);
+            this.Controls.SetChildIndex(this.countBTN, 0);
+            this.Controls.SetChildIndex(this.RAWBTN, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button handleBTN;
-        private System.Windows.Forms.Button BrakeBTN;
-        private System.Windows.Forms.Button StopBTN;
+        private System.Windows.Forms.Button countBTN;
+        private System.Windows.Forms.Button RAWBTN;
     }
 }
