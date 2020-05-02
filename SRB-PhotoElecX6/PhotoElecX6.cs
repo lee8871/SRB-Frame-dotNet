@@ -9,7 +9,7 @@ namespace SRB.NodeType.PhotoElecX6
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
         
-        public int value(int num) => bank.getBankUshort(num*2);
+        public int value(int num) => (short)bank.getBankUshort(num*2);
 
 
 
@@ -27,7 +27,7 @@ namespace SRB.NodeType.PhotoElecX6
         {
             Node.bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[] {12,0,0,1,2,3,4,5,6,7,8,9,10,11}                ,
+                new byte[] {13,0,0,1,2,3,4,5,6,7,8,9,10,11,12}              ,
                 new byte[] {0,2,0,2}             ,
                 new byte[] {0,4,2,3,0,1}
             });

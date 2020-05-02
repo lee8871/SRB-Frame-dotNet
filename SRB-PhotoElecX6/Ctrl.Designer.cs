@@ -28,50 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.countBTN = new System.Windows.Forms.Button();
-            this.RAWBTN = new System.Windows.Forms.Button();
+            this.ADCtable = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.ADCtable)).BeginInit();
             this.SuspendLayout();
             // 
-            // countBTN
+            // ADCtable
             // 
-            this.countBTN.Location = new System.Drawing.Point(231, 39);
-            this.countBTN.Name = "countBTN";
-            this.countBTN.Size = new System.Drawing.Size(66, 31);
-            this.countBTN.TabIndex = 29;
-            this.countBTN.Text = "0";
-            this.countBTN.UseVisualStyleBackColor = true;
-            this.countBTN.Click += new System.EventHandler(this.countBTN_Click);
-            // 
-            // RAWBTN
-            // 
-            this.RAWBTN.Location = new System.Drawing.Point(147, 39);
-            this.RAWBTN.Name = "RAWBTN";
-            this.RAWBTN.Size = new System.Drawing.Size(78, 31);
-            this.RAWBTN.TabIndex = 30;
-            this.RAWBTN.Text = "RAW export";
-            this.RAWBTN.UseVisualStyleBackColor = true;
-            this.RAWBTN.Click += new System.EventHandler(this.RAWBTN_Click);
+            this.ADCtable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ADCtable.Location = new System.Drawing.Point(6, 44);
+            this.ADCtable.Name = "ADCtable";
+            this.ADCtable.RowTemplate.Height = 23;
+            this.ADCtable.Size = new System.Drawing.Size(291, 103);
+            this.ADCtable.TabIndex = 28;
             // 
             // Ctrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.RAWBTN);
-            this.Controls.Add(this.countBTN);
+            this.Controls.Add(this.ADCtable);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 73);
+            this.Size = new System.Drawing.Size(300, 150);
             this.Controls.SetChildIndex(this.HelpBTN, 0);
             this.Controls.SetChildIndex(this.RunStopBTN, 0);
-            this.Controls.SetChildIndex(this.countBTN, 0);
-            this.Controls.SetChildIndex(this.RAWBTN, 0);
+            this.Controls.SetChildIndex(this.ADCtable, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.ADCtable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button countBTN;
-        private System.Windows.Forms.Button RAWBTN;
+
+        private System.Windows.Forms.DataGridView ADCtable;
     }
 }
