@@ -35,6 +35,7 @@
             this.BurnBTN = new System.Windows.Forms.Button();
             this.UpdateFileTB = new System.Windows.Forms.TextBox();
             this.UpdateInformationgRTB = new System.Windows.Forms.RichTextBox();
+            this.blTimeStampLAB = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // MainOF
@@ -79,10 +80,17 @@
             this.UpdateInformationgRTB.Name = "UpdateInformationgRTB";
             this.UpdateInformationgRTB.ReadOnly = true;
             // 
+            // blTimeStampLAB
+            // 
+            resources.ApplyResources(this.blTimeStampLAB, "blTimeStampLAB");
+            this.blTimeStampLAB.Name = "blTimeStampLAB";
+            this.blTimeStampLAB.DoubleClick += new System.EventHandler(this.blTimeStampLAB_Click);
+            // 
             // UpdateControl
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.blTimeStampLAB);
             this.Controls.Add(this.UpdateInformationgRTB);
             this.Controls.Add(this.UpdateFileTB);
             this.Controls.Add(this.ResetBTN);
@@ -101,5 +109,6 @@
         private System.Windows.Forms.Button ResetBTN;
         private System.Windows.Forms.TextBox UpdateFileTB;
         private System.Windows.Forms.RichTextBox UpdateInformationgRTB;
+        private System.Windows.Forms.Label blTimeStampLAB;
     }
 }

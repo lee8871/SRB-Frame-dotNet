@@ -74,11 +74,7 @@ namespace SRB.NodeType.Joystick
         public void init()
         {
             cfg_clu = new ConfigCluster(Node);
-            clusters[cfg_clu.CID] = cfg_clu;
-
             Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
-            clusters[Mapping0_clu.CID] = Mapping0_clu;
-
             Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();
         }

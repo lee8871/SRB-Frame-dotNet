@@ -6,7 +6,6 @@ namespace SRB_CTR
     internal partial class scanNodeState : UserControl
     {
         private SrbOnelineMaster backlogic;
-
         public scanNodeState(SrbOnelineMaster frame = null)
         {
             this.backlogic = frame;
@@ -16,20 +15,16 @@ namespace SRB_CTR
         }
         public override void Refresh()
         {
-            scanPB.Value = (int)(100 * backlogic.Scan_progress);
-            switch (backlogic.Scan_status)
+            scanPB.Value = (int)(100 * backlogic.address_bc.Scan_progress);
+            switch (backlogic.address_bc.Scan_status)
             {
-                case -1:
+                case "Scan is not begin":
+                case "Scan breaked":
+                case "Scan done":
+                case "Set address done":
+                case "Scan update breaked":
+                case "Scan update finish":
                     ContrulsEnable = true;
-                   // this.scanL.Text = "Scan is not begin."; 
-                    break;
-                case -2:
-                    ContrulsEnable = true;
-                   // this.scanL.Text = "Scan Stoped";
-                    break;
-                case -3:
-                    ContrulsEnable = true;
-                   // this.scanL.Text = "Scan Done"; 
                     break;
                 default:
                     ContrulsEnable = false;
@@ -53,7 +48,7 @@ namespace SRB_CTR
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            backlogic.endScan();
+            backlogic.address_bc.endScan();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -63,7 +58,7 @@ namespace SRB_CTR
 
         private void AutoSetAddressBTN_Click(object sender, EventArgs e)
         {
-            backlogic.autoSetAddress();
+            backlogic.address_bc.autoSetAddress();
 
         }
 
@@ -76,18 +71,18 @@ namespace SRB_CTR
                 return;
             }
             this.backlogic.resetAllAddress();
-            this.backlogic.scanNodes();
+            this.backlogic.address_bc.scanNodes();
         }
 
         private void RandomNewNodeBTN_Click(object sender, EventArgs e)
         {
             this.backlogic.resetNewNodeAddress();
-            this.backlogic.scanNodes();
+            this.backlogic.address_bc.scanNodes();
         }
 
         private void StartBTN_Click(object sender, EventArgs e)
         {
-            this.backlogic.scanNodes();
+            this.backlogic.address_bc.scanNodes();
         }
     }
 }

@@ -77,15 +77,18 @@ namespace SRB.Frame
                 BaseNode.INodeControlOwner cluster = node.getClusters(i);
                 if (cluster != null)
                 {
-                    b = new GroupBox();
-                    components.Add(b);
-                    b.Tag = cluster;
-                    b.Text = cluster.ToString();
-                    b.Size = b.MinimumSize = new Size(300, 18);
-                    b.MaximumSize = new Size(300, 300);
-                    b.Click += new EventHandler(b_Click);
-                    b.BackColor = Color.FromKnownColor(KnownColor.Control);
-                    this.clusters.Controls.Add(b);
+                    if (cluster.is_have_control)
+                    {
+                        b = new GroupBox();
+                        components.Add(b);
+                        b.Tag = cluster;
+                        b.Text = cluster.ToString();
+                        b.Size = b.MinimumSize = new Size(300, 18);
+                        b.MaximumSize = new Size(300, 300);
+                        b.Click += new EventHandler(b_Click);
+                        b.BackColor = Color.FromKnownColor(KnownColor.Control);
+                        this.clusters.Controls.Add(b);
+                    }
                 }
             }
         }

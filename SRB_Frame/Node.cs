@@ -29,7 +29,9 @@ namespace SRB.Frame
         private AddressCluster baseClu;
         private InformationCluster infoClu;
         private ErrorCluster errorClu;
+        private SyncCluster syncClu;
 
+        private DebugInfoCluster debugClu;
 
         public event dNodeUpdateEvent eChangeDescription;
         public event dNodeUpdateEvent eDispossing;
@@ -98,6 +100,7 @@ namespace SRB.Frame
                     updater = new SrbUpdater(this);
                 }
                 updater.sendInfoPkg();
+                updater.sendAppInfoPkg();
             }
         }
 
@@ -109,18 +112,16 @@ namespace SRB.Frame
                 clusters[i] = null;
             }
             this.datas = null;
-
-
             baseClu = new AddressCluster(this);
-            clusters[baseClu.CID] = baseClu;
             baseClu.read();
             if (Is_hareware_exist)
             {
                 infoClu = new InformationCluster(this);
                 errorClu = new ErrorCluster(this);
-                clusters[infoClu.CID] = infoClu;
-                clusters[errorClu.CID] = errorClu;
+                syncClu = new SyncCluster(this);
+                debugClu = new DebugInfoCluster(this);
                 infoClu.read();
+                infoClu.timestampClu.read();
                 specializer.specializeNode(this);
             }
         }
@@ -326,6 +327,7 @@ namespace SRB.Frame
     {
         public abstract class INodeControlOwner
         {
+            public bool is_have_control = true;
             public System.Windows.Forms.Control control;
             protected abstract System.Windows.Forms.Control createControl(); 
             public virtual System.Windows.Forms.Control getControl()

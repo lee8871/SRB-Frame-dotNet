@@ -18,9 +18,8 @@ namespace SRB.Frame
         {
             this.typeL.Text = "Type: " + cluster.type;
             this.versionL.Text =
-            string.Format("Version: Node-{0}.{1}  SRB-{2}.{3}  ", cluster.major_version, cluster.minor_version,
-            cluster.SRB_major_version, cluster.SRB_minor_version);
-            TimeStampTT.SetToolTip(this.versionL, "TimeStamp = " + cluster.time_stamp);
+            string.Format("{0} {1}", cluster.App_version, cluster.Srb_version);
+            TimeStampTT.SetToolTip(this.versionL, "TimeStamp = " + cluster.timestampClu.utc);
         }
 
 

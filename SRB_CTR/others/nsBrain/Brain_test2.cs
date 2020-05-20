@@ -30,11 +30,11 @@ namespace SRB_CTR.nsBrain
                         {
                             right = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
-                        if (n.Name == "key ctrl")
+                        if (n.Name == "Key1")
                         {
                             key_control = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }
-                        if (n.Name == "key ctrl 2")
+                        if (n.Name == "Key2")
                         {
                             key_control2 = n.Datas as SRB.NodeType.Du_motor.Interpreter;
                         }

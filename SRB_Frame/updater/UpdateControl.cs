@@ -49,10 +49,12 @@ namespace SRB.Frame
             this.UpdateInformationgRTB.AppendText("Not load .sup file " + updater.Hardware_code + "\n");
             this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.Black;
             this.UpdateInformationgRTB.AppendText("Hardware code: " + updater.Hardware_code + "\n");
-            this.UpdateInformationgRTB.AppendText(String.Format("srb version {0}.{1}\n",
-                updater.Srb_version_major, updater.Srb_version_miner));
-            this.UpdateInformationgRTB.AppendText(String.Format("node version {0}.{1}\n",
-                updater.Node_version_major, updater.Node_version_miner));
+            this.UpdateInformationgRTB.AppendText(String.Format("srb version {0}\n",
+                updater.srbVER));
+            this.UpdateInformationgRTB.AppendText(String.Format("node version {0}\n",
+                updater.nodeVER));
+            blTimeStampLAB_Click(this, new EventArgs());
+
         }
 
 
@@ -87,35 +89,38 @@ namespace SRB.Frame
                 }
                 this.UpdateInformationgRTB.AppendText("\n");
             }
-
-
-
-
-            if (file.Srb_version_num > updater.Srb_version_num)
+            if (file.srbVER > updater.srbVER)
             {
                 this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.DarkGreen;
+            }
+            else if (file.srbVER == updater.srbVER)
+            {
+                this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.Black;
             }
             else
             {
                 this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.DarkRed;
             }
-            this.UpdateInformationgRTB.AppendText(String.Format("srb version {0}.{1} -> {2}.{3}\n",
-                updater.Srb_version_major, updater.Srb_version_miner,
-                file.Srb_version_major, file.Srb_version_miner));
+            this.UpdateInformationgRTB.AppendText(String.Format("srb version {0} -> {1}\n",
+                updater.srbVER, file.srbVER));
 
-            
 
-            if (file.Node_version_num > updater.Node_version_num)
+            int _compare = file.srbVER.CompareTo(updater.srbVER);
+
+            if (file.nodeVER > updater.nodeVER)
             {
                 this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.DarkGreen;
+            }
+            else if (file.nodeVER == updater.nodeVER)
+            {
+                this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.Black;
             }
             else
             {
                 this.UpdateInformationgRTB.SelectionColor = System.Drawing.Color.DarkRed;
             }
-            this.UpdateInformationgRTB.AppendText(String.Format("node version {0}.{1} -> {2}.{3}\n",
-                updater.Node_version_major, updater.Node_version_miner,
-                file.Node_version_major, file.Node_version_miner));
+            this.UpdateInformationgRTB.AppendText(String.Format("node version {0} -> {1}\n",
+                updater.nodeVER, file.nodeVER));
 
         }
         private void openBTN_Click(object sender, EventArgs e)
@@ -147,6 +152,24 @@ namespace SRB.Frame
         private void ResetBTN_Click(object sender, EventArgs e)
         {
             updater.gotoNormalMode();
+        }
+        int blststatus=0;
+        private void blTimeStampLAB_Click(object sender, EventArgs e)
+        {
+            if(blststatus < 1)
+            {
+                this.blTimeStampLAB.Text = updater.bootloaderVER +" "+ updater.Hardware_time_stamp;
+            }
+            else
+            {
+                DateTime time=new DateTime();
+                time.getUtc(updater.Hardware_time_stamp);
+                this.blTimeStampLAB.Text = time.ToString("u");
+
+            }
+            blststatus++;
+            blststatus %= 2;
+
         }
     }
 }

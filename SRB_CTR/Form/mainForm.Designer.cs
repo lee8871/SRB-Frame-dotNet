@@ -37,7 +37,7 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.NodeTipTT = new System.Windows.Forms.ToolTip(this.components);
-            this.left_UpDownSC = new System.Windows.Forms.SplitContainer();
+            this.mainSC = new System.Windows.Forms.SplitContainer();
             this.frameCounterFLP = new System.Windows.Forms.FlowLayoutPanel();
             this.nodesTable = new System.Windows.Forms.FlowLayoutPanel();
             this.nodeScanTS = new System.Windows.Forms.ToolStrip();
@@ -49,13 +49,14 @@
             this.runBTN = new System.Windows.Forms.ToolStripButton();
             this.stopBTN = new System.Windows.Forms.ToolStripButton();
             this.AddrShowBTN = new System.Windows.Forms.ToolStripButton();
+            this.SyncBTN = new System.Windows.Forms.ToolStripButton();
             this.updateAllBTN = new System.Windows.Forms.ToolStripButton();
             this.mainTSC = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).BeginInit();
-            this.left_UpDownSC.Panel1.SuspendLayout();
-            this.left_UpDownSC.Panel2.SuspendLayout();
-            this.left_UpDownSC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSC)).BeginInit();
+            this.mainSC.Panel1.SuspendLayout();
+            this.mainSC.Panel2.SuspendLayout();
+            this.mainSC.SuspendLayout();
             this.nodeScanTS.SuspendLayout();
             this.mainTSC.ContentPanel.SuspendLayout();
             this.mainTSC.TopToolStripPanel.SuspendLayout();
@@ -67,7 +68,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.VersionLAB});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 579);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 616);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.statusStrip1.Size = new System.Drawing.Size(384, 22);
@@ -117,42 +118,46 @@
             // 
             this.ContentPanel.Size = new System.Drawing.Size(384, 554);
             // 
-            // left_UpDownSC
+            // mainSC
             // 
-            this.left_UpDownSC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.left_UpDownSC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.left_UpDownSC.Location = new System.Drawing.Point(0, 0);
-            this.left_UpDownSC.Name = "left_UpDownSC";
-            this.left_UpDownSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.mainSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.mainSC.Location = new System.Drawing.Point(0, 0);
+            this.mainSC.Name = "mainSC";
+            this.mainSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // left_UpDownSC.Panel1
+            // mainSC.Panel1
             // 
-            this.left_UpDownSC.Panel1.Controls.Add(this.frameCounterFLP);
+            this.mainSC.Panel1.Controls.Add(this.frameCounterFLP);
+            this.mainSC.Panel1MinSize = 0;
             // 
-            // left_UpDownSC.Panel2
+            // mainSC.Panel2
             // 
-            this.left_UpDownSC.Panel2.Controls.Add(this.nodesTable);
-            this.left_UpDownSC.Size = new System.Drawing.Size(384, 549);
-            this.left_UpDownSC.SplitterDistance = 249;
-            this.left_UpDownSC.SplitterWidth = 8;
-            this.left_UpDownSC.TabIndex = 0;
+            this.mainSC.Panel2.Controls.Add(this.nodesTable);
+            this.mainSC.Panel2MinSize = 250;
+            this.mainSC.Size = new System.Drawing.Size(384, 586);
+            this.mainSC.SplitterDistance = 25;
+            this.mainSC.SplitterWidth = 8;
+            this.mainSC.TabIndex = 0;
             // 
             // frameCounterFLP
             // 
             this.frameCounterFLP.AutoSize = true;
-            this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frameCounterFLP.BackColor = System.Drawing.Color.PowderBlue;
+            this.frameCounterFLP.Dock = System.Windows.Forms.DockStyle.Top;
             this.frameCounterFLP.Location = new System.Drawing.Point(0, 0);
             this.frameCounterFLP.Name = "frameCounterFLP";
-            this.frameCounterFLP.Size = new System.Drawing.Size(384, 249);
+            this.frameCounterFLP.Size = new System.Drawing.Size(384, 0);
             this.frameCounterFLP.TabIndex = 0;
             // 
             // nodesTable
             // 
             this.nodesTable.AutoSize = true;
+            this.nodesTable.BackColor = System.Drawing.Color.SkyBlue;
             this.nodesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nodesTable.Location = new System.Drawing.Point(0, 0);
             this.nodesTable.Name = "nodesTable";
-            this.nodesTable.Size = new System.Drawing.Size(384, 292);
+            this.nodesTable.Size = new System.Drawing.Size(384, 553);
             this.nodesTable.TabIndex = 0;
             // 
             // nodeScanTS
@@ -167,10 +172,11 @@
             this.runBTN,
             this.stopBTN,
             this.AddrShowBTN,
+            this.SyncBTN,
             this.updateAllBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(186, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(271, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // SRB_config
@@ -252,6 +258,16 @@
             this.AddrShowBTN.Text = "Begin Addr show";
             this.AddrShowBTN.Click += new System.EventHandler(this.AddrShowBTN_Click);
             // 
+            // SyncBTN
+            // 
+            this.SyncBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SyncBTN.Image = global::SRB_CTR.Properties.Resources.clock;
+            this.SyncBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SyncBTN.Name = "SyncBTN";
+            this.SyncBTN.Size = new System.Drawing.Size(27, 27);
+            this.SyncBTN.Text = "Sync and celibrat";
+            this.SyncBTN.Click += new System.EventHandler(this.SyncBTN_Click);
+            // 
             // updateAllBTN
             // 
             this.updateAllBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -268,14 +284,14 @@
             // 
             // mainTSC.ContentPanel
             // 
-            this.mainTSC.ContentPanel.Controls.Add(this.left_UpDownSC);
-            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 549);
+            this.mainTSC.ContentPanel.Controls.Add(this.mainSC);
+            this.mainTSC.ContentPanel.Size = new System.Drawing.Size(384, 586);
             this.mainTSC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTSC.LeftToolStripPanelVisible = false;
             this.mainTSC.Location = new System.Drawing.Point(0, 0);
             this.mainTSC.Name = "mainTSC";
             this.mainTSC.RightToolStripPanelVisible = false;
-            this.mainTSC.Size = new System.Drawing.Size(384, 579);
+            this.mainTSC.Size = new System.Drawing.Size(384, 616);
             this.mainTSC.TabIndex = 5;
             this.mainTSC.Text = "toolStripContainer1";
             // 
@@ -287,7 +303,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 601);
+            this.ClientSize = new System.Drawing.Size(384, 638);
             this.Controls.Add(this.mainTSC);
             this.Controls.Add(this.statusStrip1);
             this.Icon = global::SRB_CTR.Properties.Resources.SRB;
@@ -296,12 +312,12 @@
             this.Text = "Simple Robot Bus";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.left_UpDownSC.Panel1.ResumeLayout(false);
-            this.left_UpDownSC.Panel1.PerformLayout();
-            this.left_UpDownSC.Panel2.ResumeLayout(false);
-            this.left_UpDownSC.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.left_UpDownSC)).EndInit();
-            this.left_UpDownSC.ResumeLayout(false);
+            this.mainSC.Panel1.ResumeLayout(false);
+            this.mainSC.Panel1.PerformLayout();
+            this.mainSC.Panel2.ResumeLayout(false);
+            this.mainSC.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSC)).EndInit();
+            this.mainSC.ResumeLayout(false);
             this.nodeScanTS.ResumeLayout(false);
             this.nodeScanTS.PerformLayout();
             this.mainTSC.ContentPanel.ResumeLayout(false);
@@ -320,7 +336,7 @@
         private System.Windows.Forms.Timer uiTIMER;
         private System.Windows.Forms.ToolTip NodeTipTT;
         private System.Windows.Forms.ToolStripStatusLabel VersionLAB;
-        private System.Windows.Forms.SplitContainer left_UpDownSC;
+        private System.Windows.Forms.SplitContainer mainSC;
         private System.Windows.Forms.FlowLayoutPanel frameCounterFLP;
         private System.Windows.Forms.FlowLayoutPanel nodesTable;
         private System.Windows.Forms.ToolStripContainer mainTSC;
@@ -338,5 +354,6 @@
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
         private System.Windows.Forms.ToolStripButton updateAllBTN;
+        private System.Windows.Forms.ToolStripButton SyncBTN;
     }
 }

@@ -14,12 +14,38 @@ namespace SRB.Frame
 
             public BaseNode Parent_node { get => parent_node; }
             public byte CID { get => cID; }
+            public class Exception_cluster_redefine: Exception
+            {
+                public BaseNode node;
+                public ICluster new_cluster;
 
+                public Exception_cluster_redefine(BaseNode node,
+                 ICluster new_cluster)
+                {
+                    this.node = node;
+                    this.new_cluster = new_cluster;
+                }
+                public override string ToString()
+                {
+                    ICluster original_cluster;
+                    original_cluster = node.clusters[new_cluster.CID];
+                    return string.Format("Cluster redefined at node {0}\n" +
+                        "cluster{1} ({2}) -> ({3})",
+                        node.ToString(), original_cluster.CID,
+                        original_cluster.ToString(), new_cluster.ToString()); 
+                }
+            }
 
             public ICluster(BaseNode n, byte ID, int banksize)
             {
-                bank = new ByteBank(banksize, true);
                 this.cID = ID;
+                if (n.clusters[this.cID]!=null)
+                {
+                    throw new Exception_cluster_redefine(n, this);
+
+                }
+                n.clusters[this.cID] = this;
+                bank = new ByteBank(banksize, true);
                 this.parent_node = n;
             }
             public void writeBankinit()

@@ -2,28 +2,23 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Timers;
 using SRB.Frame.updater;
 
 namespace SRB.Frame{
     public partial class BaseNode
     {
-        public class SrbUpdater : INodeControlOwner, IAccesser
+        public partial class SrbUpdater : INodeControlOwner, IAccesser
         {
             BaseNode node;
 
-            int node_version_major ;
-            int node_version_miner ;
-            int srb_version_major  ;
-            int srb_version_miner;
+            int srb_build_id;
+            string App_type;
 
-            public int Node_version_major => node_version_major;
-            public int Node_version_miner => node_version_miner;
-            public int Srb_version_major => srb_version_major;
-            public int Srb_version_miner => srb_version_miner;
-            public int Node_version_num => node_version_major * 1000 + node_version_miner;
-            public int Srb_version_num => srb_version_major * 1000 + srb_version_miner;
-
-
+            public Version bootloaderVER = new Version("Bootloader");
+            public SRB.Frame.Version srbVER = new SRB.Frame.Version("SRB");
+            public SRB.Frame.Version nodeVER = new SRB.Frame.Version("App");
             public SrbUpdater(BaseNode node)
             {
                 this.node = node;
@@ -31,15 +26,10 @@ namespace SRB.Frame{
 
             public void gotoUpdateMode()
             {
-                node.infoClu.read();
-                node_version_major = node.infoClu.major_version;
-                node_version_miner = node.infoClu.minor_version;
-                srb_version_major = node.infoClu.SRB_major_version;
-                srb_version_miner = node.infoClu.SRB_minor_version;
-
                 node.infoClu.resetNode();
-                hold(); 
+                hold();
                 sendInfoPkg();
+                sendAppInfoPkg();
             }
 
 
@@ -51,11 +41,14 @@ namespace SRB.Frame{
             const byte UDT_CMD_HOLD = 5;
             const byte UDT_CMD_CHECK = 6;
             const byte UDT_CMD_INFO = 7;
-            const byte UDT_CMD_END = 8;
+            const byte UDP_CMD_APP_INFO = 8;
+            const byte UDT_CMD_END = 9;
 
             string hardware_code;
+            int hardware_time_stamp;
             public string File_information => sup_file.Dscription;
             public string Hardware_code => hardware_code;
+            public int Hardware_time_stamp => hardware_time_stamp;
 
             SupFile sup_file;
             public SupFile Sup_file=>sup_file;
@@ -109,8 +102,22 @@ namespace SRB.Frame{
                         {
                             hardware_code[i] = (char)ac.Recv_data[i];
                         }
-
+                        hardware_time_stamp = (int)support.byteToUint32(ac.Recv_data, 12);
+                        bootloaderVER.read(ac.Recv_data, 9);
                         this.hardware_code = new string(hardware_code).Substring(0,8);
+                    }
+                    if (ac.Send_data[0] == UDP_CMD_APP_INFO)
+                    {
+                        int point = 0;
+                        nodeVER.read(ac.Recv_data, point); point += 3;
+                        srbVER.read(ac.Recv_data, point); point += 3;
+                        point += 2;
+                        char[] App_type_ca = new char[17];
+                        for (int i = 0; i < App_type_ca.Length; i++)
+                        {
+                            App_type_ca[i] = (char)ac.Recv_data[point++];
+                        }
+                        this.App_type = new string(App_type_ca);
                     }
                     else
                     {
@@ -125,6 +132,10 @@ namespace SRB.Frame{
             public void sendInfoPkg(int retry_ms = 50)
             {
                 node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_INFO }));
+            }
+            public void sendAppInfoPkg(int retry_ms = 50)
+            {
+                node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDP_CMD_APP_INFO }));
             }
             public void hold(int retry_ms = 50)
             {
@@ -233,22 +244,150 @@ namespace SRB.Frame{
 
 
 
-            public static void holdAll(IBus bus, int duration_ms=5000 )
+
+            public class Broadcast
             {
-                var stopwatch = new System.Diagnostics.Stopwatch();
-                stopwatch.Restart();
-                while (true)
+                IBus bus;
+                public Broadcast(IBus bus)
                 {
-                    bus.singleAccess(new Access(null, null, Access.PortEnum.Udp, new byte[] { UDT_CMD_HOLD }));
-                    if (stopwatch.ElapsedMilliseconds > duration_ms)
+                    this.bus = bus;
+                }
+                public void gotoUpdateModeAll()
+                {
+                    foreach (BaseNode n in bus)
                     {
-                        break;
+                        if (n.Is_in_update == false)
+                        {
+                            n.gotoUpdateMode();
+                        }
+                    }
+                }
+                Thread goto_update_from_poweron_thread;
+                bool is_thread_stoping = false;
+                public void gotoUpdateAllFromPowerOn_start()
+                {
+                    if(null != goto_update_from_poweron_thread)
+                    {
+                        if (goto_update_from_poweron_thread.IsAlive)
+                        {
+                            throw new ObjectDisposedException("goto_update_from_poweron_thread", "Thread is running");
+                        }
+                    }
+                    goto_update_from_poweron_thread = new Thread(gotoUpdateModeAllFromPowerOnTH);
+                    is_thread_stoping = false;
+                    goto_update_from_poweron_thread.Start();
+                }
+                public void gotoUpdateAllFromPowerOn_stop()
+                {
+                    if (null != goto_update_from_poweron_thread)
+                    {
+                        if (goto_update_from_poweron_thread.IsAlive)
+                        {
+                            is_thread_stoping = true;
+                            return;
+                        }
+                    }
+                    throw new InvalidOperationException("Thread is not running but be stoped.");
+                }
+                void gotoUpdateModeAllFromPowerOnTH()
+                {
+                    var stopwatch = new System.Diagnostics.Stopwatch();
+                    stopwatch.Restart();
+                    while (true)
+                    {
+                        bus.singleAccess(new Access(null, null, Access.PortEnum.Udp, new byte[] { SrbUpdater.UDT_CMD_HOLD }));
+                        if (stopwatch.ElapsedMilliseconds > 10000)
+                        {
+                            return;
+                        }
+                        if (is_thread_stoping == true)
+                        {
+                            return;
+                        }
                     }
                 }
 
+
+                SupLoader sup_loader;
+                public SupLoader Sup_loader => sup_loader;
+                public void loadFiles(string sup_files_path)
+                {
+                    sup_loader = new SupLoader();
+                    sup_loader.LoadFiles(sup_files_path);
+                }
+
+
+                public delegate void dAppendInfo(string st);
+                private Thread burning_thread;
+                private dAppendInfo appendInfo;
+                private bool is_burn_all_running = false;
+                public void burnAll(dAppendInfo delegateInfo)
+                {
+                    if (is_burn_all_running == false)
+                    {
+                        appendInfo = delegateInfo;
+                        if (sup_loader.Is_file_loaded)
+                        {
+                            is_burn_all_running = true;
+                            burning_thread = new Thread(new ThreadStart(burnAllTh));
+                            burning_thread.Start();
+                        }
+                        else
+                        {
+                            appendInfo(null);
+                            appendInfo("Update all fail. No sup file.\n");
+
+                        }
+                    }
+                }
+                private void burnAllTh()
+                {
+                    System.Collections.Generic.Queue<BaseNode> node_to_update = new System.Collections.Generic.Queue<BaseNode>();
+                    appendInfo(null);
+                    foreach (BaseNode n in bus)
+                    {
+                        if (n.Is_in_update == true)
+                        {
+                            node_to_update.Enqueue(n);
+                        }
+                    }
+                    if (node_to_update.Count == 0)
+                    {
+                        appendInfo("No Node in update mode. " +
+                            "You may connect new nodes or set some nodes to update mode, than try burn all.\n");
+                    }
+                    else
+                    {
+                        appendInfo(string.Format(
+                            "{0} node(s) waiting to be burn.\n\n", node_to_update.Count));
+                        int node_counter = 0;
+                        foreach (BaseNode n in node_to_update)
+                        {
+                            node_counter++;
+                            string hc = n.Updater.Hardware_code;
+                            appendInfo(string.Format(
+                                "node {0}/{1} burning. hardware code is {2}\n",
+                                node_counter, node_to_update.Count, hc));
+
+                            var sup_file = sup_loader.findByHardwareCode(hc);
+                            if (sup_file != null)
+                            {
+                                n.Updater.loadFile(sup_file);
+                                n.Updater.update();
+                                n.gotoNormalMode();
+                                appendInfo(string.Format(
+                                    "\tburning done\n", hc));
+                            }
+                            else
+                            {
+                                appendInfo(string.Format(
+                                    "\t.sup file not found for {0}, burning cancled", hc));
+                            }
+                        }
+                    }
+                    is_burn_all_running = false;
+                }
             }
-
-
         }
     }
 }

@@ -41,6 +41,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(23, 23);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StartBTN,
@@ -51,7 +52,7 @@
             this.randomAllAddressBTN});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 32);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -61,7 +62,7 @@
             this.StartBTN.Image = ((System.Drawing.Image)(resources.GetObject("StartBTN.Image")));
             this.StartBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.StartBTN.Name = "StartBTN";
-            this.StartBTN.Size = new System.Drawing.Size(27, 27);
+            this.StartBTN.Size = new System.Drawing.Size(27, 29);
             this.StartBTN.Text = "Scan Nodes";
             this.StartBTN.Click += new System.EventHandler(this.StartBTN_Click);
             // 
@@ -71,14 +72,14 @@
             this.StopBTN.Image = ((System.Drawing.Image)(resources.GetObject("StopBTN.Image")));
             this.StopBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.StopBTN.Name = "StopBTN";
-            this.StopBTN.Size = new System.Drawing.Size(27, 27);
+            this.StopBTN.Size = new System.Drawing.Size(27, 29);
             this.StopBTN.Text = "Stop Scaning";
             this.StopBTN.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // scanPB
             // 
             this.scanPB.Name = "scanPB";
-            this.scanPB.Size = new System.Drawing.Size(100, 27);
+            this.scanPB.Size = new System.Drawing.Size(100, 29);
             this.scanPB.ToolTipText = "Scan Progress";
             this.scanPB.Value = 25;
             // 
@@ -88,7 +89,7 @@
             this.AutoSetAddressBTN.Image = ((System.Drawing.Image)(resources.GetObject("AutoSetAddressBTN.Image")));
             this.AutoSetAddressBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.AutoSetAddressBTN.Name = "AutoSetAddressBTN";
-            this.AutoSetAddressBTN.Size = new System.Drawing.Size(27, 27);
+            this.AutoSetAddressBTN.Size = new System.Drawing.Size(27, 29);
             this.AutoSetAddressBTN.Text = "Auto Set All Address";
             this.AutoSetAddressBTN.Click += new System.EventHandler(this.AutoSetAddressBTN_Click);
             // 
@@ -98,7 +99,7 @@
             this.RandomNewNodeBTN.Image = ((System.Drawing.Image)(resources.GetObject("RandomNewNodeBTN.Image")));
             this.RandomNewNodeBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RandomNewNodeBTN.Name = "RandomNewNodeBTN";
-            this.RandomNewNodeBTN.Size = new System.Drawing.Size(27, 27);
+            this.RandomNewNodeBTN.Size = new System.Drawing.Size(27, 29);
             this.RandomNewNodeBTN.Text = "Random New Nodes";
             this.RandomNewNodeBTN.Click += new System.EventHandler(this.RandomNewNodeBTN_Click);
             // 
@@ -108,7 +109,7 @@
             this.randomAllAddressBTN.Image = ((System.Drawing.Image)(resources.GetObject("randomAllAddressBTN.Image")));
             this.randomAllAddressBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.randomAllAddressBTN.Name = "randomAllAddressBTN";
-            this.randomAllAddressBTN.Size = new System.Drawing.Size(27, 27);
+            this.randomAllAddressBTN.Size = new System.Drawing.Size(27, 29);
             this.randomAllAddressBTN.Text = "Random All Address";
             this.randomAllAddressBTN.Click += new System.EventHandler(this.randomAllAddressBTN_Click);
             // 

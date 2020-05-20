@@ -5,6 +5,11 @@ namespace SRB.Frame
 {
     public abstract partial class IBus : IEnumerable<BaseNode>
     {
+
+        public delegate void dAddNode(IBus bus, BaseNode n);
+        public event dAddNode eNodeAdd;
+
+
         protected string name = "Undefined";
         protected string type = "Uninitialized";
 
@@ -12,6 +17,7 @@ namespace SRB.Frame
         public string Name => name;
         public string Type => type;
         BaseNode temp_node = null;
+
         public BaseNode createTempNode(byte address)
         {
             if(temp_node != null)
@@ -27,15 +33,23 @@ namespace SRB.Frame
             {
                 throw new System.Exception("你没有事先 createTempNode 就调用了addTempNode，此时临时节点是不存在的.请修改程序。");
             }
-            BaseNode bn = temp_node;
+            BaseNode n = temp_node;
             temp_node = null;
-            node_list.Add(bn);
-            return bn;
+            node_list.Add(n);
+            if (eNodeAdd != null)
+            {
+                eNodeAdd.Invoke(this, n);
+            }
+            return n;
         }
         public BaseNode createNode(byte address)
         {
             BaseNode n = new BaseNode(address, this);
             node_list.Add(n);
+            if (eNodeAdd != null)
+            {
+                eNodeAdd.Invoke(this, n);
+            }
             return n;
         }
         public void removeNode(BaseNode n)
@@ -77,6 +91,8 @@ namespace SRB.Frame
         {
             return ((IEnumerable<BaseNode>)node_list).GetEnumerator();
         }
+
+        public int Count { get => node_list.Count; }
 
 
         public BaseNode this[byte addr]

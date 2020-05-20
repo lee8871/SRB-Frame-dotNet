@@ -25,6 +25,8 @@
             this.GotoUpdateByPowerOnBTN = new System.Windows.Forms.ToolStripButton();
             this.BurnBTN = new System.Windows.Forms.ToolStripButton();
             this.burnPB = new System.Windows.Forms.ToolStripProgressBar();
+            this.closeBTN = new System.Windows.Forms.ToolStripButton();
+            this.recoedBTN = new System.Windows.Forms.ToolStripButton();
             this.infoRTC = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -38,10 +40,12 @@
             this.gotoUpdateAllBTN,
             this.GotoUpdateByPowerOnBTN,
             this.BurnBTN,
-            this.burnPB});
+            this.burnPB,
+            this.closeBTN,
+            this.recoedBTN});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(384, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(378, 30);
             this.toolStrip1.TabIndex = 0;
             // 
             // FileBTN
@@ -99,13 +103,35 @@
             this.burnPB.Name = "burnPB";
             this.burnPB.Size = new System.Drawing.Size(100, 27);
             // 
+            // closeBTN
+            // 
+            this.closeBTN.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.closeBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.closeBTN.Image = ((System.Drawing.Image)(resources.GetObject("closeBTN.Image")));
+            this.closeBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.closeBTN.Name = "closeBTN";
+            this.closeBTN.Size = new System.Drawing.Size(27, 27);
+            this.closeBTN.Text = "Close";
+            this.closeBTN.Click += new System.EventHandler(this.closeBTN_Click);
+            // 
+            // recoedBTN
+            // 
+            this.recoedBTN.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.recoedBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.recoedBTN.Image = ((System.Drawing.Image)(resources.GetObject("recoedBTN.Image")));
+            this.recoedBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.recoedBTN.Name = "recoedBTN";
+            this.recoedBTN.Size = new System.Drawing.Size(27, 27);
+            this.recoedBTN.Text = "Info";
+            this.recoedBTN.Click += new System.EventHandler(this.recoedBTN_Click);
+            // 
             // infoRTC
             // 
-            this.infoRTC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoRTC.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.infoRTC.Location = new System.Drawing.Point(0, 30);
             this.infoRTC.Name = "infoRTC";
             this.infoRTC.ReadOnly = true;
-            this.infoRTC.Size = new System.Drawing.Size(384, 221);
+            this.infoRTC.Size = new System.Drawing.Size(378, 170);
             this.infoRTC.TabIndex = 1;
             this.infoRTC.TabStop = false;
             this.infoRTC.Text = "";
@@ -114,11 +140,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.infoRTC);
             this.Controls.Add(this.toolStrip1);
+            this.MaximumSize = new System.Drawing.Size(378, 320);
+            this.MinimumSize = new System.Drawing.Size(378, 32);
             this.Name = "UpdateAll_uc";
-            this.Size = new System.Drawing.Size(384, 251);
+            this.Size = new System.Drawing.Size(378, 200);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -136,5 +165,7 @@
         private System.Windows.Forms.ToolStripButton ScanUpdateBTN;
         private System.Windows.Forms.ToolStripProgressBar burnPB;
         private System.Windows.Forms.RichTextBox infoRTC;
+        private System.Windows.Forms.ToolStripButton closeBTN;
+        private System.Windows.Forms.ToolStripButton recoedBTN;
     }
 }

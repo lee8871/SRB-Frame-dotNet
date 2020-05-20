@@ -116,16 +116,12 @@ namespace SRB.NodeType.Charger
         public void init()
         {
             cfg_clu = new BatteryCluster(Node);
-            clusters[cfg_clu.CID] = cfg_clu;
 
             morse_clu = new MorseCluster(Node);
-            clusters[morse_clu.CID] = morse_clu;
 
             inn_res_clu = new InnResCluster(Node);
-            clusters[inn_res_clu.CID] = inn_res_clu;
 
             Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
-            clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();

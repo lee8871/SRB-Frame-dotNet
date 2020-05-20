@@ -54,11 +54,8 @@ namespace SRB.NodeType.Du_motor
         public void init()
         {
             motor_clu = new ConfigCluster(Node);
-            clusters[motor_clu.CID] = motor_clu;
             adj_clu = new AdjustCluster(Node);
-            clusters[adj_clu.CID] = adj_clu;
             Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
-            clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();

@@ -4,8 +4,9 @@ namespace SRB.Frame
 {
     public class ByteBank
     {
-        public byte this[int i] { get => ba[i]; set=> ba[i]=value; }
+        public byte this[int i] { get => ba[i]; set => ba[i] = value; }
         private byte[] ba;
+        public byte[] Byte_array { get => ba; }
         private byte[] ba_temp;
         private int length;
         private bool is_write_to_temp;
@@ -55,7 +56,7 @@ namespace SRB.Frame
         {
             if (max_len == -1)
             {
-                max_len = length;
+                max_len = length-diff;
             }
             char[] cs = new char[max_len];
             int i;
@@ -185,6 +186,31 @@ namespace SRB.Frame
             }
             return;
         }
+        public uint getBankUint(int diff, int bit_length ,int bit_diff = 0)
+        {
+            if((bit_diff<0)|| (bit_diff >= 8))
+            {
+                throw new Exception("bit_diff should be within 0 to 7.");
+            }
+            if ((bit_length < 0) || (bit_length >= 32))
+            {
+                throw new Exception("bit_length should be within 0 to 32.");
+            }
+            ulong rev = 0;
+            for (int i = 4; i > 0; i--)
+            {
+                if (ba.Length > diff + i)
+                {
+                    rev += ba[diff + i];
+                    rev <<= 8;
+                }
+            }
+            rev += ba[diff];
+            rev >>=bit_diff;
+            rev &= ~(0xffffffffffffffff << bit_length);
+            return (uint)rev;
+        }
+
 
     }
 }

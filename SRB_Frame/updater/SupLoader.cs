@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SRB_CTR
+
+namespace SRB.Frame.updater
 {
     public class SupLoader
     {
@@ -51,7 +52,7 @@ namespace SRB_CTR
             foreach (var file in sup_files)
             {
                 rev += string.Format("{0}, SRBv.{1}, NODEv.{2}\n\tFor hardware: ", 
-                      file.Node_type, file.Srb_version, file.Node_version);
+                      file.Node_type, file.srbVER, file.nodeVER);
                 foreach(var hc in file.Hardware_codes_array)
                 {
                     rev += hc + ", ";

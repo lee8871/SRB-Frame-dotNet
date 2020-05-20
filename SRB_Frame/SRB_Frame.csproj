@@ -49,6 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="ByteExplanation.cs" />
+    <Compile Include="CommonCluster\DebugInfoCluster.cs" />
+    <Compile Include="CommonCluster\SyncCC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonCluster\SyncCC.Designer.cs">
+      <DependentUpon>SyncCC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonCluster\SyncCluster.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -60,7 +69,9 @@
     <Compile Include="Node_form.designer.cs">
       <DependentUpon>Node_form.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommonCluster\SyncBroadcast.cs" />
     <Compile Include="updater\SupFile.cs" />
+    <Compile Include="updater\SupLoader.cs" />
     <Compile Include="updater\UpdateControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -88,11 +99,11 @@
       <DependentUpon>IClusterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ICluster.cs" />
-    <Compile Include="CommonCluster\AddressCluster.cs" />
-    <Compile Include="CommonCluster\AddressCC.cs">
+    <Compile Include="CommonCluster\Address\AddressCluster.cs" />
+    <Compile Include="CommonCluster\Address\AddressCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CommonCluster\AddressCC.Designer.cs">
+    <Compile Include="CommonCluster\Address\AddressCC.Designer.cs">
       <DependentUpon>AddressCC.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonCluster\ErrorCluster.cs" />
@@ -137,15 +148,19 @@
     </Compile>
     <Compile Include="untyped\Interpreter.cs" />
     <Compile Include="updater\Updater.cs" />
+    <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CommonCluster\SyncCC.resx">
+      <DependentUpon>SyncCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="updater\UpdateControl.resx">
       <DependentUpon>UpdateControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="INodeControl.resx">
       <DependentUpon>INodeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CommonCluster\AddressCC.resx">
+    <EmbeddedResource Include="CommonCluster\Address\AddressCC.resx">
       <DependentUpon>AddressCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CommonCluster\ErrorCC.resx">

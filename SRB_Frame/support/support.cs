@@ -47,6 +47,18 @@ namespace SRB.Frame
             rev += low;
             return rev;
         }
+        static internal UInt32 byteToUint32(byte[] ba,int offset)
+        {
+            UInt32 rev = 0;
+            offset += 3;
+            for (int i = 0; i < 3; i++)
+            {
+                rev += ba[offset--];
+                rev <<= 8;
+            }
+            rev += ba[offset];
+            return rev;
+        }
         static internal byte Uint16LowByte(UInt16 u16)
         {
             return (byte)u16;
@@ -90,5 +102,33 @@ namespace SRB.Frame
 
 
     }
+
+
+
+    public static class Expand_DateTime
+    {
+        /// <summary>  
+        /// DateTime时间格式转换为Unix时间戳格式  
+        /// </summary>  
+        /// <param name="time"> DateTime时间格式</param>  
+        /// <returns>Unix时间戳格式</returns>  
+        static public int ToUtc(this System.DateTime time)
+        {
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            return (int)(time - startTime).TotalSeconds;
+        }
+        /// <summary>  
+        /// Unix时间戳转为C#格式时间  
+        /// </summary>  
+        /// <param name="timeStamp">Unix时间戳格式,例如1482115779</param>  
+        /// <returns>C#格式时间</returns>  
+        public static void getUtc(ref this DateTime time, int utc)
+        {
+            time = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            time = time.AddSeconds(utc);
+            return;
+        }
+    }
+
 }
 

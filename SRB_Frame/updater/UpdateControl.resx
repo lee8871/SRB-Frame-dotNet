@@ -157,7 +157,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ResetBTN.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="openBTN.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
@@ -187,7 +187,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;openBTN.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="BurnBTN.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -223,7 +223,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BurnBTN.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="UpdateFileTB.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 6</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;UpdateFileTB.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="UpdateInformationgRTB.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 9pt</value>
@@ -253,7 +253,7 @@
     <value>4, 33</value>
   </data>
   <data name="UpdateInformationgRTB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 125</value>
+    <value>293, 119</value>
   </data>
   <data name="UpdateInformationgRTB.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -271,6 +271,36 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;UpdateInformationgRTB.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="blTimeStampLAB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="blTimeStampLAB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="blTimeStampLAB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 155</value>
+  </data>
+  <data name="blTimeStampLAB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 12</value>
+  </data>
+  <data name="blTimeStampLAB.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="blTimeStampLAB.Text" xml:space="preserve">
+    <value>Bootloader Time Stamp = XXXXXXXXXXXX</value>
+  </data>
+  <data name="&gt;&gt;blTimeStampLAB.Name" xml:space="preserve">
+    <value>blTimeStampLAB</value>
+  </data>
+  <data name="&gt;&gt;blTimeStampLAB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blTimeStampLAB.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;blTimeStampLAB.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -292,7 +322,7 @@
     <value>300, 20</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 161</value>
+    <value>300, 167</value>
   </data>
   <data name="&gt;&gt;MainOF.Name" xml:space="preserve">
     <value>MainOF</value>

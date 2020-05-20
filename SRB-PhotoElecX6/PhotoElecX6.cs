@@ -16,7 +16,6 @@ namespace SRB.NodeType.PhotoElecX6
         public void init()
         {
             Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
-            clusters[Mapping0_clu.CID] = Mapping0_clu;
 
             Mapping0_clu.eDataChanged += updataMapping;
             Mapping0_clu.read();

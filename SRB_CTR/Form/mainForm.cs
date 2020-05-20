@@ -28,7 +28,18 @@ namespace SRB_CTR
             VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  @  " +
                 System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
 
+            frameCounterFLP.SizeChanged += FrameCounterFLP_SizeChanged;
+            mainSC.SplitterDistance = frameCounterFLP.Size.Height + 4;
+
+
         }
+
+        private void FrameCounterFLP_SizeChanged(object sender, EventArgs e)
+        {
+            mainSC.SplitterDistance = frameCounterFLP.Size.Height + 4;
+        }
+
+
         protected override void OnClosing(CancelEventArgs e)
         {
             backlogic.Dispose();
@@ -191,7 +202,7 @@ namespace SRB_CTR
                 if (config_ctrl != null) config_ctrl.Enabled = false;
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
                 if (update_all_ctrl != null) update_all_ctrl.Enabled = false;
-                backlogic.endScan();
+                backlogic.address_bc.endScan();
                 foreach (BaseNode n in backlogic.Bus)
                 {
                     if (n != null)
@@ -460,6 +471,29 @@ namespace SRB_CTR
             }
 
         }
+        SyncUC sync_ctrl;
+
+        private void SyncBTN_Click(object sender, EventArgs e)
+        {
+
+            if (sync_ctrl == null)
+            {
+                sync_ctrl = new SyncUC(backlogic.sync_bc);
+                frameCounterFLP.Controls.Add(sync_ctrl);
+                sync_ctrl.Show();
+            }
+            else
+            {
+                if (sync_ctrl.Visible)
+                {
+                    sync_ctrl.Hide();
+                }
+                else
+                {
+                    sync_ctrl.Show();
+                }
+            }
+        }
 
         private void ScanNodeBTN_Click(object sender, EventArgs e)
         {
@@ -468,7 +502,7 @@ namespace SRB_CTR
                 scanNodeCtrl = new scanNodeState(this.backlogic);
                 frameCounterFLP.Controls.Add(scanNodeCtrl);
                 scanNodeCtrl.Show();
-                this.backlogic.scanNodes();
+                this.backlogic.address_bc.scanNodes();
             }
             else
             {
