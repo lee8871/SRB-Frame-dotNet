@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-
+这个的问题是同步效果不好，本身系统时钟到总线时钟是存在10 SrbTick左右误差的，
+这种误差可能来自USB发送设备的周期，也很可能来自电脑
 namespace SRB.Frame
 {
     public partial class BaseNode
@@ -236,7 +237,7 @@ namespace SRB.Frame
                                 clock_totle += sync_values_t2[j, i];
                             }
                         }
-                        clk_base = tickToDoubleSrbClock(tick_totle) * 1.0 / count; 
+                        clk_base = tickToDoubleSrbClock(tick_totle) * 1.0 / count;
                         clk_node = clock_totle * 1.0 / count;
                     }
                     for (int j = 0; j < node_count; j++)
@@ -272,7 +273,7 @@ namespace SRB.Frame
                     info += string.Format("Addr | ms1.024 | us4 | Totel int|Diff\n");
                     info += string.Format("----|----|----|----|----\n");
 
-                    info += string.Format(" {0} | {1} | {2} | {3} | {4}\n", "PC", 
+                    info += string.Format(" {0} | {1} | {2} | {3} | {4}\n", "PC",
                         (ms*1.0 / 1000).ToString("F3"), us4, base_clock,"--");
                     int success_count = 0;
                     foreach (BaseNode node in bus)

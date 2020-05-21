@@ -19,6 +19,7 @@ namespace SRB_CTR
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             cp = Process.GetCurrentProcess();
+            cp.PriorityClass = ProcessPriorityClass.High;
             cp.PriorityClass = ProcessPriorityClass.RealTime;
 
             SRB.Frame.BaseNode.specializer = new Specializer();
