@@ -35,12 +35,12 @@
             this.syncStopBTN = new System.Windows.Forms.ToolStripButton();
             this.scanPB = new System.Windows.Forms.ToolStripProgressBar();
             this.calibrationBTN = new System.Windows.Forms.ToolStripButton();
-            this.statusLAB = new System.Windows.Forms.ToolStripLabel();
             this.closeBTN = new System.Windows.Forms.ToolStripButton();
             this.recoedBTN = new System.Windows.Forms.ToolStripButton();
+            this.DebugFormBTN = new System.Windows.Forms.ToolStripButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.infoRTC = new System.Windows.Forms.RichTextBox();
-            this.DebugFormBTN = new System.Windows.Forms.ToolStripButton();
+            this.statusLAB = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,12 +98,6 @@
             this.calibrationBTN.Text = "Celibrate All Node";
             this.calibrationBTN.Click += new System.EventHandler(this.calibrationBTN_Click);
             // 
-            // statusLAB
-            // 
-            this.statusLAB.Name = "statusLAB";
-            this.statusLAB.Size = new System.Drawing.Size(74, 29);
-            this.statusLAB.Text = "Sync_Statuc";
-            // 
             // closeBTN
             // 
             this.closeBTN.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -126,6 +120,16 @@
             this.recoedBTN.Text = "Info";
             this.recoedBTN.Click += new System.EventHandler(this.recoedBTN_Click);
             // 
+            // DebugFormBTN
+            // 
+            this.DebugFormBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DebugFormBTN.Image = ((System.Drawing.Image)(resources.GetObject("DebugFormBTN.Image")));
+            this.DebugFormBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DebugFormBTN.Name = "DebugFormBTN";
+            this.DebugFormBTN.Size = new System.Drawing.Size(27, 29);
+            this.DebugFormBTN.Text = "Open Debug Form";
+            this.DebugFormBTN.Click += new System.EventHandler(this.DebugFormBTN_Click);
+            // 
             // timer
             // 
             this.timer.Interval = 1000;
@@ -140,15 +144,11 @@
             this.infoRTC.TabIndex = 1;
             this.infoRTC.Text = "";
             // 
-            // DebugFormBTN
+            // statusLAB
             // 
-            this.DebugFormBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DebugFormBTN.Image = ((System.Drawing.Image)(resources.GetObject("DebugFormBTN.Image")));
-            this.DebugFormBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DebugFormBTN.Name = "DebugFormBTN";
-            this.DebugFormBTN.Size = new System.Drawing.Size(27, 29);
-            this.DebugFormBTN.Text = "Open Debug Form";
-            this.DebugFormBTN.Click += new System.EventHandler(this.DebugFormBTN_Click);
+            this.statusLAB.Name = "statusLAB";
+            this.statusLAB.Size = new System.Drawing.Size(74, 29);
+            this.statusLAB.Text = "Sync_Statuc";
             // 
             // SyncUC
             // 
@@ -176,11 +176,11 @@
         private System.Windows.Forms.ToolStripProgressBar scanPB;
         private System.Windows.Forms.ToolStripButton calibrationBTN;
         private System.Windows.Forms.ToolStripButton syncBTN;
-        private System.Windows.Forms.ToolStripLabel statusLAB;
         private System.Windows.Forms.ToolStripButton closeBTN;
         private System.Windows.Forms.ToolStripButton recoedBTN;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.RichTextBox infoRTC;
         private System.Windows.Forms.ToolStripButton DebugFormBTN;
+        private System.Windows.Forms.ToolStripLabel statusLAB;
     }
 }

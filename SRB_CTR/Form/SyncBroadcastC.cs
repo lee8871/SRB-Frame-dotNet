@@ -41,8 +41,8 @@ namespace SRB_CTR
         private void do_syncBTN_Click(object sender, EventArgs e)
         {
             infoRTC.AppendText("\n## Sync" + (sync_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
-           
-            bg.syncToAimNode(11, appendInfo);
+
+            bg.syncAll(appendInfo);
             bg.getSyncStatuc(appendInfo);
             /*
             text += details;

@@ -27,6 +27,7 @@ namespace SRB_CTR
         {
             if (sync_bc.Is_calibrat_running == false)
             {
+                sync_bc.calibratClean(appendInfo);
                 sync_bc.calibrat(appendInfo);
             }
             else

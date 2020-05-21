@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace SRB.Frame
 {
@@ -9,6 +10,8 @@ namespace SRB.Frame
     public class Access
     {
         //about Note
+        private long send_tick;
+        public long Send_tick { get => send_tick; }
         private DateTime sendTime;
         private DateTime recvTime;
         public string description = "";
@@ -168,6 +171,7 @@ namespace SRB.Frame
         }
         public void sendDone()
         {
+            send_tick = Stopwatch.GetTimestamp();
             _status = StatusEnum.SendWaitRecv;
             sendTime = DateTime.Now;
         }
