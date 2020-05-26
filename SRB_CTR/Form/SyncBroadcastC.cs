@@ -7,8 +7,8 @@ namespace SRB_CTR
 {
     public partial class SyncBroadcastC : Form
     {
-        BaseNode.SyncCluster.Broadcast bg;
-        public SyncBroadcastC(BaseNode.SyncCluster.Broadcast bg)
+        Node.SyncCluster.Broadcast bg;
+        public SyncBroadcastC(Node.SyncCluster.Broadcast bg)
         {
             this.bg = bg;
             InitializeComponent();
@@ -36,14 +36,25 @@ namespace SRB_CTR
                 }
             }
         }
+        public void appendKeyInfo(string st)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => { appendInfo(st); }));
+            }
+            else
+            {
+                key_info+=st;
+            }
+        }
 
 
         private void do_syncBTN_Click(object sender, EventArgs e)
         {
             infoRTC.AppendText("\n## Sync" + (sync_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
 
-            bg.syncAll(appendInfo);
-            bg.getSyncStatuc(appendInfo);
+            bg.syncAll();
+            bg.getSyncStatuc(appendInfo, appendKeyInfo);
             /*
             text += details;
             if (details.Contains("+ Diff avariage out of range!"))
@@ -59,7 +70,7 @@ namespace SRB_CTR
         private void readBTN_Click(object sender, EventArgs e)
         {
             infoRTC.AppendText("\n## Report" + (report_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
-            bg.getSyncStatuc(appendInfo);
+            bg.getSyncStatuc(appendInfo, appendKeyInfo);
         }
 
         private void saveBTN_Click(object sender, EventArgs e)

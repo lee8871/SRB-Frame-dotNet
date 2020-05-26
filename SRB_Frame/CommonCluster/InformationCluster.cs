@@ -3,9 +3,9 @@
 
 namespace SRB.Frame
 {
-    public partial class BaseNode
+    public partial class Node
     {
-        public class InformationCluster : BaseNode.ICluster
+        public class InformationCluster : Node.ICluster
         {
             public string type { get => bank.getBankString(8, 17); }
 
@@ -26,10 +26,10 @@ namespace SRB.Frame
                     return srb_version;
                 }
             }
-            BaseNode node;
+            Node node;
 
             public TimeStampCluster timestampClu;
-            public InformationCluster(BaseNode n)
+            public InformationCluster(Node n)
                 : base(n, 1, 23)
             {
                 timestampClu = new TimeStampCluster(n);
@@ -101,12 +101,12 @@ namespace SRB.Frame
 
 
 
-        public class TimeStampCluster : BaseNode.ICluster
+        public class TimeStampCluster : Node.ICluster
         {
             public const byte FIX_CID = 7;
             public int utc { get => (int)bank.getBankUint(0); }
            
-            public TimeStampCluster(BaseNode n)
+            public TimeStampCluster(Node n)
                 : base(n, FIX_CID, 4)
             {
                 is_have_control = false;

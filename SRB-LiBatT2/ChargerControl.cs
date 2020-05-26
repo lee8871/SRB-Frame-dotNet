@@ -9,7 +9,7 @@ namespace SRB.NodeType.Charger
     {
         private Interpreter datas;
 
-        public ChangerControl(BaseNode n) :
+        public ChangerControl(Node n) :
             base(n)
         {
             datas = (Interpreter)n.Datas;
@@ -24,7 +24,7 @@ namespace SRB.NodeType.Charger
             this.ToolTips.SetToolTip(ChangeEnableBTN, "Click to enable or disable charge.");
         }
 
-        private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
         {
             this.datas.buzzer_commend = 0x80;
         }

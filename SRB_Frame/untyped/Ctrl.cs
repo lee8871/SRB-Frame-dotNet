@@ -5,7 +5,7 @@ namespace SRB.Frame.untyped
     internal partial class Ctrl : INodeControl
     {
         private Interpreter datas;
-        public Ctrl(BaseNode n) :
+        public Ctrl(Node n) :
             base(n)
         {
             datas = (Interpreter)n.Datas; ;
@@ -13,7 +13,7 @@ namespace SRB.Frame.untyped
             n.eDataAccessRecv += Node_eDataAccessRecv;
         }
 
-        private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
         {
             recvRTB.Text = e.ac.Recv_data.ToArrayString();
             e.Handled = true;

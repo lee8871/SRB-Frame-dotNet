@@ -6,8 +6,8 @@ namespace SRB.Frame
 {
     public partial class InformationCC : IClusterControl
     {
-        private BaseNode.InformationCluster cluster;
-        public InformationCC(BaseNode.InformationCluster c) : base(c)
+        private Node.InformationCluster cluster;
+        public InformationCC(Node.InformationCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;

@@ -2,14 +2,14 @@
 
 namespace SRB.NodeType.Joystick
 {
-    internal class ConfigCluster : BaseNode.ICluster
+    internal class ConfigCluster : Node.ICluster
     {
         public int online_rumble_10ms { get => bank.getBankByte(0); set => bank.setBankByte((byte)value, 0); }
         public int lose_rumble_10ms { get => bank.getBankByte(1); set => bank.setBankByte((byte)value, 1); }
         public int Strength { get => bank.getBankByte(2); set => bank.setBankByte((byte)value, 2); }
 
 
-        public ConfigCluster(BaseNode n)
+        public ConfigCluster(Node n)
             : base(n, 11, 3)
         {
 

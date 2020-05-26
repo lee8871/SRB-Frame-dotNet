@@ -2,9 +2,9 @@
 
 namespace SRB_CTR
 {
-    class Specializer : BaseNode.ISpecializer
+    class Specializer : Node.ISpecializer
     {
-        public void specializeNode(BaseNode n)
+        public void specializeNode(Node n)
         {
             switch (n.NodeType)
             {

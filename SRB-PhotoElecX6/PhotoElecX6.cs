@@ -3,7 +3,7 @@ using System;
 
 namespace SRB.NodeType.PhotoElecX6
 {
-    public class Interpreter : BaseNode.INodeInterpreter
+    public class Interpreter : Node.INodeInterpreter
     {
         internal MappingCluster Mapping0_clu;
         public override string Help_net_work =>
@@ -31,7 +31,7 @@ namespace SRB.NodeType.PhotoElecX6
                 new byte[] {0,4,2,3,0,1}
             });
         }
-        public Interpreter(BaseNode n)
+        public Interpreter(Node n)
             : base(n)
         {
             init();

@@ -3,14 +3,14 @@
 
 namespace SRB.Frame
 {
-    public partial class BaseNode
+    public partial class Node
     {
-        public class DebugInfoCluster : BaseNode.ICluster
+        public class DebugInfoCluster : Node.ICluster
         {
             public const byte FIX_CID = 6;
             public byte[] Bank { get => bank.Byte_array; }
-            BaseNode node;
-            public DebugInfoCluster(BaseNode n)
+            Node node;
+            public DebugInfoCluster(Node n)
                 : base(n, FIX_CID, 16)
             {
                 is_have_control = false;

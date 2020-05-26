@@ -16,7 +16,7 @@ namespace SRB.Frame
         private DateTime recvTime;
         public string description = "";
 
-        private BaseNode sender_node;
+        private Node sender_node;
         private IAccesser accesser;
         public byte Addr
         {
@@ -95,7 +95,7 @@ namespace SRB.Frame
 
 
 
-        public Access(IAccesser a, BaseNode n, PortEnum p, byte[] send_d)
+        public Access(IAccesser a, Node n, PortEnum p, byte[] send_d)
         {
             accesser = a;
             sender_node = n;

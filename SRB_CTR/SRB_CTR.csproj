@@ -203,6 +203,9 @@
     <None Include="Resources\AddrLed1.png" />
     <None Include="Resources\AddrLed2.png" />
     <None Include="Resources\clock.png" />
+    <None Include="Resources\clock1.png" />
+    <None Include="Resources\clock2.png" />
+    <None Include="Resources\clock3.png" />
     <Content Include="Resources\Edit.png" />
     <None Include="Resources\File.png" />
     <None Include="Resources\record0.png" />
@@ -211,6 +214,7 @@
     <None Include="Resources\record3.png" />
     <None Include="Resources\record4.png" />
     <None Include="Resources\pause.png" />
+    <None Include="Resources\Image1.bmp" />
     <Content Include="Resources\Scan.png" />
   </ItemGroup>
   <ItemGroup>

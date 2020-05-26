@@ -8,7 +8,7 @@ namespace SRB.NodeType.Du_motor
     {
         private Interpreter datas;
         private string Handle_text;
-        public Ctrl(BaseNode n) :
+        public Ctrl(Node n) :
             base(n)
         {
             datas = (Interpreter)n.Datas;

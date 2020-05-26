@@ -9,7 +9,7 @@ namespace SRB.NodeType.Joystick
     {
         private Interpreter datas;
         private int left_x_base, left_y_base, right_x_base, right_y_base;
-        public PS2HandleControl(BaseNode n) :
+        public PS2HandleControl(Node n) :
             base(n)
         {
             datas = (Interpreter)n.Datas;
@@ -22,7 +22,7 @@ namespace SRB.NodeType.Joystick
             n.eDataAccessRecv += Node_eDataAccessRecv;
             LeftLAB.Parent = this;
         }
-        private void Node_eDataAccessRecv(object sender, BaseNode.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
         {
             datas.rumble_l = 0xff;
             datas.rumble_r = 0xff;

@@ -6,7 +6,7 @@ namespace SRB.Frame
 {
     public partial class UpdateControl : UserControl
     {
-        private BaseNode.SrbUpdater updater;
+        private Node.SrbUpdater updater;
         private bool enable_write = true;
         public bool Enable_write { get => enable_write; set => OnEnable_write(value); }
 
@@ -14,7 +14,7 @@ namespace SRB.Frame
         {
             this.BurnBTN.Visible = enable_write = value;
         }
-        public UpdateControl(BaseNode.SrbUpdater updater)
+        public UpdateControl(Node.SrbUpdater updater)
         {
             InitializeComponent();
             this.updater = updater;

@@ -34,7 +34,7 @@
             this.typeL = new System.Windows.Forms.Label();
             this.factorySettingBTN = new System.Windows.Forms.Button();
             this.ResetNodeBTN = new System.Windows.Forms.Button();
-            this.Update = new System.Windows.Forms.Button();
+            this.UpdateBTN = new System.Windows.Forms.Button();
             this.TimeStampTT = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -68,19 +68,19 @@
             // 
             // Update
             // 
-            this.Update.BackgroundImage = global::SRB.Frame.Properties.Resources.update;
-            resources.ApplyResources(this.Update, "Update");
-            this.Update.Name = "Update";
-            this.Update.UseMnemonic = false;
-            this.Update.UseVisualStyleBackColor = true;
-            this.Update.Click += new System.EventHandler(this.Update_Click);
+            this.UpdateBTN.BackgroundImage = global::SRB.Frame.Properties.Resources.update;
+            resources.ApplyResources(this.UpdateBTN, "Update");
+            this.UpdateBTN.Name = "Update";
+            this.UpdateBTN.UseMnemonic = false;
+            this.UpdateBTN.UseVisualStyleBackColor = true;
+            this.UpdateBTN.Click += new System.EventHandler(this.Update_Click);
 
             // 
             // InformationCC
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Update);
+            this.Controls.Add(this.UpdateBTN);
             this.Controls.Add(this.ResetNodeBTN);
             this.Controls.Add(this.factorySettingBTN);
             this.Controls.Add(this.versionL);
@@ -91,7 +91,7 @@
             this.Controls.SetChildIndex(this.versionL, 0);
             this.Controls.SetChildIndex(this.factorySettingBTN, 0);
             this.Controls.SetChildIndex(this.ResetNodeBTN, 0);
-            this.Controls.SetChildIndex(this.Update, 0);
+            this.Controls.SetChildIndex(this.UpdateBTN, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,7 +102,7 @@
         private System.Windows.Forms.Label typeL;
         private System.Windows.Forms.Button factorySettingBTN;
         private System.Windows.Forms.Button ResetNodeBTN;
-        private System.Windows.Forms.Button Update;
+        private System.Windows.Forms.Button UpdateBTN;
         private System.Windows.Forms.ToolTip TimeStampTT;
     }
 }

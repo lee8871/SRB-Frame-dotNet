@@ -2,7 +2,7 @@
 
 namespace SRB.Frame
 {
-    public class MappingCluster : BaseNode.ICluster
+    public class MappingCluster : Node.ICluster
     {
         private const int totle_length = 28;
         public int up_len { get => bank.getBankByte(0); }
@@ -12,7 +12,7 @@ namespace SRB.Frame
         public byte[] mapping { get => bank.getBankByteArray(0, up_len + 2 + down_len); }
         public EventHandler eMappingChanged;
         public string description;
-        public MappingCluster(byte ID, BaseNode n, string dsc = null)
+        public MappingCluster(byte ID, Node n, string dsc = null)
             : base(n, ID, 30)
         {
             if (dsc == null)

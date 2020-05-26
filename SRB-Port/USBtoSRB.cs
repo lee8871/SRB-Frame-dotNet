@@ -10,22 +10,20 @@ using System.Text;
 
 namespace SRB.port
 {
-    public partial class UsbToSrb : IBus
+    public partial class UsbToSrb : IBus, IDisposable
     {
         private const int idVendor = 0x16c0;
         private const int idProduct = 0x05dc;
-
         public IDeviceNotifier UsbDeviceNotifier = DeviceNotifier.OpenDeviceNotifier();
-
         private Queue<object> oldDevice = new Queue<object>();
-
         private Dictionary<string, UsbRegistry> devicesDIC = new Dictionary<string, UsbRegistry>();
         private UsbToSrb_uc config_form;
-        private object lock_access = new object();
         private UsbDevice selected_device;
         private UsbEndpointReader srb_reader;
         private UsbEndpointWriter srb_writer;
+
         private string last_device_name = null;
+        private object lock_access = new object();
         public UsbToSrb()
         {
             UsbDeviceNotifier.OnDeviceNotify += UsbDeviceNotifier_OnDeviceNotify;
@@ -51,26 +49,21 @@ namespace SRB.port
             }
         }
 
-        public string getPortName()
+        public string Port_name
         {
-            if (Is_opened)
+            get
             {
-                return Selected_device_name;
-            }
-            else
-            {
-                return "---";
+                if (Is_opened)
+                {
+                    return Selected_device_name;
+                }
+                else
+                {
+                    return "---";
+                }
             }
 
         }
-
-        private bool record_port_data = true;
-        public bool Record_port_data
-        {
-            get { return record_port_data; }
-            set { record_port_data = value; }
-        }
-
         public string Selected_device_name
         {
             get
@@ -294,6 +287,50 @@ namespace SRB.port
 
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // 要检测冗余调用
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (srb_reader!=null)
+                    {
+                        srb_reader.Dispose();
+                    }
+                    if (srb_writer != null)
+                    {
+                        srb_writer.Dispose();
+                    }
+
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
+                // TODO: 将大型字段设置为 null。
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
+        // ~UsbToSrb()
+        // {
+        //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+        //   Dispose(false);
+        // }
+
+        // 添加此代码以正确实现可处置模式。
+        public void Dispose()
+        {
+            // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
+            Dispose(true);
+            // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
 
     }
 

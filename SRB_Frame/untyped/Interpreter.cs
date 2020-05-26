@@ -3,7 +3,7 @@ using System;
 
 namespace SRB.Frame.untyped
 {
-    public class Interpreter : BaseNode.INodeInterpreter
+    public class Interpreter : Node.INodeInterpreter
     {
         public override string Help_net_work => "";
       
@@ -13,7 +13,7 @@ namespace SRB.Frame.untyped
 
         }
 
-        public Interpreter(BaseNode n)
+        public Interpreter(Node n)
             : base(n)
         {
             init();

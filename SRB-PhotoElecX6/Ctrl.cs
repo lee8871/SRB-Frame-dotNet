@@ -9,8 +9,8 @@ namespace SRB.NodeType.PhotoElecX6
     internal partial class Ctrl : INodeControl
     {
         private Interpreter datas;
-        BaseNode node;
-        public Ctrl(BaseNode n) :
+        Node node;
+        public Ctrl(Node n) :
             base(n)
         {
             datas = (Interpreter)n.Datas;

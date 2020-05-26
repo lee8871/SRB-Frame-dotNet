@@ -2,13 +2,13 @@
 
 namespace SRB.NodeType.PhotoElecX6
 {
-    internal class AdjustCluster : BaseNode.ICluster
+    internal class AdjustCluster : Node.ICluster
     {
         public byte adj { get => bank.getBankByte(0); set => bank.setBankByte(value, 0); }
         public bool motor_a_tog { get => bank.getBankBool(1); set => bank.setBankBool(value, 1); }
         public bool motor_b_tog { get => bank.getBankBool(2); set => bank.setBankBool(value, 2); }
 
-        public AdjustCluster(BaseNode n)
+        public AdjustCluster(Node n)
             : base(n, 11, 3) { }
         protected override System.Windows.Forms.Control createControl()
         {

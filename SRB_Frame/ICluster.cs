@@ -3,23 +3,23 @@ using System.Windows.Forms;
 
 namespace SRB.Frame
 {
-    public partial class BaseNode
+    public partial class Node
     {
         public abstract class ICluster : INodeControlOwner, IAccesser
         {
             protected ByteBank bank;
             protected byte cID;
-            protected BaseNode parent_node;
+            protected Node parent_node;
             protected IBus Bus => parent_node.bus;
 
-            public BaseNode Parent_node { get => parent_node; }
+            public Node Parent_node { get => parent_node; }
             public byte CID { get => cID; }
-            public class Exception_cluster_redefine: Exception
+            public class ClusterRedefineException: SrbException
             {
-                public BaseNode node;
+                public Node node;
                 public ICluster new_cluster;
 
-                public Exception_cluster_redefine(BaseNode node,
+                public ClusterRedefineException(Node node,
                  ICluster new_cluster)
                 {
                     this.node = node;
@@ -36,12 +36,12 @@ namespace SRB.Frame
                 }
             }
 
-            public ICluster(BaseNode n, byte ID, int banksize)
+            public ICluster(Node n, byte ID, int banksize)
             {
                 this.cID = ID;
                 if (n.clusters[this.cID]!=null)
                 {
-                    throw new Exception_cluster_redefine(n, this);
+                    throw new ClusterRedefineException(n, this);
 
                 }
                 n.clusters[this.cID] = this;
@@ -120,7 +120,7 @@ namespace SRB.Frame
                 OnDataChangded();
             }
 
-            public void changeParentNode(BaseNode n)
+            public void changeParentNode(Node n)
             {
                 parent_node = n;
             }
@@ -135,11 +135,6 @@ namespace SRB.Frame
                     eDataChanged.Invoke(this, new EventArgs());
                 }
             }
-
-
-            public System.Windows.Forms.Control control = null;
-
-
 
 
             public abstract override string ToString();

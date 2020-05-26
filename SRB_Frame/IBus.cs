@@ -1,39 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SRB.Frame
 {
-    public abstract partial class IBus : IEnumerable<BaseNode>
+    public abstract partial class IBus :  IEnumerable<Node>
     {
-
-        public delegate void dAddNode(IBus bus, BaseNode n);
+        public delegate void dAddNode(IBus bus, Node n);
         public event dAddNode eNodeAdd;
 
 
         protected string name = "Undefined";
         protected string type = "Uninitialized";
-
-        List<BaseNode> node_list = new List<BaseNode>();
         public string Name => name;
         public string Type => type;
-        BaseNode temp_node = null;
 
-        public BaseNode createTempNode(byte address)
+        List<Node> node_list = new List<Node>();
+        Node temp_node = null;
+
+        public Node createTempNode(byte address)
         {
-            if(temp_node != null)
+            if (temp_node != null)
             {
                 temp_node.Dispose();
             }
-            temp_node = new BaseNode(address,this);
+            temp_node = new Node(address, this);
             return temp_node;
-;        }
-        public BaseNode addTempNode()
+            ; }
+        public Node addTempNode()
         {
             if (temp_node == null)
             {
                 throw new System.Exception("你没有事先 createTempNode 就调用了addTempNode，此时临时节点是不存在的.请修改程序。");
             }
-            BaseNode n = temp_node;
+            Node n = temp_node;
             temp_node = null;
             node_list.Add(n);
             if (eNodeAdd != null)
@@ -42,9 +43,9 @@ namespace SRB.Frame
             }
             return n;
         }
-        public BaseNode createNode(byte address)
+        public Node createNode(byte address)
         {
-            BaseNode n = new BaseNode(address, this);
+            Node n = new Node(address, this);
             node_list.Add(n);
             if (eNodeAdd != null)
             {
@@ -52,18 +53,18 @@ namespace SRB.Frame
             }
             return n;
         }
-        public void removeNode(BaseNode n)
+        public void removeNode(Node n)
         {
             node_list.Remove(n);
             n.Dispose();
         }
         public void removeAllNode()
         {
-            foreach(var n in node_list)
+            for (int i = node_list.Count - 1; i >= 0; i--)
             {
-                n.Dispose();
+                node_list[i].Dispose();
+                node_list.RemoveAt(i);
             }
-            node_list.Clear();
         }
 
         public void removeAllUpdateNode()
@@ -82,52 +83,123 @@ namespace SRB.Frame
 
         }
 
-        public IEnumerator<BaseNode> GetEnumerator()
+        public IEnumerator<Node> GetEnumerator()
         {
-            return ((IEnumerable<BaseNode>)node_list).GetEnumerator();
+            return ((IEnumerable<Node>)node_list).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<BaseNode>)node_list).GetEnumerator();
+            return ((IEnumerable<Node>)node_list).GetEnumerator();
         }
 
         public int Count { get => node_list.Count; }
-
-
-        public BaseNode this[byte addr]
+        public Node this[byte addr]
         {
             get
             {
-                foreach (BaseNode n in node_list)
+                foreach (Node n in node_list)
                 {
                     if (n.Addr == addr) { return n; }
                 }
                 return null;
             }
         }
-        public BaseNode this[int addr]
+        public Node this[int addr]
         {
             get
             {
-                foreach (BaseNode n in node_list)
+                foreach (Node n in node_list)
                 {
                     if (n.Addr == addr) { return n; }
                 }
                 return null;
             }
         }
-        public BaseNode this[string name]
+        public Node this[string name]
         {
             get
             {
-                foreach (BaseNode n in node_list)
+                foreach (Node n in node_list)
                 {
                     if (n.Name == name) { return n; }
                 }
                 return null;
             }
         }
+
+        #region thread closing
+        
+        
+        public interface IbusUser
+        {
+            void stopUseBus(IBus bus);
+        }
+        object bus_user_lock = new object();
+
+        List<IbusUser> user_list = new List<IbusUser>();
+
+        public void addUser(IbusUser user)
+        {
+            lock (bus_user_lock)
+            {
+                if (user_list.Contains(user))
+                {
+                    throw new PerformedException("新加入的用户已经存在于总线用户列表中了。");
+                }
+                user_list.Add(user);
+
+            }
+        }
+        public void removeUser(IbusUser user)
+        {
+            lock (bus_user_lock)
+            {
+                user_list.Remove(user);
+            }
+        }
+
+        public void closeAllUser()
+        {
+            for (int i = user_list.Count - 1; i >= 0; i--)
+            {
+                IbusUser user = user_list[i];
+                user.stopUseBus(this);
+            }
+            int retry = 100;
+            while(true)
+            {
+                lock (bus_user_lock)
+                {
+                    if(user_list.Count == 0)
+                    {
+                        return;
+                    }
+                }
+                Thread.Sleep(20);
+                if (retry-- < 0)
+                {
+                    string est = string.Format("Bus {0} close all user time out. Unstopable user is :", this.ToString()) ;
+                    foreach(IbusUser user in user_list)
+                    {
+                        est += user.ToString()+"\n";
+                    }
+                    throw new TimeoutException(est);
+                }
+            }
+
+
+        }
+
+
+        
+                    
+        
+        
+        #endregion
+
+
+
     };
 
 
@@ -176,7 +248,7 @@ namespace SRB.Frame
         }
         public virtual void checkPort()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }

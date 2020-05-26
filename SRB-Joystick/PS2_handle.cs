@@ -3,7 +3,7 @@ using System;
 
 namespace SRB.NodeType.Joystick
 {
-    public class Interpreter : BaseNode.INodeInterpreter
+    public class Interpreter : Node.INodeInterpreter
     {
         public int joy_rx => toJoy(5);
         public int joy_ry => toJoy(6);
@@ -90,7 +90,7 @@ namespace SRB.NodeType.Joystick
         }
 
 
-        public Interpreter(BaseNode n)
+        public Interpreter(Node n)
             : base(n)
         {
             init();

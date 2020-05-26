@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SRB.Frame;
+using System;
 using System.Diagnostics;
 using System.Threading;
 
 namespace SRB_CTR
 {
-    internal abstract class IBrain
+    internal abstract class IBrain: IBus.IbusUser
     {
         protected SrbOnelineMaster frame;
         public IBrain(SrbOnelineMaster f)
@@ -32,12 +33,12 @@ namespace SRB_CTR
                 }
             }
         }
+
         protected bool stop_running_flag = false;
         public bool stop()
         {
             if (Is_running)
             {
-
                 stop_running_flag = true;
                 return true;
             }
@@ -54,6 +55,7 @@ namespace SRB_CTR
             }
             else
             {
+                frame.Bus.addUser(this);
                 stop_running_flag = false;
                 nodesBuildUp();
                 calculation_thread = new Thread(new ThreadStart(thLoop));
@@ -83,6 +85,7 @@ namespace SRB_CTR
             }
             termination();
             nextRealTimeLoop(-2);
+            frame.Bus.removeUser(this);
         }
 
         private void nextRealTimeLoop(long num)
@@ -98,6 +101,11 @@ namespace SRB_CTR
             }
             while (sw.getElapsedMs() < period_in_ms) ;
             sw.Restart();
+        }
+
+        void IBus.IbusUser.stopUseBus(IBus bus)
+        {
+            stop();
         }
 
 

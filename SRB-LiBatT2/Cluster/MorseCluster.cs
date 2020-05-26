@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class MorseCluster : BaseNode.ICluster
+    internal class MorseCluster : Node.ICluster
     {
         internal byte power_on { get => bank.getBankByte(0); set => bank.setBankByte(value, 0); }
         internal byte jack_in_vot_low { get => bank.getBankByte(1); set => bank.setBankByte(value, 1); }
@@ -12,7 +12,7 @@ namespace SRB.NodeType.Charger
         internal byte change_done_next { get => bank.getBankByte(5); set => bank.setBankByte(value, 5); }
         internal byte jack_remove { get => bank.getBankByte(6); set => bank.setBankByte(value, 6); }
         internal byte low_power { get => bank.getBankByte(7); set => bank.setBankByte(value, 7); }
-        public MorseCluster(BaseNode n)
+        public MorseCluster(Node n)
             : base(n, 12, 8)
         {
         }

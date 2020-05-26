@@ -1,6 +1,6 @@
 ﻿namespace SRB.Frame
 {
-    partial class Node_form
+    partial class NodeForm
     {
         /// <summary>
         /// Required designer variable.

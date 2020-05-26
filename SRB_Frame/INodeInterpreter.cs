@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace SRB.Frame
 {
-    public partial class BaseNode
+    public partial class Node
     {
         public interface ISpecializer
         {
-            void specializeNode(BaseNode n);
+            void specializeNode(Node n);
 
         }
         abstract public class INodeInterpreter: INodeControlOwner
         {
-            private BaseNode node;
-            protected BaseNode Node => node;
+            private Node node;
+            protected Node Node => node;
             protected ICluster[] clusters => node.clusters;
             protected ByteBank bank => node.bank;
             public virtual string Describe => @"This node is in unknow type. It may not read the type information, or information is not in this frame.";
             public virtual string Help_net_work => "";
 
-            public INodeInterpreter(BaseNode parent)
+            public INodeInterpreter(Node parent)
             {
                 this.node = parent;
             }

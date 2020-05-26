@@ -15,7 +15,7 @@ namespace SRB.port
             // comSelectCB.TextChanged += new EventHandler(comSelectCB_TextChanged);
             comSelectCB.SelectedIndexChanged += new EventHandler(comSelectCB_TextChanged);
             getUartTable();
-            this.comSelectCB.Text = backstage.getPortName();
+            this.comSelectCB.Text = backstage.Port_name;
             this.EnterNameTB.KeyDown += EnterNameTB_KeyDown;
             setPortState();
         }

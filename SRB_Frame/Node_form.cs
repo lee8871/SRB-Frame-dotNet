@@ -4,10 +4,10 @@ using System.Windows.Forms;
 
 namespace SRB.Frame
 {
-    public partial class Node_form : Form
+    public partial class NodeForm : Form
     {
-        private BaseNode node;
-        public Node_form(BaseNode n)
+        private Node node;
+        public NodeForm(Node n)
         {
             InitializeComponent();
             components = new System.ComponentModel.Container();
@@ -74,7 +74,7 @@ namespace SRB.Frame
 
             for (int i = 0; i < 128; i++)
             {
-                BaseNode.INodeControlOwner cluster = node.getClusters(i);
+                Node.INodeControlOwner cluster = node.getClusters(i);
                 if (cluster != null)
                 {
                     if (cluster.is_have_control)
@@ -103,7 +103,7 @@ namespace SRB.Frame
             Control c;
             if (b.Controls.Count == 0)
             {
-                c = (b.Tag as BaseNode.INodeControlOwner).getControl();
+                c = (b.Tag as Node.INodeControlOwner).getControl();
                 components.Add(c);
                 b.Controls.Add(c);
                 c.Dock = DockStyle.Fill;

@@ -3,7 +3,7 @@ using System;
 
 namespace SRB.NodeType.Charger
 {
-    public class Interpreter : BaseNode.INodeInterpreter
+    public class Interpreter : Node.INodeInterpreter
     {
         public byte buzzer_now => bank.getBankByte(0);
 
@@ -140,7 +140,7 @@ namespace SRB.NodeType.Charger
             });
         }
 
-        public Interpreter(BaseNode n)
+        public Interpreter(Node n)
             : base(n)
         {
             init();

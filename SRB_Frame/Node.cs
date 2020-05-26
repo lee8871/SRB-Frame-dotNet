@@ -2,8 +2,8 @@
 
 namespace SRB.Frame
 {
-    public delegate void dNodeUpdateEvent(BaseNode n);
-    public partial class BaseNode : IAccesser, IDisposable
+    public delegate void dNodeUpdateEvent(Node n);
+    public partial class Node : IAccesser, IDisposable
     {
 
 
@@ -80,7 +80,7 @@ namespace SRB.Frame
                 return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
             }
         }
-        public BaseNode(byte addr, IBus bus)
+        public Node(byte addr, IBus bus)
         {
             this.addr = addr;
             this.bus = bus;
@@ -193,7 +193,7 @@ namespace SRB.Frame
 
         #endregion
 
-        public void ledAddr(BaseNode.AddressCluster.LedAddrType adt)
+        public void ledAddr(Node.AddressCluster.LedAddrType adt)
         {
             baseClu.ledAddr(adt);
         }
@@ -323,7 +323,7 @@ namespace SRB.Frame
 
         #endregion
     }
-    public partial class BaseNode //窗体显示
+    public partial class Node //窗体显示
     {
         public abstract class INodeControlOwner
         {
@@ -346,12 +346,12 @@ namespace SRB.Frame
             }
         }
 
-        private Node_form node_form;
-        public Node_form getForm()
+        private NodeForm node_form;
+        public NodeForm getForm()
         {
             if ((node_form == null)|| (node_form.IsDisposed))
             {
-                node_form = new Node_form(this);
+                node_form = new NodeForm(this);
             }
             return node_form;
         }

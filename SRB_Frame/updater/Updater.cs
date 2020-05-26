@@ -7,11 +7,11 @@ using System.Timers;
 using SRB.Frame.updater;
 
 namespace SRB.Frame{
-    public partial class BaseNode
+    public partial class Node
     {
         public partial class SrbUpdater : INodeControlOwner, IAccesser
         {
-            BaseNode node;
+            Node node;
 
             int srb_build_id;
             string App_type;
@@ -19,7 +19,7 @@ namespace SRB.Frame{
             public Version bootloaderVER = new Version("Bootloader");
             public SRB.Frame.Version srbVER = new SRB.Frame.Version("SRB");
             public SRB.Frame.Version nodeVER = new SRB.Frame.Version("App");
-            public SrbUpdater(BaseNode node)
+            public SrbUpdater(Node node)
             {
                 this.node = node;
             }
@@ -61,7 +61,7 @@ namespace SRB.Frame{
                 sup_file = sup;
             }
 
-            public class UpdateTimeoutException : Exception
+            public class UpdateTimeoutException : SrbException
             {
                 string msg;
                 public override string Message=> msg;
@@ -254,7 +254,7 @@ namespace SRB.Frame{
                 }
                 public void gotoUpdateModeAll()
                 {
-                    foreach (BaseNode n in bus)
+                    foreach (Node n in bus)
                     {
                         if (n.Is_in_update == false)
                         {
@@ -342,9 +342,9 @@ namespace SRB.Frame{
                 }
                 private void burnAllTh()
                 {
-                    System.Collections.Generic.Queue<BaseNode> node_to_update = new System.Collections.Generic.Queue<BaseNode>();
+                    System.Collections.Generic.Queue<Node> node_to_update = new System.Collections.Generic.Queue<Node>();
                     appendInfo(null);
-                    foreach (BaseNode n in bus)
+                    foreach (Node n in bus)
                     {
                         if (n.Is_in_update == true)
                         {
@@ -361,7 +361,7 @@ namespace SRB.Frame{
                         appendInfo(string.Format(
                             "{0} node(s) waiting to be burn.\n\n", node_to_update.Count));
                         int node_counter = 0;
-                        foreach (BaseNode n in node_to_update)
+                        foreach (Node n in node_to_update)
                         {
                             node_counter++;
                             string hc = n.Updater.Hardware_code;

@@ -6,8 +6,8 @@ namespace SRB.Frame
 {
     internal partial class SyncCC : IClusterControl
     {
-        private BaseNode.SyncCluster cluster;
-        public SyncCC(BaseNode.SyncCluster c) : base(c)
+        private Node.SyncCluster cluster;
+        public SyncCC(Node.SyncCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;

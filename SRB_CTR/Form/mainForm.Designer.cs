@@ -121,7 +121,9 @@
             // mainSC
             // 
             this.mainSC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSC.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.mainSC.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.mainSC.IsSplitterFixed = true;
             this.mainSC.Location = new System.Drawing.Point(0, 0);
             this.mainSC.Name = "mainSC";
             this.mainSC.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -176,7 +178,7 @@
             this.updateAllBTN});
             this.nodeScanTS.Location = new System.Drawing.Point(3, 0);
             this.nodeScanTS.Name = "nodeScanTS";
-            this.nodeScanTS.Size = new System.Drawing.Size(271, 30);
+            this.nodeScanTS.Size = new System.Drawing.Size(213, 30);
             this.nodeScanTS.TabIndex = 4;
             // 
             // SRB_config

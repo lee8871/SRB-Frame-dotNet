@@ -42,12 +42,12 @@ namespace SRB_CTR
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            backlogic.Dispose();
+            ((IDisposable)backlogic).Dispose();
             base.OnClosing(e);
         }
         #region node Table sync
-        private delegate void dElegateNode(BaseNode n);
-        public void addNode(BaseNode n)
+        private delegate void dElegateNode(Node n);
+        public void addNode(Node n)
         {
             if (this.InvokeRequired)
             {
@@ -73,14 +73,14 @@ namespace SRB_CTR
 
         private void nodeButtonSet(Button b)
         {
-            BaseNode n = b.Tag as BaseNode;
+            Node n = b.Tag as Node;
             b.BackColor = Color.GhostWhite;
             b.Size = nodeSize;
             b.Click += new EventHandler(nodeButton_Click);
             nodeStringSet(n);
 
         }
-        public void nodeStringSet(BaseNode n)
+        public void nodeStringSet(Node n)
         {
             if (this.InvokeRequired)
             {
@@ -118,12 +118,12 @@ namespace SRB_CTR
 
 
 
-        private string getNodeString(BaseNode n)
+        private string getNodeString(Node n)
         {
             return string.Format("{0}\n{1}", n.Addr, n.Name);
         }
 
-        public void removeNode(BaseNode n)
+        public void removeNode(Node n)
         {
             if (this.InvokeRequired)
             {
@@ -144,8 +144,8 @@ namespace SRB_CTR
         private void nodeButton_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
-            BaseNode n = (BaseNode)(b.Tag);
-            Node_form nf = n.getForm();
+            Node n = (Node)(b.Tag);
+            NodeForm nf = n.getForm();
             nf.showAt((System.Windows.Forms.Control)sender);
            // changeNode(n);
         }
@@ -203,7 +203,7 @@ namespace SRB_CTR
                 if (scanNodeCtrl != null) scanNodeCtrl.Enabled = false;
                 if (update_all_ctrl != null) update_all_ctrl.Enabled = false;
                 backlogic.address_bc.endScan();
-                foreach (BaseNode n in backlogic.Bus)
+                foreach (Node n in backlogic.Bus)
                 {
                     if (n != null)
                     {
@@ -244,6 +244,14 @@ namespace SRB_CTR
                 if (scanNodeCtrl.Visible)
                 {
                     scanNodeCtrl.Refresh();
+                }
+            }
+            if (sync_ctrl != null)
+            {
+                Image temp_image = sync_ctrl.syncBTN_changeImage();
+                if (temp_image != null)
+                {
+                    SyncBTN.Image = temp_image;
                 }
             }
             addrShowStep();
@@ -337,7 +345,7 @@ namespace SRB_CTR
                 addrShowBTN_flag = 0;
                 AddrShowBTN.Image = AddrShowBTN_Images[addrShowBTN_flag];
                 backlogic.beginRecord();
-                backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
+                backlogic.ledAddrAll(SRB.Frame.Node.AddressCluster.LedAddrType.Close);
             }
 
         }
@@ -351,13 +359,13 @@ namespace SRB_CTR
                 switch (addr_show_status)
                 {
                     case 0:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.High);
+                        backlogic.ledAddrAll(SRB.Frame.Node.AddressCluster.LedAddrType.High);
                         break;
                     case 1:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Low);
+                        backlogic.ledAddrAll(SRB.Frame.Node.AddressCluster.LedAddrType.Low);
                         break;
                     case 2:
-                        backlogic.ledAddrAll(SRB.Frame.BaseNode.AddressCluster.LedAddrType.Close);
+                        backlogic.ledAddrAll(SRB.Frame.Node.AddressCluster.LedAddrType.Close);
                         break;
                 }
                 addrShowBTN_flag++;

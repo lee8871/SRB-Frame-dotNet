@@ -22,7 +22,7 @@ namespace SRB_CTR
             cp.PriorityClass = ProcessPriorityClass.High;
             cp.PriorityClass = ProcessPriorityClass.RealTime;
 
-            SRB.Frame.BaseNode.specializer = new Specializer();
+            SRB.Frame.Node.specializer = new Specializer();
             SrbOnelineMaster main_srb = new SrbOnelineMaster();
             Application.Run(main_srb.Nodes_form);
 

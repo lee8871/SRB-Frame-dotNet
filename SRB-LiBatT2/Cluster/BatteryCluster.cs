@@ -2,7 +2,7 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class BatteryCluster : BaseNode.ICluster
+    internal class BatteryCluster : Node.ICluster
     {
         internal int Low_voltage { get => bank.getBankUshort(0); set => bank.setBankUshort((ushort)value, 0); }
         internal int Max_charge_current { get => bank.getBankUshort(2); set => bank.setBankUshort((ushort)value, 2); }
@@ -12,7 +12,7 @@ namespace SRB.NodeType.Charger
         internal bool power_on_mute { get => bank.getBankBool(8, 1); set => bank.setBankBool(value, 8, 1); }
         internal bool power_on_led_enable { get => bank.getBankBool(8, 2); set => bank.setBankBool(value, 8, 2); }
 
-        internal BatteryCluster(Frame.BaseNode n)
+        internal BatteryCluster(Frame.Node n)
             : base(n, 11, 9)
         {
 

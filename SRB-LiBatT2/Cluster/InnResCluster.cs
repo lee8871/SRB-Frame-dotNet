@@ -2,14 +2,14 @@
 
 namespace SRB.NodeType.Charger
 {
-    internal class InnResCluster : BaseNode.ICluster
+    internal class InnResCluster : Node.ICluster
     {
         internal int mOhm(int num)
         {
             return (short)bank.getBankUshort(num * 2);
         }
 
-        internal InnResCluster(Frame.BaseNode n)
+        internal InnResCluster(Frame.Node n)
             : base(n, 13, 30)
         {
 

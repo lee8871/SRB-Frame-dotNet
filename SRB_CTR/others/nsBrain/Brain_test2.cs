@@ -16,7 +16,7 @@ namespace SRB_CTR.nsBrain
         private SRB.NodeType.Charger.Interpreter charger;
         protected override void nodesBuildUp()
         {
-            foreach (BaseNode n in frame.Bus)
+            foreach (Node n in frame.Bus)
             {
                 if (n != null)
                 {

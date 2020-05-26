@@ -6,9 +6,9 @@ namespace SRB.Frame
 
     public partial class INodeControl : UserControl
     {
-        private BaseNode node;
+        private Node node;
         public bool is_running => sendTimer.Enabled;
-        public INodeControl(BaseNode n)
+        public INodeControl(Node n)
         {
             node = n;
             InitializeComponent();

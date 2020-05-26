@@ -61,7 +61,7 @@
     <Compile Include="UartToSrb_uc.Designer.cs">
       <DependentUpon>UartToSrb_uc.cs</DependentUpon>
     </Compile>
-    <Compile Include="USBtoSRB.cs" />
+    <Compile Include="UsbToSrb.cs" />
     <Compile Include="UsbToSrb_uc.cs">
       <SubType>UserControl</SubType>
     </Compile>

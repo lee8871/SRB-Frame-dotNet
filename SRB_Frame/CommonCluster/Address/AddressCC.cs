@@ -6,8 +6,8 @@ namespace SRB.Frame
 {
     internal partial class AddressCC : IClusterControl
     {
-        private BaseNode.AddressCluster cluster;
-        public AddressCC(BaseNode.AddressCluster c) : base(c)
+        private Node.AddressCluster cluster;
+        public AddressCC(Node.AddressCluster c) : base(c)
         {
             InitializeComponent();
             cluster = c;
@@ -91,17 +91,17 @@ namespace SRB.Frame
 
         private void highBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.High);
+            this.cluster.ledAddr(Node.AddressCluster.LedAddrType.High);
         }
 
         private void lowBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.Low);
+            this.cluster.ledAddr(Node.AddressCluster.LedAddrType.Low);
         }
 
         private void closeBTN_Click(object sender, EventArgs e)
         {
-            this.cluster.ledAddr(BaseNode.AddressCluster.LedAddrType.Close);
+            this.cluster.ledAddr(Node.AddressCluster.LedAddrType.Close);
         }
 
         private void Update_Click(object sender, EventArgs e)

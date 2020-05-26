@@ -6,9 +6,9 @@ using System.Security;
 using System.Windows.Forms;
 namespace SRB.Frame
 {
-    public partial class BaseNode
+    public partial class Node
     {
-        public partial class SyncCluster : BaseNode.ICluster
+        public partial class SyncCluster : Node.ICluster
         {
 
             public CalibrationCluster calibrationClu;
@@ -18,7 +18,7 @@ namespace SRB.Frame
             public int sno { get => (int)bank.getBankUint(0, 7, 0); }
             public bool is_sync_miss { get => 1==bank.getBankUint(0, 1, 7); }
 
-            public SyncCluster(BaseNode n)
+            public SyncCluster(Node n)
                 : base(n, FIX_CID, 4)
             {
                 calibrationClu = new CalibrationCluster(n);
@@ -123,7 +123,7 @@ namespace SRB.Frame
         }
 
 
-        public class CalibrationCluster : BaseNode.ICluster
+        public class CalibrationCluster : Node.ICluster
         {
             public const byte FIX_CID = 9;
 
@@ -219,7 +219,7 @@ namespace SRB.Frame
                 base.readRecv(ac);
 
             }
-            public CalibrationCluster(BaseNode n)
+            public CalibrationCluster(Node n)
                 : base(n, FIX_CID,2)
             {
                 is_have_control = false;

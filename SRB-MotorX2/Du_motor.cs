@@ -3,7 +3,7 @@ using System;
 
 namespace SRB.NodeType.Du_motor
 {
-    public class Interpreter : BaseNode.INodeInterpreter
+    public class Interpreter : Node.INodeInterpreter
     {
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
@@ -71,7 +71,7 @@ namespace SRB.NodeType.Du_motor
                 new byte[] {0,4,2,3,0,1}
             });
         }
-        public Interpreter(BaseNode n)
+        public Interpreter(Node n)
             : base(n)
         {
             init();

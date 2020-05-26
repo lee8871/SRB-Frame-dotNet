@@ -1,13 +1,13 @@
 ﻿using System;
 namespace SRB.Frame
 {
-    public class ErrorCluster : BaseNode.ICluster
+    public class ErrorCluster : Node.ICluster
     {
         public string error_text { get => bank.getBankString(1, 24); }
         public int err_num { get => (int)bank.getBankByte(0); }
         public byte[] parameter { get => bank.getBankByteArray(25, 5); }
 
-        public ErrorCluster(BaseNode n)
+        public ErrorCluster(Node n)
             : base(n, 2, 30) { }
         public override void write()
         {
