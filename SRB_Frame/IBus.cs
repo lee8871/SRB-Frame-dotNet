@@ -166,7 +166,7 @@ namespace SRB.Frame
                 IbusUser user = user_list[i];
                 user.stopUseBus(this);
             }
-            int retry = 100;
+            int retry = 2500;
             while(true)
             {
                 lock (bus_user_lock)

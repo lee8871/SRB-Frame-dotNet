@@ -248,9 +248,13 @@ namespace SRB.Frame{
             public class Broadcast
             {
                 IBus bus;
+                SrbThread burning_st;
+                SrbThread goto_update_from_poweron_st;
                 public Broadcast(IBus bus)
                 {
                     this.bus = bus;
+                    goto_update_from_poweron_thread = new SrbThread(gotoUpdateModeAllFromPowerOnSTH); 
+                    burning_st = new SrbThread(burnAllSTH);
                 }
                 public void gotoUpdateModeAll()
                 {
@@ -262,34 +266,16 @@ namespace SRB.Frame{
                         }
                     }
                 }
-                Thread goto_update_from_poweron_thread;
-                bool is_thread_stoping = false;
+                SrbThread goto_update_from_poweron_thread;
                 public void gotoUpdateAllFromPowerOn_start()
                 {
-                    if(null != goto_update_from_poweron_thread)
-                    {
-                        if (goto_update_from_poweron_thread.IsAlive)
-                        {
-                            throw new ObjectDisposedException("goto_update_from_poweron_thread", "Thread is running");
-                        }
-                    }
-                    goto_update_from_poweron_thread = new Thread(gotoUpdateModeAllFromPowerOnTH);
-                    is_thread_stoping = false;
-                    goto_update_from_poweron_thread.Start();
+                    goto_update_from_poweron_thread.run(bus);
                 }
                 public void gotoUpdateAllFromPowerOn_stop()
                 {
-                    if (null != goto_update_from_poweron_thread)
-                    {
-                        if (goto_update_from_poweron_thread.IsAlive)
-                        {
-                            is_thread_stoping = true;
-                            return;
-                        }
-                    }
-                    throw new InvalidOperationException("Thread is not running but be stoped.");
+                    goto_update_from_poweron_thread.stop();
                 }
-                void gotoUpdateModeAllFromPowerOnTH()
+                void gotoUpdateModeAllFromPowerOnSTH(SrbThread.dIsThreadStoping IsStoping)
                 {
                     var stopwatch = new System.Diagnostics.Stopwatch();
                     stopwatch.Restart();
@@ -300,7 +286,7 @@ namespace SRB.Frame{
                         {
                             return;
                         }
-                        if (is_thread_stoping == true)
+                        if (IsStoping())
                         {
                             return;
                         }
@@ -318,29 +304,25 @@ namespace SRB.Frame{
 
 
                 public delegate void dAppendInfo(string st);
-                private Thread burning_thread;
                 private dAppendInfo appendInfo;
-                private bool is_burn_all_running = false;
                 public void burnAll(dAppendInfo delegateInfo)
                 {
-                    if (is_burn_all_running == false)
+                    if (burning_st.Is_running == true)
                     {
-                        appendInfo = delegateInfo;
-                        if (sup_loader.Is_file_loaded)
-                        {
-                            is_burn_all_running = true;
-                            burning_thread = new Thread(new ThreadStart(burnAllTh));
-                            burning_thread.Start();
-                        }
-                        else
-                        {
-                            appendInfo(null);
-                            appendInfo("Update all fail. No sup file.\n");
-
-                        }
+                        return;
+                    }
+                    appendInfo = delegateInfo;
+                    if (sup_loader.Is_file_loaded)
+                    {
+                        burning_st.run(bus);
+                    }
+                    else
+                    {
+                        appendInfo(null);
+                        appendInfo("Update all fail. No sup file.\n");
                     }
                 }
-                private void burnAllTh()
+                private void burnAllSTH(SrbThread.dIsThreadStoping IsStoping)
                 {
                     System.Collections.Generic.Queue<Node> node_to_update = new System.Collections.Generic.Queue<Node>();
                     appendInfo(null);
@@ -363,6 +345,11 @@ namespace SRB.Frame{
                         int node_counter = 0;
                         foreach (Node n in node_to_update)
                         {
+                            if (IsStoping())
+                            {
+                                appendInfo("Update all canceled.");
+                                return;
+                            }
                             node_counter++;
                             string hc = n.Updater.Hardware_code;
                             appendInfo(string.Format(
@@ -385,7 +372,6 @@ namespace SRB.Frame{
                             }
                         }
                     }
-                    is_burn_all_running = false;
                 }
             }
         }

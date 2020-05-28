@@ -43,6 +43,7 @@ namespace SRB_CTR
 
         }
 
+
         private Thread flush_thread;
         private bool running_flag = false;
         public bool Running_flag => running_flag;

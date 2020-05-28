@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SRB_CTR
@@ -25,8 +26,8 @@ namespace SRB_CTR
             // cycleSet(this, null);
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  @  " +
-                System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString();
+            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
+                global::SRB_CTR.Properties.Resources.VersionType;
 
             frameCounterFLP.SizeChanged += FrameCounterFLP_SizeChanged;
             mainSC.SplitterDistance = frameCounterFLP.Size.Height + 4;
@@ -40,11 +41,6 @@ namespace SRB_CTR
         }
 
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            ((IDisposable)backlogic).Dispose();
-            base.OnClosing(e);
-        }
         #region node Table sync
         private delegate void dElegateNode(Node n);
         public void addNode(Node n)
@@ -500,6 +496,27 @@ namespace SRB_CTR
                 {
                     sync_ctrl.Show();
                 }
+            }
+        }
+        int closing_click_flag = 0;
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            if (closing_click_flag == 0) {
+                void safeClose()
+                {
+                    backlogic.Dispose();
+                    this.closing_click_flag = 100;
+                    this.Invoke(new MethodInvoker(() => { Close(); }));
+                }
+                Thread stopBackLogic = new Thread(safeClose);
+                stopBackLogic.Start();
+            }
+            closing_click_flag++;
+            if (closing_click_flag > 5)
+            {
+                e.Cancel = false;
             }
         }
 

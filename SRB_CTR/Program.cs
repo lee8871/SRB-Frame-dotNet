@@ -13,7 +13,7 @@ namespace SRB_CTR
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Process cp;
             Application.EnableVisualStyles();

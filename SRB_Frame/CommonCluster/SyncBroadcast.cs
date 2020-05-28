@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SRB.Frame
 {
@@ -52,8 +53,7 @@ namespace SRB.Frame
                 {
                     if (info != null)
                     {
-                        info.BeginInvoke(st, null,null);
-                        //info(st);
+                        info(st);
                     }
                 }
                 public int getSrbClock(long elapsed_ticks)
@@ -328,16 +328,20 @@ namespace SRB.Frame
                     }
                     return;
                 }
+                int report_num = 0;
 
-                public void getSyncStatuc(dInfoOut info_out, dInfoOut lose_sync_out )
+                public void getSyncStatuc(dInfoOut info_out)
                 {
+                    write(info_out,"\n## Report" + (report_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
                     if (clock_base_node == null)
                     {
                         findBaseClock();
                     }
 
+
                     string info="";
                     long sync_elapsed_ticks;
+
                     byte sno = recordTimeBroadcast(out sync_elapsed_ticks);
                     info+="#### Get all time statuc  \n";
                     clock_base_node.syncClu.read();
@@ -360,6 +364,10 @@ namespace SRB.Frame
                     int success_count = 0;
                     foreach (Node node in bus)
                     {
+                        if(node == clock_base_node)
+                        {
+                            continue;
+                        }
                         node.syncClu.read();
                         if (node.syncClu.sno != sno)
                         {
@@ -384,14 +392,9 @@ namespace SRB.Frame
                         info += "\n";
                         info += string.Format("+ {0}/{1} node accessed for sync!\n", success_count, bus.Count);
                         double diff_avariage = diff_sum / success_count;
-
                         info += string.Format("+ Diff avariage is {0}\n", (diff_sum / success_count).ToString("F3"));
-                        write(lose_sync_out, string.Format("+ Diff avariage is {0}\n", (diff_sum / success_count).ToString("F3")));
-                        write(info_out, info); 
-                        if (diff_avariage >= 1)
-                        {
-                            write(lose_sync_out, info); 
-                        }
+                        write(info_out, info);
+                        writeCsv(diff_avariage, sno);
                     }
                     else
                     {
@@ -400,6 +403,94 @@ namespace SRB.Frame
                     }
                     return;
                 }
+                object csv_out_look = new object();
+                string csv_out;
+                public string getSyncTableCsv()
+                {
+                    string rev;
+                    lock (csv_out_look)
+                    {
+                        rev = csv_out;
+                        csv_out = null;
+                    }
+                    return rev;
+                }
+                byte[] addrs;
+                void writeCsv(double diff_avariage, byte sno)
+                {
+                    lock (csv_out_look)
+                    {
+                        if (csv_out == null)
+                        {
+                            addrs = new byte[bus.Count];
+                            csv_out = "时间,同步序号,平均误差,";
+                            csv_out += string.Format("基准节点{0},误差,",clock_base_node.addr);
+                            int i = 0;
+                            addrs[i++] = clock_base_node.addr;
+                            foreach (Node node in bus)
+                            {
+                                if (node == clock_base_node)
+                                {
+                                    continue;
+                                }
+                                addrs[i++] = node.addr;
+                                csv_out += string.Format("节点{0},误差,", node.addr);
+                            }
+                        }
+                        csv_out += "\n";
+                        csv_out += System.DateTime.Now.ToLongTimeString() + ",";
+                        csv_out += (int)sno + ",";
+                        csv_out += diff_avariage.ToString("F3") + ",";
+                        int base_node_clock = clock_base_node.syncClu.getClockInt(); ;
+                        foreach (byte a in addrs)
+                        {
+                            Node node = bus[a];
+                            if (node.syncClu.sno != sno)
+                            {
+                                csv_out += "序号错误,,";
+                            }
+                            else if ((node.syncClu.is_sync_miss != false))
+                            {
+                                csv_out += "同步失败,,";
+                            }
+                            else
+                            {
+                                int c = node.syncClu.getClockInt();
+                                int diff = c - base_node_clock;
+                                csv_out += string.Format(" {0},{1},", c, diff);
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -312,6 +312,7 @@
             this.MinimumSize = new System.Drawing.Size(400, 640);
             this.Name = "mainForm";
             this.Text = "Simple Robot Bus";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.mainSC.Panel1.ResumeLayout(false);

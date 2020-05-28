@@ -14,9 +14,6 @@ namespace SRB_CTR
             InitializeComponent();
         }
         int sync_num=0;
-        int report_num = 0;
-        string key_info = "";
-
         public void appendInfo(string st)
         {
             if (this.InvokeRequired)
@@ -36,17 +33,6 @@ namespace SRB_CTR
                 }
             }
         }
-        public void appendKeyInfo(string st)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(() => { appendInfo(st); }));
-            }
-            else
-            {
-                key_info+=st;
-            }
-        }
 
 
         private void do_syncBTN_Click(object sender, EventArgs e)
@@ -54,7 +40,8 @@ namespace SRB_CTR
             infoRTC.AppendText("\n## Sync" + (sync_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
 
             bg.syncAll();
-            bg.getSyncStatuc(appendInfo, appendKeyInfo);
+            bg.getSyncStatuc(appendInfo);
+            
             /*
             text += details;
             if (details.Contains("+ Diff avariage out of range!"))
@@ -64,37 +51,38 @@ namespace SRB_CTR
             }
             */
         }
-
-
-
         private void readBTN_Click(object sender, EventArgs e)
         {
-            infoRTC.AppendText("\n## Report" + (report_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
-            bg.getSyncStatuc(appendInfo, appendKeyInfo);
+            bg.getSyncStatuc(appendInfo);
         }
 
         private void saveBTN_Click(object sender, EventArgs e)
         {
-            string path = Environment.GetEnvironmentVariable("SRB_DOTNET_DEBUGROOT",EnvironmentVariableTarget.User);
-            path += "时间同步调试记录/";
-            string path_key_info = path;
-
+            string path = "./log/时间同步调试记录/";
+            path += System.DateTime.Now.ToString("yy-MM-dd");
+            path += "/";
             System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
-
-            path_key_info += System.DateTime.Now.ToString("yyyyMMdd-HHmmss") + "关键.md";
-            path += System.DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".md";
+            string time_str = System.DateTime.Now.ToString("HHmmss");
+            string Commen_file = path + "常规记录" + time_str + ".md";
+            string Table_file = path + "同步误差表" + time_str + ".csv";
             try
             {
-                System.IO.File.WriteAllText(path, infoRTC.Text);
-                System.IO.File.WriteAllText(path_key_info, key_info);
-                System.Diagnostics.Process.Start(path_key_info);
+                System.IO.File.WriteAllText(Commen_file, infoRTC.Text, System.Text.Encoding.UTF8);
+                System.IO.File.WriteAllText(Table_file, bg.getSyncTableCsv(),System.Text.Encoding.UTF8);
             }
             catch(Exception exp)
             {
                 MessageBox.Show(exp.ToString(),"不能写日志文件！");
             }
+            try
+            {
+                System.Diagnostics.Process.Start(Application.StartupPath + "/" + Table_file);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+            }
             infoRTC.Clear();
-            key_info = "";
         }
         bool is_syncing = false;
         bool is_reportting=false;

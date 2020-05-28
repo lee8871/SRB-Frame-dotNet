@@ -298,5 +298,14 @@ namespace SRB_CTR.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找类似 alpha 的本地化字符串。
+        /// </summary>
+        internal static string VersionType {
+            get {
+                return ResourceManager.GetString("VersionType", resourceCulture);
+            }
+        }
     }
 }

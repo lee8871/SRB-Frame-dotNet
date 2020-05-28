@@ -154,7 +154,7 @@ namespace SRB.port
 
             time_record = Stopwatch.GetTimestamp();
 
-            if (sendAccess() == true)
+            if (uartSendAccess() == true)
             {
                 last_send_time_cost = (int)(Stopwatch.GetTimestamp() - time_record);
                 time_record += last_send_time_cost;
@@ -188,7 +188,7 @@ namespace SRB.port
         //private byte[] original_recv_ba;
         private int send_buffer_counter = 0;
 
-        private bool sendAccess()
+        private bool uartSendAccess()
         {
             send_buffer_counter = 0;
             for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
