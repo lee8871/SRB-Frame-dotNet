@@ -14,7 +14,7 @@ namespace SRB.Frame
 
             public Node Parent_node { get => parent_node; }
             public byte CID { get => cID; }
-            public class ClusterRedefineException: SrbException
+            class ClusterRedefineException: SrbException
             {
                 public Node node;
                 public ICluster new_cluster;
