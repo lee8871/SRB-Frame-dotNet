@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace SRB_CTR
 {
-    public partial class mainForm : Form
+    public partial class MainForm : Form
     {
         private SrbOnelineMaster backlogic;
         private Control config_ctrl;
         private Size nodeSize = new Size(70, 48);
-        public mainForm(SrbOnelineMaster pa)
+        public MainForm(SrbOnelineMaster pa)
         {
             InitializeComponent();
             nodesTable.BackColor = support.Color_BackGround;
@@ -26,7 +26,7 @@ namespace SRB_CTR
             // cycleSet(this, null);
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
+            VersionLAB.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +" "+
                 global::SRB_CTR.Properties.Resources.VersionType;
 
             frameCounterFLP.SizeChanged += FrameCounterFLP_SizeChanged;
@@ -381,7 +381,7 @@ namespace SRB_CTR
             System.Diagnostics.Process.Start("https://github.com/lee8871/SRB");
         }
 
-        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+        private System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         private void srbStoped()
         {
             this.SRB_config.Image = Properties.Resources.disconnect;

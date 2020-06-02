@@ -36,6 +36,7 @@ namespace SRB.Frame.updater
         public string Dscripbuild_timetion => build_time;
         public SupFile(string file)
         {
+            this.file = file;
             FileStream inFS = null;
             try
             {

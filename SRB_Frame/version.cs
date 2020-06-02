@@ -8,10 +8,16 @@ namespace SRB.Frame
 {
     public class Version : IComparable<Version>
     {
-        public int major;
-        public int branch;
-        public int miner;
-        public string name;
+        private int major;
+        private int branch;
+        private int miner;
+        private string name;
+
+        public int Major { get => major; set => major = value; }
+        public int Branch { get => branch; set => branch = value; }
+        public int Miner { get => miner; set => miner = value; }
+        public string Name { get => name; set => name = value; }
+
         public Version(string name = null, int major = -1, int branch = -1, int miner = -1)
         {
             this.name = name;

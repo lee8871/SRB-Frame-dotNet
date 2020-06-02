@@ -13,7 +13,7 @@ namespace SRB.Frame.untyped
             n.eDataAccessRecv += Node_eDataAccessRecv;
         }
 
-        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
         {
             recvRTB.Text = e.ac.Recv_data.ToArrayString();
             e.Handled = true;

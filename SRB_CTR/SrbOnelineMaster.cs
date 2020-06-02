@@ -13,8 +13,8 @@ namespace SRB_CTR
         public static int scan_max_addr = 227;
         private IBus bus;
         public IBus Bus => bus;
-        private mainForm _nodes_form;
-        public mainForm Nodes_form => _nodes_form;
+        private MainForm _nodes_form;
+        public MainForm Nodes_form => _nodes_form;
         private IBrain main_brain;
         private Node.SrbUpdater.Broadcast update_all;
         public bool Is_calculation_running => main_brain.Is_running;
@@ -29,7 +29,7 @@ namespace SRB_CTR
             bus = new UsbToSrb();
             main_brain = new nsBrain.Brain_Test2(this);
             update_all = new Node.SrbUpdater.Broadcast(bus);
-            _nodes_form = new mainForm(this);
+            _nodes_form = new MainForm(this);
             _nodes_form.Disposed += _nodes_form_Disposed;
             bus.Record = record;
             sync_bc = new Node.SyncCluster.Broadcast(Bus);

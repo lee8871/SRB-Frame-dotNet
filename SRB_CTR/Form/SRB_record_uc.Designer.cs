@@ -1,6 +1,6 @@
 ﻿namespace SRB_CTR
 {
-    partial class SRB_record_uc
+    partial class RecordUC
     {
         /// <summary>
         /// Required designer variable.
@@ -17,7 +17,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SRB_record_uc));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordUC));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.recordBTN = new System.Windows.Forms.ToolStripButton();

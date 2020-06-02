@@ -24,7 +24,7 @@ namespace SRB.NodeType.Charger
             this.ToolTips.SetToolTip(ChangeEnableBTN, "Click to enable or disable charge.");
         }
 
-        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
         {
             this.datas.buzzer_commend = 0x80;
         }

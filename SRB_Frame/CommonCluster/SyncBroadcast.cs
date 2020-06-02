@@ -180,6 +180,7 @@ namespace SRB.Frame
                             SyncCluster.intToClock(out ms, out us4, clock);
                             syncToBroadcast(ms, us4, sno);
                             write(debug, "Synchronize done");
+                            writeSyncMarkCsv(clock,sno);
                             return;
                         }
                     }
@@ -463,6 +464,21 @@ namespace SRB.Frame
                     }
                 }
 
+                void writeSyncMarkCsv(int clock, byte sno)
+                {
+                    lock (csv_out_look)
+                    {
+                        if (csv_out != null)
+                        {
+                            csv_out += "\n";
+                            csv_out += System.DateTime.Now.ToLongTimeString() + ",";
+                            csv_out += (int)sno + ",";
+                            csv_out += "-1,";
+                            int base_node_clock = clock_base_node.syncClu.getClockInt(); ;
+                            csv_out += string.Format(" {0},", clock);
+                        }
+                    }
+                }
 
 
 

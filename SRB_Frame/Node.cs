@@ -227,15 +227,6 @@ namespace SRB.Frame
 
         public event EventHandler<AccessEventArgs> eDataAccessRecv;
 
-        public class AccessEventArgs : EventArgs
-        {
-            public bool Handled = false;
-            public Access ac;
-            public AccessEventArgs(Access access) : base()
-            {
-                ac = access;
-            }
-        }
 
 
 
@@ -385,6 +376,17 @@ namespace SRB.Frame
         }
 
 
+    }
+
+
+    public class AccessEventArgs : EventArgs
+    {
+        public bool Handled = false;
+        public Access ac;
+        public AccessEventArgs(Access access) : base()
+        {
+            ac = access;
+        }
     }
 
 }

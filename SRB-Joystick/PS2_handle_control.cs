@@ -22,7 +22,7 @@ namespace SRB.NodeType.Joystick
             n.eDataAccessRecv += Node_eDataAccessRecv;
             LeftLAB.Parent = this;
         }
-        private void Node_eDataAccessRecv(object sender, Node.AccessEventArgs e)
+        private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
         {
             datas.rumble_l = 0xff;
             datas.rumble_r = 0xff;
@@ -77,7 +77,6 @@ namespace SRB.NodeType.Joystick
             }
         }
 
-        private int counter = 0;
         private void setColor(Label l, bool keydown)
         {
             if (keydown)

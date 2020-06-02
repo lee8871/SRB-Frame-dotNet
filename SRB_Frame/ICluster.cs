@@ -18,7 +18,6 @@ namespace SRB.Frame
             {
                 public Node node;
                 public ICluster new_cluster;
-
                 public ClusterRedefineException(Node node,
                  ICluster new_cluster)
                 {

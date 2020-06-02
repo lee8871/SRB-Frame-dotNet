@@ -253,7 +253,7 @@ namespace SRB.Frame{
                 public Broadcast(IBus bus)
                 {
                     this.bus = bus;
-                    goto_update_from_poweron_thread = new SrbThread(gotoUpdateModeAllFromPowerOnSTH); 
+                    goto_update_from_poweron_st = new SrbThread(gotoUpdateModeAllFromPowerOnSTH); 
                     burning_st = new SrbThread(burnAllSTH);
                 }
                 public void gotoUpdateModeAll()
@@ -266,14 +266,13 @@ namespace SRB.Frame{
                         }
                     }
                 }
-                SrbThread goto_update_from_poweron_thread;
                 public void gotoUpdateAllFromPowerOn_start()
                 {
-                    goto_update_from_poweron_thread.run(bus);
+                    goto_update_from_poweron_st.run(bus);
                 }
                 public void gotoUpdateAllFromPowerOn_stop()
                 {
-                    goto_update_from_poweron_thread.stop();
+                    goto_update_from_poweron_st.stop();
                 }
                 void gotoUpdateModeAllFromPowerOnSTH(SrbThread.dIsThreadStoping IsStoping)
                 {

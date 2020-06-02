@@ -22,7 +22,7 @@ namespace SRB_CTR
         public bool Is_running => is_running;
         public string Path => path;
         public string Suffix => suffix;
-        private SRB_record_uc form;
+        private RecordUC form;
 
         public SRB_Record(string suf = ".json")
         {
@@ -106,7 +106,7 @@ namespace SRB_CTR
         {
             if (form == null)
             {
-                form = new SRB_record_uc(this);
+                form = new RecordUC(this);
             }
             return form;
         }

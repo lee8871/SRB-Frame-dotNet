@@ -111,7 +111,6 @@
     <Compile Include="Form\SyncUC.Designer.cs">
       <DependentUpon>SyncUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="logStatus.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -170,9 +169,6 @@
     <EmbeddedResource Include="Form\SRB_record_uc.resx">
       <DependentUpon>SRB_record_uc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\SRB_record_uc.zh.resx">
-      <DependentUpon>SRB_record_uc.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Updater\SRB_update_uc.resx">
       <DependentUpon>SRB_update_uc.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,7 +177,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -277,8 +272,7 @@
 if not exist ./record (md "record")
 
 if not exist ./update (md "update")
-
-if "$(ConfigurationName)"=="Release" (D:\cloud-bank360\V\SRB-Frame-dotNet\SRB_CTR\bin\Release\publish.bat)</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
