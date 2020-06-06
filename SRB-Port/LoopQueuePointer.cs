@@ -9,7 +9,7 @@
         {
             if (s <= 0)
             {
-                throw new System.Exception("Size 需要是一个正数.");
+                throw new System.ArgumentException("Size 需要是一个正数.");
             }
             size = s;
             point = 0;

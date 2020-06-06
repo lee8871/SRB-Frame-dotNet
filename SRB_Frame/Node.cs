@@ -121,7 +121,7 @@ namespace SRB.Frame
                 syncClu = new SyncCluster(this);
                 debugClu = new DebugInfoCluster(this);
                 infoClu.read();
-                infoClu.timestampClu.read();
+                infoClu.TimestampClu.read();
                 specializer.specializeNode(this);
             }
         }

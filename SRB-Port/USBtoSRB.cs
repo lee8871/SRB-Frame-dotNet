@@ -5,6 +5,7 @@ using SRB.Frame;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -135,7 +136,7 @@ namespace SRB.port
                 selected_device = usb_reg.Device;
                 if (!(selected_device.Open()))
                 {
-                    throw new Exception(string.Format("open USB (port)device {0} fail", portName));
+                    throw new DriveNotFoundException(string.Format("open USB device(port) {0} fail", portName));
                 }
                 IUsbDevice wholeUsbDevice = selected_device as IUsbDevice;
                 if (wholeUsbDevice is object)
@@ -149,7 +150,7 @@ namespace SRB.port
                 }
                 else
                 {
-                    throw new Exception(string.Format("selected_device can not as IUsbDevice"));
+                    throw new DriveNotFoundException(string.Format("selected_device can not as IUsbDevice"));
                 }
                 srb_reader = selected_device.OpenEndpointReader((ReadEndpointID)(1 | 0x80), 1000, EndpointType.Interrupt);
                 srb_writer = selected_device.OpenEndpointWriter((WriteEndpointID)2);
@@ -175,7 +176,7 @@ namespace SRB.port
                 selected_device = usb_reg.Device;
                 if (!(selected_device.Open()))
                 {
-                    throw new Exception(string.Format("open USB (port)device {0} fail", Selected_device_name));
+                    throw new DriveNotFoundException(string.Format("open USB (port)device {0} fail", Selected_device_name));
                 }
                 IUsbDevice wholeUsbDevice = selected_device as IUsbDevice;
                 if (!ReferenceEquals(wholeUsbDevice, null))
@@ -189,7 +190,7 @@ namespace SRB.port
                 }
                 else
                 {
-                    throw new Exception(string.Format("selected_device can not as IUsbDevice"));
+                    throw new DriveNotFoundException(string.Format("selected_device can not as IUsbDevice"));
                 }
                 srb_reader = selected_device.OpenEndpointReader((ReadEndpointID)(1 | 0x80), 1000, EndpointType.Interrupt);
                 srb_writer = selected_device.OpenEndpointWriter((WriteEndpointID)2);
@@ -248,7 +249,7 @@ namespace SRB.port
             }
             else
             {
-                throw new Exception("The USB-SRB is not oppend.");
+                throw new DriveNotFoundException("The USB-SRB is not oppend.");
             }
         }
 
@@ -342,7 +343,7 @@ namespace SRB.port
         private LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
         private LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
 
-        public override bool doAccess(Access ac)
+        protected override bool doAccess(Access ac)
         {
             lock (lock_access)
             {
@@ -355,7 +356,7 @@ namespace SRB.port
 
         private int SEND_FAIL_ERROR = 1;
         private int USB_TIMEOUT = 2;
-        public override bool doAccess(Access[] acs, int acs_num = -1)
+        protected override bool doAccess(Access[] acs, int acs_num = -1)
         {
             lock (lock_access)
             {
@@ -365,7 +366,7 @@ namespace SRB.port
                 }
                 if (acs_num > access_bank_length)
                 {
-                    throw new Exception(string.Format("Max num of accesses to send is 128"));
+                    throw new ArgumentException(string.Format("Max num of accesses to send is 128"));
                 }
                 if (acs_num == 0)
                 {
@@ -493,7 +494,6 @@ namespace SRB.port
                     access.sendDone();
                     return true;
                 default:
-                    //throw new Exception(ec.ToString());
                     return false;
             }
         }
@@ -525,13 +525,12 @@ namespace SRB.port
                                     accesses[recv_sno].receiveAccessTimeout();
                                     break;
                                 default:
-                                    throw new Exception("unknow receicve error code" + recv_error);
+                                    throw new AccessRecvBadValue("unknow receicve error code", accesses[recv_sno]);
                             }
                         }
                     }
                     return true;
                 default:
-                    //throw new Exception(ec.ToString());
                     return false;
             }
         }

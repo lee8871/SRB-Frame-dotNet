@@ -172,7 +172,7 @@ namespace SRB.NodeType.Charger
             {
                 if ((c != '.') && (c != '-'))
                 {
-                    throw new Exception("Morse string is constitute by '.'and '-'");
+                    throw new ArgumentException("Morse string is constitute by '.'and '-'");
                 }
             }
             int i = 8 - 1 - ticks.Length;

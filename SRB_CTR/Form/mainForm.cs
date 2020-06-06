@@ -54,7 +54,7 @@ namespace SRB_CTR
             {
                 if (n.Tag != null)
                 {
-                    throw new Exception("node has Tag");
+                    throw new ArgumentException("Node has a tag, which means this node is display by other Form", n.ToString());
                 }
                 Button b = new Button();
                 n.Tag = b;

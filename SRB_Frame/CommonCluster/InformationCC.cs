@@ -19,7 +19,7 @@ namespace SRB.Frame
             this.typeL.Text = "Type: " + cluster.type;
             this.versionL.Text =
             string.Format("{0} {1}", cluster.App_version, cluster.Srb_version);
-            TimeStampTT.SetToolTip(this.versionL, "TimeStamp = " + cluster.timestampClu.utc);
+            TimeStampTT.SetToolTip(this.versionL, "TimeStamp = " + cluster.TimestampClu.utc);
         }
 
 

@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace SRB.NodeType.PhotoElecX6
+namespace SRB.NodeType.SpeedMotor
 {
     internal partial class AdjustCC : IClusterControl
     {

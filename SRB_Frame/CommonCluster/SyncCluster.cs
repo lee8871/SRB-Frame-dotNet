@@ -11,12 +11,13 @@ namespace SRB.Frame
         public partial class SyncCluster : Node.ICluster
         {
 
-            public CalibrationCluster calibrationClu;
+            private CalibrationCluster calibrationClu;
             public const byte FIX_CID = 8;
             public int us4 { get => bank.getBankByte(1); }
             public int ms { get => bank.getBankUshort(2); }
             public int sno { get => (int)bank.getBankUint(0, 7, 0); }
             public bool is_sync_miss { get => 1==bank.getBankUint(0, 1, 7); }
+            public CalibrationCluster CalibrationClu { get => calibrationClu;}
 
             public SyncCluster(Node n)
                 : base(n, FIX_CID, 4)
@@ -121,8 +122,6 @@ namespace SRB.Frame
             }
 
         }
-
-
         public class CalibrationCluster : Node.ICluster
         {
             public const byte FIX_CID = 9;

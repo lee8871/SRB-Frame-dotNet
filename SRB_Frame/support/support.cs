@@ -24,8 +24,6 @@ namespace SRB.Frame
         public static Color Color_navy => color_navy;
         public static Color Color_moon => color_moon;
 
-
-
         public static Color Color_HighLight => color_pink;
         public static Color Color_BackGround => color_blue;
 

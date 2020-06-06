@@ -41,7 +41,7 @@ namespace SRB.NodeType.Du_motor
                 case "10000":
                     return 3;
                 default:
-                    throw (new Exception("不存在的调整值"));
+                    throw (new ArgumentException("adjustment Value is not exist."));
             }
         }
 

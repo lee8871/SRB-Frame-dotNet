@@ -119,13 +119,13 @@ namespace SRB.port
         public int Last_recv_time_cost => last_recv_time_cost;
 
         private long time_record;
-        public override bool doAccess(Access ac)
+        protected override bool doAccess(Access ac)
         {
             Access[] acs = new Access[1];
             acs[0] = ac;
             return doAccess(acs, 1);
         }
-        public override bool doAccess(Access[] acs, int acs_num = -1)
+        protected override bool doAccess(Access[] acs, int acs_num = -1)
         {
             if (acs_num == -1)
             {
@@ -145,7 +145,7 @@ namespace SRB.port
             }
             if (acs_num > 128)
             {
-                throw new Exception(string.Format("Max num of accesses to send is 128"));
+                throw new ArgumentException("Max num of accesses to send is 128", "acs_num");
             }
             //original_send_ba = null;
             //original_recv_ba = null;

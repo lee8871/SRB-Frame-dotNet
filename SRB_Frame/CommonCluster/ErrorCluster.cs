@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 namespace SRB.Frame
 {
     public class ErrorCluster : Node.ICluster

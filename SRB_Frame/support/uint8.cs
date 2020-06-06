@@ -186,11 +186,7 @@
 
             }
             st = st.Substring(begin + 1, end - begin - 1);
-            st.Replace(" ", "");
-            st.Replace(";", "");
-            st.Replace("\n", "");
-            st.Replace("\r", "");
-            st.Replace("\t", "");
+            st = st.Replace(" ", "").Replace(";", "").Replace("\n", "").Replace("\r", "").Replace("\t", "");
             string[] sta = st.Split(',');
             byte[] b = new byte[sta.Length];
             for (int i = 0; i < sta.Length; i++)

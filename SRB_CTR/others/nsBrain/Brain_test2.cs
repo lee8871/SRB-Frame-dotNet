@@ -1,4 +1,6 @@
 ﻿using SRB.Frame;
+using System;
+
 namespace SRB_CTR.nsBrain
 {
     internal class Brain_Test2 : IBrain
@@ -64,11 +66,9 @@ namespace SRB_CTR.nsBrain
             last_left = false;
             last_right = false;
             last_down = false;
-            try
-            {
+            if (handle != null) {
                 handle.addDataAccess(3);
             }
-            catch { }
         }
         protected override void loop()
         {
@@ -86,7 +86,7 @@ namespace SRB_CTR.nsBrain
                     {
                         charger.addDataAccess(1);
                     }
-                    catch { }
+                    catch(NullReferenceException e) { }
                     charger.buzzer_commend = 0x80;
                 }
                 else if (handle.left != last_left)
@@ -100,7 +100,7 @@ namespace SRB_CTR.nsBrain
                     {
                         charger.addDataAccess(1);
                     }
-                    catch { }
+                    catch (NullReferenceException e) { }
                     charger.buzzer_commend = 0x80;
 
                 }
@@ -115,7 +115,7 @@ namespace SRB_CTR.nsBrain
                     {
                         charger.addDataAccess(1);
                     }
-                    catch { }
+                    catch (NullReferenceException e) { }
                     charger.buzzer_commend = 0x80;
 
                 }
@@ -130,11 +130,11 @@ namespace SRB_CTR.nsBrain
                     {
                         charger.addDataAccess(1);
                     }
-                    catch { }
+                    catch (NullReferenceException e) { }
                     charger.buzzer_commend = 0x80;
                 }
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {//left and right motor
@@ -156,7 +156,7 @@ namespace SRB_CTR.nsBrain
                 }
                 left.addDataAccess(1);
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {
@@ -178,7 +178,7 @@ namespace SRB_CTR.nsBrain
                 }
                 right.addDataAccess(1);
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {
@@ -186,7 +186,7 @@ namespace SRB_CTR.nsBrain
                 key_control.Speed_b = handle.pressure_r1 - handle.pressure_r2;
                 key_control.addDataAccess(1);
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {
@@ -194,13 +194,13 @@ namespace SRB_CTR.nsBrain
                 key_control2.Speed_b = handle.pressure_squ - handle.pressure_cir;
                 key_control2.addDataAccess(1);
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {
                 handle.addDataAccess(3);
             }
-            catch { }
+            catch (NullReferenceException e) { }
         }
 
         protected override void termination()
@@ -211,7 +211,7 @@ namespace SRB_CTR.nsBrain
                 left.Speed_b = 0;
                 left.addDataAccess(1);
             }
-            catch { }
+            catch (NullReferenceException e) { }
 
             try
             {
@@ -219,7 +219,7 @@ namespace SRB_CTR.nsBrain
                 right.Speed_a = 0;
                 right.addDataAccess(1);
             }
-            catch { }
+            catch(NullReferenceException e) { }
 
             try
             {
@@ -227,7 +227,7 @@ namespace SRB_CTR.nsBrain
                 key_control.Speed_b = 0;
                 key_control.addDataAccess(1);
             }
-            catch { }
+            catch(NullReferenceException e) { }
 
             try
             {
@@ -235,7 +235,7 @@ namespace SRB_CTR.nsBrain
                 key_control2.Speed_b = 0;
                 key_control2.addDataAccess(1);
             }
-            catch { }
+            catch(NullReferenceException e) { }
         }
 
     }

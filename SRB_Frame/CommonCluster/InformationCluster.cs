@@ -26,9 +26,12 @@ namespace SRB.Frame
                     return srb_version;
                 }
             }
+
+            public TimeStampCluster TimestampClu { get => timestampClu; }
+
             Node node;
 
-            public TimeStampCluster timestampClu;
+            private TimeStampCluster timestampClu;
             public InformationCluster(Node n)
                 : base(n, 1, 23)
             {

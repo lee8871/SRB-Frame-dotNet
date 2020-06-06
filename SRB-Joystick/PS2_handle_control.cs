@@ -81,11 +81,11 @@ namespace SRB.NodeType.Joystick
         {
             if (keydown)
             {
-                l.ForeColor = support.Color_red;
+                l.ForeColor = Color.DarkRed;
             }
             else
             {
-                l.ForeColor = support.Color_dank;
+                l.ForeColor = Color.Black;
             }
         }
 

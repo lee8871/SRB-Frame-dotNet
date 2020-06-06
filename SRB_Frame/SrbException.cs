@@ -53,5 +53,27 @@ namespace SRB.Frame
             throw new System.NotImplementedException();
         }
 
+
+
+    }
+    [System.Serializable]
+    public class AccessRecvBadValue : SrbException
+    {
+        Access access;
+        public AccessRecvBadValue(string message, Access access) : base(message)
+        {
+            this.access = access;
+        }
+        public override string ToString()
+        {
+            var rev = base.ToString() +"\n" ;
+            rev += access.toJson();
+            return rev;
+        }
+        protected AccessRecvBadValue(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

@@ -26,7 +26,7 @@ namespace SRB.Frame
                     cluster.sno, cluster.ms / 1000, cluster.ms % 1000, cluster.us4);
             }
             calibrationLAB.Text = string.Format("calibration = {0}",
-                cluster.calibrationClu.calibration_value);
+                cluster.CalibrationClu.calibration_value);
         }
     }
 }

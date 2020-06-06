@@ -11,8 +11,8 @@ namespace SRB.Frame
         public event dAddNode eNodeAdd;
 
 
-        protected string name = "Undefined";
-        protected string type = "Uninitialized";
+        string name = "Undefined";
+        string type = "Uninitialized";
         public string Name => name;
         public string Type => type;
 
@@ -187,8 +187,6 @@ namespace SRB.Frame
                     throw new TimeoutException(est);
                 }
             }
-
-
         }
 
 
@@ -239,8 +237,8 @@ namespace SRB.Frame
         }
         public abstract bool Is_opened { get; }
 
-        public abstract bool doAccess(Access[] acs, int n = -1);
-        public abstract bool doAccess(Access acs);
+        protected abstract bool doAccess(Access[] acs, int n = -1);
+        protected abstract bool doAccess(Access acs);
 
         public virtual System.Windows.Forms.Control getConfigControl()
         {

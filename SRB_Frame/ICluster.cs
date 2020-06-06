@@ -74,11 +74,6 @@ namespace SRB.Frame
                     writeRecv(ac);
                 }
             }
-
-
-
-
-
             public virtual void write()
             {
                 byte[] data = new byte[bank.temp.Length + 1];
