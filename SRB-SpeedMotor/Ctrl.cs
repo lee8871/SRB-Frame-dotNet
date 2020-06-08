@@ -17,7 +17,6 @@ namespace SRB.NodeType.SpeedMotor
         }
 
         private int x;
-        private int y;
         protected override void OnAccess()
         {
             if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
@@ -26,26 +25,23 @@ namespace SRB.NodeType.SpeedMotor
                 {
                     Point moues = this.PointToClient(Control.MousePosition);
                     x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
-                    y = moues.Y - handleBTN.Location.Y - (handleBTN.Size.Height / 2);
-                    datas.Speed_a = (x + y);
-                    datas.Speed_b = (x - y);
-                    this.handleBTN.Text = Handle_text + "\n" + (x + y) + " × " + (x - y);
+                    datas.set_speed = x;
+                    this.handleBTN.Text = Handle_text + "\n" + x;
                 }
                 else if (this.StopBTN.Capture)
                 {
                     x = 0;
-                    y = 0;
-                    datas.Speed_a = (x + y);
-                    datas.Speed_b = (x - y);
-                    this.handleBTN.Text = Handle_text + "\n" + (x + y) + " × " + (x - y);
+                    datas.set_speed = x;
+                    this.handleBTN.Text = Handle_text + "\n" + x ;
                 }
+                /*
                 else if (this.BrakeBTN.Capture)
                 {
                     datas.Brake_a = 10000;
                     datas.Brake_b = 10000;
                     this.handleBTN.Text = Handle_text + "\n" + "Braking";
 
-                }
+                }*/
             }
 
             base.OnAccess();
