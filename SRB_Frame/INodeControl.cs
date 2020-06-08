@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Windows.Forms;
 
 namespace SRB.Frame
@@ -75,5 +76,10 @@ namespace SRB.Frame
 
 
 
+        private void Retry_display_Tick(object sender, EventArgs e)
+        {
+            this.retryLAB.Text = string.Format("Access:{0} Retry:{1} Lose:{2}",
+                        node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
+        }
     }
 }

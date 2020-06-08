@@ -62,7 +62,7 @@ namespace SRB.Frame
             byte new_addr = (byte)((int)AddrNUM.Value);
             if (new_addr == cluster.addr)
             {
-                cluster.error_behavior = 1;
+                cluster.error_behavior = 2;
                 cluster.write();
             }
             else
@@ -70,7 +70,7 @@ namespace SRB.Frame
                 if (cluster.isNewAddrAvaliable(new_addr))
                 {
                     cluster.addr = new_addr;
-                    cluster.error_behavior = 1;
+                    cluster.error_behavior = 2;
                     cluster.write();
                 }
                 else
@@ -81,7 +81,7 @@ namespace SRB.Frame
                     if (res == DialogResult.OK)
                     {
                         cluster.addr = new_addr;
-                        cluster.error_behavior = 1;
+                        cluster.error_behavior = 2;
                         cluster.write();
                     }
                 }

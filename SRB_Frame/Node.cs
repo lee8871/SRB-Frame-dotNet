@@ -30,7 +30,6 @@ namespace SRB.Frame
         private InformationCluster infoClu;
         private ErrorCluster errorClu;
         private SyncCluster syncClu;
-
         private DebugInfoCluster debugClu;
 
         public event dNodeUpdateEvent eChangeDescription;
@@ -104,10 +103,9 @@ namespace SRB.Frame
             }
         }
 
-
         public void checkNodeAccessable()
         {
-            for(int i = 0;i< clusters.Length; i++)
+            for (int i = 0; i < clusters.Length; i++)
             {
                 clusters[i] = null;
             }
@@ -166,7 +164,7 @@ namespace SRB.Frame
                     {
                         eUpdateModeChanging.Invoke(this, new EventArgs());
                     }
-                    if(eChangeDescription != null)
+                    if (eChangeDescription != null)
                     {
                         eChangeDescription.Invoke(this);
                     }
@@ -201,20 +199,30 @@ namespace SRB.Frame
 
         #region 节点响应检查
         private bool is_node_exist = false;
-        private int access_fail_counter = 0;
-
+        private int node_exist_check_counter = 0;
         public bool Is_hareware_exist => is_node_exist;
 
-    
-        public void active()
+
+        private int access_counter = 0;
+        private int access_retry_counter = 0;
+        private int access_fail_counter = 0;
+        public int Access_counter { get => access_counter; }
+        public int Access_retry_counter { get => access_retry_counter; }
+        public int Access_fail_counter { get => access_fail_counter; }
+
+        public void active(int retry)
         {
+            access_counter++;
+            access_retry_counter += retry;
+
             is_node_exist = true;
-            access_fail_counter = 0;
+            node_exist_check_counter = 0;
         }
         public void lose()
         {
             access_fail_counter++;
-            if (access_fail_counter >= 3)
+            node_exist_check_counter++;
+            if (node_exist_check_counter >= 3)
             {
                 is_node_exist = false;
             }
@@ -222,10 +230,9 @@ namespace SRB.Frame
         }
         #endregion
 
-        #region access
+        #region 节点数据访问
 
 
-        public event EventHandler<AccessEventArgs> eDataAccessRecv;
 
 
 
@@ -259,6 +266,7 @@ namespace SRB.Frame
             return new Access(this, this, (Access.PortEnum)port, pd);
         }
 
+        public event EventHandler<AccessEventArgs> eDataAccessRecv;
         public void accessDone(Access ac)
         {
             switch (ac.Port)
@@ -277,10 +285,6 @@ namespace SRB.Frame
                         OnDataAccessDone(ac);
                     }
                     break;
-                case Access.PortEnum.Udp:
-
-                    break;
-
                 default:
                     throw new Exception("Receive not data");
             }

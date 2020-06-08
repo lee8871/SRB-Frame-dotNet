@@ -18,6 +18,9 @@ namespace SRB.Frame
 
         private Node sender_node;
         private IAccesser accesser;
+
+        public int Retry { get => retry; }
+        private int retry = -1;
         public byte Addr
         {
             get
@@ -46,7 +49,7 @@ namespace SRB.Frame
                 case StatusEnum.BroadcasePkg:
                     break;
                 case StatusEnum.RecvedDone:
-                    sender_node.active();
+                    sender_node.active(this.retry) ;
                     accesser.accessDone(this);
                     break;
                 case StatusEnum.PortColsed:
@@ -93,8 +96,6 @@ namespace SRB.Frame
         public int Recv_data_len => (int)(_recv_bfc & 0x1f);
 
 
-
-
         public Access(IAccesser a, Node n, PortEnum p, byte[] send_d)
         {
             accesser = a;
@@ -105,7 +106,7 @@ namespace SRB.Frame
         }
 
 
-        public bool receiveAccess(byte bfc, byte[] data, int offset)
+        public bool receiveAccess(int retry, byte bfc, byte[] data, int offset)
         {
             recvTime = DateTime.Now;
             if (Status == StatusEnum.SendWaitRecv)
@@ -118,6 +119,7 @@ namespace SRB.Frame
                     {
                         _recv_data[i] = data[i + offset];
                     }
+                    this.retry = retry;
                     _status = StatusEnum.RecvedDone;
                 }
                 else

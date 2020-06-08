@@ -251,6 +251,10 @@
       <Project>{d02140bc-c6ca-44b5-9070-2388bc5e7455}</Project>
       <Name>SRB-MotorX2</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SRB-PhotoElecX4\SRB-PhotoElecX4.csproj">
+      <Project>{015f6c3a-86b0-4bd7-9b90-282a2b5b3771}</Project>
+      <Name>SRB-PhotoElecX4</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB-PhotoElecX6\SRB-PhotoElecX6.csproj">
       <Project>{448541e4-788b-4b0b-9ad3-9225b63e7863}</Project>
       <Name>SRB-PhotoElecX6</Name>

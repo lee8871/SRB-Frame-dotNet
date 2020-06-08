@@ -37,6 +37,10 @@ namespace SRB.port
 
         private void UsbDeviceNotifier_OnDeviceNotify(object sender, DeviceNotifyEventArgs e)
         {
+            if(e.Device == null)
+            {
+                return;
+            }
             if (e.Device.SerialNumber == last_device_name)
             {
                 if (e.EventType == EventType.DeviceRemoveComplete)
@@ -512,7 +516,7 @@ namespace SRB.port
                         byte recv_error = recv_from_usb_buf[1];
                         if (recv_error < 0x0f)//thus recv_error is retry times
                         {
-                            accesses[recv_sno].receiveAccess(recv_from_usb_buf[2], recv_from_usb_buf, 3);
+                            accesses[recv_sno].receiveAccess(recv_error,recv_from_usb_buf[2], recv_from_usb_buf, 3);
                         }
                         else
                         {

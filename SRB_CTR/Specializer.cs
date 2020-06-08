@@ -20,8 +20,11 @@ namespace SRB_CTR
                 case "PhotoElecX6":
                     n.Datas = new SRB.NodeType.PhotoElecX6.Interpreter(n);
                     break;
+                case "PhotoElecX4":
+                    n.Datas = new SRB.NodeType.PhotoElecX4.Interpreter(n);
+                    break;
                 case "SpeedMotor":
-                    n.Datas = new SRB.NodeType.PhotoElecX6.Interpreter(n);
+                    n.Datas = new SRB.NodeType.SpeedMotor.Interpreter(n);
                     break;
                 default:
                     n.Datas = new SRB.Frame.untyped.Interpreter(n);
