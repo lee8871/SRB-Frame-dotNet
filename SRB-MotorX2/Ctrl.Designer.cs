@@ -73,6 +73,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
             this.Size = new System.Drawing.Size(300, 123);
+            this.Controls.SetChildIndex(this.HelpBTN, 0);
             this.Controls.SetChildIndex(this.handleBTN, 0);
             this.Controls.SetChildIndex(this.RunStopBTN, 0);
             this.Controls.SetChildIndex(this.BrakeBTN, 0);

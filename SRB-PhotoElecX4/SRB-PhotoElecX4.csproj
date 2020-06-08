@@ -57,11 +57,13 @@
     <Compile Include="Cluster\ConfigCC.Designer.cs">
       <DependentUpon>ConfigCC.cs</DependentUpon>
     </Compile>
-    <Compile Include="PhotoElecX4.cs" />
-    <Compile Include="Ctrl.cs" />
+    <Compile Include="Ctrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PhotoElecX4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
