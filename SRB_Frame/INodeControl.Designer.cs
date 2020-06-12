@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ToolTips = new System.Windows.Forms.ToolTip();
+            this.components = new System.ComponentModel.Container();
+            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.MappingSelectCB = new System.Windows.Forms.ComboBox();
             this.sendFreqNUM = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.sendTimer = new System.Windows.Forms.Timer();
+            this.sendTimer = new System.Windows.Forms.Timer(this.components);
             this.HelpBTN = new System.Windows.Forms.Button();
             this.RunStopBTN = new System.Windows.Forms.Button();
+            this.RetryLAB = new System.Windows.Forms.Label();
+            this.RetryTIMER = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sendFreqNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,12 +118,28 @@
             this.RunStopBTN.UseVisualStyleBackColor = true;
             this.RunStopBTN.Click += new System.EventHandler(this.RunStopBTN_Click);
             // 
+            // RetryLAB
+            // 
+            this.RetryLAB.AutoSize = true;
+            this.RetryLAB.Location = new System.Drawing.Point(4, 24);
+            this.RetryLAB.Name = "RetryLAB";
+            this.RetryLAB.Size = new System.Drawing.Size(179, 12);
+            this.RetryLAB.TabIndex = 28;
+            this.RetryLAB.Text = "Access:{0} Retry:{1} Lose:{2}";
+            // 
+            // RetryTIMER
+            // 
+            this.RetryTIMER.Enabled = true;
+            this.RetryTIMER.Interval = 2000;
+            this.RetryTIMER.Tick += new System.EventHandler(this.RetryTIMER_Tick);
+            // 
             // INodeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.RetryLAB);
             this.Controls.Add(this.HelpBTN);
             this.Controls.Add(this.MappingSelectCB);
             this.Controls.Add(this.sendFreqNUM);
@@ -144,5 +163,7 @@
         private System.Windows.Forms.Timer sendTimer;
         public System.Windows.Forms.ToolTip ToolTips;
         protected System.Windows.Forms.Button HelpBTN;
+        private System.Windows.Forms.Label RetryLAB;
+        private System.Windows.Forms.Timer RetryTIMER;
     }
 }

@@ -35,7 +35,7 @@
             // 
             // handleBTN
             // 
-            this.handleBTN.Location = new System.Drawing.Point(6, 26);
+            this.handleBTN.Location = new System.Drawing.Point(6, 39);
             this.handleBTN.Name = "handleBTN";
             this.handleBTN.Size = new System.Drawing.Size(145, 94);
             this.handleBTN.TabIndex = 9;
@@ -45,7 +45,7 @@
             // 
             // BrakeBTN
             // 
-            this.BrakeBTN.Location = new System.Drawing.Point(157, 26);
+            this.BrakeBTN.Location = new System.Drawing.Point(157, 42);
             this.BrakeBTN.Name = "BrakeBTN";
             this.BrakeBTN.Size = new System.Drawing.Size(60, 44);
             this.BrakeBTN.TabIndex = 27;
@@ -55,7 +55,7 @@
             // 
             // StopBTN
             // 
-            this.StopBTN.Location = new System.Drawing.Point(157, 76);
+            this.StopBTN.Location = new System.Drawing.Point(157, 92);
             this.StopBTN.Name = "StopBTN";
             this.StopBTN.Size = new System.Drawing.Size(60, 44);
             this.StopBTN.TabIndex = 28;
@@ -72,7 +72,7 @@
             this.Controls.Add(this.handleBTN);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 123);
+            this.Size = new System.Drawing.Size(300, 139);
             this.Controls.SetChildIndex(this.HelpBTN, 0);
             this.Controls.SetChildIndex(this.handleBTN, 0);
             this.Controls.SetChildIndex(this.RunStopBTN, 0);

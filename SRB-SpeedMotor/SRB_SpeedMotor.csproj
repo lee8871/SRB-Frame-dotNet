@@ -68,6 +68,17 @@
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="debugFORM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="debugFORM.Designer.cs">
+      <DependentUpon>debugFORM.cs</DependentUpon>
+    </Compile>
     <Compile Include="SRB_SpeedMotor.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,12 +91,25 @@
     <EmbeddedResource Include="Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="debugFORM.resx">
+      <DependentUpon>debugFORM.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SRB_Frame\SRB_Frame.csproj">
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1175877.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

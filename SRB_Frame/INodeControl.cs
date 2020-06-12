@@ -13,6 +13,7 @@ namespace SRB.Frame
             node = n;
             InitializeComponent();
             this.Disposed += INodeControl_Disposed;
+            RetryTIMER_Tick(this, null);
         }
 
         private void INodeControl_Disposed(object sender, EventArgs e)
@@ -73,7 +74,12 @@ namespace SRB.Frame
             System.Diagnostics.Process.Start(node.Help_net_work);
         }
 
-
-
+        private void RetryTIMER_Tick(object sender, EventArgs e)
+        {
+            if (this.node != null) { 
+                this.RetryLAB.Text = string.Format("Access:{0} Retry:{1} Lose:{2}",
+                   node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
+            }
+        }
     }
 }

@@ -285,8 +285,8 @@ namespace SRB.Frame
                         OnDataAccessDone(ac);
                     }
                     break;
-                default:
-                    throw new Exception("Receive not data");
+               // default:
+                   // throw new Exception("Receive not data");
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace SRB.Frame
         abstract public class INodeInterpreter: INodeControlOwner
         {
             private Node node;
+            protected IBus Bus { get => node.bus; }
             protected Node Node => node;
             protected ICluster[] clusters => node.clusters;
             protected ByteBank bank => node.bank;

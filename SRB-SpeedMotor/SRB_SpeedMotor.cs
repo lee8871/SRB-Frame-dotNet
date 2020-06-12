@@ -8,12 +8,16 @@ namespace SRB.NodeType.SpeedMotor
         internal ConfigCluster motor_clu;
         internal AdjustCluster adj_clu;
         internal MappingCluster Mapping0_clu;
+        public new Node Node => base.Node;
+        public new IBus Bus => base.Bus;
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
 
-        public int set_speed { set => setSpeed((short)value); }
-        //public int set_displacement { set => setSpeedB(value); }
-        //public int set_acceleration { set => setBrakeA(value); }
+        public int target_speed { set => setSpeed((short)value); }
+        public int set_displacement { set => bank.setBankUshort((ushort)value, 2); }// setSpeedB(value); }
+        public int set_acceleration { set => bank.setBankUshort((ushort)value, 4);}
+        public int sensor_speed { get => (short)bank.getBankUshort(6); }
+        public int odometer { get => (int)bank.getBankUint(8); }
 
         private void setSpeed(short value)
         {
