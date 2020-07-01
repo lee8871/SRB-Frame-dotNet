@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 namespace SRB.NodeType.SpeedMotor
 {
-    internal partial class Ctrl : INodeControl
+    public partial class Ctrl : INodeControl
     {
         private Interpreter bgd;
         private string Handle_text;
@@ -12,10 +12,13 @@ namespace SRB.NodeType.SpeedMotor
             base(n)
         {
             bgd = (Interpreter)n.Datas;
+            bgd.pid_clu.read();
+            max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024))-10;
             InitializeComponent();
             Handle_text = handleBTN.Text;
             n.eBankChangeByAccess += Node_eBankChangeByAccess;
             n.eDataAccessRecv += Node_eDataAccessRecv;
+            handleTextRefresh();
         }
         private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
         {
@@ -46,65 +49,49 @@ namespace SRB.NodeType.SpeedMotor
 
         }
 
-        private int x;
-        protected override void OnAccess()
+        int max_speed;
+        private int speed;
+
+        public int Speed => speed;
+
+        private void Handle_tick_Tick(object sender, EventArgs e)
         {
             if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
             {
                 if (this.handleBTN.Capture)
                 {
                     Point moues = this.PointToClient(Control.MousePosition);
-                    x = moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2);
-                    bgd.target_speed = x;
-                    this.handleBTN.Text = Handle_text + "\n" + x;
+                    speed = gain * (moues.X - handleBTN.Location.X - (handleBTN.Size.Width / 2));
+                    if (speed >= max_speed)
+                    {
+                        speed = max_speed;
+                    }
+                    if (speed <= -max_speed)
+                    {
+                        speed = -max_speed;
+                    }
+                    handleTextRefresh();
+                    return;
                 }
-                else if (this.StopBTN.Capture)
-                {
-                    x = 0;
-                    bgd.target_speed = x;
-                    this.handleBTN.Text = Handle_text + "\n" + x ;
-                }
-                /*
-                else if (this.BrakeBTN.Capture)
-                {
-                    datas.Brake_a = 10000;
-                    datas.Brake_b = 10000;
-                    this.handleBTN.Text = Handle_text + "\n" + "Braking";
-
-                }*/
             }
-
+            this.Handle_tick.Stop();
+        }
+        protected override void OnAccess()
+        {
+            bgd.target_speed = Speed;
             base.OnAccess();
         }
 
         public int Motor_x { get; set; }
         public int Motor_y { get; set; }
 
-        private void handleBTN_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void StopBTN_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BrakeBTN_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void OdometerLAB_Click(object sender, EventArgs e)
-        {
-
-        }
         debugFORM df;
         private void DebugBTN_Click(object sender, EventArgs e)
         {
-            if(df == null)
+            if (df == null)
             {
-                df = new debugFORM(this.bgd);
+                df = new debugFORM(this.bgd,this);
+                this.components.Add(df);
             }
             if (df.Visible == false)
             {
@@ -112,6 +99,38 @@ namespace SRB.NodeType.SpeedMotor
             }
 
 
+        }
+        int[] gain_table = {1, 2, 5, 10,15,20};
+        int gain_point = 3;
+        int gain => gain_table[gain_point];
+
+        private void handleBTN_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                gain_point++;
+                gain_point %= gain_table.Length; 
+                handleTextRefresh();
+            }
+
+            if (e.Button == MouseButtons.Left)
+            {
+                Handle_tick.Start();
+            }
+        }
+        private void handleTextRefresh()
+        {
+            handleBTN.Text = string.Format("电机操纵杆({0}倍数)\n速度{1}", gain, speed);
+            if (df != null)
+            {
+                df.setSpeed(speed);
+            }
+        }
+
+        private void StopBTN_Click(object sender, EventArgs e)
+        {
+            speed = 0;
+            handleTextRefresh();
         }
     }
 }

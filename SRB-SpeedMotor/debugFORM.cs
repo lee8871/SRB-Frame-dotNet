@@ -15,17 +15,23 @@ namespace SRB.NodeType.SpeedMotor
     public partial class debugFORM : Form
     {
         Interpreter bgd;
+        Ctrl ctrl;
         private SrbThread motor_test_ST;
+        private SrbThread get_speed_table_ST;
+        private SrbThread TestSequence_ST;
         object speed_lock = new object();
         int speed;
         public debugFORM()
         {
             InitializeComponent();
         }
-        public debugFORM(Interpreter n)
+        public debugFORM(Interpreter n, Ctrl c)
         {
+            ctrl = c;
             InitializeComponent();
             motor_test_ST = new SrbThread(motor_test_Thread);
+            get_speed_table_ST = new SrbThread(get_speed_table_Thread);
+            TestSequence_ST = new SrbThread(TestSequence_Thread);
             bgd = n;
         }
         protected double period_in_ms = 2;
@@ -33,6 +39,131 @@ namespace SRB.NodeType.SpeedMotor
         private double getElapsedMs(Stopwatch sw)
         {
             return (1000.0 * sw.ElapsedTicks) / Stopwatch.Frequency; ;
+        }
+        private void get_speed_table_Thread(SrbThread.dIsThreadStoping IsStoping)
+        {
+            Stopwatch sw = new Stopwatch();
+            string output_csv = "pwm,speed\n";
+            double time = 0;
+            ushort pwm = 50;
+            for(pwm = 0; pwm < 1000; pwm += 1)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    sw.Restart();
+                    bgd.test_pwm_clu.Direction = 0;
+                    bgd.test_pwm_clu.Pwm = pwm;
+                    bgd.test_pwm_clu.write();
+                    bgd.addDataAccess(1, true);
+
+                    output_csv += string.Format("{0},{1}\n", pwm, bgd.sensor_speed);
+                    if (IsStoping())
+                    {
+                        bgd.test_pwm_clu.Direction = 4;
+                        bgd.test_pwm_clu.Pwm = 0;
+                        bgd.test_pwm_clu.write();
+                        return;
+                    }
+                    while (getElapsedMs(sw) < period_in_ms) ;
+                }
+            }
+
+
+            bgd.test_pwm_clu.Direction = 4;
+            bgd.test_pwm_clu.Pwm = 0;
+            bgd.test_pwm_clu.write();
+            string path = "./log/SpeedMotor-test-record/";
+            path += System.DateTime.Now.ToString("yy-MM-dd");
+            path += "/";
+            System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
+            string time_str = System.DateTime.Now.ToString("HHmmss");
+            string Table_file = path + "PWM-speed-test" + time_str + ".csv";
+            string Png_file = path + "PWM-speed-test" + time_str + ".png";
+            try
+            {
+                System.IO.File.WriteAllText(Table_file, output_csv, System.Text.Encoding.ASCII);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "不能写日志文件！");
+            }
+            using (Process myPro = new Process())
+            {
+                string cmdStr = string.Format(@"{3}/{0} {3}/{1} {3}/{2}",
+                "R/moto4.r", Table_file, Png_file, Application.StartupPath);
+
+                string cmdExe = @"C:\Program Files\R\R-4.0.1\bin\rscript.exe";
+                //指定启动进程是调用的应用程序和命令行参数
+                ProcessStartInfo psi = new ProcessStartInfo(cmdExe, cmdStr);
+                myPro.StartInfo = psi;
+                myPro.Start();
+                myPro.WaitForExit();
+            }
+            try
+            {
+                System.Diagnostics.Process.Start(Application.StartupPath + "/" + Png_file);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "没有找到图像");
+            }
+
+            return;
+
+        }
+        private void TestSequence_Thread(SrbThread.dIsThreadStoping IsStoping)
+        {
+            int max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024)) - 10;
+            int s0 = 0;
+            int s1 = max_speed / 4;
+            int s2 = max_speed * 3 / 4;
+            int[] speed_table_1 = { s0,s1,s2,s1,s2,s1,s2, s0,-s1, -s2, -s1, -s2, -s1, -s2, s0 };
+
+            Stopwatch sw = new Stopwatch();
+            string output_csv = "time,target_s,sensor_s,odometer\n";
+            double time = 0;
+            while (true)
+            {
+                sw.Restart();
+                int i = ((int)time) / 1000;
+                if (i >= speed_table_1.Length)
+                {
+                    break;
+                }
+                bgd.target_speed = speed_table_1[((int)time)/1000];
+                bgd.addDataAccess(1, true);
+                output_csv += string.Format("{0},{1},{2},{3}\n", time, bgd.target_speed, bgd.sensor_speed, bgd.odometer / 10.0);
+                if (IsStoping())
+                {
+                    break;
+                }
+                while(getElapsedMs(sw) < period_in_ms) ;
+                time += period_in_ms;
+            }
+            string path = "./log/SpeedMotor-test-record/";
+            path += System.DateTime.Now.ToString("yy-MM-dd");
+            path += "/";
+            System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
+            string time_str = System.DateTime.Now.ToString("HHmmss");
+            string Table_file = path + "speed_table_1" + time_str + ".csv";
+            try
+            {
+                System.IO.File.WriteAllText(Table_file, output_csv, System.Text.Encoding.UTF8);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "不能写日志文件！");
+            }
+            try
+            {
+                System.Diagnostics.Process.Start(Application.StartupPath + "/" + Table_file);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+            }
+            return;
+
         }
         private void motor_test_Thread(SrbThread.dIsThreadStoping IsStoping)
         {
@@ -81,21 +212,11 @@ namespace SRB.NodeType.SpeedMotor
             }
 
         }
-        private void handle_Tick(object sender, EventArgs e)
+        public void setSpeed(int s)
         {
-            int x;
-            if (Control.MouseButtons == System.Windows.Forms.MouseButtons.Left)
+            lock (speed_lock)
             {
-                if (this.controlStickBTN.Capture)
-                {
-                    Point moues = this.PointToClient(Control.MousePosition);
-                    x = moues.X - controlStickBTN.Location.X - this.splitContainer1.Panel1.Width - (controlStickBTN.Size.Width / 2);
-                    this.SpeedLAB.Text = x.ToString() ;
-                    lock (speed_lock)
-                    {
-                        speed = x;
-                    }
-                }
+                this.speed = s;
             }
         }
 
@@ -105,13 +226,11 @@ namespace SRB.NodeType.SpeedMotor
             {
                 RunTestBTN.BackColor = Color.LightBlue;
                 motor_test_ST.run(bgd.Bus);
-                this.handleTIMER.Start();
             }
             else
             {
                 RunTestBTN.BackColor = Control.DefaultBackColor;
                 motor_test_ST.stop();
-                this.handleTIMER.Stop();
             }
         }
 
@@ -123,7 +242,36 @@ namespace SRB.NodeType.SpeedMotor
                 e.Cancel = true;
                 RunTestBTN.BackColor = Control.DefaultBackColor;
                 motor_test_ST.stop();
-                this.handleTIMER.Stop();
+            }
+        }
+
+        private void getSpeedTableBTN_Click(object sender, EventArgs e)
+        {
+            if (this.get_speed_table_ST.Is_running == false)
+            {
+                getSpeedTableBTN.BackColor = Color.LightBlue;
+                get_speed_table_ST.run(bgd.Bus);
+            }
+            else
+            {
+                getSpeedTableBTN.BackColor = Control.DefaultBackColor;
+                get_speed_table_ST.stop();
+            }
+
+        }
+
+        private void TestSequenceBTN_Click(object sender, EventArgs e)
+        {
+
+            if (this.TestSequence_ST.Is_running == false)
+            {
+                (sender as Button).BackColor = Color.LightBlue;
+                TestSequence_ST.run(bgd.Bus);
+            }
+            else
+            {
+                (sender as Button).BackColor = Control.DefaultBackColor;
+                TestSequence_ST.stop();
             }
         }
     }

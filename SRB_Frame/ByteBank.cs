@@ -144,6 +144,10 @@ namespace SRB.Frame
             rev += ba[diff]; ;
             return rev;
         }
+        public short getBankShort(int diff)
+        {
+            return (short)getBankUshort(diff);
+        }
         public uint getBankUint(int diff)
         {
             uint rev = 0; 
@@ -156,12 +160,35 @@ namespace SRB.Frame
             rev += ba[diff]; ;
             return rev;
         }
+        public int getBankInt(int diff)
+        {
+            return (int)getBankUint(diff);
+        }
         public void setBankUshort(ushort val, int diff)
         {
             ba_temp[diff] = (byte)val;
             val >>= 8;
             ba_temp[diff + 1] = (byte)val;
             return;
+        }
+        public void setBankShort(short val, int diff)
+        {
+            setBankUshort((ushort)val, diff);
+        }
+        public void setBankUint(uint val, int diff)
+        {
+            ba_temp[diff] = (byte)val;
+            val >>= 8;
+            ba_temp[diff + 1] = (byte)val;
+            val >>= 8;
+            ba_temp[diff + 2] = (byte)val;
+            val >>= 8;
+            ba_temp[diff + 3] = (byte)val;
+            return;
+        }
+        public void setBankInt(int val, int diff)
+        {
+            setBankUint((uint)val, diff);
         }
 
 

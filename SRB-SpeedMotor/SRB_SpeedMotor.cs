@@ -5,15 +5,19 @@ namespace SRB.NodeType.SpeedMotor
 {
     public class Interpreter : Node.INodeInterpreter
     {
-        internal ConfigCluster motor_clu;
-        internal AdjustCluster adj_clu;
+        internal PidCluster pid_clu;
         internal MappingCluster Mapping0_clu;
+        internal TestPwmCluster test_pwm_clu;
         public new Node Node => base.Node;
         public new IBus Bus => base.Bus;
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
 
-        public int target_speed { set => setSpeed((short)value); }
+        int last_speed = 0;
+        public int target_speed { 
+            set{ last_speed = value; setSpeed((short)value); }
+            get => last_speed;
+        }
         public int set_displacement { set => bank.setBankUshort((ushort)value, 2); }// setSpeedB(value); }
         public int set_acceleration { set => bank.setBankUshort((ushort)value, 4);}
         public int sensor_speed { get => (short)bank.getBankUshort(6); }
@@ -27,7 +31,9 @@ namespace SRB.NodeType.SpeedMotor
         public void init()
         {
             //motor_clu = new ConfigCluster(Node);
-           // adj_clu = new AdjustCluster(Node);
+            // pid_clu = new AdjustCluster(Node);
+            pid_clu = new PidCluster(Node);
+            test_pwm_clu = new TestPwmCluster(Node);
             Mapping0_clu = new MappingCluster(3, Node, "Mapping0");
 
             Mapping0_clu.eDataChanged += updataMapping;

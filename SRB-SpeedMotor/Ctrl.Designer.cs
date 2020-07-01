@@ -28,23 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.handleBTN = new System.Windows.Forms.Button();
             this.BrakeBTN = new System.Windows.Forms.Button();
             this.StopBTN = new System.Windows.Forms.Button();
             this.SpeedLAB = new System.Windows.Forms.Label();
             this.OdometerLAB = new System.Windows.Forms.Label();
             this.DebugBTN = new System.Windows.Forms.Button();
+            this.Handle_tick = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // handleBTN
             // 
             this.handleBTN.Location = new System.Drawing.Point(6, 39);
             this.handleBTN.Name = "handleBTN";
-            this.handleBTN.Size = new System.Drawing.Size(124, 92);
+            this.handleBTN.Size = new System.Drawing.Size(124, 74);
             this.handleBTN.TabIndex = 9;
-            this.handleBTN.Text = "Motor Control Joystick";
+            this.handleBTN.Text = "电机操纵杆";
+            this.ToolTips.SetToolTip(this.handleBTN, "左键左右拖动设置电机的速度值。\r\n右键点击切换灵敏度。");
             this.handleBTN.UseVisualStyleBackColor = true;
-            this.handleBTN.Click += new System.EventHandler(this.handleBTN_Click);
+            this.handleBTN.MouseDown += new System.Windows.Forms.MouseEventHandler(this.handleBTN_MouseDown);
             // 
             // BrakeBTN
             // 
@@ -54,7 +57,6 @@
             this.BrakeBTN.TabIndex = 27;
             this.BrakeBTN.Text = "Brake";
             this.BrakeBTN.UseVisualStyleBackColor = true;
-            this.BrakeBTN.Click += new System.EventHandler(this.BrakeBTN_Click);
             // 
             // StopBTN
             // 
@@ -69,7 +71,7 @@
             // SpeedLAB
             // 
             this.SpeedLAB.AutoSize = true;
-            this.SpeedLAB.Location = new System.Drawing.Point(137, 88);
+            this.SpeedLAB.Location = new System.Drawing.Point(137, 84);
             this.SpeedLAB.Name = "SpeedLAB";
             this.SpeedLAB.Size = new System.Drawing.Size(41, 12);
             this.SpeedLAB.TabIndex = 29;
@@ -78,12 +80,11 @@
             // OdometerLAB
             // 
             this.OdometerLAB.AutoSize = true;
-            this.OdometerLAB.Location = new System.Drawing.Point(137, 101);
+            this.OdometerLAB.Location = new System.Drawing.Point(137, 96);
             this.OdometerLAB.Name = "OdometerLAB";
             this.OdometerLAB.Size = new System.Drawing.Size(59, 12);
             this.OdometerLAB.TabIndex = 30;
             this.OdometerLAB.Text = "Odometer:";
-            this.OdometerLAB.Click += new System.EventHandler(this.OdometerLAB_Click);
             // 
             // DebugBTN
             // 
@@ -95,6 +96,11 @@
             this.DebugBTN.TabIndex = 31;
             this.DebugBTN.UseVisualStyleBackColor = true;
             this.DebugBTN.Click += new System.EventHandler(this.DebugBTN_Click);
+            // 
+            // Handle_tick
+            // 
+            this.Handle_tick.Interval = 25;
+            this.Handle_tick.Tick += new System.EventHandler(this.Handle_tick_Tick);
             // 
             // Ctrl
             // 
@@ -108,7 +114,7 @@
             this.Controls.Add(this.handleBTN);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Ctrl";
-            this.Size = new System.Drawing.Size(300, 134);
+            this.Size = new System.Drawing.Size(300, 116);
             this.Controls.SetChildIndex(this.handleBTN, 0);
             this.Controls.SetChildIndex(this.BrakeBTN, 0);
             this.Controls.SetChildIndex(this.StopBTN, 0);
@@ -130,5 +136,6 @@
         private System.Windows.Forms.Label SpeedLAB;
         private System.Windows.Forms.Label OdometerLAB;
         private System.Windows.Forms.Button DebugBTN;
+        private System.Windows.Forms.Timer Handle_tick;
     }
 }

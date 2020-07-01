@@ -463,7 +463,6 @@ namespace SRB.Frame
                         }
                     }
                 }
-
                 void writeSyncMarkCsv(int clock, byte sno)
                 {
                     lock (csv_out_look)
@@ -479,38 +478,6 @@ namespace SRB.Frame
                         }
                     }
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         }
     }

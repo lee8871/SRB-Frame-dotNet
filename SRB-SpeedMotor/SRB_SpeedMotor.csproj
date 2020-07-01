@@ -47,19 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cluster\AdjustCluster.cs" />
-    <Compile Include="Cluster\AdjustCC.cs">
+    <Compile Include="Cluster\TestPwmCluster.cs" />
+    <Compile Include="Cluster\PidCluster.cs" />
+    <Compile Include="Cluster\PidCC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Cluster\AdjustCC.Designer.cs">
-      <DependentUpon>AdjustCC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cluster\ConfigCluster.cs" />
-    <Compile Include="Cluster\ConfigCC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Cluster\ConfigCC.Designer.cs">
-      <DependentUpon>ConfigCC.cs</DependentUpon>
+    <Compile Include="Cluster\PidCC.Designer.cs">
+      <DependentUpon>PidCC.cs</DependentUpon>
     </Compile>
     <Compile Include="Ctrl.cs">
       <SubType>UserControl</SubType>
@@ -82,11 +76,8 @@
     <Compile Include="SRB_SpeedMotor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Cluster\AdjustCC.resx">
-      <DependentUpon>AdjustCC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cluster\ConfigCC.resx">
-      <DependentUpon>ConfigCC.cs</DependentUpon>
+    <EmbeddedResource Include="Cluster\PidCC.resx">
+      <DependentUpon>PidCC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ctrl.resx">
       <DependentUpon>Ctrl.cs</DependentUpon>
