@@ -53,6 +53,7 @@ namespace SRB.NodeType.SpeedMotor
         public Interpreter(Node n)
             : base(n)
         {
+            n.initSyncClu();
             init();
         }
 

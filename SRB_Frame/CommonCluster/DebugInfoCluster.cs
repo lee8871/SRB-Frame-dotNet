@@ -13,7 +13,7 @@ namespace SRB.Frame
             public DebugInfoCluster(Node n)
                 : base(n, FIX_CID, 16)
             {
-                is_have_control = false;
+                is_follower = false;
                 node = n;
             }
             public override void write()

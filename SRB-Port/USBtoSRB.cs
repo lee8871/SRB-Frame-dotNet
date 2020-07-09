@@ -491,11 +491,12 @@ namespace SRB.port
             }
             int send_done_len;
             int send_len = i;
+            long ET_send = Stopwatch.GetTimestamp();
             ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, USB_TIMEOUT, out send_done_len);
             switch (ec)
             {
                 case ErrorCode.None:
-                    access.sendDone();
+                    access.sendDone(ET_send);
                     return true;
                 default:
                     return false;

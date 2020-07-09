@@ -10,7 +10,7 @@ namespace SRB.NodeType.Joystick
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
 
 

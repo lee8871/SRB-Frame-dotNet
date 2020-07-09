@@ -102,12 +102,6 @@
     <Compile Include="Form\recordForm.Designer.cs">
       <DependentUpon>recordForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\SyncBroadcastC.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\SyncBroadcastC.Designer.cs">
-      <DependentUpon>SyncBroadcastC.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\SyncUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,9 +153,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\recordForm.resx">
       <DependentUpon>recordForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\SyncBroadcastC.resx">
-      <DependentUpon>SyncBroadcastC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\SyncUC.resx">
       <DependentUpon>SyncUC.cs</DependentUpon>

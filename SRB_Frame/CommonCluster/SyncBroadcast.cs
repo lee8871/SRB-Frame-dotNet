@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -10,44 +12,81 @@ namespace SRB.Frame
     {
         public partial class SyncCluster : Node.ICluster
         {
+            public class SyncNodeGroup
+            {
+                private IBus bus;
+                public SyncNodeGroup(IBus bus)
+                {
+                    this.bus = bus;
+                }
+                private Node[] all_nodes=null;
+
+                public Node[] All_nodes => getNodeTable();
+                int nodes_change_flag = 100;
+                private Node[] getNodeTable()
+                {
+                    if (all_nodes == null)
+                    {
+                        init();
+                    }
+                    return all_nodes;
+                }
+
+                public void init()
+                {                   
+                    foreach(Node n in bus)
+                    {
+                        if (n.is_sync_node)
+                        {
+                            Queue<Node> sync_node_queue = new Queue<Node>();
+                            foreach (Node node in bus)
+                            {
+                                if (node.is_sync_node)
+                                {
+                                    sync_node_queue.Enqueue(node);
+                                    node.eDispossing += Node_eDispossing;
+                                }
+                            }
+                            if (sync_node_queue.Count != 0) { 
+                                all_nodes = sync_node_queue.ToArray();
+                                nodes_change_flag++;
+                            }
+                            else
+                            {
+                                if (all_nodes != null)
+                                {
+                                    nodes_change_flag++;
+                                    all_nodes = null;
+                                }
+                            }
+                        }
+                    }
+                }
+                private void Node_eDispossing(Node n)
+                {
+                    nodes_change_flag++;
+                    all_nodes = null;
+                }
+            }
             public class Broadcast
             {
                 public delegate void dInfoOut(string st);
                 public dInfoOut debug;
-                
-                Node clock_base_node = null;
                 byte Sync_public_sno;
                 IBus bus;
+                public IBus Bus => bus;
                 private SrbThread synchronizeST;
                 private SrbThread calibratST;
+                private long tick_base;
+                private SyncNodeGroup sync_nodes;
                 public Broadcast(IBus bus)
                 {
                     this.bus = bus;
                     Sync_public_sno = (byte)support.random.Next(127);
                     synchronizeST = new SrbThread(synchronizeThread);
                     calibratST = new SrbThread(calibratThread);
-                }
-                public void setBaseClock(Node cbn)
-                {
-                    if (bus[cbn.Addr] == cbn)
-                    {
-                        clock_base_node = cbn;
-                    }
-                    else
-                    {
-                        throw new NodeNotContainException(bus, cbn);
-                    }
-                }
-                public void findBaseClock()
-                {
-                    foreach(Node n in bus)
-                    {
-                        if (n.syncClu.calibrationClu.calibration_value == 0)
-                        {
-                            clock_base_node = n;
-                            break;
-                        }
-                    }
+                    recordTimeBroadcast(out tick_base);
+                    sync_nodes = new SyncNodeGroup(bus);
                 }
                 private void write(dInfoOut info, string st)
                 {
@@ -64,20 +103,20 @@ namespace SRB.Frame
                 {
                     return tickToSrbClock(elapsed_ticks) >> 8;
                 }
-                double tickToDoubleSrbClock(long tick)
+                int tickToSrbClock(long tick)
                 {
-                    double rev = tick;
+                    long rev = tick;
+                    rev -= tick_base;
+                    rev %= ((Stopwatch.Frequency * 0x1000000)/ 250000);
                     rev *= 250000;
+                    rev += (Stopwatch.Frequency/2);
                     rev /= Stopwatch.Frequency;
-                    return rev;
-
+                    return (int)rev;
                 }
-                long tickToSrbClock(long tick)
+                void  masterSyncTo(long tick, int srb_clock)
                 {
-                    double rev = tick;
-                    rev *= 250000;
-                    rev /= Stopwatch.Frequency;
-                    return (long)Math.Round(rev);
+                    tick_base = tick;
+                    tick_base -= (srb_clock* Stopwatch.Frequency +  (250000/2) ) / 250000;
                 }
 
                 private byte recordTimeBroadcast(out long elapsed_ticks)
@@ -157,42 +196,45 @@ namespace SRB.Frame
 
                 public void syncAll()
                 {
-                    if(Is_calibrat_running)
+                    if (Is_calibrat_running)
                     {
-                        write(debug, "Synchronization is deny. Calibrat is running");
                         return;
-                    }
-                    if (clock_base_node == null)
-                    {
-                        findBaseClock();
                     }
                     int clock;
                     byte sno;
                     for (int i = 0; i < 5; i++)
                     {
-                        sno = recordTimeBroadcast();
-                        clock_base_node.syncClu.read();
-                        clock = clock_base_node.syncClu.getClockInt(sno);
+                        long etick;
+                        sno = recordTimeBroadcast(out etick);
+                        if(sync_nodes.All_nodes == null)
+                        {
+                            return;
+                        }
+                        sync_nodes.All_nodes[0].syncClu.read();
+                        clock = sync_nodes.All_nodes[0].syncClu.getClockInt(sno);
                         if (clock != -1)
                         {
+                            masterSyncTo(etick, clock);
                             ushort ms;
                             byte us4;
                             SyncCluster.intToClock(out ms, out us4, clock);
                             syncToBroadcast(ms, us4, sno);
                             write(debug, "Synchronize done");
-                            writeSyncMarkCsv(clock,sno);
                             return;
                         }
                     }
-                    write(debug, "Synchronize fail. Base clock node can not be accessed.");
-                    clock_base_node = null;
+                    sync_nodes.init() ;
                     return;
                 }
 
                 public void calibratClean(dInfoOut details)
                 {
                     write(details, "All calibration values clear to 0.\n");
-                    foreach (Node node in bus)
+                    if (sync_nodes.All_nodes == null)
+                    {
+                        return;
+                    }
+                    foreach (Node node in sync_nodes.All_nodes)
                     {
                         node.syncClu.calibrationClu.calibration_value = 0;
                         node.syncClu.calibrationClu.write();
@@ -204,14 +246,20 @@ namespace SRB.Frame
                 {
                     get => calibratST.Is_running;
                 }
+
                 dInfoOut calibrat_info = null;
+                const int TICKS_EACH_ADJ = 32;
+                Node[] cal_nodes;
                 public void calibrat(dInfoOut cinfo=null)
                 {
-                    if (clock_base_node == null)
-                    {
-                        findBaseClock();
-                    }
                     calibrat_info = cinfo;
+                    calibrat_info(null);
+                    if (sync_nodes.All_nodes == null)
+                    {
+                        write(calibrat_info, string.Format("No node to be calibrated\n"));
+                        return;
+                    }
+                    cal_nodes = sync_nodes.All_nodes;
                     calibratST.run(bus);
                     return;
                 }
@@ -221,60 +269,56 @@ namespace SRB.Frame
                 }
                 private void calibratThread(SrbThread.dIsThreadStoping IsStoping)
                 {
-                    calibrat_info(null);
                     int record_count = 512;
-                    Queue<Node> sync_node_queue = new Queue<Node>();
-                    sync_node_queue.Enqueue(clock_base_node);
-                    foreach (Node node in bus)
-                    {
-                        if (clock_base_node != node) 
-                        {                         
-                            sync_node_queue.Enqueue(node);
-                        }
-                    }
-                    Node[] sync_nodes = sync_node_queue.ToArray();
-                    if (sync_nodes.Length < 2)
-                    {
-                        write(calibrat_info, string.Format("No node to be calibrated\n"));
-                        return;
-                    }
-                    var last_Sync_value = new long[sync_nodes.Length];
+                    var last_Sync_value = new long[1 + cal_nodes.Length];
                     for (int i = 0; i < last_Sync_value.Length; i++)
                     {
                         last_Sync_value[i] = 0;
                     }
-                    write(calibrat_info, string.Format("Calibrat {0} Nodes. Clock base is {1}.\n", sync_nodes.Length, clock_base_node.ToString())); ;
+                    void recordNodeTime(int[,] sync_values_t2, int node_num, int record_num, int clk_value)
+                    {
+                        if (clk_value != -1)
+                        {
+                            while (last_Sync_value[node_num] > clk_value)
+                            {
+                                clk_value += 0x01000000;
+                            }
+                            last_Sync_value[node_num] = clk_value;
+                        }
+                        sync_values_t2[node_num, record_num] = clk_value;
+                    }
                     void readGroup(out int[,] sync_values_t2)
                     {
-                        sync_values_t2 = new int[sync_nodes.Length, record_count];
+                        sync_values_t2 = new int[1 + cal_nodes.Length, record_count];
                         for (int i = 0; i < record_count; i++)
                         {
-                            byte sno = recordTimeBroadcast();
-                            for (int j = 0; j < sync_nodes.Length; j++)
+                            long access_tick;
+                            byte sno = recordTimeBroadcast(out access_tick);
+                            recordNodeTime(sync_values_t2, 0, i, tickToSrbClock(access_tick));
+                            for (int j = 0; j < cal_nodes.Length; j++)
                             {
-                                Node node = sync_nodes[j];
+                                Node node = cal_nodes[j];
                                 node.syncClu.read();
-                                int clk_value = node.syncClu.getClockInt(sno);
-                                if (clk_value != -1)
-                                {
-                                    while (last_Sync_value[j] > clk_value)
-                                    {
-                                        clk_value += 0x01000000;
-                                    }
-                                    last_Sync_value[j] = clk_value;
-                                }
-                                sync_values_t2[j, i] = clk_value;
+                                recordNodeTime(sync_values_t2, j + 1, i, node.syncClu.getClockInt(sno));
                             }
                             if (99 == i % 100)
                             {
                                 write(calibrat_info, ".");
                             }
                         }
-                        write(calibrat_info, " Done.\nRecording clock for BEGIN."+
-                             "Wait 30 seconds:\n" + "______________________________\n");
+                        write(calibrat_info, "!\n");
                     }
+
+                    write(calibrat_info, string.Format("Calibrat {0} Nodes. Clock base is SRB-master (PC).\n", cal_nodes.Length)); ;
                     int[,] sync_bgn_values_t2;
+                    int[,] sync_end_values_t2;
+
+                    write(calibrat_info, " Recording clock for BEGIN.");
                     readGroup(out sync_bgn_values_t2);
+
+                    write(calibrat_info,"Wait 30 seconds:\n" + 
+                        "0    5    10   15   20   25   30\n" + 
+                        "|----|----|----|----|----|----|\n=");
                     for (int i = 0; i < 30; i++)
                     {
                         Thread.Sleep(1000);
@@ -287,7 +331,7 @@ namespace SRB.Frame
                         write(calibrat_info, "=");
                     }
                     write(calibrat_info, string.Format("\n"));
-                    int[,] sync_end_values_t2;
+
                     write(calibrat_info, "Recording clock for END.");
                     readGroup(out sync_end_values_t2);
 
@@ -300,182 +344,128 @@ namespace SRB.Frame
                         long node_totle = 0;
                         for (int i = 0; i < record_count; i++)
                         {
-                            if((-1 != sync_values_t2[b, i])&& (-1 != sync_values_t2[n, i]))
+                            if ((-1 != sync_values_t2[b, i]) && (-1 != sync_values_t2[n, i]))
                             {
                                 count++;
                                 base_totle += sync_values_t2[b, i];
                                 node_totle += sync_values_t2[n, i];
                             }
                         }
-                        clk_base = base_totle * 1.0 / count; 
+                        clk_base = base_totle * 1.0 / count;
                         clk_node = node_totle * 1.0 / count;
                     }
-                    for (int j = 1; j < sync_nodes.Length; j++)
+                    if (true)
                     {
-                        Node node = sync_nodes[j];
-                        double bgn_b, bgn_n, end_b, end_n;
-                        calculate(0,j, in sync_bgn_values_t2, out bgn_b, out bgn_n);
-                        calculate(0,j, in sync_end_values_t2, out end_b, out end_n);
-                        double calibration_increase_totle = ((end_b - bgn_b) - (end_n - bgn_n)) * 0x4000;
-                        double increase_count = (end_n - bgn_n) / (64 * 256 * 1.0);
-                        double increase_for_each_times = calibration_increase_totle / increase_count;
-                        node.syncClu.calibrationClu.read();
-                        int from = node.syncClu.calibrationClu.calibration_value;
-                        int add = (int)(Math.Round(increase_for_each_times));
-                        node.syncClu.calibrationClu.calibration_value = node.syncClu.calibrationClu.calibration_value+add;
-                        node.syncClu.calibrationClu.write();
-                        int to = node.syncClu.calibrationClu.calibration_value;
-                        write(calibrat_info, string.Format("Node{0} calibration value {1} -> {2}\n", node.Addr, from, to));
-                    }
-                    return;
-                }
-                int report_num = 0;
-
-                public void getSyncStatuc(dInfoOut info_out)
-                {
-                    write(info_out,"\n## Report" + (report_num++) + "  " + System.DateTime.Now.ToLongTimeString() + "\n");
-                    if (clock_base_node == null)
-                    {
-                        findBaseClock();
-                    }
-
-
-                    string info="";
-                    long sync_elapsed_ticks;
-
-                    byte sno = recordTimeBroadcast(out sync_elapsed_ticks);
-                    info+="#### Get all time statuc  \n";
-                    clock_base_node.syncClu.read();
-                    int base_clock = clock_base_node.syncClu.getClockInt(sno);
-                    if(base_clock == -1)
-                    {
-                        info += "+ Get clock base fail.\n";
-                        return;
-
-                    }
-                    ushort ms;
-                    byte us4;
-                    SyncCluster.intToClock(out ms, out us4, base_clock);
-                    double diff_sum = 0;
-                    info += "\n";
-                    info += string.Format("Addr | ms1.024 | us4 | Totel int|Diff\n");
-                    info += string.Format("----|----|----|----|----\n");
-                    info += string.Format(" {0} | {1} | {2} | {3} | {4}\n", "BC", 
-                        (ms*1.0 / 1000).ToString("F3"), us4, base_clock,"--");
-                    int success_count = 0;
-                    foreach (Node node in bus)
-                    {
-                        if(node == clock_base_node)
+                        int common_add;
                         {
-                            continue;
+                            int j = 0;
+                            Node node = cal_nodes[j];
+                            double bgn_b, bgn_n, end_b, end_n;
+                            calculate(0, j + 1, in sync_bgn_values_t2, out bgn_b, out bgn_n);
+                            calculate(0, j + 1, in sync_end_values_t2, out end_b, out end_n);
+                            double calibration_increase_totle = ((end_b - bgn_b) - (end_n - bgn_n)) * 0x4000;
+                            double increase_count = (end_n - bgn_n) / (TICKS_EACH_ADJ * 256 * 1.0);
+                            double increase_for_each_times = calibration_increase_totle / increase_count;
+                            node.syncClu.calibrationClu.read();
+                            int from = node.syncClu.calibrationClu.calibration_value;
+                            common_add = (int)(Math.Round(increase_for_each_times));
+                            node.syncClu.calibrationClu.calibration_value = node.syncClu.calibrationClu.calibration_value + common_add;
+                            node.syncClu.calibrationClu.write();
+                            int to = node.syncClu.calibrationClu.calibration_value;
+                            write(calibrat_info, $"Base Node{node.Addr} calibration value {from} -> {to},sync to system\n");
                         }
-                        node.syncClu.read();
-                        if (node.syncClu.sno != sno)
+
+                        for (int j = 1; j < cal_nodes.Length; j++)
                         {
-                            info += string.Format("Addr|not receive|x|x|x\n", node.Addr);
+                            Node node = cal_nodes[j];
+                            double bgn_b, bgn_n, end_b, end_n;
+                            calculate(1, j+1, in sync_bgn_values_t2, out bgn_b, out bgn_n);
+                            calculate(1, j+1, in sync_end_values_t2, out end_b, out end_n);
+                            double calibration_increase_totle = ((end_b - bgn_b) - (end_n - bgn_n)) * 0x4000;
+                            double increase_count = (end_n - bgn_n) / (TICKS_EACH_ADJ * 256 * 1.0);
+                            double increase_for_each_times = calibration_increase_totle / increase_count;
+                            node.syncClu.calibrationClu.read();
+                            int from = node.syncClu.calibrationClu.calibration_value;
+                            int add = (int)(Math.Round(increase_for_each_times));
+                            node.syncClu.calibrationClu.calibration_value = node.syncClu.calibrationClu.calibration_value + add+ common_add;
+                            node.syncClu.calibrationClu.write();
+                            int to = node.syncClu.calibrationClu.calibration_value;
+                            write(calibrat_info, $"Node{node.Addr} calibration value {from} -> {to}\n");
                         }
-                        else if ((node.syncClu.is_sync_miss != false))
-                        {
-                            info += string.Format("Addr|sync miss|x|x|x\n", node.Addr);
-                        }
-                        else
-                        {
-                            double c = node.syncClu.getClockInt();
-                            double diff = c - base_clock;
-                            diff_sum += System.Math.Abs(diff);
-                            info += string.Format(" {0} | {1} | {2} | {3} | {4}\n", node.Addr,
-                                    (node.syncClu.ms * 1.0 / 1000).ToString("F3"), node.syncClu.us4, c, diff.ToString("F3"));
-                            success_count++;
-                        }
-                    }
-                    if (success_count != 0)
-                    {
-                        info += "\n";
-                        info += string.Format("+ {0}/{1} node accessed for sync!\n", success_count, bus.Count);
-                        double diff_avariage = diff_sum / success_count;
-                        info += string.Format("+ Diff avariage is {0}\n", (diff_sum / success_count).ToString("F3"));
-                        write(info_out, info);
-                        writeCsv(diff_avariage, sno);
                     }
                     else
                     {
-                        info += "+ No node accessed !  \n";
-                        write(info_out, info);
+                        for (int j = 0; j < cal_nodes.Length; j++)
+                        {
+                            Node node = cal_nodes[j];
+                            double bgn_b, bgn_n, end_b, end_n;
+                            calculate(0, j+1 , in sync_bgn_values_t2, out bgn_b, out bgn_n);
+                            calculate(0, j+1, in sync_end_values_t2, out end_b, out end_n);
+                            double calibration_increase_totle = ((end_b - bgn_b) - (end_n - bgn_n)) * 0x4000;
+                            double increase_count = (end_n - bgn_n) / (TICKS_EACH_ADJ * 256 * 1.0);
+                            double increase_for_each_times = calibration_increase_totle / increase_count;
+                            node.syncClu.calibrationClu.read();
+                            int from = node.syncClu.calibrationClu.calibration_value;
+                            int add = (int)(Math.Round(increase_for_each_times));
+                            node.syncClu.calibrationClu.calibration_value = node.syncClu.calibrationClu.calibration_value + add;
+                            node.syncClu.calibrationClu.write();
+                            int to = node.syncClu.calibrationClu.calibration_value;
+                            write(calibrat_info, string.Format("Node{0} calibration value {1} -> {2}\n", node.Addr, from, to));
+                        }
+
                     }
                     return;
+
                 }
-                object csv_out_look = new object();
-                string csv_out;
-                public string getSyncTableCsv()
+
+
+
+
+                public void getSyncStatus(ref string csv_str, ref Node[] nodes)
                 {
-                    string rev;
-                    lock (csv_out_look)
+                    if(nodes == null)
                     {
-                        rev = csv_out;
-                        csv_out = null;
+                        nodes = sync_nodes.All_nodes;
                     }
-                    return rev;
-                }
-                byte[] addrs;
-                void writeCsv(double diff_avariage, byte sno)
-                {
-                    lock (csv_out_look)
+                    if(nodes == null)
                     {
-                        if (csv_out == null)
-                        {
-                            addrs = new byte[bus.Count];
-                            csv_out = "时间,同步序号,平均误差,";
-                            csv_out += string.Format("基准节点{0},误差,",clock_base_node.addr);
-                            int i = 0;
-                            addrs[i++] = clock_base_node.addr;
-                            foreach (Node node in bus)
-                            {
-                                if (node == clock_base_node)
-                                {
-                                    continue;
-                                }
-                                addrs[i++] = node.addr;
-                                csv_out += string.Format("节点{0},误差,", node.addr);
-                            }
-                        }
-                        csv_out += "\n";
-                        csv_out += System.DateTime.Now.ToLongTimeString() + ",";
-                        csv_out += (int)sno + ",";
-                        csv_out += diff_avariage.ToString("F3") + ",";
-                        int base_node_clock = clock_base_node.syncClu.getClockInt(); ;
-                        foreach (byte a in addrs)
-                        {
-                            Node node = bus[a];
-                            if (node.syncClu.sno != sno)
-                            {
-                                csv_out += "序号错误,,";
-                            }
-                            else if ((node.syncClu.is_sync_miss != false))
-                            {
-                                csv_out += "同步失败,,";
-                            }
-                            else
-                            {
-                                int c = node.syncClu.getClockInt();
-                                int diff = c - base_node_clock;
-                                csv_out += string.Format(" {0},{1},", c, diff);
-                            }
-                        }
+                        return;
                     }
-                }
-                void writeSyncMarkCsv(int clock, byte sno)
-                {
-                    lock (csv_out_look)
+                    if (csv_str == null)
                     {
-                        if (csv_out != null)
+                        csv_str = "access_ET";
+                        foreach (Node node in nodes)
                         {
-                            csv_out += "\n";
-                            csv_out += System.DateTime.Now.ToLongTimeString() + ",";
-                            csv_out += (int)sno + ",";
-                            csv_out += "-1,";
-                            int base_node_clock = clock_base_node.syncClu.getClockInt(); ;
-                            csv_out += string.Format(" {0},", clock);
+                            csv_str += ",node";
+                            csv_str += node.Addr;
                         }
+                        csv_str += "\n";
+                    }
+                    long sync_elapsed_ticks;
+                    byte sno = recordTimeBroadcast(out sync_elapsed_ticks);
+                    csv_str += tickToSrbClock(sync_elapsed_ticks).ToString();
+                    Exception first_exp = null ;
+                    foreach (Node node in nodes)
+                    {
+                        int t = -2;
+                        try { 
+                            node.syncClu.read();
+                            t = node.syncClu.getClockInt(sno);
+                        }
+                        catch(Exception e)
+                        {
+                            if (first_exp == null)
+                            {
+                                first_exp = e;
+                            }
+                        }
+                        csv_str += ",";
+                        csv_str += t.ToString();
+                    }
+                    csv_str += "\n";
+                    if (first_exp != null)
+                    {
+                        throw first_exp;
                     }
                 }
             }

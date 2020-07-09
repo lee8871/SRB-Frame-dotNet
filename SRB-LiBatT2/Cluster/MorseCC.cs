@@ -10,7 +10,7 @@ namespace SRB.NodeType.Charger
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
 
 

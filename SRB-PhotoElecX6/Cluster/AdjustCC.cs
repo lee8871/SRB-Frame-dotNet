@@ -12,7 +12,7 @@ namespace SRB.NodeType.PhotoElecX6
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
         public string adjToName(int adj)
         {

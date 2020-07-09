@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SRB.Frame;
+using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace SRB_CTR
@@ -66,19 +69,6 @@ namespace SRB_CTR
             }
 
         }
-        Form sync_debug_F;
-        private void DebugFormBTN_Click(object sender, EventArgs e)
-        {
-            if (sync_debug_F == null)
-            {
-                sync_debug_F = new SyncBroadcastC(sync_bc);
-            }
-            if(sync_debug_F.Visible == false)
-            {
-                sync_debug_F.Show();
-            }
-        }
-
         private void syncBTN_Click(object sender, EventArgs e)
         {
             if (sync_bc.Is_synchronize_running)
@@ -134,5 +124,84 @@ namespace SRB_CTR
             sync_bc.calibratClean(appendInfo);
 
         }
+
+
+
+
+
+
+        #region 测试同步效果并储存 
+
+
+
+
+        private SrbThread sync_test_ST = null;
+        private void syncDiffTestBTN_Click(object sender, EventArgs e)
+        {
+            if (sync_test_ST == null) {
+                sync_test_ST = new SrbThread(sync_test_Thread);
+            }
+            if (this.sync_test_ST.Is_running == false)
+            {
+                (sender as ToolStripMenuItem).BackColor = Color.Gold;
+                sync_test_ST.run(sync_bc.Bus);
+            }
+            else
+            {
+                (sender as ToolStripMenuItem).BackColor = Control.DefaultBackColor;
+                sync_test_ST.stop();
+            }
+        }
+        private void sync_test_Thread(SrbThread.dIsThreadStoping IsStoping) {
+            Node[] sync_check_nodes = null;
+            string sync_check_str = null;
+            while (true) { 
+                sync_bc.getSyncStatus(ref sync_check_str, ref sync_check_nodes);
+                System.Threading.Thread.Sleep(500);
+                if (IsStoping())
+                {
+                    string path = "./log/Sync-record/";
+                    path += System.DateTime.Now.ToString("yy-MM-dd");
+                    path += "/";
+                    System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
+                    string time_str = System.DateTime.Now.ToString("HHmmss");
+                    string Table_file = path + "Sync" + time_str + ".csv";
+                    string Png_file = path + "Sync" + time_str + ".png";
+                    string md_file = path + "Sync" + time_str + ".md";
+                    string R_Argument = path + "Sync" + time_str;
+                    try
+                    {
+                        System.IO.File.WriteAllText(Table_file, sync_check_str, System.Text.Encoding.ASCII);
+                    }
+                    catch (Exception exp)
+                    {
+                        MessageBox.Show(exp.ToString(), "不能写日志文件！");
+                    }
+                    
+                    string cmdStr = string.Format(@"{2}/{0} {2}/{1}",
+                    "R/SyncTest.r", R_Argument, Application.StartupPath);
+                    SRB.Frame.LanguageR.run(cmdStr);
+                    try
+                    {
+                        System.Diagnostics.Process.Start(Application.StartupPath + "/" + Png_file);
+                    }
+                    catch (Exception exp)
+                    {
+                        MessageBox.Show(exp.ToString(), "没有找到图像");
+                    }
+                    try
+                    {
+                        System.Diagnostics.Process.Start(Application.StartupPath + "/" + md_file);
+                    }
+                    catch (Exception exp)
+                    {
+                        MessageBox.Show(exp.ToString(), "没有找到文档");
+                    }
+                    return;
+                }
+            }
+
+        }
+        #endregion
     }
 }

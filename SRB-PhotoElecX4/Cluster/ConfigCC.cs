@@ -10,7 +10,7 @@ namespace SRB.NodeType.PhotoElecX4
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
         public string periodToFreq(int period)
         {
@@ -98,11 +98,6 @@ namespace SRB.NodeType.PhotoElecX4
                     break;
             }
         }
-        private void read(object sender, EventArgs e)
-        {
-            cluster.read();
-        }
-
         private void behaveCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             behaviorL.Text = string.Format("[{0}] <- [{1}]",

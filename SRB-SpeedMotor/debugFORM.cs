@@ -244,7 +244,6 @@ namespace SRB.NodeType.SpeedMotor
                 motor_test_ST.stop();
             }
         }
-
         private void getSpeedTableBTN_Click(object sender, EventArgs e)
         {
             if (this.get_speed_table_ST.Is_running == false)

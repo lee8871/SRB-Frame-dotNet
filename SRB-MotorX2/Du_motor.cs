@@ -74,6 +74,7 @@ namespace SRB.NodeType.Du_motor
         public Interpreter(Node n)
             : base(n)
         {
+            n.initSyncClu();
             init();
         }
 

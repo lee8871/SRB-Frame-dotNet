@@ -10,7 +10,7 @@ namespace SRB.NodeType.PhotoElecX6
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
         public string periodToFreq(int period)
         {
@@ -97,10 +97,6 @@ namespace SRB.NodeType.PhotoElecX6
                     last_behavior = behaviorCB.Text = "Keep Last Cmd";
                     break;
             }
-        }
-        private void read(object sender, EventArgs e)
-        {
-            cluster.read();
         }
 
         private void behaveCB_SelectedIndexChanged(object sender, EventArgs e)

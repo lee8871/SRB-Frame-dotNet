@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace SRB.Frame
 {
+
+
+
     public interface IAccesser
     {
         void accessDone(Access acs);
@@ -10,7 +13,7 @@ namespace SRB.Frame
     public class Access
     {
         //about Note
-        private long send_tick;
+        private long send_tick = 0;
         public long Send_tick { get => send_tick; }
         private DateTime sendTime;
         private DateTime recvTime;
@@ -41,6 +44,14 @@ namespace SRB.Frame
             SendWaitRecv, DeviceTimeOut,
             RecvedDone, SrbTimeOut, BroadcasePkg, RecvedBadPkg,
         };
+        public enum NodeErrorEnum
+        {
+            RE_CFG_NO_CLUSTER_ID = 0xe0,
+            RE_CFG_EMPTY_CLUSTER = 0xe1,
+            RE_CFG_LEN_NO_MATCH = 0xe2,
+            RE_CFG_WRITE_ONLY = 0xe3,
+        };
+
 
         public void onAccessDone()
         {//todo add Exception and log record
@@ -171,9 +182,9 @@ namespace SRB.Frame
                 _status = StatusEnum.SrbTimeOut;
             }
         }
-        public void sendDone()
+        public void sendDone(long et = 0)
         {
-            send_tick = Stopwatch.GetTimestamp();
+            send_tick = et;
             _status = StatusEnum.SendWaitRecv;
             sendTime = DateTime.Now;
         }

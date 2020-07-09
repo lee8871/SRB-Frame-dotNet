@@ -29,7 +29,7 @@ namespace SRB.Frame
         private AddressCluster baseClu;
         private InformationCluster infoClu;
         private ErrorCluster errorClu;
-        private SyncCluster syncClu;
+        public SyncCluster syncClu;
         private DebugInfoCluster debugClu;
 
         public event dNodeUpdateEvent eChangeDescription;
@@ -116,14 +116,17 @@ namespace SRB.Frame
             {
                 infoClu = new InformationCluster(this);
                 errorClu = new ErrorCluster(this);
-                syncClu = new SyncCluster(this);
                 debugClu = new DebugInfoCluster(this);
-                infoClu.read();
-                infoClu.TimestampClu.read();
+                infoClu.readAll();
                 specializer.specializeNode(this);
             }
         }
 
+        bool is_sync_node => (syncClu != null);
+        public void initSyncClu()
+        {
+            syncClu = new SyncCluster(this);
+        }
         public void gotoUpdateMode()
         {
 
@@ -175,7 +178,8 @@ namespace SRB.Frame
         }
 
 
-
+        private bool isDisposed = false;
+        public bool IsDisposed => isDisposed;
         public void Dispose()
         {
             if (eDispossing != null)
@@ -187,6 +191,7 @@ namespace SRB.Frame
                 //this.nf.Close();
                 this.node_form.close(this, null);
             }
+            isDisposed = true;
         }
 
         #endregion
@@ -322,7 +327,7 @@ namespace SRB.Frame
     {
         public abstract class INodeControlOwner
         {
-            public bool is_have_control = true;
+            public bool is_follower = true;
             public System.Windows.Forms.Control control;
             protected abstract System.Windows.Forms.Control createControl(); 
             public virtual System.Windows.Forms.Control getControl()

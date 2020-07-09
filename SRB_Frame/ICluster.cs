@@ -5,6 +5,7 @@ namespace SRB.Frame
 {
     public partial class Node
     {
+
         public abstract class ICluster : INodeControlOwner, IAccesser
         {
             protected ByteBank bank;
@@ -12,6 +13,7 @@ namespace SRB.Frame
             protected Node parent_node;
             protected IBus Bus => parent_node.bus;
 
+            protected ICluster[] following_clusters = null; 
             public Node Parent_node { get => parent_node; }
             public byte CID { get => cID; }
             class ClusterRedefineException: SrbException
@@ -41,7 +43,6 @@ namespace SRB.Frame
                 if (n.clusters[this.cID]!=null)
                 {
                     throw new ClusterRedefineException(n, this);
-
                 }
                 n.clusters[this.cID] = this;
                 bank = new ByteBank(banksize, true);
@@ -51,21 +52,31 @@ namespace SRB.Frame
             {
                 bank.writeInit();
             }
+            public bool is_not_exist = false;
             public void accessDone(Access ac)
             {
                 if (ac.Port != Access.PortEnum.Cgf)
                 {
                     throw new Exception("Data type should Cfg,but get " + ac.Port.ToString());
                 }
-                if (ac.Recv_data == null)
+                else if (ac.Recv_data == null)
                 {
                     throw new Exception("cfg_receive a null recv_data");
                 }
-                if ((ac.Recv_error) || (ac.Recv_busy))
+                else if (ac.Recv_error) 
                 {
-                    return;
+                    switch( ac.Recv_data[0] )
+                    {
+                        case (int)(Access.NodeErrorEnum.RE_CFG_EMPTY_CLUSTER):
+                            is_not_exist = true;
+                            break;
+                    }
                 }
-                if (ac.Send_data.Length == 1)
+                else if (ac.Recv_busy)
+                {
+                    throw new Exception("cfg_receive a Recv_busy recv_data");
+                }
+                else if (ac.Send_data.Length == 1)
                 {
                     readRecv(ac);
                 }
@@ -100,6 +111,22 @@ namespace SRB.Frame
                 Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] { CID });
                 parent_node.bus.singleAccess(ac);
             }
+            public void readAll()
+            {
+                if (following_clusters == null)
+                {
+                    read();
+                }
+                else {                    
+                    foreach (ICluster c in following_clusters)
+                    {
+                        parent_node.bus.addAccess( new Access(c, parent_node, Access.PortEnum.Cgf, new byte[] { c.CID }));
+                    }
+                    parent_node.bus.addAccess(new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] { this.CID }));
+                    parent_node.bus.sendAccess();
+                }
+            }
+
             public virtual void readRecv(Access ac)
             {
                 //todo:

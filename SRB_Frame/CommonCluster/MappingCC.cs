@@ -9,7 +9,7 @@ namespace SRB.Frame
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
 
         protected override void DataUpdata()

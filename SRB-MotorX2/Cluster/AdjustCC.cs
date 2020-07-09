@@ -12,7 +12,7 @@ namespace SRB.NodeType.Du_motor
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
         public string adjToName(int adj)
         {

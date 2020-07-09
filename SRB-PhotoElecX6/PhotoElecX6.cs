@@ -34,6 +34,7 @@ namespace SRB.NodeType.PhotoElecX6
         public Interpreter(Node n)
             : base(n)
         {
+            n.initSyncClu();
             init();
         }
 

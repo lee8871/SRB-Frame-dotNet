@@ -194,8 +194,10 @@ namespace SRB.port
             for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
             {
                 Access ac = acs[acs_counter];
+
+                long ET_send = Stopwatch.GetTimestamp();
                 toUartByteArray(ac, (byte)acs_counter);
-                ac.sendDone();
+                ac.sendDone(ET_send);
             }
             //if (record_port_data)
             //{

@@ -23,6 +23,7 @@ namespace SRB.Frame
                 : base(n, FIX_CID, 4)
             {
                 calibrationClu = new CalibrationCluster(n);
+                following_clusters = new ICluster[] { calibrationClu };
             }
             public int getClockInt()
             {
@@ -55,8 +56,7 @@ namespace SRB.Frame
                 Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] 
                 { CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
                 parent_node.bus.singleAccess(ac);
-            }
-            
+            }            
             public static void intToClock(out ushort ms, out byte us4,in int clock  )
             {
                 if ((clock >0xffffff)||(clock<0) )
@@ -70,7 +70,6 @@ namespace SRB.Frame
                 }
 
             }
-
             public static ushort getMs(in int clock)
             {
                 if ((clock > 0xffffff) || (clock < 0))
@@ -108,10 +107,7 @@ namespace SRB.Frame
             public override void readRecv(Access ac)
             {
                 base.readRecv(ac);
-                this.calibrationClu.read();
             }
-           
-
             protected override Control createControl()
             {
                 return new SyncCC(this);
@@ -221,7 +217,7 @@ namespace SRB.Frame
             public CalibrationCluster(Node n)
                 : base(n, FIX_CID,2)
             {
-                is_have_control = false;
+                is_follower = false;
             }
             protected override Control createControl()
             {

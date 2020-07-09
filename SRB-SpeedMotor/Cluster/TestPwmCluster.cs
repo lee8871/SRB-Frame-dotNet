@@ -12,7 +12,7 @@ namespace SRB.NodeType.SpeedMotor
         public TestPwmCluster(Node n)
             : base(n, 12, 3) 
         {
-            is_have_control = false;
+            is_follower = false;
         }
         protected override Control createControl()
         {

@@ -77,7 +77,7 @@ namespace SRB.Frame
                 Node.INodeControlOwner cluster = node.getClusters(i);
                 if (cluster != null)
                 {
-                    if (cluster.is_have_control)
+                    if (cluster.is_follower)
                     {
                         b = new GroupBox();
                         components.Add(b);

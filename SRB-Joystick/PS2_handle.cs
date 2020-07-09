@@ -93,6 +93,7 @@ namespace SRB.NodeType.Joystick
         public Interpreter(Node n)
             : base(n)
         {
+            n.initSyncClu();
             init();
         }
 

@@ -61,7 +61,7 @@ namespace SRB.Frame
         }
         protected virtual void OnReadClick(object sender, EventArgs e)
         {
-            cluster.read();
+            cluster.readAll();
         }
     }
 }

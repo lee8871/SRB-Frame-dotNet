@@ -35,7 +35,9 @@ namespace SRB.Frame
             public InformationCluster(Node n)
                 : base(n, 1, 23)
             {
+
                 timestampClu = new TimeStampCluster(n);
+                this.following_clusters = new ICluster[] { timestampClu };
                 node = n;
                 char[] ca = "Unknow".ToCharArray();
                 int i;
@@ -112,7 +114,7 @@ namespace SRB.Frame
             public TimeStampCluster(Node n)
                 : base(n, FIX_CID, 4)
             {
-                is_have_control = false;
+                is_follower = false;
             }
             public override void write()
             {

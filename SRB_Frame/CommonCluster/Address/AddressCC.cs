@@ -11,7 +11,7 @@ namespace SRB.Frame
         {
             InitializeComponent();
             cluster = c;
-            cluster.read();
+            cluster.readAll();
         }
 
         private Color[] num_to_color = {

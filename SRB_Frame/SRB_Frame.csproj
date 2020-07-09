@@ -73,6 +73,7 @@
     <Compile Include="CommonCluster\SyncBroadcast.cs" />
     <Compile Include="SrbException.cs" />
     <Compile Include="SrbThread.cs" />
+    <Compile Include="support\LanguageR.cs" />
     <Compile Include="updater\SupFile.cs" />
     <Compile Include="updater\SupLoader.cs" />
     <Compile Include="updater\UpdateControl.cs">

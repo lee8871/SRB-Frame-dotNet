@@ -36,7 +36,8 @@
             this.statusLAB = new System.Windows.Forms.ToolStripLabel();
             this.closeBTN = new System.Windows.Forms.ToolStripButton();
             this.recoedBTN = new System.Windows.Forms.ToolStripButton();
-            this.DebugFormBTN = new System.Windows.Forms.ToolStripButton();
+            this.Test_toolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.syncDiffTestBTN = new System.Windows.Forms.ToolStripMenuItem();
             this.infoRTC = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +52,7 @@
             this.statusLAB,
             this.closeBTN,
             this.recoedBTN,
-            this.DebugFormBTN});
+            this.Test_toolStripDropDownButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(378, 30);
@@ -116,15 +117,23 @@
             this.recoedBTN.Text = "Info";
             this.recoedBTN.Click += new System.EventHandler(this.recoedBTN_Click);
             // 
-            // DebugFormBTN
+            // Test_toolStripDropDownButton
             // 
-            this.DebugFormBTN.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DebugFormBTN.Image = ((System.Drawing.Image)(resources.GetObject("DebugFormBTN.Image")));
-            this.DebugFormBTN.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DebugFormBTN.Name = "DebugFormBTN";
-            this.DebugFormBTN.Size = new System.Drawing.Size(27, 27);
-            this.DebugFormBTN.Text = "Open Debug Form";
-            this.DebugFormBTN.Click += new System.EventHandler(this.DebugFormBTN_Click);
+            this.Test_toolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Test_toolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.syncDiffTestBTN});
+            this.Test_toolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("Test_toolStripDropDownButton.Image")));
+            this.Test_toolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Test_toolStripDropDownButton.Name = "Test_toolStripDropDownButton";
+            this.Test_toolStripDropDownButton.Size = new System.Drawing.Size(36, 27);
+            this.Test_toolStripDropDownButton.Text = "test";
+            // 
+            // syncDiffTestBTN
+            // 
+            this.syncDiffTestBTN.Name = "syncDiffTestBTN";
+            this.syncDiffTestBTN.Size = new System.Drawing.Size(180, 22);
+            this.syncDiffTestBTN.Text = "Sync Diff Test";
+            this.syncDiffTestBTN.Click += new System.EventHandler(this.syncDiffTestBTN_Click);
             // 
             // infoRTC
             // 
@@ -164,7 +173,8 @@
         private System.Windows.Forms.ToolStripButton closeBTN;
         private System.Windows.Forms.ToolStripButton recoedBTN;
         private System.Windows.Forms.RichTextBox infoRTC;
-        private System.Windows.Forms.ToolStripButton DebugFormBTN;
         private System.Windows.Forms.ToolStripLabel statusLAB;
+        private System.Windows.Forms.ToolStripDropDownButton Test_toolStripDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem syncDiffTestBTN;
     }
 }
