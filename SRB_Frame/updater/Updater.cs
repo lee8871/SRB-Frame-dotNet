@@ -27,7 +27,7 @@ namespace SRB.Frame{
             public void gotoUpdateMode()
             {
                 node.infoClu.resetNode();
-                hold();
+                hold(200);
                 sendInfoPkg();
                 sendAppInfoPkg();
             }

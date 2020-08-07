@@ -38,6 +38,7 @@ namespace SRB.Frame
             this.AddrL.Text = cluster.addr.ToString();
             this.NodeNameTB.Text = cluster.name;
             this.NodeNameL.Text = cluster.name;
+            this.ErrorLedLoopLAB.Text = cluster.error_behavior.ToString();
             int addr_color = ((int)cluster.addr).enterRound(0, 99);
             if (cluster.addr < 100)
             {

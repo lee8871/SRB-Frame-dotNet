@@ -38,6 +38,7 @@
             this.lowBTN = new System.Windows.Forms.Button();
             this.closeBTN = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.ErrorLedLoopLAB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,10 +133,21 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Addr Color:";
             // 
+            // ErrorLedLoopLAB
+            // 
+            this.ErrorLedLoopLAB.AutoSize = true;
+            this.ErrorLedLoopLAB.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ErrorLedLoopLAB.Location = new System.Drawing.Point(174, 8);
+            this.ErrorLedLoopLAB.Name = "ErrorLedLoopLAB";
+            this.ErrorLedLoopLAB.Size = new System.Drawing.Size(12, 12);
+            this.ErrorLedLoopLAB.TabIndex = 9;
+            this.ErrorLedLoopLAB.Text = "x";
+            // 
             // AddressCC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ErrorLedLoopLAB);
             this.Controls.Add(this.closeBTN);
             this.Controls.Add(this.lowBTN);
             this.Controls.Add(this.highBTN);
@@ -156,6 +168,7 @@
             this.Controls.SetChildIndex(this.highBTN, 0);
             this.Controls.SetChildIndex(this.lowBTN, 0);
             this.Controls.SetChildIndex(this.closeBTN, 0);
+            this.Controls.SetChildIndex(this.ErrorLedLoopLAB, 0);
             ((System.ComponentModel.ISupportInitialize)(this.AddrNUM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -173,5 +186,6 @@
         private System.Windows.Forms.Button lowBTN;
         private System.Windows.Forms.Button closeBTN;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label ErrorLedLoopLAB;
     }
 }
