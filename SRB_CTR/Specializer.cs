@@ -26,6 +26,9 @@ namespace SRB_CTR
                 case "SpeedMotor":
                     n.Datas = new SRB.NodeType.SpeedMotor.Interpreter(n);
                     break;
+                case "SpeedMotorF":
+                    n.Datas = new SRB.NodeType.SpeedMotorF.Interpreter(n);
+                    break;
                 default:
                     n.Datas = new SRB.Frame.untyped.Interpreter(n);
                     break;

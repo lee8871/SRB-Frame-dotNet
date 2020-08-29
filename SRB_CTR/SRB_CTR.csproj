@@ -258,6 +258,10 @@
       <Project>{326c8eda-5aa5-4a0f-a26a-574844427c2a}</Project>
       <Name>SRB-Port</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SRB-SpeedMotorF\SRB_SpeedMotorF.csproj">
+      <Project>{79d2d745-c23e-49e2-b556-34895eaf5e48}</Project>
+      <Name>SRB_SpeedMotorF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB-SpeedMotor\SRB_SpeedMotor.csproj">
       <Project>{045dc19e-7140-4750-9572-79c106cb8af8}</Project>
       <Name>SRB_SpeedMotor</Name>

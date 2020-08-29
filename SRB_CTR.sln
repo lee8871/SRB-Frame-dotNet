@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB_SpeedMotor", "SRB-Speed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB-PhotoElecX4", "SRB-PhotoElecX4\SRB-PhotoElecX4.csproj", "{015F6C3A-86B0-4BD7-9B90-282A2B5B3771}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB_SpeedMotorF", "SRB-SpeedMotorF\SRB_SpeedMotorF.csproj", "{79D2D745-C23E-49E2-B556-34895EAF5E48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,18 @@ Global
 		{015F6C3A-86B0-4BD7-9B90-282A2B5B3771}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{015F6C3A-86B0-4BD7-9B90-282A2B5B3771}.Release|x86.ActiveCfg = Release|Any CPU
 		{015F6C3A-86B0-4BD7-9B90-282A2B5B3771}.Release|x86.Build.0 = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Debug|x86.Build.0 = Debug|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|x86.ActiveCfg = Release|Any CPU
+		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
