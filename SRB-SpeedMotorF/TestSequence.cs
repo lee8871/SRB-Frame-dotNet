@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SRB.Frame;
 using System.Windows.Forms;
 using SRB.Support;
+using System.Xml;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -14,13 +15,13 @@ namespace SRB.NodeType.SpeedMotorF
 
     public struct MotorStatus
     {
-        public double timel;
+        public double time;
         public double target_speed;
         public double sensor_speed;
         public double odometer;
         public MotorStatus (double timel, double target_speed, double sensor_speed, double odometer)
         {
-            this.timel = timel;
+            this.time = timel;
             this.target_speed = target_speed;
             this.sensor_speed = sensor_speed;
             this.odometer = odometer;
@@ -28,8 +29,10 @@ namespace SRB.NodeType.SpeedMotorF
     };
     class TestSequence
     {
-        Interpreter bgd; 
+        Interpreter bgd;
         SrbThread st;
+        public bool is_open_csv = false;
+        public bool is_open_svg = true;
         public SrbThread St => st;
         public TestSequence(Interpreter bgd )
         {
@@ -97,7 +100,7 @@ namespace SRB.NodeType.SpeedMotorF
             string output_csv = "time,target_s,sensor_s,odometer\n";
             foreach(MotorStatus sta in motor_status_array)
             {
-                output_csv += string.Format("{0},{1},{2},{3}\n", sta.timel,sta.target_speed,sta.sensor_speed,sta.odometer / 10.0);
+                output_csv += string.Format("{0},{1},{2},{3}\n", sta.time,sta.target_speed,sta.sensor_speed,sta.odometer / 10.0);
             }
 
 
@@ -109,68 +112,151 @@ namespace SRB.NodeType.SpeedMotorF
             {
                 MessageBox.Show(exp.ToString(), "不能写日志文件！");
             }
-            try
+            if (is_open_csv)
             {
-                System.Diagnostics.Process.Start(Application.StartupPath + "/" + file);
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+                try
+                {
+                    System.Diagnostics.Process.Start(Application.StartupPath + "/" + file);
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+                }
             }
             return;
         }
 
-/*
-        public void TestSequence_Thread_old(SrbThread.dIsThreadStoping IsStoping)
+        public void saveToSvg(MotorStatus[] motor_status_array)
         {
-            Stopwatch sw = new Stopwatch();
-            string output_csv = "time,target_s,sensor_s,odometer\n";
-            double time = 0;
-            MotorStatus[] motor_status_array = new MotorStatus[];
-            while (true)
-            {
-                sw.Restart();
-                int i = ((int)time) / 1000;
-                if (i >= speed_table_1.Length)
+            string file = FileRecordMaker.getStringFile("SpeedMotorF", "test-sequence", "svg");
+            var setting = new XmlWriterSettings();
+            setting.Indent = true;
+
+            XmlWriter writer = XmlWriter.Create(file, setting);
+            double Y_zoom = 0.1;
+            double X_zoom = 1;
+            double w = motor_status_array.Length * period_in_ms * X_zoom + 100;
+            double h = 15000 * 2 * Y_zoom + 100;
+
+
+            writer.WriteStartDocument();
+            writer.WriteStartElement("svg", "http://www.w3.org/2000/svg");
+            writer.WriteAttributeString("version", "1.1");
+            writer.WriteAttributeString("id", "svg_head");
+            writer.WriteAttributeString("width", $"{w}");
+            writer.WriteAttributeString("height", $"{h}");
+
+            writer.WriteStartElement("g");
+            writer.WriteAttributeString("id", "grid");
+            writer.WriteAttributeString("transform", $"translate(50, {h/2})");
+
+
+
+            string d_st = "";
+            double x_grid_space = 1000 * X_zoom * 0.1;
+            double y_grid_space = 1000 * X_zoom * 0.2;
+
+            void buildGrid(string width) {
+                for (double x = x_grid_space; x < w; x += x_grid_space)
                 {
-                    break;
+                    d_st += $"M {x} {-h / 2} L {x} {h / 2}";
                 }
-                bgd.target_speed = speed_table_1[((int)time) / 1000];
-                bgd.addDataAccess(1, true);
-                output_csv += string.Format("{0},{1},{2},{3}\n", time, bgd.target_speed, bgd.sensor_speed, bgd.odometer / 10.0);
-                if (IsStoping())
+                for (double y = y_grid_space; y < h / 2; y += y_grid_space)
                 {
-                    break;
+                    d_st += $"M 0 {y} L {w} {y}";
+                    d_st += $"M 0 {-y} L {w} {-y}";
                 }
-                while (getElapsedMs(sw) < period_in_ms) ;
-                time += period_in_ms;
+                writer.WriteStartElement("path");
+                writer.WriteAttributeString("id", "grid");
+                writer.WriteAttributeString("d", d_st);
+                writer.WriteAttributeString("stroke", "black");
+                writer.WriteAttributeString("stroke-width", width);
+                writer.WriteAttributeString("fill", "none");
+                writer.WriteEndElement();
             }
-            string path = "./log/SpeedMotorF-test-record/";
-            path += System.DateTime.Now.ToString("yy-MM-dd");
-            path += "/";
-            System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
-            string time_str = System.DateTime.Now.ToString("HHmmss");
-            string Table_file = path + "speed_table_1" + time_str + ".csv";
+            d_st = "";
+            x_grid_space = 1000 * X_zoom * 0.1;
+            y_grid_space = 1000 * X_zoom * 0.2;
+            buildGrid("0.2");
+            d_st = "";
+            x_grid_space = 1000 * X_zoom ;
+            y_grid_space = 1000 * X_zoom;
+            buildGrid("0.4");
+
+            for (double x = x_grid_space; x < w; x += x_grid_space)
+            {
+                writer.WriteStartElement("text"); 
+                writer.WriteAttributeString("x", $"{x}");
+                writer.WriteAttributeString("y", "0");
+                writer.WriteAttributeString("fill", "black");
+                writer.WriteAttributeString("font-family","微软雅黑");
+                writer.WriteAttributeString("font-size", "32px");
+                writer.WriteString($"{x /1000/ X_zoom}s");
+                writer.WriteEndElement();
+            }
+
+
+            writer.WriteStartElement("path");
+            writer.WriteAttributeString("id", "Coordinate");
+            writer.WriteAttributeString("d", $"M 0 0 L {w - 50} 0  M 0 {-h / 2} L  0 {h / 2}");
+            writer.WriteAttributeString("stroke", "black");
+            writer.WriteAttributeString("stroke-width", "2");
+            writer.WriteAttributeString("fill", "none");
+            writer.WriteEndElement();
+
+
+
+            string target_st = "M 0 0 ";
+            string senseor_st = "M 0 0 ";
+            foreach (var sta in motor_status_array) 
+            {
+                string x = $"{X_zoom * sta.time}";
+                target_st += $"L {x} {-sta.target_speed* Y_zoom}";
+                senseor_st += $"L {x} {-sta.sensor_speed * Y_zoom}";
+            }
+            writer.WriteStartElement("path");
+            writer.WriteAttributeString("id", "target_speed");
+            writer.WriteAttributeString("d", target_st);
+            writer.WriteAttributeString("stroke", "DarkViolet");
+            writer.WriteAttributeString("stroke-width", "1");
+            writer.WriteAttributeString("fill", "none");
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("path");
+            writer.WriteAttributeString("id", "senseor_speed");
+            writer.WriteAttributeString("d", senseor_st);
+            writer.WriteAttributeString("stroke", "Green");
+            writer.WriteAttributeString("stroke-width", "1");
+            writer.WriteAttributeString("fill", "none");
+            writer.WriteEndElement();
+
+
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+
+            writer.Flush();
+            writer.Close();
+            writer.Dispose();
+
             try
             {
-                System.IO.File.WriteAllText(Table_file, output_csv, System.Text.Encoding.UTF8);
             }
             catch (Exception exp)
             {
-                MessageBox.Show(exp.ToString(), "不能写日志文件！");
+                MessageBox.Show(exp.ToString(), "不能写入文件！");
             }
-            try
+            if (is_open_svg)
             {
-                System.Diagnostics.Process.Start(Application.StartupPath + "/" + Table_file);
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+                try
+                {
+                    System.Diagnostics.Process.Start(Application.StartupPath + "/" + file);
+                }
+                catch (Exception exp)
+                {
+                    MessageBox.Show(exp.ToString(), "不能打开文件！");
+                }
             }
             return;
         }
-
-        */
-
     }
 }

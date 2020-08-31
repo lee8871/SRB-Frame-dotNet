@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SRB.Frame;
-using System.Xml;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -25,6 +24,7 @@ namespace SRB.NodeType.SpeedMotorF
         public debugFORM()
         {
             InitializeComponent();
+
         }
         public debugFORM(Interpreter n, Ctrl c)
         {
@@ -35,6 +35,7 @@ namespace SRB.NodeType.SpeedMotorF
             bgd = n;
             test_sequence = new TestSequence(bgd);
             test_sequence.eGetMotorStatus += test_sequence.saveToCsv;
+            test_sequence.eGetMotorStatus += test_sequence.saveToSvg;
         }
         protected double period_in_ms = 2;
 
