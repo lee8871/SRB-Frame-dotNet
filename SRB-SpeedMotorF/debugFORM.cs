@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SRB.Frame;
+using System.Xml;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -18,7 +19,7 @@ namespace SRB.NodeType.SpeedMotorF
         Ctrl ctrl;
         private SrbThread motor_test_ST;
         private SrbThread get_speed_table_ST;
-        private SrbThread TestSequence_ST;
+        private TestSequence test_sequence;
         object speed_lock = new object();
         int speed;
         public debugFORM()
@@ -31,8 +32,9 @@ namespace SRB.NodeType.SpeedMotorF
             InitializeComponent();
             motor_test_ST = new SrbThread(motor_test_Thread);
             get_speed_table_ST = new SrbThread(get_speed_table_Thread);
-            TestSequence_ST = new SrbThread(TestSequence_Thread);
             bgd = n;
+            test_sequence = new TestSequence(bgd);
+            test_sequence.eGetMotorStatus += test_sequence.saveToCsv;
         }
         protected double period_in_ms = 2;
 
@@ -111,60 +113,7 @@ namespace SRB.NodeType.SpeedMotorF
             return;
 
         }
-        private void TestSequence_Thread(SrbThread.dIsThreadStoping IsStoping)
-        {
-            int max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024)) - 10;
-            int s0 = 0;
-            int s1 = max_speed / 4;
-            int s2 = max_speed * 3 / 4;
-            int[] speed_table_1 = { s0,s1,s2,s1,s2,s1,s2, s0,-s1, -s2, -s1, -s2, -s1, -s2, s0 };
 
-            Stopwatch sw = new Stopwatch();
-            string output_csv = "time,target_s,sensor_s,odometer\n";
-            double time = 0;
-            while (true)
-            {
-                sw.Restart();
-                int i = ((int)time) / 1000;
-                if (i >= speed_table_1.Length)
-                {
-                    break;
-                }
-                bgd.target_speed = speed_table_1[((int)time)/1000];
-                bgd.addDataAccess(1, true);
-                output_csv += string.Format("{0},{1},{2},{3}\n", time, bgd.target_speed, bgd.sensor_speed, bgd.odometer / 10.0);
-                if (IsStoping())
-                {
-                    break;
-                }
-                while(getElapsedMs(sw) < period_in_ms) ;
-                time += period_in_ms;
-            }
-            string path = "./log/SpeedMotorF-test-record/";
-            path += System.DateTime.Now.ToString("yy-MM-dd");
-            path += "/";
-            System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
-            string time_str = System.DateTime.Now.ToString("HHmmss");
-            string Table_file = path + "speed_table_1" + time_str + ".csv";
-            try
-            {
-                System.IO.File.WriteAllText(Table_file, output_csv, System.Text.Encoding.UTF8);
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.ToString(), "不能写日志文件！");
-            }
-            try
-            {
-                System.Diagnostics.Process.Start(Application.StartupPath + "/" + Table_file);
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
-            }
-            return;
-
-        }
         private void motor_test_Thread(SrbThread.dIsThreadStoping IsStoping)
         {
             Stopwatch sw = new Stopwatch();
@@ -256,9 +205,8 @@ namespace SRB.NodeType.SpeedMotorF
                 getSpeedTableBTN.BackColor = Control.DefaultBackColor;
                 get_speed_table_ST.stop();
             }
-
         }
-
+        SrbThread TestSequence_ST => test_sequence.St;
         private void TestSequenceBTN_Click(object sender, EventArgs e)
         {
 
