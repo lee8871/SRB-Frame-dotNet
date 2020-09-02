@@ -3,13 +3,21 @@ using System.Diagnostics;
 
 namespace SRB.Frame
 {
-
-
-
     public interface IAccesser
     {
         void accessDone(Access acs);
     }
+
+    public class AccessEventArgs : EventArgs
+    {
+        public bool Handled = false;
+        public Access ac;
+        public AccessEventArgs(Access access) : base()
+        {
+            ac = access;
+        }
+    }
+
     public class Access
     {
         //about Note
