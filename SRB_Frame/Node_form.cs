@@ -13,8 +13,7 @@ namespace SRB.Frame
             components = new System.ComponentModel.Container();
             this.clusters.BackColor = support.Color_BackGround;
             node = n;
-            Node_eUpdateModeChanging(this, null);
-            node.eUpdateModeChanging += Node_eUpdateModeChanging;
+            updateModeChanging();
             Console.WriteLine($"create node{node.Addr}'s Form");
         }
         /// <summary>
@@ -24,7 +23,7 @@ namespace SRB.Frame
         protected override void Dispose(bool disposing)
         {
             System.Console.WriteLine($"Dispose node{node.Addr}'s Form");
-            node.eUpdateModeChanging -= Node_eUpdateModeChanging;
+            node.removeForm();
             node = null;
             if (disposing && (components != null))
             {
@@ -32,7 +31,12 @@ namespace SRB.Frame
             }
             base.Dispose(disposing);
         }
-        private void Node_eUpdateModeChanging(object sender, EventArgs e)
+
+
+
+
+
+        public void updateModeChanging()
         {
             if (this.IsDisposed)
             {
@@ -40,7 +44,7 @@ namespace SRB.Frame
             }
             if (this.InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(() => { Node_eUpdateModeChanging(sender,e); }));
+                this.Invoke(new MethodInvoker(() => { updateModeChanging(); }));
                 return;
             }
             foreach (var c in this.clusters.Controls)
@@ -64,7 +68,7 @@ namespace SRB.Frame
 
         public void initUpdate()
         {
-            updateText();
+            descriptioChange();
             GroupBox b;
             b = new GroupBox();
             components.Add(b);
@@ -78,7 +82,7 @@ namespace SRB.Frame
         }
         public void initNormal() 
         {
-            updateText();
+            descriptioChange();
             GroupBox b;
             b = new GroupBox();
             components.Add(b);
@@ -110,7 +114,7 @@ namespace SRB.Frame
             }
         }
 
-        public void updateText()
+        public void descriptioChange()
         {
             this.Text = node.ToString();
         }
@@ -154,7 +158,7 @@ namespace SRB.Frame
             }
             else
             {
-                this.Close();
+                this.Close();                
             }
         }
 

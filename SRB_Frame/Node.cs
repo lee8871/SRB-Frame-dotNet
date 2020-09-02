@@ -31,16 +31,21 @@ namespace SRB.Frame
 
         public event dNodeUpdateEvent eChangeDescription;
         public event dNodeUpdateEvent eDispossing;
-        public event EventHandler eUpdateModeChanging;
-
+        public event dNodeUpdateEvent eUpdateModeChanging;
         private void onAddressChanged(byte new_addr)
         {
             addr = new_addr;
         }
         private void onDescriptionChanged()
         {
-            node_form?.updateText();
+            node_form?.descriptioChange();
             eChangeDescription?.Invoke(this);
+        }
+        private void onUpdateModeChanged()
+        {
+            node_form?.updateModeChanging();
+            eUpdateModeChanging?.Invoke(this);
+            onDescriptionChanged();
         }
         public void changeAddr(byte addr)
         {
@@ -135,8 +140,7 @@ namespace SRB.Frame
                     return;
                 }
                 is_in_update = true;
-                eUpdateModeChanging?.Invoke(this, new EventArgs());
-                eChangeDescription?.Invoke(this);
+                onUpdateModeChanged();
             }
         }
         public void gotoNormalMode()
@@ -147,10 +151,8 @@ namespace SRB.Frame
                 {
                     checkNodeAccessable();
                     is_in_update = false;
-                    eUpdateModeChanging?.Invoke(this, new EventArgs());
-                    eChangeDescription?.Invoke(this);
+                    onUpdateModeChanged();
                 }
-
             }
             catch (SrbUpdater.UpdateTimeoutException) { }
         }
@@ -177,7 +179,6 @@ namespace SRB.Frame
         private bool is_node_exist = false;
         private int node_exist_check_counter = 0;
         public bool Is_hareware_exist => is_node_exist;
-
 
         private int access_counter = 0;
         private int access_retry_counter = 0;
@@ -207,12 +208,6 @@ namespace SRB.Frame
         #endregion
 
         #region 节点数据访问
-
-
-
-
-
-
         private Mapping[] mappings;
         public void bankInit(byte[][] raw)
         {
@@ -317,10 +312,9 @@ namespace SRB.Frame
             }
         }
         private NodeForm node_form;
-        protected bool node_form_existing => !((node_form == null) || (node_form.IsDisposed));
         public NodeForm getForm()
         {
-            if (!node_form_existing)
+            if (node_form == null)
             {
                 node_form = new NodeForm(this);
             }
@@ -328,11 +322,13 @@ namespace SRB.Frame
         }
         public void closeNodeForm()
         {
-            if (node_form_existing)
-            {
-                node_form.close(this, new EventArgs());
-            }
+           node_form?.close(this, new EventArgs());
         }
+        public void removeForm()
+        {
+            node_form = null;
+        }
+
         public INodeControlOwner getClusters(int i) => clusters[i];
         public virtual string Describe => datas.Describe;
         public virtual string GetToolTip()
@@ -349,13 +345,4 @@ namespace SRB.Frame
     }
 
 
-    public class AccessEventArgs : EventArgs
-    {
-        public bool Handled = false;
-        public Access ac;
-        public AccessEventArgs(Access access) : base()
-        {
-            ac = access;
-        }
-    }
 }
