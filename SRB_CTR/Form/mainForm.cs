@@ -90,15 +90,14 @@ namespace SRB_CTR
                     throw new Exception("Node dose not have a tag");
                 }
                 Button b = (Button)n.Tag;
+                b.Text = n.getAddrName();
                 if (n.Is_in_update)
                 {
-                    b.Text = string.Format("A:{0}\n{1}", n.Addr,"Update");
                     b.ForeColor = support.Color_navy;
 
                 }
                 else
                 {
-                    b.Text = getNodeString(n);
                     if (n.Addr >= 100)
                     {
                         b.ForeColor = support.Color_red;
@@ -112,12 +111,6 @@ namespace SRB_CTR
             }
         }
 
-
-
-        private string getNodeString(Node n)
-        {
-            return string.Format("{0}\n{1}", n.Addr, n.Name);
-        }
 
         public void removeNode(Node n)
         {

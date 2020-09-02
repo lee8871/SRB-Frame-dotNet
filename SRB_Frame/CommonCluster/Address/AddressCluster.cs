@@ -185,7 +185,6 @@ namespace SRB.Frame
                     bus.removeAllNode();
                     for (int scan_num = scan_begin; scan_num < scan_end; scan_num++)
                     {
-                        
                         scan_status = string.Format("Scan {0}/{1}", scan_num, scan_end);
                         scan_progress = scan_num * 1.0 / scan_max_addr;
                         n = bus.createTempNode((byte)scan_num);

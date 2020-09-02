@@ -15,16 +15,34 @@ namespace SRB.Frame
             node = n;
             Node_eUpdateModeChanging(this, null);
             node.eUpdateModeChanging += Node_eUpdateModeChanging;
+            Console.WriteLine($"create node{node.Addr}'s Form");
         }
-
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            System.Console.WriteLine($"Dispose node{node.Addr}'s Form");
+            node.eUpdateModeChanging -= Node_eUpdateModeChanging;
+            node = null;
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
         private void Node_eUpdateModeChanging(object sender, EventArgs e)
         {
+            if (this.IsDisposed)
+            {
+                throw new Exception("classis disposed!");
+            }
             if (this.InvokeRequired)
             {
                 this.Invoke(new MethodInvoker(() => { Node_eUpdateModeChanging(sender,e); }));
                 return;
             }
-            
             foreach (var c in this.clusters.Controls)
             {
                 GroupBox b = c as GroupBox;
@@ -71,7 +89,6 @@ namespace SRB.Frame
             b.Click += new EventHandler(b_Click);
             b.BackColor = Color.FromKnownColor(KnownColor.Control);
             this.clusters.Controls.Add(b);
-
             for (int i = 0; i < 128; i++)
             {
                 Node.INodeControlOwner cluster = node.getClusters(i);
@@ -94,7 +111,7 @@ namespace SRB.Frame
         }
 
         public void updateText()
-        {//TODO这里在升级过程中会报告错误，Node是不存在的
+        {
             this.Text = node.ToString();
         }
         public void b_Click(object sender, EventArgs e)
@@ -141,11 +158,6 @@ namespace SRB.Frame
             }
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            node = null;
-        }
         public void showAt(Control reference)
         {
             this.Location = LocationOnClient(reference);
@@ -164,8 +176,5 @@ namespace SRB.Frame
             while (c != null);
             return retval;
         }
-
     }
-
-
 }

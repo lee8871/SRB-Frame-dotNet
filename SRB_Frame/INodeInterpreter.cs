@@ -11,7 +11,7 @@ namespace SRB.Frame
     {
         public interface ISpecializer
         {
-            void specializeNode(Node n);
+            int specializeNode(Node n);
 
         }
         abstract public class INodeInterpreter: INodeControlOwner

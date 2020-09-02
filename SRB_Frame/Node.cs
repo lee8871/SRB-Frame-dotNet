@@ -5,16 +5,13 @@ namespace SRB.Frame
     public delegate void dNodeUpdateEvent(Node n);
     public partial class Node : IAccesser, IDisposable
     {
-
-
         public static ISpecializer specializer;
         private ByteBank bank;
         private IBus bus;
+
         private INodeInterpreter datas;
         private SrbUpdater updater;
-
         public SrbUpdater Updater => updater;
-
         public INodeInterpreter Datas { get => datas; set => datas = value; }
         public virtual string Help_net_work { get => "https://github.com/lee8871/SRB-Introduction"; }
         private object tag;
@@ -42,14 +39,8 @@ namespace SRB.Frame
         }
         private void onDescriptionChanged()
         {
-            if (node_form != null)
-            {
-                node_form.updateText();
-            }
-            if (eChangeDescription != null)
-            {
-                eChangeDescription.Invoke(this);
-            }
+            node_form?.updateText();
+            eChangeDescription?.Invoke(this);
         }
         public void changeAddr(byte addr)
         {
@@ -61,22 +52,22 @@ namespace SRB.Frame
         {
             if (is_in_update)
             {
-                return string.Format("{0}\n{1}", Addr, "UpdateNode");
+                return $"^{Addr}\n{updater.Hardware_code}";
             }
             else
             {
-                return string.Format("{0}\n{1}", Addr, Name);
+                return $"{Addr}\n{Name}";
             }
         }
         public override string ToString()
         {
             if (is_in_update)
             {
-                return string.Format("{0}\n{1}", Addr, "UpdateNode");
+                return $"Updating(Addr:{ Addr.ToString()} Hardware:{updater.Hardware_code})";
             }
             else
             {
-                return String.Format("{0}   (Addr:{1} Type:{2})", Name, Addr.ToString(), NodeType);
+                return $"{Name}(Addr:{ Addr.ToString()} Type:{NodeType})";
             }
         }
         public Node(byte addr, IBus bus)
@@ -129,7 +120,6 @@ namespace SRB.Frame
         }
         public void gotoUpdateMode()
         {
-
             if (is_in_update == false)
             {
                 if (updater == null)
@@ -145,14 +135,8 @@ namespace SRB.Frame
                     return;
                 }
                 is_in_update = true;
-                if (eUpdateModeChanging != null)
-                {
-                    eUpdateModeChanging.Invoke(this, new EventArgs());
-                }
-                if (eChangeDescription != null)
-                {
-                    eChangeDescription.Invoke(this);
-                }
+                eUpdateModeChanging?.Invoke(this, new EventArgs());
+                eChangeDescription?.Invoke(this);
             }
         }
         public void gotoNormalMode()
@@ -163,14 +147,8 @@ namespace SRB.Frame
                 {
                     checkNodeAccessable();
                     is_in_update = false;
-                    if (eUpdateModeChanging != null)
-                    {
-                        eUpdateModeChanging.Invoke(this, new EventArgs());
-                    }
-                    if (eChangeDescription != null)
-                    {
-                        eChangeDescription.Invoke(this);
-                    }
+                    eUpdateModeChanging?.Invoke(this, new EventArgs());
+                    eChangeDescription?.Invoke(this);
                 }
 
             }
@@ -182,15 +160,8 @@ namespace SRB.Frame
         public bool IsDisposed => isDisposed;
         public void Dispose()
         {
-            if (eDispossing != null)
-            {
-                eDispossing.Invoke(this);
-            }
-            if (this.node_form != null)
-            {
-                //this.nf.Close();
-                this.node_form.close(this, null);
-            }
+            eDispossing?.Invoke(this);
+            closeNodeForm();
             isDisposed = true;
         }
 
@@ -345,11 +316,11 @@ namespace SRB.Frame
                 control = null;
             }
         }
-
         private NodeForm node_form;
+        protected bool node_form_existing => !((node_form == null) || (node_form.IsDisposed));
         public NodeForm getForm()
         {
-            if ((node_form == null)|| (node_form.IsDisposed))
+            if (!node_form_existing)
             {
                 node_form = new NodeForm(this);
             }
@@ -357,21 +328,13 @@ namespace SRB.Frame
         }
         public void closeNodeForm()
         {
-            if (node_form != null)
+            if (node_form_existing)
             {
-                if (!(node_form.IsDisposed))
-                {
-                    node_form.close(this, new EventArgs());
-                    node_form.Dispose();
-                    node_form = null;
-                }
+                node_form.close(this, new EventArgs());
             }
         }
-
         public INodeControlOwner getClusters(int i) => clusters[i];
-        
         public virtual string Describe => datas.Describe;
-
         public virtual string GetToolTip()
         {
             if (Is_in_update)
@@ -383,8 +346,6 @@ namespace SRB.Frame
                 return ToString() + "\n" + Describe;
             }
         }
-
-
     }
 
 
@@ -397,5 +358,4 @@ namespace SRB.Frame
             ac = access;
         }
     }
-
 }

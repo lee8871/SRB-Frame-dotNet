@@ -224,6 +224,8 @@ namespace SRB.Frame{
                 if (is_code_good == true)
                 {
                     node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_RUN }));
+                    Update_time_out.Restart();
+                    Thread.Sleep(50);
                     return true;
                 }
                 else

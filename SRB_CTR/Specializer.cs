@@ -4,7 +4,7 @@ namespace SRB_CTR
 {
     class Specializer : Node.ISpecializer
     {
-        public void specializeNode(Node n)
+        public int specializeNode(Node n)
         {
             switch (n.NodeType)
             {
@@ -31,8 +31,9 @@ namespace SRB_CTR
                     break;
                 default:
                     n.Datas = new SRB.Frame.untyped.Interpreter(n);
-                    break;
+                    return - 1;
             }
+            return 0;
         }
     }
 }
