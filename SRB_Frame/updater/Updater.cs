@@ -225,7 +225,6 @@ namespace SRB.Frame{
                 {
                     node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_RUN }));
                     Update_time_out.Restart();
-                    Thread.Sleep(50);
                     return true;
                 }
                 else
@@ -243,9 +242,6 @@ namespace SRB.Frame{
             {
                 return "Updater[HC:"+Hardware_code+"]";
             }
-
-
-
 
             public class Broadcast
             {
@@ -313,9 +309,13 @@ namespace SRB.Frame{
                         return;
                     }
                     appendInfo = delegateInfo;
-                    if (sup_loader.Is_file_loaded)
+                    if (sup_loader != null)
                     {
-                        burning_st.run(bus);
+                        if (sup_loader.Is_file_loaded)
+                        {
+                            burning_st.run(bus);
+                            return;
+                        }
                     }
                     else
                     {

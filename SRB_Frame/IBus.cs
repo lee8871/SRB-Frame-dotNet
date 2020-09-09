@@ -37,20 +37,14 @@ namespace SRB.Frame
             Node n = temp_node;
             temp_node = null;
             node_list.Add(n);
-            if (eNodeAdd != null)
-            {
-                eNodeAdd.Invoke(this, n);
-            }
+            eNodeAdd?.Invoke(this, n);
             return n;
         }
         public Node createNode(byte address)
         {
             Node n = new Node(address, this);
             node_list.Add(n);
-            if (eNodeAdd != null)
-            {
-                eNodeAdd.Invoke(this, n);
-            }
+            eNodeAdd?.Invoke(this, n);
             return n;
         }
         public void removeNode(Node n)

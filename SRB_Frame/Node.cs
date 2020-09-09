@@ -149,9 +149,15 @@ namespace SRB.Frame
             {
                 if (true == updater.tryExit())
                 {
-                    checkNodeAccessable();
-                    is_in_update = false;
-                    onUpdateModeChanged();
+                    Action action = () =>
+                    {
+                        System.Threading.Thread.Sleep(200);
+                        checkNodeAccessable();
+                        is_in_update = false;
+                        onUpdateModeChanged();
+                    };
+                    var t = new System.Threading.Tasks.Task(action);
+                    t.Start();
                 }
             }
             catch (SrbUpdater.UpdateTimeoutException) { }
@@ -278,10 +284,7 @@ namespace SRB.Frame
             }
             if (recv_len != 0)
             {
-                if (eBankChangeByAccess != null)
-                {
-                    eBankChangeByAccess.Invoke(this, new EventArgs());
-                }
+                eBankChangeByAccess?.Invoke(this, new EventArgs());
             }
             return;
         }
@@ -317,16 +320,20 @@ namespace SRB.Frame
             if (node_form == null)
             {
                 node_form = new NodeForm(this);
+                node_form.Disposed += Node_form_Disposed;
             }
+
             return node_form;
         }
+
+        private void Node_form_Disposed(object sender, EventArgs e)
+        {
+            node_form = null;
+        }
+
         public void closeNodeForm()
         {
            node_form?.close(this, new EventArgs());
-        }
-        public void removeForm()
-        {
-            node_form = null;
         }
 
         public INodeControlOwner getClusters(int i) => clusters[i];

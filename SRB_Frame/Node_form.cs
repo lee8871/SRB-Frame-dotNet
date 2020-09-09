@@ -23,7 +23,6 @@ namespace SRB.Frame
         protected override void Dispose(bool disposing)
         {
             System.Console.WriteLine($"Dispose node{node.Addr}'s Form");
-            node.removeForm();
             node = null;
             if (disposing && (components != null))
             {
