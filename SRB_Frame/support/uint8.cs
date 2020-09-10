@@ -43,63 +43,7 @@
             byte b = (byte)i;
             return b.ToHexSt();
         }
-        static public string ToHexSt(this byte[] ba, int len = -1)
-        {
-            if (ba == null)
-            {
-                return "<null>";
-            }
-            if (len == -1)
-            {
-                len = ba.Length;
-                if (len == 0)
-                {
-                    return "<empty>";
-                }
-            }
-            string s = "";
-            for (int i = 0; i < len; i++)
-            {
-                byte b = ba[i];
-                s += b.ToHexSt() + ' ';
-            }
-            return s;
-        }
-
-        static public string ToArrayString(this byte[] ba, int len = -1)
-        {
-            if (ba == null)
-            {
-                return "{}";
-            }
-            if (len == -1)
-            {
-                len = ba.Length;
-                if (len == 0)
-                {
-                    return "{};";
-                }
-            }
-            string s = "";
-            s += "{";
-            int i = 0;
-            while (true)
-            {
-                byte b = ba[i];
-                //  s += "0x" + b.ToHexSt();
-                s += b.ToString();
-                i++;
-                if (i < len)
-                {
-                    s += ",";
-                }
-                else
-                {
-                    s += "};";
-                    return s;
-                }
-            }
-        }
+     
         static public bool bit(this byte b, int diff)
         {
             if ((b & (1 << diff)) == 0)
@@ -116,41 +60,6 @@
             return b;
         }
 
-        static public string ToPythonTuple(this byte[] ba, int len = -1)
-        {
-            if (ba == null)
-            {
-                return "('null')";
-            }
-            if (len == -1)
-            {
-                len = ba.Length;
-                if (len == 0)
-                {
-                    return "('empty')";
-                }
-            }
-            string s = "";
-            for (int i = 0; i < len; i++)
-            {
-                byte b = ba[i];
-                s += "0x" + b.ToHexSt() + ',';
-            }
-            return "(" + s + ")";
-        }
-        static public byte[] SubArray(this byte[] ba, int len)
-        {
-            if (ba == null)
-            {
-                return null;
-            }
-            byte[] nba = new byte[len];
-            for (int i = 0; i < len; i++)
-            {
-                nba[i] = ba[i];
-            }
-            return nba;
-        }
         static public byte ByteLow(this ushort u16)
         {
             return (byte)(u16);
@@ -158,10 +67,6 @@
         static public byte ByteHigh(this ushort u16)
         {
             return (byte)(u16 >> 8);
-        }
-        static public ushort GetUint16(this byte[] b, int num)
-        {
-            return (ushort)((int)b[num] + (((int)b[num + 1]) << 8));
         }
         public static byte[] ToByteAsCArroy(this string st, out string error)
         {

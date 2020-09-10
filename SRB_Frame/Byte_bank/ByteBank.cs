@@ -6,7 +6,7 @@ namespace SRB.Frame
     {
         public byte this[int i] { get => ba[i]; set => ba[i] = value; }
         private byte[] ba;
-        public byte[] Byte_array { get => ba; }
+        public byte[] Byte_array => ba;
         private byte[] ba_temp;
         private int length;
         private bool is_write_to_temp;

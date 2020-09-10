@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs" />
+    <Compile Include="Byte_bank\ByteArrayExpand.cs" />
+    <Compile Include="Byte_bank\ByteBankMember.cs" />
     <Compile Include="CommonCluster\DebugInfoCluster.cs" />
     <Compile Include="CommonCluster\SyncCC.cs">
       <SubType>UserControl</SubType>
@@ -83,7 +85,7 @@
       <DependentUpon>UpdateControl.cs</DependentUpon>
     </Compile>
     <Compile Include="support\Ahex.cs" />
-    <Compile Include="ByteBank.cs" />
+    <Compile Include="Byte_bank\ByteBank.cs" />
     <Compile Include="INodeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
