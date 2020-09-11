@@ -36,9 +36,9 @@ namespace SRB.NodeType.PhotoElecX4
         internal MappingCluster Mapping0_clu;
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
-        public int value(int num) => (short)bank.getBankUshort(num * 2);
+        public int value(int num) => (short)bank[1,2];
         
-
+        public int value(int num) => (short)bank.getBankUshort(num * 2);
 
         public byte gpv_in_bank => bank.getBankByte(3);
         public void init()
@@ -63,8 +63,13 @@ namespace SRB.NodeType.PhotoElecX4
         {
             n.initSyncClu();
             init();
+            n.eBankChangeByAccess += N_eBankChangeByAccess;
         }
 
+        private void N_eBankChangeByAccess(object sender, EventArgs e)
+        {
+
+        }
 
         protected override System.Windows.Forms.Control createControl()
         {

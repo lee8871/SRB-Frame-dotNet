@@ -23,7 +23,6 @@ namespace SRB.Frame
             this.bit_diff = 8 * byte_diff;
             this.bit_len = bit_len;
         }
-
         public static implicit operator byte(ByteBankMember mb)
         {
             return mb.bank.getBankByte( mb.bit_diff / 8);

@@ -8,7 +8,7 @@ namespace SRB.Frame
         public class DebugInfoCluster : Node.ICluster
         {
             public const byte FIX_CID = 6;
-            public byte[] Bank { get => bank.Byte_array; }
+            public byte[] Bank { get => bank.Load_ba; }
             Node node;
             public DebugInfoCluster(Node n)
                 : base(n, FIX_CID, 16)

@@ -13,7 +13,7 @@ namespace SRB.Frame
             public Version App_version { 
                 get
                 {
-                    app_version.read(bank.Byte_array, 0);
+                    app_version.read(bank.Load_ba, 0);
                     return app_version;
                 } 
             }
@@ -22,7 +22,7 @@ namespace SRB.Frame
             {
                 get
                 {
-                    srb_version.read(bank.Byte_array, 3);
+                    srb_version.read(bank.Load_ba, 3);
                     return srb_version;
                 }
             }

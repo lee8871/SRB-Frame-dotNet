@@ -15,6 +15,7 @@ namespace SRB_CTR
         [STAThread]
         private static void Main(string[] args)
         {
+            SRB.Frame.ByteArrayExpand.test_byte_array_handle();
             Process cp;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

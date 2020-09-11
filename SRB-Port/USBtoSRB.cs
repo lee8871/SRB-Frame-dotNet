@@ -88,7 +88,6 @@ namespace SRB.port
                 catch
                 {
                     return null;
-
                 }
                 return device_name;
             }
@@ -233,7 +232,6 @@ namespace SRB.port
                         selected_device.Close();
                         selected_device = null;
                     }
-
                 }
             }
         }

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SRB.Frame
-{
+{   
+
     public static class ByteArrayExpand
     {
         static public string ToHexSt(this byte[] ba, int len = -1)
@@ -30,7 +31,6 @@ namespace SRB.Frame
             }
             return s;
         }
-
         static public string ToArrayString(this byte[] ba, int len = -1)
         {
             if (ba == null)
@@ -171,6 +171,24 @@ namespace SRB.Frame
         {
             b.SetUint((uint)val, bit_diff, len);
         }
+        static public uint GetUint(this byte[] b, BitField bf)
+        {
+            return b.GetUint(bf.Diff, bf.Len);
+        }
+        static public void SetUint(this byte[] b, uint val, BitField bf)
+        {
+            b.SetUint(val,bf.Diff, bf.Len);
+            return;
+        }
+        static public int GetInt(this byte[] b, BitField bf)
+        {
+            return b.GetInt(bf.Diff, bf.Len);
+        }
+        static public void SetInt(this byte[] b, int val, BitField bf)
+        {
+            b.SetInt(val, bf.Diff, bf.Len);
+            return;
+        }
         static public void test_byte_array_handle()
         {
             byte[] test_array = new byte[10];
@@ -178,16 +196,33 @@ namespace SRB.Frame
             {
                 test_array.SetUint(228, 0, 10);
                 test_array.SetUint(566, 10, 10);
-                test_array.SetInt(1020, 20, 10);
-                test_array.SetInt(354, 30, 10);
+                test_array.SetInt(-452, 20, 10);
+                test_array.SetInt(-12345678, 30, 30);
                 uint a; int b;
                 a = test_array.GetUint(0, 10);
                 a = test_array.GetUint(10, 10);
                 b = test_array.GetInt(20, 10);
-                b = test_array.GetInt(30, 10);
+                b = test_array.GetInt(30, 30);
                 a = test_array.GetUint(0, 20);
                 a = test_array.GetUint(20, 20);
             }
+        }
+    }
+    public struct BitField
+    {
+        int bit_diff;
+        int bit_len;
+        public int Diff => bit_diff;
+        public int Len => bit_len;
+        public BitField(int bit_len, BitField last)
+        {
+            this.bit_diff = last.bit_diff + last.bit_len;
+            this.bit_len = bit_len;
+        }
+        public BitField(int bit_len, int byte_diff = 0)
+        {
+            this.bit_diff = 8 * byte_diff;
+            this.bit_len = bit_len;
         }
     }
 }

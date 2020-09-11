@@ -2,16 +2,22 @@
 
 namespace SRB.Frame
 {
+    
     public class ByteBank
     {
-        public byte this[int i] { get => ba[i]; set => ba[i] = value; }
+        public byte this[int i] { get => ba[i]; set => send_ba[i] = value; }
+        public uint this[int bit_diff, int len] { get => ba.GetUint(bit_diff, len); set => send_ba.SetUint(value, bit_diff, len); }
+        public uint this[BitField bf] { get => ba.GetUint(bf); set => send_ba.SetUint(value, bf); }
+
         private byte[] ba;
-        public byte[] Byte_array => ba;
-        private byte[] ba_temp;
+        private byte[] send_ba;
+
+        public byte[] Load_ba => ba;
         private int length;
+
         private bool is_write_to_temp;
         public int Length => length;
-        public byte[] temp => ba_temp;
+        public byte[] temp => send_ba;
 
 
         public ByteBank(int bank_length, bool is_write_to_temp)
@@ -21,11 +27,11 @@ namespace SRB.Frame
             ba = new byte[bank_length];
             if (is_write_to_temp)
             {
-                ba_temp = new byte[bank_length];
+                send_ba = new byte[bank_length];
             }
             else
             {
-                ba_temp = ba;
+                send_ba = ba;
             }
         }
 
@@ -37,7 +43,7 @@ namespace SRB.Frame
             }
             for (int i = 0; i < Length; i++)
             {
-                ba[i] = ba_temp[i];
+                ba[i] = send_ba[i];
             }
         }
         public void writeInit()
@@ -48,7 +54,7 @@ namespace SRB.Frame
             }
             for (int i = 0; i < Length; i++)
             {
-                ba_temp[i] = ba[i];
+                send_ba[i] = ba[i];
             }
         }
 
@@ -93,9 +99,9 @@ namespace SRB.Frame
             int i;
             for (i = 0; i < ca.Length; i++)
             {
-                ba_temp[diff + i] = (byte)ca[i];
+                send_ba[diff + i] = (byte)ca[i];
             }
-            ba_temp[diff + i] = (byte)'\0';
+            send_ba[diff + i] = (byte)'\0';
             return;
         }
 
@@ -116,11 +122,11 @@ namespace SRB.Frame
             }
             if (b)
             {
-                ba_temp[diff] |= (byte)(1ul << bit_diff);
+                send_ba[diff] |= (byte)(1ul << bit_diff);
             }
             else
             {
-                ba_temp[diff] &= ((byte)(~(1ul << bit_diff)));
+                send_ba[diff] &= ((byte)(~(1ul << bit_diff)));
             }
         }
 
@@ -131,7 +137,7 @@ namespace SRB.Frame
         }
         public void setBankByte(byte val, int diff)
         {
-            ba_temp[diff] = val;
+            send_ba[diff] = val;
             return;
         }
 
@@ -166,9 +172,9 @@ namespace SRB.Frame
         }
         public void setBankUshort(ushort val, int diff)
         {
-            ba_temp[diff] = (byte)val;
+            send_ba[diff] = (byte)val;
             val >>= 8;
-            ba_temp[diff + 1] = (byte)val;
+            send_ba[diff + 1] = (byte)val;
             return;
         }
         public void setBankShort(short val, int diff)
@@ -177,13 +183,13 @@ namespace SRB.Frame
         }
         public void setBankUint(uint val, int diff)
         {
-            ba_temp[diff] = (byte)val;
+            send_ba[diff] = (byte)val;
             val >>= 8;
-            ba_temp[diff + 1] = (byte)val;
+            send_ba[diff + 1] = (byte)val;
             val >>= 8;
-            ba_temp[diff + 2] = (byte)val;
+            send_ba[diff + 2] = (byte)val;
             val >>= 8;
-            ba_temp[diff + 3] = (byte)val;
+            send_ba[diff + 3] = (byte)val;
             return;
         }
         public void setBankInt(int val, int diff)
@@ -209,7 +215,7 @@ namespace SRB.Frame
             }
             for (int i = 0; i < len; i++)
             {
-                ba_temp[diff + i] = ba[i];
+                send_ba[diff + i] = ba[i];
             }
             return;
         }
