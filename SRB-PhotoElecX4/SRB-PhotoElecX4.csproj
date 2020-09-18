@@ -63,10 +63,10 @@
     <Compile Include="Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chart.cs">
+    <Compile Include="Chart\Chart.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Chart.Designer.cs">
+    <Compile Include="Chart\Chart.Designer.cs">
       <DependentUpon>Chart.cs</DependentUpon>
     </Compile>
     <Compile Include="TestForm.cs">
@@ -84,7 +84,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Chart.resx">
+    <EmbeddedResource Include="Chart\Chart.resx">
       <DependentUpon>Chart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cluster\AdjustCC.resx">

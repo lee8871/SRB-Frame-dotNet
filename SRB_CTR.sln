@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB-PhotoElecX4", "SRB-Phot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB_SpeedMotorF", "SRB-SpeedMotorF\SRB_SpeedMotorF.csproj", "{79D2D745-C23E-49E2-B556-34895EAF5E48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB-Chart", "SRB-Chart\SRB-Chart.csproj", "{D12D1330-1F61-4413-90DC-07513C10C7ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +164,18 @@ Global
 		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|x86.ActiveCfg = Release|Any CPU
 		{79D2D745-C23E-49E2-B556-34895EAF5E48}.Release|x86.Build.0 = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{D12D1330-1F61-4413-90DC-07513C10C7ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
