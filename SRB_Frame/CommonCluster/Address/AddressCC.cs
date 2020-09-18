@@ -55,7 +55,7 @@ namespace SRB.Frame
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             if (NodeNameTB.Text != "")
             {
                 cluster.name = NodeNameTB.Text;

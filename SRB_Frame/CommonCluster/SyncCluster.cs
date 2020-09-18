@@ -15,8 +15,8 @@ namespace SRB.Frame
             public const byte FIX_CID = 8;
             public int us4 { get => bank.getBankByte(1); }
             public int ms { get => bank.getBankUshort(2); }
-            public int sno { get => (int)bank.getBankUint(0, 7, 0); }
-            public bool is_sync_miss { get => 1==bank.getBankUint(0, 1, 7); }
+            public int sno { get => (int)bank[0, 7]; }
+            public bool is_sync_miss { get => bank.getBankBool(0, 7); }
             public CalibrationCluster CalibrationClu { get => calibrationClu;}
 
             public SyncCluster(Node n)

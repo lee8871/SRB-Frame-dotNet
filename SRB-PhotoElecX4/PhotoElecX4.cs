@@ -5,7 +5,7 @@ namespace SRB.NodeType.PhotoElecX4
 {
     public class sGroupPheValue
     {
-        protected virtual int size => 8;
+        protected virtual int size => 6;
         protected byte[] ba;
         protected int diff;
 
@@ -25,8 +25,6 @@ namespace SRB.NodeType.PhotoElecX4
             diff = 0;
         }
 
-
-
     } 
 
 
@@ -36,9 +34,9 @@ namespace SRB.NodeType.PhotoElecX4
         internal MappingCluster Mapping0_clu;
         public override string Help_net_work =>
             "https://github.com/lee8871/SRB-Introduction/blob/master/SRB%E5%8F%8C%E7%94%B5%E6%9C%BA%E8%8A%82%E7%82%B9.md";
-        public int value(int num) => (short)bank[1,2];
-        
-        public int value(int num) => (short)bank.getBankUshort(num * 2);
+        public int value(int num) => (short)bank[10 * num, 10];
+        public int phase => (int)bank[40, 8];
+        //  public int value(int num) => (short)bank.getBankUshort(num * 2);
 
         public byte gpv_in_bank => bank.getBankByte(3);
         public void init()
@@ -53,10 +51,10 @@ namespace SRB.NodeType.PhotoElecX4
         {
             Node.bankInit(new byte[][]{
                 Mapping0_clu.mapping                  ,
-                new byte[] {9,1,	3,4,5,6,7,8,9,10,11,2,},
-                new byte[] {9,3,	3,4,5,6,7,8,9,10,11,0,1,2,},
-                new byte[] {9,1,    3,4,5,6,7,8,9,10,11,2,},
-            });
+                new byte[] {6,2,    0,1,2,3,4,5,24,25,},
+                new byte[] {24,2,   0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25},
+                new byte[] {6,2,    0,1,2,3,4,5,24,25,},
+            }); ;
         }
         public Interpreter(Node n)
             : base(n)
@@ -65,12 +63,10 @@ namespace SRB.NodeType.PhotoElecX4
             init();
             n.eBankChangeByAccess += N_eBankChangeByAccess;
         }
-
         private void N_eBankChangeByAccess(object sender, EventArgs e)
         {
 
         }
-
         protected override System.Windows.Forms.Control createControl()
         {
             return new Ctrl(Node);

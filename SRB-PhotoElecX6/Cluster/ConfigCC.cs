@@ -58,7 +58,7 @@ namespace SRB.NodeType.PhotoElecX6
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             cluster.period = (ushort)freqToPeriod(FreqCB.Text);
             cluster.min_pwm_a = (ushort)(16 * motor_a_minNUM.Value);
             cluster.min_pwm_b = (ushort)(16 * motor_b_minNUM.Value);

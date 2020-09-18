@@ -25,7 +25,7 @@ namespace SRB.NodeType.SpeedMotorF
         }
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             cluster.k0 = (ushort)this.k0NUM.Value;
             cluster.k1 = (ushort)this.k1NUM.Value;
             cluster.kp = (double)this.kpNUM.Value;

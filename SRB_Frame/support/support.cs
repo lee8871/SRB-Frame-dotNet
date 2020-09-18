@@ -96,6 +96,10 @@ namespace SRB.Frame
             return a;
         }
 
+        static public double getElapsedMs(this System.Diagnostics.Stopwatch sw)
+        {
+            return (1000.0 * sw.ElapsedTicks) / System.Diagnostics.Stopwatch.Frequency; ;
+        }
 
 
 

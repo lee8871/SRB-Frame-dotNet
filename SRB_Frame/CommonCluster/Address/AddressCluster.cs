@@ -6,7 +6,7 @@ namespace SRB.Frame
     {
         public class AddressCluster : Node.ICluster
         {
-            public byte addr { get => bank[0]; set => bank.temp[0] = value; }
+            public byte addr { get => bank[0]; set => bank[0] = value; }
             public string name { get => bank.getBankString(1, 27); set => bank.setBankString(value, 1, 27); }
             public byte error_behavior { get => bank.getBankByte(28); set => bank.setBankByte(value, 28); }
             public AddressCluster(Node n)
@@ -22,7 +22,7 @@ namespace SRB.Frame
                     {
                         if (ac.Send_data[1] < 100)
                         {
-                            if (addr != ac.Send_data[1])
+                            if (parent_node.Addr != ac.Send_data[1])
                             {
                                 bank[0] = ac.Send_data[1];
                                 parent_node.onAddressChanged(ac.Send_data[1]);
@@ -31,7 +31,7 @@ namespace SRB.Frame
                     }
                     else
                     {
-                        if (addr != ac.Send_data[1])
+                        if (parent_node.Addr != ac.Send_data[1])
                         {
                             parent_node.onAddressChanged(ac.Send_data[1]);
                         }

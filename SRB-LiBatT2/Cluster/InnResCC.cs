@@ -26,7 +26,7 @@ namespace SRB.NodeType.Charger
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
         }
 
         private void BatteryCC_Load(object sender, EventArgs e)

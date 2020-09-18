@@ -28,7 +28,7 @@ namespace SRB.NodeType.Charger
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             cluster.power_on_led_enable = LEDCB.Checked;
             cluster.power_on_enable_charge = ChargeEnableCB.Checked;
             cluster.power_on_mute = MuteCB.Checked;

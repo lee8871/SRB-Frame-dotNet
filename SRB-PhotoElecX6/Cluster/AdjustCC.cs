@@ -54,7 +54,7 @@ namespace SRB.NodeType.PhotoElecX6
         }
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             cluster.adj = (byte)nameToAdj(AdjCB.Text);
             cluster.motor_a_tog = motorATogCBOX.Checked;
             cluster.motor_b_tog = motorBTogCBOX.Checked;

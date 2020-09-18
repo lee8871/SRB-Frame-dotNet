@@ -28,15 +28,15 @@ namespace SRB.Frame
                 throw new Exception("totleLengthshold less than 28");
             }
             int i = 0;
-            bank.temp[i++] = (byte)up.Length;
-            bank.temp[i++] = (byte)down.Length;
+            bank[i++] = (byte)up.Length;
+            bank[i++] = (byte)down.Length;
             foreach (byte b in up)
             {
-                bank.temp[i++] = b;
+                bank[i++] = b;
             }
             foreach (byte b in down)
             {
-                bank.temp[i++] = b;
+                bank[i++] = b;
             }
         }
         public bool setMapping(byte[] mba)
@@ -50,7 +50,7 @@ namespace SRB.Frame
                 }
                 for (int i = 0; i < length; i++)
                 {
-                    bank.temp[i] = mba[i];
+                    bank[i] = mba[i];
                 }
                 return true;
             }

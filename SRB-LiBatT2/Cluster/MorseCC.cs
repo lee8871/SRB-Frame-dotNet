@@ -29,7 +29,7 @@ namespace SRB.NodeType.Charger
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
+            
             cluster.power_on = PowerOnMB.Morse_code;
             cluster.jack_in_vot_low = JackInLowMB.Morse_code;
             cluster.jack_in_charge_close = JackInDisableMB.Morse_code;

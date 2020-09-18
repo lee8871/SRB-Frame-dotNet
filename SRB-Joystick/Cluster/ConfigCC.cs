@@ -23,7 +23,6 @@ namespace SRB.NodeType.Joystick
 
         protected override void WriteData()
         {
-            cluster.writeBankinit();
             cluster.online_rumble_10ms = (int)(OnlineNUM.Value / 10);
             cluster.lose_rumble_10ms = (int)(loseNUM.Value / 10);
             cluster.Strength = (int)StrengthNUM.Value;

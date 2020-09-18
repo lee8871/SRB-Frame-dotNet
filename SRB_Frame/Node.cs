@@ -79,7 +79,7 @@ namespace SRB.Frame
         {
             this.addr = addr;
             this.bus = bus;
-            bank = new ByteBank(256, false);
+            bank = new ByteBank(256);
         }
         bool is_in_update = false;
         public bool Is_in_update => is_in_update;

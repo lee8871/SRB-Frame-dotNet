@@ -45,12 +45,11 @@ namespace SRB.Frame
                     throw new ClusterRedefineException(n, this);
                 }
                 n.clusters[this.cID] = this;
-                bank = new ByteBank(banksize, true);
+                bank = new ByteBank(banksize);
                 this.parent_node = n;
             }
             public void writeBankinit()
             {
-                bank.writeInit();
             }
             public bool is_not_exist = false;
             public void accessDone(Access ac)
@@ -87,11 +86,11 @@ namespace SRB.Frame
             }
             public virtual void write()
             {
-                byte[] data = new byte[bank.temp.Length + 1];
+                byte[] data = new byte[bank.Length + 1];
                 data[0] = CID;
-                for (int i = 0; i < bank.temp.Length; i++)
+                for (int i = 0; i < bank.Length; i++)
                 {
-                    data[i + 1] = bank.temp[i];
+                    data[i + 1] = bank[i];
                 }
                 Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, data);
                 parent_node.bus.singleAccess(ac);
@@ -101,7 +100,6 @@ namespace SRB.Frame
             {
                 if (ac.Recv_error == false)
                 {
-                    bank.writeDone();
                     OnDataChangded();
                 }
             }
