@@ -96,9 +96,9 @@ namespace SRB.Frame
             return a;
         }
 
-        static public double getElapsedMs(this System.Diagnostics.Stopwatch sw)
+        static public float getElapsedMs(this System.Diagnostics.Stopwatch sw)
         {
-            return (1000.0 * sw.ElapsedTicks) / System.Diagnostics.Stopwatch.Frequency; ;
+            return (1000.0f * sw.ElapsedTicks) / System.Diagnostics.Stopwatch.Frequency; ;
         }
 
 

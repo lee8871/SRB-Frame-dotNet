@@ -1,4 +1,4 @@
-﻿namespace SRB.NodeType.PhotoElecX4
+﻿namespace SRB_Chart
 {
     partial class Chart
     {

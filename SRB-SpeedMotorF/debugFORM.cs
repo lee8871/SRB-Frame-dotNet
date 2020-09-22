@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SRB.Frame;
 
@@ -34,10 +28,10 @@ namespace SRB.NodeType.SpeedMotorF
             get_speed_table_ST = new SrbThread(get_speed_table_Thread);
             bgd = n;
             test_sequence = new TestSequence(bgd);
-            test_sequence.eGetMotorStatus += test_sequence.saveToCsv;
-            test_sequence.eGetMotorStatus += test_sequence.saveToSvg;
+            test_sequence.chart = this.chart1;
+            chart1.x_ToStr = test_sequence.strToMs;
         }
-        protected double period_in_ms = 2;
+        protected double period_in_ms = 1;
 
         private double getElapsedMs(Stopwatch sw)
         {
@@ -221,6 +215,11 @@ namespace SRB.NodeType.SpeedMotorF
                 (sender as Button).BackColor = Control.DefaultBackColor;
                 TestSequence_ST.stop();
             }
+        }
+
+        private void ChartRefrashTimer_Tick(object sender, EventArgs e)
+        {
+            this.chart1.gotoForemost();
         }
     }
 }

@@ -30,10 +30,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB_SpeedMotor", "SRB-SpeedMotor\SRB_SpeedMotor.csproj", "{045DC19E-7140-4750-9572-79C106CB8AF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB-PhotoElecX4", "SRB-PhotoElecX4\SRB-PhotoElecX4.csproj", "{015F6C3A-86B0-4BD7-9B90-282A2B5B3771}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D12D1330-1F61-4413-90DC-07513C10C7ED} = {D12D1330-1F61-4413-90DC-07513C10C7ED}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB_SpeedMotorF", "SRB-SpeedMotorF\SRB_SpeedMotorF.csproj", "{79D2D745-C23E-49E2-B556-34895EAF5E48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRB-Chart", "SRB-Chart\SRB-Chart.csproj", "{D12D1330-1F61-4413-90DC-07513C10C7ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chart", "SRB-Chart\Chart.csproj", "{D12D1330-1F61-4413-90DC-07513C10C7ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

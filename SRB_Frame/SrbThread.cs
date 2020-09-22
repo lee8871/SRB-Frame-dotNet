@@ -33,6 +33,9 @@ namespace SRB.Frame
                 }
             }
         }
+        ThreadPriority priority;
+        public ThreadPriority Priority { get => priority; set => priority = value; }
+
         int stoping = 0;
         IBus bus;
         //todo: 理论上说，一个Srb线程可以使用多个总线，这里可以扩展总线数量。
@@ -44,6 +47,7 @@ namespace SRB.Frame
                 bus.addUser(this);
                 stoping = 0;
                 thread = new Thread(new ThreadStart(work));
+                thread.Priority = priority;
                 thread.Start();
                 return thread;
             }

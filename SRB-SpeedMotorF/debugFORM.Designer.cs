@@ -29,19 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart1 = new SRB_Chart.Chart();
             this.TestSequenceBTN = new System.Windows.Forms.Button();
             this.getSpeedTableBTN = new System.Windows.Forms.Button();
             this.RunTestBTN = new System.Windows.Forms.Button();
+            this.ChartRefrashTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -62,33 +59,33 @@
             this.splitContainer1.Panel2.Controls.Add(this.getSpeedTableBTN);
             this.splitContainer1.Panel2.Controls.Add(this.RunTestBTN);
             this.splitContainer1.Panel2MinSize = 100;
-            this.splitContainer1.Size = new System.Drawing.Size(484, 261);
-            this.splitContainer1.SplitterDistance = 379;
+            this.splitContainer1.Size = new System.Drawing.Size(1242, 705);
+            this.splitContainer1.SplitterDistance = 1137;
             this.splitContainer1.TabIndex = 0;
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.chart1.Forcu_on_plot = null;
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(379, 261);
+            this.chart1.Size = new System.Drawing.Size(1134, 673);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            this.chart1.X_grid_size = 100D;
+            this.chart1.X_location = 520D;
+            this.chart1.X_zoom = 0.5D;
+            this.chart1.Y_grid_size = 4000D;
+            this.chart1.Y_max = 16834D;
+            this.chart1.Y_min = -16834D;
+            this.chart1.Y_zoom = 0.02D;
             // 
             // TestSequenceBTN
             // 
             this.TestSequenceBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.TestSequenceBTN.Location = new System.Drawing.Point(11, 153);
+            this.TestSequenceBTN.Location = new System.Drawing.Point(11, 597);
             this.TestSequenceBTN.Name = "TestSequenceBTN";
             this.TestSequenceBTN.Size = new System.Drawing.Size(78, 47);
             this.TestSequenceBTN.TabIndex = 4;
@@ -109,7 +106,7 @@
             // RunTestBTN
             // 
             this.RunTestBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.RunTestBTN.Location = new System.Drawing.Point(11, 206);
+            this.RunTestBTN.Location = new System.Drawing.Point(11, 650);
             this.RunTestBTN.Name = "RunTestBTN";
             this.RunTestBTN.Size = new System.Drawing.Size(78, 47);
             this.RunTestBTN.TabIndex = 0;
@@ -117,11 +114,16 @@
             this.RunTestBTN.UseVisualStyleBackColor = true;
             this.RunTestBTN.Click += new System.EventHandler(this.RunTestBTN_Click);
             // 
+            // ChartRefrashTimer
+            // 
+            this.ChartRefrashTimer.Enabled = true;
+            this.ChartRefrashTimer.Tick += new System.EventHandler(this.ChartRefrashTimer_Tick);
+            // 
             // debugFORM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 261);
+            this.ClientSize = new System.Drawing.Size(1242, 705);
             this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "debugFORM";
@@ -131,7 +133,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -142,6 +143,7 @@
         private System.Windows.Forms.Button RunTestBTN;
         private System.Windows.Forms.Button getSpeedTableBTN;
         private System.Windows.Forms.Button TestSequenceBTN;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private SRB_Chart.Chart chart1;
+        private System.Windows.Forms.Timer ChartRefrashTimer;
     }
 }

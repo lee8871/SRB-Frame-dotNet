@@ -63,12 +63,6 @@
     <Compile Include="Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chart\Chart.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chart\Chart.Designer.cs">
-      <DependentUpon>Chart.cs</DependentUpon>
-    </Compile>
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,9 +78,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Chart\Chart.resx">
-      <DependentUpon>Chart.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Cluster\AdjustCC.resx">
       <DependentUpon>AdjustCC.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +96,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SRB-Chart\Chart.csproj">
+      <Project>{d12d1330-1f61-4413-90dc-07513c10c7ed}</Project>
+      <Name>Chart</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB_Frame\SRB_Frame.csproj">
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>

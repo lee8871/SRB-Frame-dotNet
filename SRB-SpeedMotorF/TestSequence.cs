@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SRB.Frame;
 using System.Windows.Forms;
 using SRB.Support;
 using System.Xml;
+using SRB_Chart;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -38,59 +35,78 @@ namespace SRB.NodeType.SpeedMotorF
         {
             this.bgd = bgd;
             st = new SrbThread(TestSequence_Thread);
+            st.Priority = System.Threading.ThreadPriority.Highest;
         }
-        public int[] target_speed_table;
-        public double period_in_ms = 2;
+        public TimeMappingSpeed target_speed_table;
+        public float period_in_ms = 1;
 
-        protected double getElapsedMs(Stopwatch sw)
-        {
-            return (1000.0 * sw.ElapsedTicks) / Stopwatch.Frequency; ;
-        }
-        public int[] initSpeedArray()
+
+        public TimeMappingSpeed initSpeedArray()
         {
             int max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024)) - 10;
-            int s0 = 0;
-            int s1 = max_speed / 4;
-            int s2 = max_speed * 3 / 4;
-            int[] speed_table_1 = { s0, s1, s2, s1, s2, -s1, -s2, -s1, -s2,  s0 };
-            int[] speed_array = new int[500*speed_table_1.Length];
-            for(int i = 0; i < speed_array.Length; i++)
-            {
-                speed_array[i] = speed_table_1[i / 500];
-            }      
-            return speed_array;
+            return TimeMappingSpeed.createTest_1(max_speed);
         }
+        public PlotGroup pg_last;
+        public PlotGroup pg;
+        public Chart chart;
 
-
+        public string strToMs(double var)
+        {
+            return $"{(var / 1000):F1}s";
+        }
         public void TestSequence_Thread(SrbThread.dIsThreadStoping IsStoping)
         {
+            int lose_times = 0;
+            if (pg_last != null)
+            {
+                chart.remove(pg_last.Plots[0]);
+                chart.remove(pg_last.Plots[1]);
+            }
+            if (pg != null)
+            {
+                pg_last = pg;
+                pg_last.Plots[0].Color = System.Drawing.Color.FromArgb(64, pg_last.Plots[0].Color);
+                pg_last.Plots[1].Color = System.Drawing.Color.FromArgb(64, pg_last.Plots[1].Color);
+            }
+            pg = new PlotGroup(3);
+            pg.Plots[0].Color = System.Drawing.Color.ForestGreen;
+            pg.Plots[1].Color = System.Drawing.Color.Violet;
+            chart.Forcu_on_plot = pg.Plots[0];
+            chart.add(pg.Plots[0]);
+            chart.add(pg.Plots[1]);
+
+
             if (target_speed_table == null)
             {
                 target_speed_table = initSpeedArray();
             }
             Stopwatch sw = new Stopwatch();
-            MotorStatus[] motor_status_array = new MotorStatus[target_speed_table.Length];
 
-            double time = 0;
+            float time = 0f;
             sw.Restart();
-            for (int i = 0; i < target_speed_table.Length; i++)
+            object motion = null;
+            double[] temp = new double[3];
+            while (time < target_speed_table.Max_time)
             {
-                bgd.target_speed = target_speed_table[i];
+                bgd.target_speed = target_speed_table.speed(time, ref motion);
                 bgd.addDataAccess(1, true);
-                motor_status_array[i] = new MotorStatus(getElapsedMs(sw), bgd.target_speed, bgd.sensor_speed, bgd.odometer);
+                temp[0] = bgd.target_speed;
+                temp[1] = bgd.sensor_speed;
+                temp[2] = bgd.odometer;
+                pg.append(time, temp);
                 if (IsStoping())
                 {
                     break;
                 }
-                time += period_in_ms;
-                while (getElapsedMs(sw) < time) ;
+                while (sw.getElapsedMs() - time < period_in_ms) ;
+                time = sw.getElapsedMs();
             }
             if(eGetMotorStatus != null)
             {
-                eGetMotorStatus.Invoke(motor_status_array);
+                eGetMotorStatus.Invoke(pg);
             }
         }
-        public delegate void dGetMotorStatus(MotorStatus[] motor_status_array);
+        public delegate void dGetMotorStatus(PlotGroup motor_status_array);
         public event dGetMotorStatus eGetMotorStatus;
 
         public void saveToCsv(MotorStatus[] motor_status_array)

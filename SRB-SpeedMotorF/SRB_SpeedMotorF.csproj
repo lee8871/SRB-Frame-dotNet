@@ -42,12 +42,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Forms.DataVisualization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +75,7 @@
     </Compile>
     <Compile Include="SRB_SpeedMotorF.cs" />
     <Compile Include="TestSequence.cs" />
+    <Compile Include="TimeMappingSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Cluster\PidCC.resx">
@@ -97,6 +93,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SRB-Chart\Chart.csproj">
+      <Project>{D12D1330-1F61-4413-90DC-07513C10C7ED}</Project>
+      <Name>Chart</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SRB_Frame\SRB_Frame.csproj">
       <Project>{ccf5e553-8dc8-490f-8386-8414c1791833}</Project>
       <Name>SRB_Frame</Name>

@@ -15,7 +15,5 @@ namespace SRB.Support
             System.IO.Directory.CreateDirectory(path);//如果文件夹不存在就创建它
             return $"{path}/{name}-{ System.DateTime.Now.ToString("HHmmss")}.{type}";
         }
-
-
     }
 }
