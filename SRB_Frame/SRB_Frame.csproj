@@ -61,6 +61,7 @@
       <DependentUpon>SyncCC.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonCluster\SyncCluster.cs" />
+    <Compile Include="Pool.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

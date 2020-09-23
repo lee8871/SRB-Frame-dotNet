@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace SRB.Frame
 {
-    public abstract partial class IBus :  IEnumerable<Node>
+    public abstract partial class IBus : IEnumerable<Node>
     {
         public delegate void dAddNode(IBus bus, Node n);
         public event dAddNode eNodeAdd;
@@ -27,7 +27,8 @@ namespace SRB.Frame
             }
             temp_node = new Node(address, this);
             return temp_node;
-            ; }
+            ;
+        }
         public Node addTempNode()
         {
             if (temp_node == null)
@@ -121,10 +122,15 @@ namespace SRB.Frame
                 return null;
             }
         }
+    };
+
+
+    public abstract partial class IBus
+    {
 
         #region thread closing
-        
-        
+
+
         public interface IbusUser
         {
             void stopUseBus(IBus bus);
@@ -161,11 +167,11 @@ namespace SRB.Frame
                 user.stopUseBus(this);
             }
             int retry = 2500;
-            while(true)
+            while (true)
             {
                 lock (bus_user_lock)
                 {
-                    if(user_list.Count == 0)
+                    if (user_list.Count == 0)
                     {
                         return;
                     }
@@ -173,10 +179,10 @@ namespace SRB.Frame
                 Thread.Sleep(20);
                 if (retry-- < 0)
                 {
-                    string est = string.Format("Bus {0} close all user time out. Unstopable user is :", this.ToString()) ;
-                    foreach(IbusUser user in user_list)
+                    string est = string.Format("Bus {0} close all user time out. Unstopable user is :", this.ToString());
+                    foreach (IbusUser user in user_list)
                     {
-                        est += user.ToString()+"\n";
+                        est += user.ToString() + "\n";
                     }
                     throw new TimeoutException(est);
                 }
@@ -184,10 +190,10 @@ namespace SRB.Frame
         }
 
 
-        
-                    
-        
-        
+
+
+
+
         #endregion
 
 
@@ -195,7 +201,8 @@ namespace SRB.Frame
     };
 
 
-    public abstract partial class IBus {
+    public abstract partial class IBus
+    {
 
         private ISRB_Record record;
         public ISRB_Record Record { get => record; set => record = value; }
@@ -242,6 +249,17 @@ namespace SRB.Frame
         {
             throw new System.NotImplementedException();
         }
+    }
+
+    public abstract partial class IBus
+    {
+        AccessPool access_pool;
+        public Access accessRequest(IAccesser a, Node n, AccessPort p)
+        {
+            Access access = access_pool.request();
+            access.loadAccess(a, n, p);
+            return access;
+        } 
     }
 }
 

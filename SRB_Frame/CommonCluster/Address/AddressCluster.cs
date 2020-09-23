@@ -64,8 +64,8 @@ namespace SRB.Frame
             public enum LedAddrType { High, Low, Close };
             public void ledAddr(LedAddrType adt)
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = CID;
                 switch (adt)
@@ -78,13 +78,12 @@ namespace SRB.Frame
                         b[i++] = 0xf3; break;
 
                 }
-                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public static void ledAddrBroadcast(LedAddrType adt, IBus bus)
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = bus.accessRequest(null, null, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = 0;
                 switch (adt)
@@ -97,7 +96,6 @@ namespace SRB.Frame
                         b[i++] = 0xf3; break;
 
                 }
-                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
 
             }
@@ -107,33 +105,30 @@ namespace SRB.Frame
                 {
                     throw new Exception("Set address can not high than 100");
                 }
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = a;
-                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public static void randomAddrAll(IBus bus)
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = bus.accessRequest(null, null, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = 0;
                 b[i++] = 0xfa;
-                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
             }
 
             public static void randomAddrNewNode(IBus bus)
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = bus.accessRequest(null, null, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = 0;
                 b[i++] = 0xf0;
-                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
             }
             public class Broadcast 

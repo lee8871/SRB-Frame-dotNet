@@ -23,6 +23,7 @@ namespace SRB.Frame
         NoSend, PortColsed,
         SendWaitRecv, DeviceTimeOut,
         RecvedDone, SrbTimeOut, BroadcasePkg, RecvedBadPkg,
+        NoInited
     };
     public enum AccessNodeError
     {
@@ -33,23 +34,120 @@ namespace SRB.Frame
     };
     public enum AccessPort { D0, D1, D2, D3, Udp, Cgf, Rpt, Res };
 
+
+    public interface IReadAsByteArray {
+        byte this[int i] { get; }
+        string ToHexSt();
+    }
+
+
+
+    public struct AccessData: IReadAsByteArray
+    {
+        int length;
+        byte[] data;
+        public AccessData(int max_length = 31)
+        {
+            length = 0;
+            data = new byte[max_length];
+        }
+        public void clean()
+        {
+            length = 0;
+        }
+        public int Length => length;
+        public byte this[int i]
+        {
+            get 
+            {
+                if (i >= length)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    return data[i];
+                }
+            }
+            set
+            {
+                if (i >= length)
+                {
+                    length = i + 1;
+                }
+                data[i] = value;
+            }
+        }
+        public void load(byte[] ba, int diff = 0)
+        {
+            int i = 0;
+            while (diff < ba.Length)
+            {
+                data[i++] = ba[diff++];
+            }
+            if(length < i)
+            {
+                length = i;
+            }
+        }
+        public void load(byte[] ba, int diff, int count)
+        {
+            int i = 0;
+            while (i < count)
+            {
+                data[i++] = ba[diff++];
+            }
+            if (length < i)
+            {
+                length = i;
+            }
+        }
+        public void load(byte[] ba, int i, int diff, int count)
+        {
+            count += i;
+            while (i < count)
+            {
+                data[i++] = ba[diff++];
+            }
+            if (length < i)
+            {
+                length = i;
+            }
+        }
+
+        public string ToHexSt()
+        {
+            if (length == 0)
+            {
+                return "<empty>";
+            }
+            string s = "";
+            for (int i = 0; i < length; i++)
+            {
+                s += data[i].ToHexSt() + ' ';
+            }
+            return s;
+        }
+    }
+
+
+
+
     public class Access
     {
-        //about Note
-        private long send_tick = 0;
-        public long Send_tick { get => send_tick; }
+        private AccessPool pool;
         private DateTime sendTime;
         private DateTime recvTime;
-        public string Description = "";
+        private string description = "";
+        public string Description { get => description; set => description = value; }
 
         private Node sender_node;
         private IAccesser accesser;
 
-        private int retry = -1;
+        private int retry;
         private AccessStatus _status;
         private AccessPort _port;
 
-        public int Retry { get => retry; }
         public byte Addr
         {
             get
@@ -68,12 +166,12 @@ namespace SRB.Frame
         public AccessPort Port => _port;
 
         //_send_data is set by constructor
-        private byte[] _send_data;
-        public byte[] Send_data => _send_data;
+        private AccessData _send_data;
+        public AccessData Send_data => _send_data;
         //_recv_data is set by recv
-        private byte[] _recv_data;
-        public byte[] Recv_data => _recv_data;
-        public byte Send_bfc => (byte)((int)_port * 32 + _send_data.Length);
+        private AccessData _recv_data;
+        public IReadAsByteArray Recv_data => _recv_data;
+        public byte Send_bfc => (byte)((int)_port * 32 + Send_data.Length);
 
         private byte _recv_bfc;
         public bool Recv_error => (_recv_bfc & (1 << 7)) != 0;
@@ -81,14 +179,34 @@ namespace SRB.Frame
         public bool Recv_event => (_recv_bfc & (1 << 5)) != 0;
         public int Recv_data_len => (int)(_recv_bfc & 0x1f);
 
+        public Access(AccessPool pool)
+        {
+            _send_data = new AccessData();
+            _recv_data = new AccessData();
+            init();
+            this.pool = pool;
+        }
 
-        public Access(IAccesser a, Node n, AccessPort p, byte[] send_d)
+        public void init()
+        {
+            sendTime = DateTime.MinValue;
+            recvTime = DateTime.MinValue;
+            Description = "";
+            retry = -1;
+            _status = AccessStatus.NoInited;
+        }
+        public void free()
+        {
+            pool.free(this);
+        }
+
+        public AccessData loadAccess(IAccesser a, Node n, AccessPort p)
         {
             accesser = a;
             sender_node = n;
-            _send_data = send_d;
             _port = p;
             _status = AccessStatus.NoSend;
+            return _send_data;
         }
 
 
@@ -127,11 +245,7 @@ namespace SRB.Frame
                 this._recv_bfc = bfc;
                 if ((data.Length - offset) > this.Recv_data_len)
                 {
-                    this._recv_data = new byte[this.Recv_data_len];
-                    for (int i = 0; i < this.Recv_data_len; i++)
-                    {
-                        _recv_data[i] = data[i + offset];
-                    }
+                    _recv_data.load(data, offset, this.Recv_data_len);
                     this.retry = retry;
                     _status = AccessStatus.RecvedDone;
                 }
@@ -150,7 +264,7 @@ namespace SRB.Frame
         {
             recvTime = DateTime.Now;
             this._recv_bfc = bfc;
-            this._recv_data = data;
+            this._recv_data.load(data);
             if ((data.Length) != this.Recv_data_len)
             {
                 _status = AccessStatus.RecvedBadPkg;
@@ -186,7 +300,7 @@ namespace SRB.Frame
         }
         public void sendDone(long et = 0)
         {
-            send_tick = et;
+           // send_tick = et;
             _status = AccessStatus.SendWaitRecv;
             sendTime = DateTime.Now;
         }
