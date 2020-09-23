@@ -461,11 +461,11 @@ namespace SRB.port
             {
                 if (a != null)
                 {
-                    if (a.Status == Access.StatusEnum.SendWaitRecv)
+                    if (a.Status == AccessStatus.SendWaitRecv)
                     {
                         return true;
                     }
-                    if (a.Status == Access.StatusEnum.NoSend)
+                    if (a.Status == AccessStatus.NoSend)
                     {
                         return true;
                     }

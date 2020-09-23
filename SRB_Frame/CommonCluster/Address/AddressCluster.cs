@@ -78,7 +78,7 @@ namespace SRB.Frame
                         b[i++] = 0xf3; break;
 
                 }
-                ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
+                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public static void ledAddrBroadcast(LedAddrType adt, IBus bus)
@@ -97,7 +97,7 @@ namespace SRB.Frame
                         b[i++] = 0xf3; break;
 
                 }
-                ac = new Access(null, null, Access.PortEnum.Cgf, b);
+                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
 
             }
@@ -112,7 +112,7 @@ namespace SRB.Frame
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = a;
-                ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
+                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public static void randomAddrAll(IBus bus)
@@ -122,7 +122,7 @@ namespace SRB.Frame
                 int i = 0;
                 b[i++] = 0;
                 b[i++] = 0xfa;
-                ac = new Access(null, null, Access.PortEnum.Cgf, b);
+                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
             }
 
@@ -133,7 +133,7 @@ namespace SRB.Frame
                 int i = 0;
                 b[i++] = 0;
                 b[i++] = 0xf0;
-                ac = new Access(null, null, Access.PortEnum.Cgf, b);
+                ac = new Access(null, null, AccessPort.Cgf, b);
                 bus.singleAccess(ac);
             }
             public class Broadcast 

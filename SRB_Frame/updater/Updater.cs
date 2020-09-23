@@ -85,7 +85,7 @@ namespace SRB.Frame{
             bool is_busy = false;
             public void accessDone(Access ac)
             {
-                if (ac.Port != Access.PortEnum.Udp)
+                if (ac.Port != AccessPort.Udp)
                 {
                     throw new Exception("Update type should Udp,but get " + ac.Port.ToString());
                 }
@@ -131,11 +131,11 @@ namespace SRB.Frame{
             }
             public void sendInfoPkg(int retry_ms = 50)
             {
-                node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_INFO }));
+                node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_INFO }));
             }
             public void sendAppInfoPkg(int retry_ms = 50)
             {
-                node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDP_CMD_APP_INFO }));
+                node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDP_CMD_APP_INFO }));
             }
             public void hold(int retry_ms = 50)
             {
@@ -144,7 +144,7 @@ namespace SRB.Frame{
                 is_hold = false;
                 while (is_hold == false)
                 {
-                    node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_HOLD }));
+                    node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_HOLD }));
                     if (stopwatch.ElapsedMilliseconds > retry_ms)
                     {
                         throw new UpdateTimeoutException("切换下载状态", retry_ms);
@@ -163,13 +163,13 @@ namespace SRB.Frame{
                     step = "update::preparatory wait idle";
                     waitToIdle(Update_time_out, totle_time_out_ms);
                     step = "update::erase";
-                    node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_ERASE }));
+                    node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_ERASE }));
 
                     int counter = 0;
                     foreach (var ba in sup_file)
                     {
                         waitToIdle(Update_time_out, totle_time_out_ms);
-                        node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, ba));
+                        node.bus.singleAccess(new Access(this, node, AccessPort.Udp, ba));
 
                         step = "update::write" + counter;
                         counter++;
@@ -188,7 +188,7 @@ namespace SRB.Frame{
                 is_busy = true;
                 while (is_busy == true)
                 {
-                    node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_HOLD }));
+                    node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_HOLD }));
                     if (time_out_watch.ElapsedMilliseconds > time_out_ms)
                     {
                         throw new UpdateTimeoutException(null, time_out_ms);
@@ -212,7 +212,7 @@ namespace SRB.Frame{
                 {
                     step = "update::preparatory wait idle";
                     waitToIdle(Update_time_out, totle_time_out_ms);
-                    node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_CHECK }));
+                    node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_CHECK }));
                     step = "update::wait check done";
                     waitToIdle(Update_time_out, totle_time_out_ms);
                 }
@@ -223,7 +223,7 @@ namespace SRB.Frame{
                 }
                 if (is_code_good == true)
                 {
-                    node.bus.singleAccess(new Access(this, node, Access.PortEnum.Udp, new byte[] { UDT_CMD_RUN }));
+                    node.bus.singleAccess(new Access(this, node, AccessPort.Udp, new byte[] { UDT_CMD_RUN }));
                     Update_time_out.Restart();
                     return true;
                 }
@@ -278,7 +278,7 @@ namespace SRB.Frame{
                     stopwatch.Restart();
                     while (true)
                     {
-                        bus.singleAccess(new Access(null, null, Access.PortEnum.Udp, new byte[] { SrbUpdater.UDT_CMD_HOLD }));
+                        bus.singleAccess(new Access(null, null, AccessPort.Udp, new byte[] { SrbUpdater.UDT_CMD_HOLD }));
                         if (stopwatch.ElapsedMilliseconds > 10000)
                         {
                             return;

@@ -121,7 +121,7 @@ namespace SRB.Frame
 
                 private byte recordTimeBroadcast(out long elapsed_ticks)
                 {
-                    Access ac = new Access(null, null, Access.PortEnum.Cgf, new byte[]
+                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, Sync_public_sno});
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
@@ -135,7 +135,7 @@ namespace SRB.Frame
                 }
                 private byte recordTimeBroadcast()
                 {
-                    Access ac = new Access(null, null, Access.PortEnum.Cgf, new byte[]
+                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, Sync_public_sno});
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
@@ -149,7 +149,7 @@ namespace SRB.Frame
 
                 private void syncToBroadcast(ushort ms, byte us4, byte sno)
                 {
-                    Access ac = new Access(null, null, Access.PortEnum.Cgf, new byte[]
+                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
                     bus.singleAccess(ac);
                     return;

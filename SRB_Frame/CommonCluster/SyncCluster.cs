@@ -53,7 +53,7 @@ namespace SRB.Frame
             }
             public void syncTo(ushort ms, byte us4, byte sno  )
             {
-                Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] 
+                Access ac = new Access(this, parent_node, AccessPort.Cgf, new byte[] 
                 { CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
                 parent_node.bus.singleAccess(ac);
             }            

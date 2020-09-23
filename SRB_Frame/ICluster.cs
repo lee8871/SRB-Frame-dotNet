@@ -54,7 +54,7 @@ namespace SRB.Frame
             public bool is_not_exist = false;
             public void accessDone(Access ac)
             {
-                if (ac.Port != Access.PortEnum.Cgf)
+                if (ac.Port != AccessPort.Cgf)
                 {
                     throw new Exception("Data type should Cfg,but get " + ac.Port.ToString());
                 }
@@ -66,7 +66,7 @@ namespace SRB.Frame
                 {
                     switch( ac.Recv_data[0] )
                     {
-                        case (int)(Access.NodeErrorEnum.RE_CFG_EMPTY_CLUSTER):
+                        case (int)(AccessNodeError.RE_CFG_EMPTY_CLUSTER):
                             is_not_exist = true;
                             break;
                     }
@@ -92,7 +92,7 @@ namespace SRB.Frame
                 {
                     data[i + 1] = bank[i];
                 }
-                Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, data);
+                Access ac = new Access(this, parent_node, AccessPort.Cgf, data);
                 parent_node.bus.singleAccess(ac);
 
             }
@@ -106,7 +106,7 @@ namespace SRB.Frame
 
             public void read()
             {
-                Access ac = new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] { CID });
+                Access ac = new Access(this, parent_node, AccessPort.Cgf, new byte[] { CID });
                 parent_node.bus.singleAccess(ac);
             }
             public void readAll()
@@ -118,9 +118,9 @@ namespace SRB.Frame
                 else {                    
                     foreach (ICluster c in following_clusters)
                     {
-                        parent_node.bus.addAccess( new Access(c, parent_node, Access.PortEnum.Cgf, new byte[] { c.CID }));
+                        parent_node.bus.addAccess( new Access(c, parent_node, AccessPort.Cgf, new byte[] { c.CID }));
                     }
-                    parent_node.bus.addAccess(new Access(this, parent_node, Access.PortEnum.Cgf, new byte[] { this.CID }));
+                    parent_node.bus.addAccess(new Access(this, parent_node, AccessPort.Cgf, new byte[] { this.CID }));
                     parent_node.bus.sendAccess();
                 }
             }

@@ -168,7 +168,7 @@ namespace SRB.port
             OpenPort();
             for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
             {
-                if (acs[acs_counter].Status == Access.StatusEnum.SendWaitRecv)
+                if (acs[acs_counter].Status == AccessStatus.SendWaitRecv)
                 {
                     acs[acs_counter].sendFail();
                 }

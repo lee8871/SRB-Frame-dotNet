@@ -81,7 +81,7 @@ namespace SRB.Frame
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = (byte)'R';
-                ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
+                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public void factorySettingNode()
@@ -91,7 +91,7 @@ namespace SRB.Frame
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = (byte)'F';
-                ac = new Access(this, this.parent_node, Access.PortEnum.Cgf, b);
+                ac = new Access(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
                 parent_node.onDescriptionChanged();
             }
