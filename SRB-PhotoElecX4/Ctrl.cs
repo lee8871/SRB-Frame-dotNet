@@ -72,7 +72,7 @@ namespace SRB.NodeType.PhotoElecX4
 
         private void DebugBTN_Click(object sender, EventArgs e)
         {
-            Form f = new TestForm();
+            Form f = new TestForm(datas);
             f.Show();
         }
     }

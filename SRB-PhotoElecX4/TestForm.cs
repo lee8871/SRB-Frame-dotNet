@@ -13,25 +13,35 @@ namespace SRB.NodeType.PhotoElecX4
     public partial class TestForm : Form
     {
 
+        private Interpreter datas;
         public TestForm()
         {
             InitializeComponent();
-
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public TestForm(Interpreter datas)
         {
-
+            InitializeComponent();
+            this.datas = datas;
+            tableInit();
         }
 
-        private void chart1_Click(object sender, EventArgs e)
+
+        private void tableInit()
         {
-
+            int col = ADCtable.Columns.Add("Phase", "Phase");
+            ADCtable.Columns[col].Width = 40;
+            ADCtable.Columns[col].ReadOnly = true;
+            for (int i = 0; i < datas.Sensor_num; i++)
+            {
+                col = ADCtable.Columns.Add("S" + i, "S" + i);
+                ADCtable.Columns[col].Width = 40;
+                ADCtable.Columns[col].ReadOnly = true;
+            }
+            ADCtable.Rows.Add(16);
         }
 
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+
+
     }
 }

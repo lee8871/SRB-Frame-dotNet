@@ -82,33 +82,49 @@ namespace SRB.NodeType.SpeedMotorF
             }
             Stopwatch sw = new Stopwatch();
 
+            string lose_sync_report = "";
+            float[] time_report = new float[4];
             float time = 0f;
             sw.Restart();
             object motion = null;
             double[] temp = new double[3];
             while (time < target_speed_table.Max_time)
             {
+                time_report[0] = sw.getElapsedMs();
                 bgd.target_speed = target_speed_table.speed(time, ref motion);
                 bgd.addDataAccess(1, true);
+                time_report[1] = sw.getElapsedMs();
                 temp[0] = bgd.target_speed;
                 temp[1] = bgd.sensor_speed;
                 temp[2] = bgd.odometer;
                 pg.append(time, temp);
+
+                time_report[2] = sw.getElapsedMs();
                 if (IsStoping())
                 {
                     break;
                 }
-                while (sw.getElapsedMs() - time < period_in_ms) ;
+                float f_temp;
+                if ((f_temp = (sw.getElapsedMs() - time)) > period_in_ms)
+                {
+                    lose_sync_report += $"L:{f_temp:f2} in={time_report[0]:f2} access={time_report[1]:f2} append={time_report[2]:f2}\n";
+                }
+                else
+                {
+                    while (sw.getElapsedMs() - time < period_in_ms) ;
+                }
                 time = sw.getElapsedMs();
             }
-            if(eGetMotorStatus != null)
+            this.lose_sync_report = lose_sync_report;
+            if (eGetMotorStatus != null)
             {
                 eGetMotorStatus.Invoke(pg);
             }
         }
         public delegate void dGetMotorStatus(PlotGroup motor_status_array);
         public event dGetMotorStatus eGetMotorStatus;
-
+        string lose_sync_report;
+        public string Lose_sync_report => lose_sync_report;
         public void saveToCsv(MotorStatus[] motor_status_array)
         {
             string file = FileRecordMaker.getStringFile("SpeedMotorF", "test-sequence", "csv");

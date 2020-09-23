@@ -63,6 +63,7 @@
     <Compile Include="Ctrl.Designer.cs">
       <DependentUpon>Ctrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PE4_PlotGroup.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>

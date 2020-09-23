@@ -279,9 +279,9 @@ namespace SRB_Chart
                 if (forcu_on_plot.Length > 0)
                 {
                     double temp = forcu_on_plot.X_max- forcu_on_plot.X_min - (Size.Width - 200 )/ x_zoom ;
-                    if (temp < 0)
+                    if (temp < forcu_on_plot.X_min)
                     {
-                        temp = 0;
+                        temp = forcu_on_plot.X_min;
                     }
                     this.X_location = temp;
                 }

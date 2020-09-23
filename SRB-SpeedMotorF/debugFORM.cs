@@ -28,9 +28,24 @@ namespace SRB.NodeType.SpeedMotorF
             get_speed_table_ST = new SrbThread(get_speed_table_Thread);
             bgd = n;
             test_sequence = new TestSequence(bgd);
+            test_sequence.eGetMotorStatus += Test_sequence_eGetMotorStatus;
             test_sequence.chart = this.chart1;
             chart1.x_ToStr = test_sequence.strToMs;
         }
+
+        private void Test_sequence_eGetMotorStatus(SRB_Chart.PlotGroup motor_status_array)
+        {
+            if (this.InvokeRequired)
+                {
+                TestSequence.dGetMotorStatus d = new TestSequence.dGetMotorStatus(Test_sequence_eGetMotorStatus);
+                    this.Invoke(d, new object[] { motor_status_array });
+            }
+            else
+            {
+                this.reportRTC.Text +=$"{DateTime.Now.ToShortTimeString()}:\n{test_sequence.Lose_sync_report}";
+            }
+        }
+
         protected double period_in_ms = 1;
 
         private double getElapsedMs(Stopwatch sw)
@@ -164,19 +179,6 @@ namespace SRB.NodeType.SpeedMotorF
             }
         }
 
-        private void RunTestBTN_Click(object sender, EventArgs e)
-        {
-            if (this.motor_test_ST.Is_running == false)
-            {
-                RunTestBTN.BackColor = Color.LightBlue;
-                motor_test_ST.run(bgd.Bus);
-            }
-            else
-            {
-                RunTestBTN.BackColor = Control.DefaultBackColor;
-                motor_test_ST.stop();
-            }
-        }
 
         private void debugFORM_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -184,21 +186,7 @@ namespace SRB.NodeType.SpeedMotorF
             {
                 this.Hide();
                 e.Cancel = true;
-                RunTestBTN.BackColor = Control.DefaultBackColor;
                 motor_test_ST.stop();
-            }
-        }
-        private void getSpeedTableBTN_Click(object sender, EventArgs e)
-        {
-            if (this.get_speed_table_ST.Is_running == false)
-            {
-                getSpeedTableBTN.BackColor = Color.LightBlue;
-                get_speed_table_ST.run(bgd.Bus);
-            }
-            else
-            {
-                getSpeedTableBTN.BackColor = Control.DefaultBackColor;
-                get_speed_table_ST.stop();
             }
         }
         SrbThread TestSequence_ST => test_sequence.St;
