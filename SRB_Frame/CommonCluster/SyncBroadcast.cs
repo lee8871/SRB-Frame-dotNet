@@ -10,7 +10,7 @@ namespace SRB.Frame
 {
     public partial class Node
     {
-        public partial class SyncCluster : Node.ICluster
+        public partial class SyncCluster : Node.ICluster 
         {
             public class SyncNodeGroup
             {
@@ -68,7 +68,7 @@ namespace SRB.Frame
                     all_nodes = null;
                 }
             }
-            public class Broadcast
+            public class Broadcast: IAccesser
             {
                 public delegate void dInfoOut(string st);
                 public dInfoOut debug;
@@ -119,9 +119,16 @@ namespace SRB.Frame
                     tick_base -= (srb_clock* Stopwatch.Frequency +  (250000/2) ) / 250000;
                 }
 
+                
+                long elapsed_ticks;
+                public void accessDone(Access acs)
+                {
+                    elapsed_ticks = acs.Send_tick;
+                }
+
                 private byte recordTimeBroadcast(out long elapsed_ticks)
                 {
-                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
+                    Access ac = Bus.accessRequest(this, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, Sync_public_sno});
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
@@ -130,12 +137,12 @@ namespace SRB.Frame
                         Sync_public_sno = 0;
                     }
                     bus.singleAccess(ac);
-                    elapsed_ticks = ac.Send_tick;
+                    elapsed_ticks = this.elapsed_ticks;
                     return rev;
                 }
                 private byte recordTimeBroadcast()
                 {
-                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
+                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, Sync_public_sno});
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
@@ -149,7 +156,7 @@ namespace SRB.Frame
 
                 private void syncToBroadcast(ushort ms, byte us4, byte sno)
                 {
-                    Access ac = new Access(null, null, AccessPort.Cgf, new byte[]
+                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf, new byte[]
                     { Node.SyncCluster.FIX_CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
                     bus.singleAccess(ac);
                     return;

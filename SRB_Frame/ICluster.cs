@@ -92,7 +92,7 @@ namespace SRB.Frame
                 {
                     data[i + 1] = bank[i];
                 }
-                Access ac = new Access(this, parent_node, AccessPort.Cgf, data);
+                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, data);
                 parent_node.bus.singleAccess(ac);
 
             }
@@ -106,7 +106,7 @@ namespace SRB.Frame
 
             public void read()
             {
-                Access ac = new Access(this, parent_node, AccessPort.Cgf, new byte[] { CID });
+                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, new byte[] { CID });
                 parent_node.bus.singleAccess(ac);
             }
             public void readAll()
@@ -118,9 +118,9 @@ namespace SRB.Frame
                 else {                    
                     foreach (ICluster c in following_clusters)
                     {
-                        parent_node.bus.addAccess( new Access(c, parent_node, AccessPort.Cgf, new byte[] { c.CID }));
+                        parent_node.bus.addAccess( Bus.accessRequest(c, parent_node, AccessPort.Cgf, new byte[] { c.CID }));
                     }
-                    parent_node.bus.addAccess(new Access(this, parent_node, AccessPort.Cgf, new byte[] { this.CID }));
+                    parent_node.bus.addAccess(Bus.accessRequest(this, parent_node, AccessPort.Cgf, new byte[] { this.CID }));
                     parent_node.bus.sendAccess();
                 }
             }

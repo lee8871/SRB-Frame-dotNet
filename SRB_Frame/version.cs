@@ -35,6 +35,16 @@ namespace SRB.Frame
             if (miner == 255) miner = -1;
 
         }
+        public void read(IReadAsByteArray ba, int offset)
+        {
+            major = ba[offset++];
+            branch = ba[offset++];
+            miner = ba[offset++];
+            if (major == 255) major = -1;
+            if (branch == 255) branch = -1;
+            if (miner == 255) miner = -1;
+
+        }
         public void read(string st)
         {
             string[] sta = st.Split(new char[1] { '.' });

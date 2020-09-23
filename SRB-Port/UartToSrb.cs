@@ -226,8 +226,9 @@ namespace SRB.port
             {
                 all_bytes_buffer[send_buffer_counter++] = 0xf3;
             }
-            foreach (byte b in ac.Send_data)
+            for(int point=0; point < ac.Send_data.Length; point++)
             {
+                byte b = ac.Send_data[point];
                 if (0xf5 == (all_bytes_buffer[send_buffer_counter++] = b))
                 {
                     all_bytes_buffer[send_buffer_counter++] = 0xf3;

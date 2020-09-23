@@ -85,7 +85,7 @@ namespace SRB.Frame
         public bool Is_in_update => is_in_update;
         public void checkNodeUpdateable()
         {
-            Access ac = new Access(this, this, AccessPort.Udp, new byte[] { 5 });
+            Access ac = bus.accessRequest(this, this, AccessPort.Udp, new byte[] { 5 });
             bus.singleAccess(ac);
             if (ac.Status == AccessStatus.RecvedDone)
             {
@@ -240,7 +240,7 @@ namespace SRB.Frame
             {
                 pd[i] = bank[mapping.downMapping(i)];
             }
-            return new Access(this, this, (AccessPort)port, pd);
+            return bus.accessRequest(this, this, (AccessPort)port, pd);
         }
 
         public event EventHandler<AccessEventArgs> eDataAccessRecv;

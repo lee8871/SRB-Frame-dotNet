@@ -220,6 +220,7 @@ namespace SRB.Frame
             doAccess(ac);
             ac.onAccessDone();
             record.addAccess(ac);
+            ac.free();
         }
         public void sendAccess()
         {
@@ -234,6 +235,7 @@ namespace SRB.Frame
             {
                 ac.onAccessDone();
                 record.addAccess(ac);
+                ac.free();
             }
         }
         public abstract bool Is_opened { get; }
@@ -253,13 +255,20 @@ namespace SRB.Frame
 
     public abstract partial class IBus
     {
-        AccessPool access_pool;
+        AccessPool access_pool=new AccessPool();
         public Access accessRequest(IAccesser a, Node n, AccessPort p)
         {
             Access access = access_pool.request();
             access.loadAccess(a, n, p);
             return access;
-        } 
+        }
+        public Access accessRequest(IAccesser a, Node n, AccessPort p,byte[] b)
+        {
+            Access access = access_pool.request();
+            access.loadAccess(a, n, p);
+            access.Send_data.load(b);
+            return access;
+        }
     }
 }
 

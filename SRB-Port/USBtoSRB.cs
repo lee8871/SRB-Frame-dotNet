@@ -483,9 +483,9 @@ namespace SRB.port
             send_to_usb_buf[i++] = access.Addr;
             send_to_usb_buf[i++] = access.Send_bfc;
 
-            foreach (byte b in access.Send_data)
+            for(int j = 0;j<access.Send_data.Length;j++)
             {
-                send_to_usb_buf[i++] = b;
+                send_to_usb_buf[i++] = access.Send_data[j];
             }
             int send_done_len;
             int send_len = i;

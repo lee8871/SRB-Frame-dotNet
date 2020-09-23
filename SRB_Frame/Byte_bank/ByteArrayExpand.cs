@@ -65,6 +65,41 @@ namespace SRB.Frame
                 }
             }
         }
+
+        static public string ToArrayString(this IReadAsByteArray ba, int len = -1)
+        {
+            if (ba == null)
+            {
+                return "{}";
+            }
+            if (len == -1)
+            {
+                len = ba.Length;
+                if (len == 0)
+                {
+                    return "{};";
+                }
+            }
+            string s = "";
+            s += "{";
+            int i = 0;
+            while (true)
+            {
+                byte b = ba[i];
+                //  s += "0x" + b.ToHexSt();
+                s += b.ToString();
+                i++;
+                if (i < len)
+                {
+                    s += ",";
+                }
+                else
+                {
+                    s += "};";
+                    return s;
+                }
+            }
+        }
         static public byte[] SubArray(this byte[] ba, int len)
         {
             if (ba == null)

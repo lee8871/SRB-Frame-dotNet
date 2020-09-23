@@ -38,15 +38,16 @@ namespace SRB.Frame
     public interface IReadAsByteArray {
         byte this[int i] { get; }
         string ToHexSt();
+        int Length { get; }
     }
 
 
 
-    public struct AccessData: IReadAsByteArray
+    public class AccessData: IReadAsByteArray
     {
         int length;
         byte[] data;
-        public AccessData(int max_length = 31)
+        public AccessData(int max_length)
         {
             length = 0;
             data = new byte[max_length];
@@ -179,24 +180,30 @@ namespace SRB.Frame
         public bool Recv_event => (_recv_bfc & (1 << 5)) != 0;
         public int Recv_data_len => (int)(_recv_bfc & 0x1f);
 
+        public long Send_tick { get => send_tick; set => send_tick = value; }
+
         public Access(AccessPool pool)
         {
-            _send_data = new AccessData();
-            _recv_data = new AccessData();
+            _send_data = new AccessData(31);
+            _recv_data = new AccessData(31);
             init();
             this.pool = pool;
         }
 
-        public void init()
+        void init()
         {
             sendTime = DateTime.MinValue;
             recvTime = DateTime.MinValue;
             Description = "";
             retry = -1;
             _status = AccessStatus.NoInited;
+            _send_data.clean();
+            _recv_data.clean();
+
         }
         public void free()
         {
+            init();
             pool.free(this);
         }
 
@@ -298,9 +305,10 @@ namespace SRB.Frame
                 _status = AccessStatus.SrbTimeOut;
             }
         }
+        long send_tick;
         public void sendDone(long et = 0)
         {
-           // send_tick = et;
+            send_tick = et;
             _status = AccessStatus.SendWaitRecv;
             sendTime = DateTime.Now;
         }

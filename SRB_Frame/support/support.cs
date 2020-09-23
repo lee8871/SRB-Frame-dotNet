@@ -57,6 +57,19 @@ namespace SRB.Frame
             rev += ba[offset];
             return rev;
         }
+
+        static internal UInt32 byteToUint32(IReadAsByteArray ba, int offset)
+        {
+            UInt32 rev = 0;
+            offset += 3;
+            for (int i = 0; i < 3; i++)
+            {
+                rev += ba[offset--];
+                rev <<= 8;
+            }
+            rev += ba[offset];
+            return rev;
+        }
         static internal byte Uint16LowByte(UInt16 u16)
         {
             return (byte)u16;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SRB.Frame
 {    public class AccessPool
     {
-        object locker;
+        object locker = new object();
         Queue<Access> idle_node = new Queue<Access>();
         Queue<Access> all_node = new Queue<Access>();
         public Access request()
@@ -32,7 +32,6 @@ namespace SRB.Frame
         {
             lock (locker)
             {
-                a.init();
                 idle_node.Enqueue(a);
             }
         }
