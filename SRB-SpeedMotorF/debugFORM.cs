@@ -209,5 +209,17 @@ namespace SRB.NodeType.SpeedMotorF
         {
             this.chart1.gotoForemost();
         }
+
+        private void pauseBTN_Click(object sender, EventArgs e)
+        {
+            if (this.ChartRefrashTimer.Enabled)
+            {
+                ChartRefrashTimer.Stop();
+            }
+            else
+            {
+                ChartRefrashTimer.Start();
+            }
+        }
     }
 }

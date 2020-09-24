@@ -38,7 +38,7 @@ namespace SRB.NodeType.SpeedMotorF
             st.Priority = System.Threading.ThreadPriority.Highest;
         }
         public TimeMappingSpeed target_speed_table;
-        public float period_in_ms = 1;
+        public float period_in_ms = 3;
 
 
         public TimeMappingSpeed initSpeedArray()
@@ -107,7 +107,7 @@ namespace SRB.NodeType.SpeedMotorF
                 float f_temp;
                 if ((f_temp = (sw.getElapsedMs() - time)) > period_in_ms)
                 {
-                    lose_sync_report += $"L:{f_temp:f2} in={time_report[0]:f2} access={time_report[1]:f2} append={time_report[2]:f2}\n";
+                    lose_sync_report += $"L:{f_temp:f2} ac={time_report[1]-time_report[0]:f2} other={time_report[2] - time_report[1]:f2}\n";
                 }
                 else
                 {

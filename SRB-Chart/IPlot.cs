@@ -11,7 +11,7 @@ namespace SRB_Chart
         Pen line = new Pen(Color.DarkGreen, 2f);
         public abstract int Length { get; }
         object tag;
-        public abstract Dot this[int i] { get; }
+        public abstract (double X, double Y) this[int i] { get; }
         public virtual double X_min{
             get{
                 if (this.Length == 0)
@@ -99,6 +99,7 @@ namespace SRB_Chart
         public object Tag { get => tag; set => tag = value; }
         public Pen Line => line;
     }
+    /*
     public struct Dot
     {
         double y;
@@ -111,6 +112,6 @@ namespace SRB_Chart
             this.y = y;
         }
     }
-
+    */
 
 }

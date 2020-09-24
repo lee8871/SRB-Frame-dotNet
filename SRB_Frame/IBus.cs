@@ -269,6 +269,13 @@ namespace SRB.Frame
             access.Send_data.load(b);
             return access;
         }
+        public Access accessRequest(IAccesser a, Node n, AccessPort p, byte b)
+        {
+            Access access = access_pool.request();
+            access.loadAccess(a, n, p);
+            access.Send_data[0]=b;
+            return access;
+        }
     }
 }
 

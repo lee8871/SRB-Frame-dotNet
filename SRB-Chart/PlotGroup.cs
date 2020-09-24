@@ -34,9 +34,9 @@ namespace SRB_Chart
                 this.y = new StepResizeable<double>(piece_size);
                 this.pg = plot_group;
             }
-            public override Dot this[int i]
+            public override (double X ,double Y) this[int i]
             {
-                get => new Dot(pg.x[i], y[i]); 
+                get => (pg.x[i], y[i]); 
             }
         }
 

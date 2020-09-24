@@ -128,8 +128,9 @@ namespace SRB.Frame
 
                 private byte recordTimeBroadcast(out long elapsed_ticks)
                 {
-                    Access ac = Bus.accessRequest(this, null, AccessPort.Cgf, new byte[]
-                    { Node.SyncCluster.FIX_CID, Sync_public_sno});
+                    Access ac = Bus.accessRequest(this, null, AccessPort.Cgf);
+                    ac.Send_data[0] = Node.SyncCluster.FIX_CID;
+                    ac.Send_data[1] = Sync_public_sno;
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
                     if (Sync_public_sno == 128)
@@ -142,8 +143,9 @@ namespace SRB.Frame
                 }
                 private byte recordTimeBroadcast()
                 {
-                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf, new byte[]
-                    { Node.SyncCluster.FIX_CID, Sync_public_sno});
+                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf);
+                    ac.Send_data[0] = Node.SyncCluster.FIX_CID;
+                    ac.Send_data[1] = Sync_public_sno;
                     byte rev = Sync_public_sno;
                     Sync_public_sno++;
                     if (Sync_public_sno == 128)
@@ -156,8 +158,12 @@ namespace SRB.Frame
 
                 private void syncToBroadcast(ushort ms, byte us4, byte sno)
                 {
-                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf, new byte[]
-                    { Node.SyncCluster.FIX_CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
+                    Access ac = Bus.accessRequest(null, null, AccessPort.Cgf);
+                    ac.Send_data[0] = Node.SyncCluster.FIX_CID;
+                    ac.Send_data[1] = sno;
+                    ac.Send_data[2] = us4;
+                    ac.Send_data[3] = ms.ByteLow();
+                    ac.Send_data[4] = ms.ByteHigh();
                     bus.singleAccess(ac);
                     return;
                 }

@@ -76,22 +76,20 @@ namespace SRB.Frame
 
             public void resetNode()
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = (byte)'R';
-                ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
             }
             public void factorySettingNode()
             {
-                Access ac;
-                byte[] b = new byte[2];
+                Access ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf);
+                var b = ac.Send_data;
                 int i = 0;
                 b[i++] = cID;
                 b[i++] = (byte)'F';
-                ac = Bus.accessRequest(this, this.parent_node, AccessPort.Cgf, b);
                 Bus.singleAccess(ac);
                 parent_node.onDescriptionChanged();
             }

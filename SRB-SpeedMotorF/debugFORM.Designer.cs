@@ -31,9 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.SplitContainer splitContainer1;
             this.chart1 = new SRB_Chart.Chart();
+            this.reportRTC = new System.Windows.Forms.RichTextBox();
             this.TestSequenceBTN = new System.Windows.Forms.Button();
             this.ChartRefrashTimer = new System.Windows.Forms.Timer(this.components);
-            this.reportRTC = new System.Windows.Forms.RichTextBox();
+            this.pauseBTN = new System.Windows.Forms.Button();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -58,6 +59,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            splitContainer1.Panel2.Controls.Add(this.pauseBTN);
             splitContainer1.Panel2.Controls.Add(this.reportRTC);
             splitContainer1.Panel2.Controls.Add(this.TestSequenceBTN);
             splitContainer1.Panel2MinSize = 100;
@@ -84,9 +86,19 @@
             this.chart1.Y_min = -16834D;
             this.chart1.Y_zoom = 0.02D;
             // 
+            // reportRTC
+            // 
+            this.reportRTC.Dock = System.Windows.Forms.DockStyle.Top;
+            this.reportRTC.Location = new System.Drawing.Point(0, 0);
+            this.reportRTC.MinimumSize = new System.Drawing.Size(296, 225);
+            this.reportRTC.Name = "reportRTC";
+            this.reportRTC.Size = new System.Drawing.Size(296, 225);
+            this.reportRTC.TabIndex = 5;
+            this.reportRTC.Text = "";
+            // 
             // TestSequenceBTN
             // 
-            this.TestSequenceBTN.Location = new System.Drawing.Point(12, 231);
+            this.TestSequenceBTN.Location = new System.Drawing.Point(3, 231);
             this.TestSequenceBTN.Name = "TestSequenceBTN";
             this.TestSequenceBTN.Size = new System.Drawing.Size(78, 47);
             this.TestSequenceBTN.TabIndex = 4;
@@ -99,15 +111,15 @@
             this.ChartRefrashTimer.Enabled = true;
             this.ChartRefrashTimer.Tick += new System.EventHandler(this.ChartRefrashTimer_Tick);
             // 
-            // rreportRTC
+            // pauseBTN
             // 
-            this.reportRTC.Dock = System.Windows.Forms.DockStyle.Top;
-            this.reportRTC.Location = new System.Drawing.Point(0, 0);
-            this.reportRTC.MinimumSize = new System.Drawing.Size(296, 225);
-            this.reportRTC.Name = "rreportRTC";
-            this.reportRTC.Size = new System.Drawing.Size(296, 225);
-            this.reportRTC.TabIndex = 5;
-            this.reportRTC.Text = "";
+            this.pauseBTN.Location = new System.Drawing.Point(3, 284);
+            this.pauseBTN.Name = "pauseBTN";
+            this.pauseBTN.Size = new System.Drawing.Size(78, 47);
+            this.pauseBTN.TabIndex = 6;
+            this.pauseBTN.Text = "暂停显示";
+            this.pauseBTN.UseVisualStyleBackColor = true;
+            this.pauseBTN.Click += new System.EventHandler(this.pauseBTN_Click);
             // 
             // debugFORM
             // 
@@ -132,5 +144,6 @@
         private SRB_Chart.Chart chart1;
         private System.Windows.Forms.Timer ChartRefrashTimer;
         private System.Windows.Forms.RichTextBox reportRTC;
+        private System.Windows.Forms.Button pauseBTN;
     }
 }

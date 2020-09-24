@@ -292,14 +292,13 @@ namespace SRB_Chart
             Graphics g = pe.Graphics;
             double bgn = ChartX(pe.ClipRectangle.X);
             double end = ChartX(pe.ClipRectangle.X+pe.ClipRectangle.Width);
-            Dot from;
             int len = plot.Length;
             int i = plot.findBefore(bgn,len);
-            from = plot[i];
+            var from = plot[i];
             i++;
             while(i<len)
             {
-                Dot d = plot[i];
+                var d = plot[i];
                 i++;
                 g.DrawLine(plot.Line, chartToPixel(d.X, d.Y), chartToPixel(from.X, from.Y));
                 from = d;

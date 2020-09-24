@@ -86,15 +86,11 @@ namespace SRB.Frame
             }
             public virtual void write()
             {
-                byte[] data = new byte[bank.Length + 1];
+                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf);
+                var data = ac.Send_data;
                 data[0] = CID;
-                for (int i = 0; i < bank.Length; i++)
-                {
-                    data[i + 1] = bank[i];
-                }
-                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, data);
+                data.load(bank.Load_ba, 1, 0, bank.Length);
                 parent_node.bus.singleAccess(ac);
-
             }
             public virtual void writeRecv(Access ac)
             {
@@ -106,7 +102,7 @@ namespace SRB.Frame
 
             public void read()
             {
-                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, new byte[] { CID });
+                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf,CID);
                 parent_node.bus.singleAccess(ac);
             }
             public void readAll()
@@ -115,12 +111,15 @@ namespace SRB.Frame
                 {
                     read();
                 }
-                else {                    
+                else {
+                    Access ac;
                     foreach (ICluster c in following_clusters)
                     {
-                        parent_node.bus.addAccess( Bus.accessRequest(c, parent_node, AccessPort.Cgf, new byte[] { c.CID }));
+                        ac = Bus.accessRequest(c, parent_node, AccessPort.Cgf, c.CID);
+                        parent_node.bus.addAccess(ac);
                     }
-                    parent_node.bus.addAccess(Bus.accessRequest(this, parent_node, AccessPort.Cgf, new byte[] { this.CID }));
+                    ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, this.CID);
+                    parent_node.bus.addAccess(ac);
                     parent_node.bus.sendAccess();
                 }
             }

@@ -53,9 +53,12 @@ namespace SRB.Frame
             }
             public void syncTo(ushort ms, byte us4, byte sno  )
             {
-                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf, new byte[] 
-                { CID, sno,us4, ms.ByteLow(),ms.ByteHigh()});
-                parent_node.bus.singleAccess(ac);
+                Access ac = Bus.accessRequest(this, parent_node, AccessPort.Cgf);
+                ac.Send_data[0] = CID;
+                ac.Send_data[1] = sno;
+                ac.Send_data[2] = us4;
+                ac.Send_data[3] = ms.ByteLow();
+                ac.Send_data[4] = ms.ByteHigh();
             }            
             public static void intToClock(out ushort ms, out byte us4,in int clock  )
             {
