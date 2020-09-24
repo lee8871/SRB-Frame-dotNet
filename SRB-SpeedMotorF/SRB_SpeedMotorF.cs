@@ -62,5 +62,8 @@ namespace SRB.NodeType.SpeedMotorF
             return new Ctrl(Node);
         }
         public override string Describe => @"单电机控制节点";
+
+
+
     }
 }

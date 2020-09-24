@@ -138,7 +138,7 @@ namespace SRB.port
                 {
                     for (int acs_counter = 0; acs_counter < acs_num; acs_counter++)
                     {
-                        acs[acs_counter].sendFail();
+                        acs[acs_counter].portCloseSendFail();
                     }
                     return false;
                 }
@@ -170,7 +170,7 @@ namespace SRB.port
             {
                 if (acs[acs_counter].Status == AccessStatus.SendWaitRecv)
                 {
-                    acs[acs_counter].sendFail();
+                    acs[acs_counter].portCloseSendFail();
                 }
             }
             return true;
@@ -195,9 +195,9 @@ namespace SRB.port
             {
                 Access ac = acs[acs_counter];
 
-                long ET_send = Stopwatch.GetTimestamp();
+                ac.sendBegin();
                 toUartByteArray(ac, (byte)acs_counter);
-                ac.sendDone(ET_send);
+                ac.sendDone();
             }
             //if (record_port_data)
             //{

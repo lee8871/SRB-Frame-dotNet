@@ -137,8 +137,9 @@ namespace SRB.Frame
     public class Access
     {
         private AccessPool pool;
-        private DateTime sendTime;
-        private DateTime recvTime;
+        private long begin_send_tick;
+        private long send_done_tick;
+        private long recv_done_tick;
         private string description = "";
         public string Description { get => description; set => description = value; }
 
@@ -180,7 +181,9 @@ namespace SRB.Frame
         public bool Recv_event => (_recv_bfc & (1 << 5)) != 0;
         public int Recv_data_len => (int)(_recv_bfc & 0x1f);
 
-        public long Send_tick { get => send_tick; set => send_tick = value; }
+        public long Send_tick => send_done_tick;
+        public long Begin_send_tick => begin_send_tick;
+        public long Recv_done_tick => recv_done_tick;
 
         public Access(AccessPool pool)
         {
@@ -192,8 +195,11 @@ namespace SRB.Frame
 
         void init()
         {
-            sendTime = DateTime.MinValue;
-            recvTime = DateTime.MinValue;
+
+
+            begin_send_tick = -1;
+            send_done_tick = -1;
+            recv_done_tick = -1;
             Description = "";
             retry = -1;
             _status = AccessStatus.NoInited;
@@ -246,7 +252,7 @@ namespace SRB.Frame
         }
         public bool receiveAccess(int retry, byte bfc, byte[] data, int offset)
         {
-            recvTime = DateTime.Now;
+            recv_done_tick = Stopwatch.GetTimestamp();
             if (Status == AccessStatus.SendWaitRecv)
             {
                 this._recv_bfc = bfc;
@@ -269,7 +275,7 @@ namespace SRB.Frame
         }
         public void receiveAccess(byte bfc, byte[] data)
         {
-            recvTime = DateTime.Now;
+            recv_done_tick = Stopwatch.GetTimestamp();
             this._recv_bfc = bfc;
             this._recv_data.load(data);
             if ((data.Length) != this.Recv_data_len)
@@ -283,7 +289,7 @@ namespace SRB.Frame
         }
         public void receiveAccessBroadcast()
         {
-            recvTime = DateTime.Now;
+            recv_done_tick = Stopwatch.GetTimestamp();
             if (this.Addr == 0xff)
             {
                 _status = AccessStatus.BroadcasePkg;
@@ -295,7 +301,7 @@ namespace SRB.Frame
         }
         public void receiveAccessTimeout()
         {
-            recvTime = DateTime.Now;
+            recv_done_tick = Stopwatch.GetTimestamp();
             if (this.Addr == 0xff)
             {
                 _status = AccessStatus.RecvedBadPkg;
@@ -305,30 +311,30 @@ namespace SRB.Frame
                 _status = AccessStatus.SrbTimeOut;
             }
         }
-        long send_tick;
-        public void sendDone(long et = 0)
+        public void sendBegin()
         {
-            send_tick = et;
-            _status = AccessStatus.SendWaitRecv;
-            sendTime = DateTime.Now;
+            begin_send_tick = Stopwatch.GetTimestamp();
         }
-        public void sendFail()
+        public void sendDone()
         {
-            switch (_status)
+            _status = AccessStatus.SendWaitRecv;
+            send_done_tick = Stopwatch.GetTimestamp();
+        }
+        public void portCloseSendFail()
+        {
+            if (_status != AccessStatus.NoSend)
             {
-                case AccessStatus.NoSend:
-                    _status = AccessStatus.PortColsed;
-                    sendTime = DateTime.Now;
-                    recvTime = DateTime.Now;
-                    break;
-                case AccessStatus.SendWaitRecv:
-                    _status = AccessStatus.DeviceTimeOut;
-                    recvTime = DateTime.Now;
-                    break;
-                default:
-                    break;
+                throw new Exception("Send is done but call portCloseSendFail");
             }
-
+            _status = AccessStatus.PortColsed;
+        }
+        public void sendDoneRecvFail()
+        {
+            if (_status != AccessStatus.SendWaitRecv)
+            {
+                throw new Exception("sendDoneRecvFail status is not SendWaitRecv");
+            }
+            recv_done_tick = Stopwatch.GetTimestamp();
         }
 
 
@@ -365,19 +371,33 @@ namespace SRB.Frame
         }
         public string toJson()
         {
-            string st = string.Format(
-               "{7}\"Ts\":\"{0}\",\"Dsc\":\"{1}\",\"Addr\":{9},\"State\":\"{2}\",\r\n\"Send\":{7}\"bfc\":\"{3}\",\"data\":\"{4}\"{8},\r\n\"Recv\":{7}\"bfc\":\"{5}\",\"data\":\"{6}\"{8}\r\n{8}\r\n",
-                sendTime.ToString("dd-HH:mm:ss:fffff"),
-                this.Description,
-                this.Status.ToString(),
-                this.Send_bfc.ToHexSt(),
-                this.Send_data.ToHexSt(),
-                this._recv_bfc.ToHexSt(),
-                this.Recv_data.ToHexSt(),
-                "{",
-                "}",
-                this.Addr.ToString()
-            );
+            string st = "{" +
+               "\"Ts\":" +
+               '"' + send_done_tick.ToString() + "\", " +
+               "\"ss\":" +
+               '"' + (begin_send_tick - send_done_tick).ToString() + "\", "+
+               "\"rs\":" +
+               '"' + (send_done_tick - recv_done_tick).ToString() + "\", " + '\n' +
+              "\"Addr\":" +
+               '"' + Addr.ToString() + "\", " +
+               "\"Dsc\":" +
+               '"' + Description + "\", " +
+               "\"Sta\":" +
+               '"' + Status.ToString() + "\", " +'\n'+
+               "\"Send\":{" +
+                   "\"bfc\":" +
+                   '"' + Send_bfc.ToHexSt() + "\", " +
+                   "\"data\":" +
+                   '"' + Send_data.ToHexSt() + "\"" +
+               "}," + '\n' +
+
+              "\"Recv\":{" +
+                   "\"bfc\":" +
+                   '"' + _recv_bfc.ToHexSt() + "\", " +
+                   "\"data\":" +
+                   '"' + Recv_data.ToHexSt() + "\"" +
+               "}" +
+            "}";
             return st;
         }
     }

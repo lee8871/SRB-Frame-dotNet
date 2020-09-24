@@ -114,6 +114,10 @@ namespace SRB.Frame
             return (1000.0f * sw.ElapsedTicks) / System.Diagnostics.Stopwatch.Frequency; ;
         }
 
+        static public float tickToMs(this long sw)
+        {
+            return (1000.0f * sw) / System.Diagnostics.Stopwatch.Frequency; ;
+        }
 
 
     }

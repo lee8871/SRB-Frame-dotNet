@@ -339,9 +339,8 @@ namespace SRB.port
 
     public partial class UsbToSrb : IBus
     {
-        private Stopwatch stopwatch = new Stopwatch();
         private const int access_bank_length = 256;
-        private Access[] accesses = new Access[access_bank_length];
+        private Access[] acs = new Access[access_bank_length];
         private LoopQueuePointer out_point = new LoopQueuePointer(access_bank_length);
         private LoopQueuePointer in_point = new LoopQueuePointer(access_bank_length);
 
@@ -349,7 +348,7 @@ namespace SRB.port
         {
             lock (lock_access)
             {
-                accesses[in_point] = ac;
+                acs[in_point] = ac;
                 in_point++;
                 return accessLoop();
             }
@@ -376,7 +375,7 @@ namespace SRB.port
                 }
                 for (int i = 0; i < acs_num; i++)
                 {
-                    accesses[in_point] = acs[i];
+                    this.acs[in_point] = acs[i];
                     in_point++;
                 }
                 return accessLoop();
@@ -393,7 +392,7 @@ namespace SRB.port
                     LoopQueuePointer send_fail_point = new LoopQueuePointer(out_point);
                     while (in_point != send_fail_point)
                     {
-                        accesses[send_fail_point].sendFail();
+                        acs[send_fail_point].portCloseSendFail();
                         send_fail_point++;
                     }
                     out_point.jumpTo(in_point);
@@ -401,7 +400,6 @@ namespace SRB.port
                     //}
                 }
                 int access_error_counter = 0;
-                stopwatch.Restart();
 
                 LoopQueuePointer send_point = new LoopQueuePointer(out_point);
 
@@ -426,7 +424,6 @@ namespace SRB.port
                         if (isPkgWaitRecv() == false)
                         {
                             out_point.jumpTo(in_point);
-                            stopwatch.Stop();
                             if (access_error_counter != 0)
                             {
                                 Console.WriteLine("access error counter is " + access_error_counter);
@@ -447,17 +444,16 @@ namespace SRB.port
                 LoopQueuePointer sent_fail_point = new LoopQueuePointer(out_point);
                 while (in_point != sent_fail_point)
                 {
-                    accesses[sent_fail_point].sendFail();
+                    acs[sent_fail_point].sendDoneRecvFail();
                     sent_fail_point++;
                 }
                 out_point.jumpTo(in_point);
-                stopwatch.Stop();
                 return false;
             }
         }
         private bool isPkgWaitRecv()
         {
-            foreach (Access a in accesses)
+            foreach (Access a in acs)
             {
                 if (a != null)
                 {
@@ -477,7 +473,7 @@ namespace SRB.port
         private byte[] send_to_usb_buf = new byte[64];
         private bool sendAccess(int point)
         {
-            Access access = accesses[point];
+            Access access = acs[point];
             int i = 0;
             send_to_usb_buf[i++] = (byte)point;
             send_to_usb_buf[i++] = access.Addr;
@@ -489,12 +485,12 @@ namespace SRB.port
             }
             int send_done_len;
             int send_len = i;
-            long ET_send = Stopwatch.GetTimestamp();
+            access.sendBegin();
             ErrorCode ec = srb_writer.Write(send_to_usb_buf, 0, send_len, USB_TIMEOUT, out send_done_len);
             switch (ec)
             {
                 case ErrorCode.None:
-                    access.sendDone(ET_send);
+                    access.sendDone();
                     return true;
                 default:
                     return false;
@@ -510,25 +506,25 @@ namespace SRB.port
             {
                 case ErrorCode.None:
                     int recv_sno = recv_from_usb_buf[0];
-                    if (accesses[recv_sno] != null)
+                    if (acs[recv_sno] != null)
                     {
                         byte recv_error = recv_from_usb_buf[1];
                         if (recv_error < 0x0f)//thus recv_error is retry times
                         {
-                            accesses[recv_sno].receiveAccess(recv_error,recv_from_usb_buf[2], recv_from_usb_buf, 3);
+                            acs[recv_sno].receiveAccess(recv_error,recv_from_usb_buf[2], recv_from_usb_buf, 3);
                         }
                         else
                         {
                             switch (recv_error)
                             {
                                 case 0xff:
-                                    accesses[recv_sno].receiveAccessBroadcast();
+                                    acs[recv_sno].receiveAccessBroadcast();
                                     break;
                                 case 0xfe:
-                                    accesses[recv_sno].receiveAccessTimeout();
+                                    acs[recv_sno].receiveAccessTimeout();
                                     break;
                                 default:
-                                    throw new AccessRecvBadValue("unknow receicve error code", accesses[recv_sno]);
+                                    throw new AccessRecvBadValue("unknow receicve error code", acs[recv_sno]);
                             }
                         }
                     }

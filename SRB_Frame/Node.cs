@@ -243,6 +243,42 @@ namespace SRB.Frame
             }
             return ac;
         }
+        class OverrideAccesser : IAccesser
+        {
+            public IAccesser base_accesser;
+            public SRB.Frame.PerformanceDetector.PerformanceDetector pd;
+            public OverrideAccesser(IAccesser base_accesser, PerformanceDetector.PerformanceDetector pd)
+            {
+                this.base_accesser = base_accesser;
+                this.pd = pd;
+            }
+            public void accessDone(Access acs)
+            {
+                pd.checkPoint(2, acs.Begin_send_tick);
+                pd.checkPoint(3, acs.Send_tick);
+                pd.checkPoint(4, acs.Recv_done_tick);
+                base_accesser.accessDone(acs);
+            }
+        }
+        OverrideAccesser PD_accesser;
+        private void setPd(SRB.Frame.PerformanceDetector.PerformanceDetector pd)
+        {
+            PD_accesser = new OverrideAccesser(this, pd);
+        }
+        private Access buildAccess_pd(int port, int sent_len = -1)
+        {
+            Mapping mapping = mappings[port];
+            if ((sent_len < 0) || (sent_len > mapping.Down_len))
+            {
+                sent_len = mapping.Down_len;
+            }
+            Access ac = bus.accessRequest(PD_accesser, this, (AccessPort)port);
+            for (int i = 0; i < sent_len; i++)
+            {
+                ac.Send_data[i] = bank[mapping.downMapping(i)];
+            }
+            return ac;
+        }
 
         public event EventHandler<AccessEventArgs> eDataAccessRecv;
         public void accessDone(Access ac)

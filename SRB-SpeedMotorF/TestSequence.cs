@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using SRB.Support;
 using System.Xml;
 using SRB_Chart;
+using SRB.Frame.PerformanceDetector;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -54,8 +55,16 @@ namespace SRB.NodeType.SpeedMotorF
         {
             return $"{(var / 1000):F1}s";
         }
+
+
+
+        PerformanceDetector pd;
+
+
         public void TestSequence_Thread(SrbThread.dIsThreadStoping IsStoping)
         {
+            pd = new PerformanceDetector(10);
+            bgd.setPd(pd);
             int lose_times = 0;
             if (pg_last != null)
             {
@@ -82,39 +91,51 @@ namespace SRB.NodeType.SpeedMotorF
             }
             Stopwatch sw = new Stopwatch();
 
-            string lose_sync_report = "";
-            float[] time_report = new float[4];
             float time = 0f;
             sw.Restart();
             object motion = null;
             double[] temp = new double[3];
             while (time < target_speed_table.Max_time)
             {
-                time_report[0] = sw.getElapsedMs();
+                pd.beginCheck();
+
                 bgd.target_speed = target_speed_table.speed(time, ref motion);
-                bgd.addDataAccess(1, true);
-                time_report[1] = sw.getElapsedMs();
+
+                pd.checkPoint(1);
+                bgd.addDataAccess_pd(1, true);
+                pd.checkPoint(5);
                 temp[0] = bgd.target_speed;
                 temp[1] = bgd.sensor_speed;
                 temp[2] = bgd.odometer;
                 pg.append(time, temp);
+                pd.checkPoint(6);
+                bool check(long[] ticks)
+                {
+                    return ((ticks[6] - ticks[0]).tickToMs()) > 2;
+                }
 
-                time_report[2] = sw.getElapsedMs();
+                pd.endCheckPoint(check);
+
                 if (IsStoping())
                 {
                     break;
                 }
-                float f_temp;
-                if ((f_temp = (sw.getElapsedMs() - time)) > period_in_ms)
-                {
-                    lose_sync_report += $"L:{f_temp:f2} ac={time_report[1]-time_report[0]:f2} other={time_report[2] - time_report[1]:f2}\n";
-                }
-                else
-                {
-                    while (sw.getElapsedMs() - time < period_in_ms) ;
-                }
+                while (sw.getElapsedMs() - time < period_in_ms) ;
                 time = sw.getElapsedMs();
             }
+            string lose_sync_report = "";
+            pd.initPage();
+            do
+            {
+                lose_sync_report += $"T={pd[6] - pd[0]}, Send = {pd[3] - pd[2]}, recv = {pd[4] - pd[3]},";
+                lose_sync_report += $"a1={pd[2] - pd[1]}, a2 = {pd[5] - pd[4]} ";
+                lose_sync_report += $"access-(send+recv)={pd[5] - pd[1]-(pd[4] - pd[2])}\n\n";
+
+            }
+            while (pd.nextPage());
+
+
+
             this.lose_sync_report = lose_sync_report;
             if (eGetMotorStatus != null)
             {

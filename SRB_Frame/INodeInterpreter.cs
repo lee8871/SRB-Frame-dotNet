@@ -39,6 +39,21 @@ namespace SRB.Frame
                     node.bus.addAccess(node.buildAccess(port, sent_len));
                 }
             }
+            public void setPd(SRB.Frame.PerformanceDetector.PerformanceDetector pd)
+            {
+                node.setPd(pd);
+            }
+            public void addDataAccess_pd(int port, bool is_send_at_once = false, int sent_len = -1 )
+            {
+                if (is_send_at_once)
+                {
+                    node.bus.singleAccess(node.buildAccess_pd(port, sent_len));
+                }
+                else
+                {
+                    node.bus.addAccess(node.buildAccess(port, sent_len));
+                }
+            }
             public override string ToString()
             {
                 return "Node Function";
