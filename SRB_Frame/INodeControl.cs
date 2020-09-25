@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace SRB.Frame
@@ -15,7 +16,7 @@ namespace SRB.Frame
             InitializeComponent();
             this.Disposed += INodeControl_Disposed;
             RetryTIMER_Tick(this, null);
-            delegate_BankChangeByAccess = new dVoid_delegate_void(refreshData);
+            delegate_BankChangeByAccess = new dVoid_delegate_void(onRefreshData);
             node.eBankChangeByAccess += Node_eBankChangeByAccess;
         }
 
@@ -66,28 +67,22 @@ namespace SRB.Frame
         {
             node.Datas.addDataAccess(this.MappingSelectCB.SelectedIndex,true);
         }
-        protected object bc_locker = new object();
-        protected int bc_flag = 0;
-        protected delegate void dVoid_delegate_void();
-        protected dVoid_delegate_void delegate_BankChangeByAccess;
-        protected virtual void refreshData()
+        private delegate void dVoid_delegate_void();
+        private dVoid_delegate_void delegate_BankChangeByAccess;
+        private long refresh_tick = 0;
+
+        int test_temp_0 = 0;
+        protected virtual void onRefreshData()
         {
-            lock (bc_locker)
-            {
-                bc_flag = 0;
-            }
+            test_temp_0++;
         }
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
-            int temp;
-            lock (bc_locker)
-            {
-                temp = bc_flag;
-                bc_flag++;
-            }
-            if (temp == 0)
+            long tick = Stopwatch.GetTimestamp();
+            if ((tick - refresh_tick).tickToMs() > 100)
             {
                 this.BeginInvoke(delegate_BankChangeByAccess);
+                refresh_tick = tick;
             }
         }
 

@@ -30,9 +30,9 @@ namespace SRB.NodeType.SpeedMotorF
         {
             bgd.set_displacement = 0;
         }
-        protected override void refreshData()
+        protected override void onRefreshData()
         {
-            base.refreshData();
+            base.onRefreshData();
             this.SpeedLAB.Text = string.Format("Speed: {0}", bgd.sensor_speed);
             this.OdometerLAB.Text = string.Format("Odometer: {0}", bgd.odometer);
         }
