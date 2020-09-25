@@ -13,40 +13,28 @@ namespace SRB.NodeType.SpeedMotorF
         {
             bgd = (Interpreter)n.Datas;
             bgd.pid_clu.read();
-            max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024))-10;
+            max_speed = (bgd.pid_clu.k0 * 1024 / (bgd.pid_clu.k1 + 1024)) - 10;
             InitializeComponent();
             Handle_text = handleBTN.Text;
-            n.eBankChangeByAccess += Node_eBankChangeByAccess;
-            n.eDataAccessRecv += Node_eDataAccessRecv;
             handleTextRefresh();
+            Node.eDataAccessRecv += Node_eDataAccessRecv;
+            this.Disposed += Ctrl_Disposed;
         }
+
+        private void Ctrl_Disposed(object sender, EventArgs e)
+        {
+            Node.eDataAccessRecv -= Node_eDataAccessRecv;
+        }
+
         private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
         {
-            if (this.InvokeRequired)
-            {
-                EventHandler d = new EventHandler(Node_eBankChangeByAccess);
-                this.Invoke(d, new object[] { sender, e });
-            }
-            else
-            {
-                bgd.set_displacement = 0;
-            }
+            bgd.set_displacement = 0;
         }
-
-
-        private void Node_eBankChangeByAccess(object sender, EventArgs e)
+        protected override void refreshData()
         {
-            if (this.InvokeRequired)
-            {
-                EventHandler d = new EventHandler(Node_eBankChangeByAccess);
-                this.Invoke(d, new object[] { sender, e });
-            }
-            else
-            {
-                this.SpeedLAB.Text = string.Format("Speed: {0}", bgd.sensor_speed);
-                this.OdometerLAB.Text = string.Format("Odometer: {0}", bgd.odometer);
-            }
-
+            base.refreshData();
+            this.SpeedLAB.Text = string.Format("Speed: {0}", bgd.sensor_speed);
+            this.OdometerLAB.Text = string.Format("Odometer: {0}", bgd.odometer);
         }
 
         int max_speed;

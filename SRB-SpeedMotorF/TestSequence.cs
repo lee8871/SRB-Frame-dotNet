@@ -39,7 +39,7 @@ namespace SRB.NodeType.SpeedMotorF
             st.Priority = System.Threading.ThreadPriority.Highest;
         }
         public TimeMappingSpeed target_speed_table;
-        public float period_in_ms = 3;
+        public float period_in_ms = 1;
 
 
         public TimeMappingSpeed initSpeedArray()
@@ -127,7 +127,7 @@ namespace SRB.NodeType.SpeedMotorF
             pd.initPage();
             do
             {
-                lose_sync_report += $"T={pd[6] - pd[0]}, Send = {pd[3] - pd[2]}, recv = {pd[4] - pd[3]},";
+                lose_sync_report += $"T={(pd[6] - pd[0]).tickToMs():f2}, Send = {pd[3] - pd[2]}, recv = {pd[4] - pd[3]},";
                 lose_sync_report += $"a1={pd[2] - pd[1]}, a2 = {pd[5] - pd[4]} ";
                 lose_sync_report += $"access-(send+recv)={pd[5] - pd[1]-(pd[4] - pd[2])}\n\n";
 

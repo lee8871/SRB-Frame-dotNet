@@ -292,6 +292,7 @@ namespace SRB.Frame
                     AccessEventArgs e = new AccessEventArgs(ac);
                     if (eDataAccessRecv != null)
                     {
+                        //todo,这里应该修改为其他访问方法。
                         eDataAccessRecv.Invoke(this, e);
                     }
                     if (e.Handled == false)
@@ -299,8 +300,8 @@ namespace SRB.Frame
                         OnDataAccessDone(ac);
                     }
                     break;
-               // default:
-                   // throw new Exception("Receive not data");
+                default:
+                    throw new Exception("Receive not data");
             }
         }
 

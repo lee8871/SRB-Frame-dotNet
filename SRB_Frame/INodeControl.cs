@@ -7,6 +7,7 @@ namespace SRB.Frame
     public partial class INodeControl : UserControl
     {
         private Node node;
+        public Node Node => node;
         public bool is_running => sendTimer.Enabled;
         public INodeControl(Node n)
         {
@@ -14,12 +15,15 @@ namespace SRB.Frame
             InitializeComponent();
             this.Disposed += INodeControl_Disposed;
             RetryTIMER_Tick(this, null);
+            delegate_BankChangeByAccess = new dVoid_delegate_void(refreshData);
+            node.eBankChangeByAccess += Node_eBankChangeByAccess;
         }
 
         private void INodeControl_Disposed(object sender, EventArgs e)
         {
             sendTimer.Stop();
             OnAccessStop();
+            node.eBankChangeByAccess -= Node_eBankChangeByAccess;
         }
 
         public INodeControl()
@@ -62,8 +66,30 @@ namespace SRB.Frame
         {
             node.Datas.addDataAccess(this.MappingSelectCB.SelectedIndex,true);
         }
-
-
+        protected object bc_locker = new object();
+        protected int bc_flag = 0;
+        protected delegate void dVoid_delegate_void();
+        protected dVoid_delegate_void delegate_BankChangeByAccess;
+        protected virtual void refreshData()
+        {
+            lock (bc_locker)
+            {
+                bc_flag = 0;
+            }
+        }
+        private void Node_eBankChangeByAccess(object sender, EventArgs e)
+        {
+            int temp;
+            lock (bc_locker)
+            {
+                temp = bc_flag;
+                bc_flag++;
+            }
+            if (temp == 0)
+            {
+                this.BeginInvoke(delegate_BankChangeByAccess);
+            }
+        }
 
         private void sendFreqNUM_ValueChanged(object sender, EventArgs e)
         {
@@ -81,5 +107,9 @@ namespace SRB.Frame
                    node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
             }
         }
+
+
+
+
     }
 }
