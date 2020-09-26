@@ -49,7 +49,10 @@
     <Compile Include="Chart.Designer.cs">
       <DependentUpon>Chart.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChartConfig.cs" />
+    <Compile Include="Drawer\GrapherDrawer.cs" />
     <Compile Include="IPlot.cs" />
+    <Compile Include="Drawer\IDrawer.cs" />
     <Compile Include="PlotGroup.cs" />
     <Compile Include="PlotTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,5 +84,6 @@
   <ItemGroup>
     <None Include="Resources\1175757.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

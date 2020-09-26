@@ -227,11 +227,12 @@ namespace SRB.Frame
         {//todo add Exception and log record
             switch (_status)
             {
-                case AccessStatus.BroadcasePkg:
+                case AccessStatus.BroadcasePkg:                    
+                    accesser?.accessDone(this);
                     break;
                 case AccessStatus.RecvedDone:
                     sender_node.active(this.retry);
-                    accesser.accessDone(this);
+                    accesser?.accessDone(this);
                     break;
                 case AccessStatus.PortColsed:
                     //TODO: Bus Master device is not open or port is not selected

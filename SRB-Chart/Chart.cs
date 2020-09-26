@@ -8,21 +8,17 @@ namespace SRB_Chart
 {
     public partial class Chart : Control
     {
-        double y_zoom = 0.5;
-        double x_zoom = 0.5;
-        double x_location = 520;
-        double y_min= -120;
-        double y_max= 330;
-        double x_grid_size = 100;
-        double y_grid_size = 100;
-        List<IPlot> plots;
+        ChartConfig cfg;
 
+        List<IPlot> plots;
         IPlot forcu_on_plot = null;
         PointF origin_in_pixel;
 
-        public delegate string dDoubleToString(double x);
-        public dDoubleToString y_ToStr;
-        public dDoubleToString x_ToStr;
+        double x_location = 0;
+
+        double[] size_a = { 0.05, 0.1, 0.15, 0.25, 0.5, 0.75, 1, 1.5, 2.5, 5 };
+        int size_num = 4;
+
         public string varToStr(double val)
         {
             return val.ToString("F0");
@@ -30,12 +26,19 @@ namespace SRB_Chart
 
         public Chart()
         {
+            cfg = new ChartConfig();
+            cfg.x.zoom = 0.5;
+            cfg.y.zoom = 0.5;
+            cfg.x.grid_size = 100;
+            cfg.y.grid_size = 100;
+            cfg.y.ToStr = varToStr;
+            cfg.x.ToStr = varToStr;
+            cfg.y.min = -500;
+            cfg.y.max = 1000;
             InitializeComponent();
             this.DoubleBuffered = true;
             plots = new List<IPlot>();
 
-            y_ToStr = varToStr;
-            x_ToStr = varToStr;
         }
         void checkOrinin()
         {
@@ -71,20 +74,20 @@ namespace SRB_Chart
 
         [Category("图表")]
         public double Y_zoom { 
-            get => y_zoom; 
+            get => cfg.y.zoom; 
             set
             {
-                y_zoom = value;
+                cfg.y.zoom = value;
                 yResize();
                 checkOrinin();
                 this.Refresh();
             }
         }
         [Category("图表")]
-        public double X_zoom { get => x_zoom;
+        public double X_zoom { get => cfg.x.zoom;
             set
             {
-                x_zoom = value;
+                cfg.x.zoom = value;
                 checkOrinin();
                 this.Refresh();
             }
@@ -93,16 +96,16 @@ namespace SRB_Chart
         [Category("图表")]
         public double Y_min
         {
-            get => y_min; 
+            get => cfg.y.min; 
             set
             {
-                if (value > y_max)
+                if (value > cfg.y.max)
                 {
-                    y_min = y_max - 1;
+                    cfg.y.min = cfg.y.max - 1;
                 }
                 else
                 {
-                    y_min = value;
+                    cfg.y.min = value;
                 }
                 yResize();
                 this.Refresh();
@@ -112,16 +115,16 @@ namespace SRB_Chart
         [Category("图表")]
         public double Y_max
         {
-            get => y_max;
+            get => cfg.y.max;
             set
             {
-                if (value < y_min)
+                if (value < cfg.y.min)
                 {
-                    y_max = y_min + 1;
+                    cfg.y.max = cfg.y.min + 1;
                 }
                 else
                 {
-                    y_max = value;
+                    cfg.y.max = value;
                 }
                 yResize();
                 checkOrinin();
@@ -144,25 +147,47 @@ namespace SRB_Chart
 
         [Category("图表")]
         public double X_grid_size { 
-            get => x_grid_size; 
+            get => cfg.x.grid_size; 
             set
             {
-                x_grid_size = value;
+                cfg.x.grid_size = value;
                 this.Refresh();
             }
         }
 
         [Category("图表")]
         public double Y_grid_size { 
-            get => y_grid_size;
+            get => cfg.y.grid_size;
             set
             {
-                y_grid_size = value;
+                cfg.y.grid_size = value;
                 this.Refresh();
             }
         }
-
+        /// <summary>
+        /// 设置当前控件追踪显示的曲线图
+        /// </summary>
         public IPlot Forcu_on_plot { get => forcu_on_plot; set => forcu_on_plot = value; }
+        /// <summary>
+        /// 设置Y坐标刻度显示文本的转换函数
+        /// </summary>
+        public dDoubleToString Y_ToStr { 
+            get => cfg.y.ToStr;
+            set{
+                cfg.y.ToStr = value;
+                this.Refresh();
+            }
+        }
+        /// <summary>
+        /// 设置X坐标刻度显示文本的转换函数
+        /// </summary>
+        public dDoubleToString X_ToStr { 
+            get => cfg.x.ToStr;
+            set {
+                cfg.x.ToStr = value;
+                this.Refresh();
+            }
+        }
 
         public void add(IPlot p)
         {
@@ -179,25 +204,25 @@ namespace SRB_Chart
 
         PointF chartToPixel(double x, double y)
         {
-            x *= x_zoom;
-            y *= y_zoom;
+            x *= cfg.x.zoom;
+            y *= cfg.y.zoom;
             return new PointF((float)x+ origin_in_pixel.X, (float)y + origin_in_pixel.Y);
         }
         double ChartX(PointF pix)
         {
-            return (double)((pix.X - origin_in_pixel.X)/ x_zoom);
+            return (double)((pix.X - origin_in_pixel.X)/ cfg.x.zoom);
         }
         double ChartY(PointF pix)
         {
-            return (double)((pix.Y - origin_in_pixel.Y) / y_zoom);
+            return (double)((pix.Y - origin_in_pixel.Y) / cfg.y.zoom);
         }
         double ChartX(float pix)
         {
-            return (double)((pix - origin_in_pixel.X) / x_zoom);
+            return (double)((pix - origin_in_pixel.X) / cfg.x.zoom);
         }
         double ChartY(float pix)
         {
-            return (double)((pix - origin_in_pixel.Y) / y_zoom);
+            return (double)((pix - origin_in_pixel.Y) / cfg.y.zoom);
         }
         Pen pen_grid = new Pen(Color.LightGray, 1);
         Pen pen_form = new Pen(Color.Gray, 1);
@@ -221,7 +246,7 @@ namespace SRB_Chart
             double max;
             float text_location;
 
-            grid_pixel = x_grid_size * x_zoom;
+            grid_pixel = cfg.x.grid_size * cfg.x.zoom;
             n = -(int)(origin_in_pixel.X / grid_pixel);
             line = origin_in_pixel.X + n * grid_pixel;
             max = pe.ClipRectangle.X + pe.ClipRectangle.Width;
@@ -240,11 +265,11 @@ namespace SRB_Chart
             while (line < max)
             {
                 g.DrawLine(pen_grid, (float)line, pe.ClipRectangle.Y, (float)line, pe.ClipRectangle.Y + pe.ClipRectangle.Height);
-                g.DrawString($"{x_ToStr(n * x_grid_size)}", this.Font, SystemBrushes.ControlText, (float)line, text_location);
+                g.DrawString($"{cfg.x.ToStr(n * cfg.x.grid_size)}", this.Font, SystemBrushes.ControlText, (float)line, text_location);
                 line += grid_pixel;
                 n++;
             }
-            grid_pixel = y_grid_size * y_zoom;
+            grid_pixel = cfg.y.grid_size * cfg.y.zoom;
             n = -(int)(origin_in_pixel.Y / grid_pixel);
             line = origin_in_pixel.Y + n * grid_pixel;
             max = pe.ClipRectangle.Y + pe.ClipRectangle.Height;
@@ -263,7 +288,7 @@ namespace SRB_Chart
             while (line < max)
             {
                 g.DrawLine(pen_grid, pe.ClipRectangle.X, (float)line, pe.ClipRectangle.X + pe.ClipRectangle.Width, (float)line);
-                g.DrawString($"{y_ToStr(-n * y_grid_size)}", this.Font, SystemBrushes.ControlText, text_location, (float)line);
+                g.DrawString($"{cfg.y.ToStr(-n * cfg.y.grid_size)}", this.Font, SystemBrushes.ControlText, text_location, (float)line);
                 line += grid_pixel;
                 n++;
             }
@@ -272,13 +297,13 @@ namespace SRB_Chart
         }
 
 
-        public void gotoForemost()
+        public void gotoForcuPlot()
         {
             if (forcu_on_plot != null)
             {
                 if (forcu_on_plot.Length > 0)
                 {
-                    double temp = forcu_on_plot.X_max- forcu_on_plot.X_min - (Size.Width - 200 )/ x_zoom ;
+                    double temp = forcu_on_plot.X_max- forcu_on_plot.X_min - (Size.Width - 200 )/ cfg.x.zoom ;
                     if (temp < forcu_on_plot.X_min)
                     {
                         temp = forcu_on_plot.X_min;
@@ -305,11 +330,6 @@ namespace SRB_Chart
                 if (d.X > end) { break; }
             }
         }
-
-
-
-
-
         bool is_moving = false;
         Point mouse_down_location;
         protected override void OnMouseDown(MouseEventArgs e)
@@ -329,7 +349,7 @@ namespace SRB_Chart
                 Point n = e.Location;
                 Point o = mouse_down_location;
                 this.forcu_on_plot = null;
-                this.X_location -= (n.X - o.X)/x_zoom;
+                this.X_location -= (n.X - o.X)/ cfg.x.zoom;
                 mouse_down_location = n;
             }
         }
@@ -341,8 +361,7 @@ namespace SRB_Chart
                 is_moving = false;
             }
         }
-        double[] size_a = { 0.05, 0.1, 0.15, 0.25, 0.5, 0.75, 1, 1.5, 2.5,5 };
-        int size_num = 4;
+
 
         protected override void OnMouseWheel(MouseEventArgs e)
         {
@@ -372,5 +391,9 @@ namespace SRB_Chart
         }
 
 
+
+
     }
+
+
 }

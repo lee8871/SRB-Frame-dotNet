@@ -30,7 +30,7 @@ namespace SRB.NodeType.SpeedMotorF
             test_sequence = new TestSequence(bgd);
             test_sequence.eGetMotorStatus += Test_sequence_eGetMotorStatus;
             test_sequence.chart = this.chart1;
-            chart1.x_ToStr = test_sequence.strToMs;
+            chart1.X_ToStr = test_sequence.strToMs;
         }
 
         private void Test_sequence_eGetMotorStatus(SRB_Chart.PlotGroup motor_status_array)
@@ -207,7 +207,7 @@ namespace SRB.NodeType.SpeedMotorF
 
         private void ChartRefrashTimer_Tick(object sender, EventArgs e)
         {
-            this.chart1.gotoForemost();
+            this.chart1.gotoForcuPlot();
         }
 
         private void pauseBTN_Click(object sender, EventArgs e)

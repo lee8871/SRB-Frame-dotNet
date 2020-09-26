@@ -38,6 +38,7 @@
             this.RunStopBTN = new System.Windows.Forms.Button();
             this.RetryLAB = new System.Windows.Forms.Label();
             this.RetryTIMER = new System.Windows.Forms.Timer(this.components);
+            this.RefreshTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sendFreqNUM)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,6 +134,11 @@
             this.RetryTIMER.Interval = 2000;
             this.RetryTIMER.Tick += new System.EventHandler(this.RetryTIMER_Tick);
             // 
+            // RefreshTimer
+            // 
+            this.RefreshTimer.Enabled = true;
+            this.RefreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
+            // 
             // INodeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -165,5 +171,6 @@
         protected System.Windows.Forms.Button HelpBTN;
         private System.Windows.Forms.Label RetryLAB;
         private System.Windows.Forms.Timer RetryTIMER;
+        private System.Windows.Forms.Timer RefreshTimer;
     }
 }

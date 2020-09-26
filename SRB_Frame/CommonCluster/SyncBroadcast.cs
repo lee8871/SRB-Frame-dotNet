@@ -103,6 +103,11 @@ namespace SRB.Frame
                 {
                     return tickToSrbClock(elapsed_ticks) >> 8;
                 }
+                /// <summary>
+                /// 根据系统时间求出SRB时钟值
+                /// </summary>
+                /// <param name="tick">Stopwatch获得的系统时间</param>
+                /// <returns></returns>
                 int tickToSrbClock(long tick)
                 {
                     long rev = tick;
@@ -113,6 +118,11 @@ namespace SRB.Frame
                     rev /= Stopwatch.Frequency;
                     return (int)rev;
                 }
+                /// <summary>
+                /// 让总线对某个SRB时钟同步
+                /// </summary>
+                /// <param name="tick">记录到SRB时钟的时刻</param>
+                /// <param name="srb_clock">SRB时钟的值</param>
                 void  masterSyncTo(long tick, int srb_clock)
                 {
                     tick_base = tick;

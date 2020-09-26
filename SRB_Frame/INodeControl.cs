@@ -17,14 +17,14 @@ namespace SRB.Frame
             this.Disposed += INodeControl_Disposed;
             RetryTIMER_Tick(this, null);
             delegate_BankChangeByAccess = new dVoid_delegate_void(onRefreshData);
-            node.eBankChangeByAccess += Node_eBankChangeByAccess;
+            //node.eBankChangeByAccess += Node_eBankChangeByAccess;
         }
 
         private void INodeControl_Disposed(object sender, EventArgs e)
         {
             sendTimer.Stop();
             OnAccessStop();
-            node.eBankChangeByAccess -= Node_eBankChangeByAccess;
+            //node.eBankChangeByAccess -= Node_eBankChangeByAccess;
         }
 
         public INodeControl()
@@ -58,6 +58,12 @@ namespace SRB.Frame
 
         }
 
+        private void RefreshTimer_Tick(object sender, EventArgs e)
+        {
+            onRefreshData();
+
+        }
+
         private void sendTimer_Tick(object sender, EventArgs e)
         {
             OnAccess();
@@ -76,6 +82,8 @@ namespace SRB.Frame
         {
             test_temp_0++;
         }
+
+        //这个目前不用，使用定时器常开来刷新显示
         private void Node_eBankChangeByAccess(object sender, EventArgs e)
         {
             long tick = Stopwatch.GetTimestamp();
@@ -102,9 +110,5 @@ namespace SRB.Frame
                    node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
             }
         }
-
-
-
-
     }
 }
