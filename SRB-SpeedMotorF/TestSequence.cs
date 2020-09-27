@@ -134,7 +134,7 @@ namespace SRB.NodeType.SpeedMotorF
             }
             while (pd.nextPage());
 
-
+            
 
             this.lose_sync_report = lose_sync_report;
             if (eGetMotorStatus != null)

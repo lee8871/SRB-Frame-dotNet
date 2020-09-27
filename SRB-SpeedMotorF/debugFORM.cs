@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SRB.Frame;
+using SRB.Support;
 
 namespace SRB.NodeType.SpeedMotorF
 {
@@ -212,13 +213,26 @@ namespace SRB.NodeType.SpeedMotorF
 
         private void pauseBTN_Click(object sender, EventArgs e)
         {
-            if (this.ChartRefrashTimer.Enabled)
+            string file= FileRecordMaker.getStringFile("SpeedMotorF", "test-sequence", "svg");
+            chart1.paintSVG(file);
+            try
             {
-                ChartRefrashTimer.Stop();
+                System.Diagnostics.Process.Start(Application.StartupPath + "/" + file);
             }
-            else
+            catch (Exception exp)
             {
-                ChartRefrashTimer.Start();
+                MessageBox.Show(exp.ToString(), "不能打开日志文件！");
+            }
+
+            if (false) { 
+                if (this.ChartRefrashTimer.Enabled)
+                {
+                    ChartRefrashTimer.Stop();
+                }
+                else
+                {
+                    ChartRefrashTimer.Start();
+                }
             }
         }
     }

@@ -30,11 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.SplitContainer splitContainer1;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(debugFORM));
             this.chart1 = new SRB_Chart.Chart();
+            this.pauseBTN = new System.Windows.Forms.Button();
             this.reportRTC = new System.Windows.Forms.RichTextBox();
             this.TestSequenceBTN = new System.Windows.Forms.Button();
             this.ChartRefrashTimer = new System.Windows.Forms.Timer(this.components);
-            this.pauseBTN = new System.Windows.Forms.Button();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -86,6 +87,16 @@
             this.chart1.Y_min = -16834D;
             this.chart1.Y_zoom = 0.02D;
             // 
+            // pauseBTN
+            // 
+            this.pauseBTN.Location = new System.Drawing.Point(3, 284);
+            this.pauseBTN.Name = "pauseBTN";
+            this.pauseBTN.Size = new System.Drawing.Size(78, 47);
+            this.pauseBTN.TabIndex = 6;
+            this.pauseBTN.Text = "暂停显示";
+            this.pauseBTN.UseVisualStyleBackColor = true;
+            this.pauseBTN.Click += new System.EventHandler(this.pauseBTN_Click);
+            // 
             // reportRTC
             // 
             this.reportRTC.Dock = System.Windows.Forms.DockStyle.Top;
@@ -110,16 +121,6 @@
             // 
             this.ChartRefrashTimer.Enabled = true;
             this.ChartRefrashTimer.Tick += new System.EventHandler(this.ChartRefrashTimer_Tick);
-            // 
-            // pauseBTN
-            // 
-            this.pauseBTN.Location = new System.Drawing.Point(3, 284);
-            this.pauseBTN.Name = "pauseBTN";
-            this.pauseBTN.Size = new System.Drawing.Size(78, 47);
-            this.pauseBTN.TabIndex = 6;
-            this.pauseBTN.Text = "暂停显示";
-            this.pauseBTN.UseVisualStyleBackColor = true;
-            this.pauseBTN.Click += new System.EventHandler(this.pauseBTN_Click);
             // 
             // debugFORM
             // 

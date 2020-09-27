@@ -7,16 +7,43 @@ using System.Threading.Tasks;
 
 namespace SRB_Chart
 {
-    public delegate string dDoubleToString(double x);
-    delegate double dImageToValue(float x, ChartDimension cfg);
-    delegate float dValueToImage(double x, ChartDimension cfg);
-    class ChartConfig
+    public class ChartConfig
     {
         public ChartDimension x;
         public ChartDimension y;
         public double y_min;
         public double y_max;
-        public double x_location;
+        public double x_min;
+        public double x_max;
+
+
+        public ChartConfig(ChartDimension.dDoubleToString varToStr)
+        {
+            x.zoom = 0.5;
+            y.zoom = 0.5;
+            x.grid_size = 100;
+            y.grid_size = 100;
+            x.mirror = false;
+            y.mirror = true;
+            y.ToStr = varToStr;
+            x.ToStr = varToStr;
+            y_min = -500;
+            y_max = 1000;
+            x_min = 0;
+            x_max = 2000;
+        }
+
+        public ChartConfig(ChartConfig that)
+        {
+            x = that.x;
+            y = that.y;
+
+            y_min = that.y_min;
+            y_max = that.y_max;
+            x_min = that.x_min;
+            x_max = that.x_max;
+        }
+
 
         public (double x,double y) toMathPoint(float x, float y)
         {
@@ -26,13 +53,33 @@ namespace SRB_Chart
         {
             return (this.x.toValue(p.X), this.y.toValue(p.Y));
         }
-        public PointF toImagePoint(double x, double y)
+        public (float x, float y) toImagePoint(double x, double y)
         {
-            return new PointF(this.x.toImage(x), this.y.toImage(y));
+            return (this.x.toImage(x), this.y.toImage(y));
+        }
+        public void checkOrigin()
+        {
+            if (y.mirror)
+            {
+                y.shift = -y.toImageDst(y_max);
+            }
+            else
+            {
+                y.shift = -y.toImageDst(y_min);
+            }
+
+            if (x.mirror)
+            {
+                x.shift = -x.toImageDst(x_max);
+            }
+            else
+            {
+                x.shift = -x.toImageDst(x_min);
+            }
         }
 
     }
-    struct ChartDimension
+    public struct ChartDimension
     {
         public double zoom;
         /// <summary>
@@ -44,6 +91,8 @@ namespace SRB_Chart
         /// </summary>
         public float shift;
         public bool mirror;
+
+        public delegate string dDoubleToString(double x);
         public dDoubleToString ToStr;
         
         public double toValue(float v)
