@@ -12,9 +12,8 @@ namespace SRB_Chart
 
         List<IPlot> plots;
         IPlot forcu_on_plot = null;
-        PointF origin_in_pixel;
+        //PointF origin_in_pixel;
 
-        double x_location = 0;
 
         double[] size_a = { 0.05, 0.1, 0.15, 0.25, 0.5, 0.75, 1, 1.5, 2.5, 5 };
         int size_num = 4;
@@ -31,10 +30,13 @@ namespace SRB_Chart
             cfg.y.zoom = 0.5;
             cfg.x.grid_size = 100;
             cfg.y.grid_size = 100;
+            cfg.x.mirror = false;
+            cfg.y.mirror = true;
             cfg.y.ToStr = varToStr;
             cfg.x.ToStr = varToStr;
-            cfg.y.min = -500;
-            cfg.y.max = 1000;
+            cfg.y_min = -500;
+            cfg.y_max = 1000;
+            cfg.x_location = 0;
             InitializeComponent();
             this.DoubleBuffered = true;
             plots = new List<IPlot>();
@@ -42,10 +44,8 @@ namespace SRB_Chart
         }
         void checkOrinin()
         {
-            double x, y;
-            y = Y_max * Y_zoom;
-            x = -X_location * X_zoom;
-            origin_in_pixel = new PointF((float)x, (float)y);
+            cfg.y.shift = -cfg.y.toImageDst(Y_max);
+            cfg.x.shift = -cfg.x.toImageDst(X_location);
         }
         internal void PlotVisibleChange(IPlot plot)
         {
@@ -96,16 +96,16 @@ namespace SRB_Chart
         [Category("图表")]
         public double Y_min
         {
-            get => cfg.y.min; 
+            get => cfg.y_min; 
             set
             {
-                if (value > cfg.y.max)
+                if (value > cfg.y_max)
                 {
-                    cfg.y.min = cfg.y.max - 1;
+                    cfg.y_min = cfg.y_max - 1;
                 }
                 else
                 {
-                    cfg.y.min = value;
+                    cfg.y_min = value;
                 }
                 yResize();
                 this.Refresh();
@@ -115,16 +115,16 @@ namespace SRB_Chart
         [Category("图表")]
         public double Y_max
         {
-            get => cfg.y.max;
+            get => cfg.y_max;
             set
             {
-                if (value < cfg.y.min)
+                if (value < cfg.y_min)
                 {
-                    cfg.y.max = cfg.y.min + 1;
+                    cfg.y_max = cfg.y_min + 1;
                 }
                 else
                 {
-                    cfg.y.max = value;
+                    cfg.y_max = value;
                 }
                 yResize();
                 checkOrinin();
@@ -135,10 +135,10 @@ namespace SRB_Chart
         [Category("图表")]
         public double X_location
         {
-            get => x_location;
+            get => cfg.x_location;
             set
             {
-                x_location = value;
+                cfg.x_location = value;
                 checkOrinin();
                 this.Refresh();
             }
@@ -202,28 +202,6 @@ namespace SRB_Chart
 
         }
 
-        PointF chartToPixel(double x, double y)
-        {
-            x *= cfg.x.zoom;
-            y *= cfg.y.zoom;
-            return new PointF((float)x+ origin_in_pixel.X, (float)y + origin_in_pixel.Y);
-        }
-        double ChartX(PointF pix)
-        {
-            return (double)((pix.X - origin_in_pixel.X)/ cfg.x.zoom);
-        }
-        double ChartY(PointF pix)
-        {
-            return (double)((pix.Y - origin_in_pixel.Y) / cfg.y.zoom);
-        }
-        double ChartX(float pix)
-        {
-            return (double)((pix - origin_in_pixel.X) / cfg.x.zoom);
-        }
-        double ChartY(float pix)
-        {
-            return (double)((pix - origin_in_pixel.Y) / cfg.y.zoom);
-        }
         Pen pen_grid = new Pen(Color.LightGray, 1);
         Pen pen_form = new Pen(Color.Gray, 1);
         
@@ -240,27 +218,26 @@ namespace SRB_Chart
         {
             Graphics g = pe.Graphics;
 
-            double grid_pixel;
+            float grid_pixel;
             int n;
             double line;
             double max;
             float text_location;
-
-            grid_pixel = cfg.x.grid_size * cfg.x.zoom;
-            n = -(int)(origin_in_pixel.X / grid_pixel);
-            line = origin_in_pixel.X + n * grid_pixel;
+            grid_pixel = cfg.x.toImageDst(cfg.x.grid_size);
+            n = -(int)(cfg.x.toImage(0) / grid_pixel);
+            line = cfg.x.toImage(0) + n * grid_pixel;
             max = pe.ClipRectangle.X + pe.ClipRectangle.Width;
-            if (origin_in_pixel.Y < 0)
+            if (cfg.y.toImage(0) < 0)
             {
                 text_location = 0;
             }
-            else if (origin_in_pixel.Y > this.Size.Height)
+            else if (cfg.y.toImage(0) > this.Size.Height)
             {
                 text_location = this.Size.Height - g.MeasureString("100000", this.Font).Height;
             }
             else
             {
-                text_location = origin_in_pixel.Y - g.MeasureString("100000", this.Font).Height;
+                text_location = cfg.y.toImage(0) - g.MeasureString("100000", this.Font).Height;
             }
             while (line < max)
             {
@@ -269,21 +246,21 @@ namespace SRB_Chart
                 line += grid_pixel;
                 n++;
             }
-            grid_pixel = cfg.y.grid_size * cfg.y.zoom;
-            n = -(int)(origin_in_pixel.Y / grid_pixel);
-            line = origin_in_pixel.Y + n * grid_pixel;
+            grid_pixel = cfg.y.toImageDst(cfg.y.grid_size);
+            n = -(int)(cfg.y.toImage(0) / grid_pixel);
+            line = cfg.y.toImage(0) + n * grid_pixel;
             max = pe.ClipRectangle.Y + pe.ClipRectangle.Height;
-            if (origin_in_pixel.X < 0)
+            if (cfg.x.toImage(0) < 0)
             {
                 text_location = 0;
             }
-            else if (origin_in_pixel.X > this.Size.Width)
+            else if (cfg.x.toImage(0) > this.Size.Width)
             {
                 text_location = this.Size.Width - g.MeasureString("100000", this.Font).Width;
             }
             else
             {
-                text_location = origin_in_pixel.X;
+                text_location = cfg.x.toImage(0);
             }
             while (line < max)
             {
@@ -292,8 +269,8 @@ namespace SRB_Chart
                 line += grid_pixel;
                 n++;
             }
-            g.DrawLine(pen_form, origin_in_pixel.X, pe.ClipRectangle.Y, origin_in_pixel.X, pe.ClipRectangle.Y + pe.ClipRectangle.Height);
-            g.DrawLine(pen_form, pe.ClipRectangle.X, origin_in_pixel.Y, pe.ClipRectangle.X + pe.ClipRectangle.Width, origin_in_pixel.Y);
+            g.DrawLine(pen_form, cfg.x.toImage(0), pe.ClipRectangle.Y, cfg.x.toImage(0), pe.ClipRectangle.Y + pe.ClipRectangle.Height);
+            g.DrawLine(pen_form, pe.ClipRectangle.X, cfg.y.toImage(0), pe.ClipRectangle.X + pe.ClipRectangle.Width, cfg.y.toImage(0));
         }
 
 
@@ -303,7 +280,7 @@ namespace SRB_Chart
             {
                 if (forcu_on_plot.Length > 0)
                 {
-                    double temp = forcu_on_plot.X_max- forcu_on_plot.X_min - (Size.Width - 200 )/ cfg.x.zoom ;
+                    double temp = forcu_on_plot.X_max- forcu_on_plot.X_min - cfg.x.toValueDst(Size.Width - 200 ) ;
                     if (temp < forcu_on_plot.X_min)
                     {
                         temp = forcu_on_plot.X_min;
@@ -315,8 +292,8 @@ namespace SRB_Chart
         protected virtual void OnPaintLine(PaintEventArgs pe, IPlot plot)
         {
             Graphics g = pe.Graphics;
-            double bgn = ChartX(pe.ClipRectangle.X);
-            double end = ChartX(pe.ClipRectangle.X+pe.ClipRectangle.Width);
+            double bgn = cfg.x.toValue(pe.ClipRectangle.X);
+            double end = cfg.x.toValue(pe.ClipRectangle.X+pe.ClipRectangle.Width);
             int len = plot.Length;
             int i = plot.findBefore(bgn,len);
             var from = plot[i];
@@ -325,7 +302,7 @@ namespace SRB_Chart
             {
                 var d = plot[i];
                 i++;
-                g.DrawLine(plot.Line, chartToPixel(d.X, d.Y), chartToPixel(from.X, from.Y));
+                g.DrawLine(plot.Line, cfg.toImagePoint(d.X, d.Y), cfg.toImagePoint(from.X, from.Y));
                 from = d;
                 if (d.X > end) { break; }
             }
@@ -349,7 +326,7 @@ namespace SRB_Chart
                 Point n = e.Location;
                 Point o = mouse_down_location;
                 this.forcu_on_plot = null;
-                this.X_location -= (n.X - o.X)/ cfg.x.zoom;
+                this.X_location -= cfg.x.toValueDst(n.X - o.X);
                 mouse_down_location = n;
             }
         }
