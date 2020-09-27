@@ -152,10 +152,36 @@ namespace SRB_Chart
         /// 设置当前控件追踪显示的曲线图
         /// </summary>
         public IPlot Forcu_on_plot { get => forcu_on_plot; set => forcu_on_plot = value; }
+
         /// <summary>
         /// 设置Y坐标刻度显示文本的转换函数
         /// </summary>
         /// 
+        public void setYToStr(ChartDimension.dDoubleToString value)
+        {
+                cfg_display.y.ToStr = value;
+                this.Refresh();
+        }
+        /// <summary>
+        /// 设置X坐标刻度显示文本的转换函数
+        /// </summary>
+        /// 
+        public void setXToStr(ChartDimension.dDoubleToString value)
+        {
+            cfg_display.x.ToStr = value;
+            this.Refresh();
+        }
+
+        /*
+        /// <summary>
+        /// 设置Y坐标刻度显示文本的转换函数
+        /// </summary>
+        /// 
+
+        [   DisplayName("Y字符串转换"),
+            Description("将Y坐标刻度转换为对应的字符串"),
+            NotifyParentProperty(false),
+            Browsable(false)]
         public ChartDimension.dDoubleToString Y_ToStr { 
             get => cfg_display.y.ToStr;
             set{
@@ -166,6 +192,12 @@ namespace SRB_Chart
         /// <summary>
         /// 设置X坐标刻度显示文本的转换函数
         /// </summary>
+        /// 
+
+        [DisplayName("X字符串转换"),
+            Description("将X坐标刻度转换为对应的字符串"),
+            NotifyParentProperty(false),
+            Browsable(false)]
         public ChartDimension.dDoubleToString X_ToStr { 
             get => cfg_display.x.ToStr;
             set {
@@ -173,6 +205,7 @@ namespace SRB_Chart
                 this.Refresh();
             }
         }
+        */
         public void gotoForcuPlot()
         {
             if (forcu_on_plot != null)
@@ -301,8 +334,8 @@ namespace SRB_Chart
             else if (c.x.toImage(0) > this.Size.Width-100)
             {
                 text_location = this.Size.Width;
-                format.Alignment = StringAlignment.Near;
-                format.LineAlignment = StringAlignment.Far;
+                format.Alignment = StringAlignment.Far;
+                format.LineAlignment = StringAlignment.Near;
             }
             else
             {
@@ -323,7 +356,7 @@ namespace SRB_Chart
         protected virtual void OnPaintLine(IDrawer g, ChartConfig c,IPlot plot)
         {
             double bgn = c.x.toValue(g.ClipRectangle.X);
-            double end = c.x.toValue(g.ClipRectangle.X+g.ClipRectangle.Width);
+            float end_pix = g.ClipRectangle.X+g.ClipRectangle.Width;
             int len = plot.Length;
             int i = plot.findBefore(bgn,len);
             var from = c.toImagePoint(plot[i].X, plot[i].Y);
@@ -334,7 +367,9 @@ namespace SRB_Chart
                 i++;
                 g.DrawLine(plot.Line, from.x, from.y, to.x, to.y); 
                 from = to;
-                if (to.x > end) { break; }
+                if (to.x > end_pix) { 
+                    break;
+                }
             }
         }
         bool is_moving = false;

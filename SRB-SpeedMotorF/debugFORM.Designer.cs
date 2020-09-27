@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.SplitContainer splitContainer1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(debugFORM));
-            this.chart1 = new SRB_Chart.Chart();
             this.pauseBTN = new System.Windows.Forms.Button();
             this.reportRTC = new System.Windows.Forms.RichTextBox();
             this.TestSequenceBTN = new System.Windows.Forms.Button();
             this.ChartRefrashTimer = new System.Windows.Forms.Timer(this.components);
+            this.chart1 = new SRB_Chart.Chart();
+            this.saveBTN = new System.Windows.Forms.Button();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -60,6 +60,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            splitContainer1.Panel2.Controls.Add(this.saveBTN);
             splitContainer1.Panel2.Controls.Add(this.pauseBTN);
             splitContainer1.Panel2.Controls.Add(this.reportRTC);
             splitContainer1.Panel2.Controls.Add(this.TestSequenceBTN);
@@ -67,25 +68,6 @@
             splitContainer1.Size = new System.Drawing.Size(1453, 802);
             splitContainer1.SplitterDistance = 1153;
             splitContainer1.TabIndex = 0;
-            // 
-            // chart1
-            // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chart1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.chart1.Forcu_on_plot = null;
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(1150, 673);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            this.chart1.X_grid_size = 100D;
-            this.chart1.X_location = 520D;
-            this.chart1.X_zoom = 0.5D;
-            this.chart1.Y_grid_size = 4000D;
-            this.chart1.Y_max = 16834D;
-            this.chart1.Y_min = -16834D;
-            this.chart1.Y_zoom = 0.02D;
             // 
             // pauseBTN
             // 
@@ -122,6 +104,35 @@
             this.ChartRefrashTimer.Enabled = true;
             this.ChartRefrashTimer.Tick += new System.EventHandler(this.ChartRefrashTimer_Tick);
             // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.chart1.Forcu_on_plot = null;
+            this.chart1.Location = new System.Drawing.Point(0, 0);
+            this.chart1.Name = "chart1";
+            this.chart1.Size = new System.Drawing.Size(1150, 673);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            this.chart1.X_grid_size = 100D;
+            this.chart1.X_location = 520D;
+            this.chart1.X_zoom = 0.5D;
+            this.chart1.Y_grid_size = 4000D;
+            this.chart1.Y_max = 16834D;
+            this.chart1.Y_min = -16834D;
+            this.chart1.Y_zoom = 0.02D;
+            // 
+            // saveBTN
+            // 
+            this.saveBTN.Location = new System.Drawing.Point(3, 337);
+            this.saveBTN.Name = "saveBTN";
+            this.saveBTN.Size = new System.Drawing.Size(78, 34);
+            this.saveBTN.TabIndex = 7;
+            this.saveBTN.Text = "保存";
+            this.saveBTN.UseVisualStyleBackColor = true;
+            this.saveBTN.Click += new System.EventHandler(this.saveBTN_Click);
+            // 
             // debugFORM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -146,5 +157,6 @@
         private System.Windows.Forms.Timer ChartRefrashTimer;
         private System.Windows.Forms.RichTextBox reportRTC;
         private System.Windows.Forms.Button pauseBTN;
+        private System.Windows.Forms.Button saveBTN;
     }
 }

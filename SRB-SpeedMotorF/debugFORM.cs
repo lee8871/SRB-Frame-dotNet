@@ -31,7 +31,7 @@ namespace SRB.NodeType.SpeedMotorF
             test_sequence = new TestSequence(bgd);
             test_sequence.eGetMotorStatus += Test_sequence_eGetMotorStatus;
             test_sequence.chart = this.chart1;
-            chart1.X_ToStr = test_sequence.strToMs;
+            chart1.setXToStr(test_sequence.strToMs);
         }
 
         private void Test_sequence_eGetMotorStatus(SRB_Chart.PlotGroup motor_status_array)
@@ -213,7 +213,19 @@ namespace SRB.NodeType.SpeedMotorF
 
         private void pauseBTN_Click(object sender, EventArgs e)
         {
-            string file= FileRecordMaker.getStringFile("SpeedMotorF", "test-sequence", "svg");
+            if (this.ChartRefrashTimer.Enabled)
+            {
+                ChartRefrashTimer.Stop();
+            }
+            else
+            {
+                ChartRefrashTimer.Start();
+            }
+        }
+
+        private void saveBTN_Click(object sender, EventArgs e)
+        {
+            string file = FileRecordMaker.getStringFile("SpeedMotorF", "test-sequence", "svg");
             chart1.paintSVG(file);
             try
             {
@@ -224,16 +236,6 @@ namespace SRB.NodeType.SpeedMotorF
                 MessageBox.Show(exp.ToString(), "不能打开日志文件！");
             }
 
-            if (false) { 
-                if (this.ChartRefrashTimer.Enabled)
-                {
-                    ChartRefrashTimer.Stop();
-                }
-                else
-                {
-                    ChartRefrashTimer.Start();
-                }
-            }
         }
     }
 }
