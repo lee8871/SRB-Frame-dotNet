@@ -195,8 +195,6 @@ namespace SRB.Frame
 
         void init()
         {
-
-
             begin_send_tick = -1;
             send_done_tick = -1;
             recv_done_tick = -1;

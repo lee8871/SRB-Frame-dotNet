@@ -15,16 +15,13 @@ namespace SRB.Frame
             node = n;
             InitializeComponent();
             this.Disposed += INodeControl_Disposed;
-            RetryTIMER_Tick(this, null);
             delegate_BankChangeByAccess = new dVoid_delegate_void(onRefreshData);
-            //node.eBankChangeByAccess += Node_eBankChangeByAccess;
         }
 
         private void INodeControl_Disposed(object sender, EventArgs e)
         {
             sendTimer.Stop();
             OnAccessStop();
-            //node.eBankChangeByAccess -= Node_eBankChangeByAccess;
         }
 
         public INodeControl()
@@ -61,9 +58,7 @@ namespace SRB.Frame
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
             onRefreshData();
-
         }
-
         private void sendTimer_Tick(object sender, EventArgs e)
         {
             OnAccess();
@@ -77,10 +72,15 @@ namespace SRB.Frame
         private dVoid_delegate_void delegate_BankChangeByAccess;
         private long refresh_tick = 0;
 
-        int test_temp_0 = 0;
+        //int test_temp_0 = 0;
         protected virtual void onRefreshData()
         {
-            test_temp_0++;
+
+            if (this.node != null)
+            {
+                this.RetryLAB.Text = string.Format("Access:{0} Retry:{1} Lose:{2}",
+                   node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
+            }
         }
 
         //这个目前不用，使用定时器常开来刷新显示
@@ -101,14 +101,6 @@ namespace SRB.Frame
         private void HelpBTN_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(node.Help_net_work);
-        }
-
-        private void RetryTIMER_Tick(object sender, EventArgs e)
-        {
-            if (this.node != null) { 
-                this.RetryLAB.Text = string.Format("Access:{0} Retry:{1} Lose:{2}",
-                   node.Access_counter, node.Access_retry_counter, node.Access_fail_counter);
-            }
         }
     }
 }

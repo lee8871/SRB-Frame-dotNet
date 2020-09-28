@@ -62,8 +62,8 @@ namespace SRB.NodeType.PhotoElecX4
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.ADCtable);
             this.splitContainer1.Panel2MinSize = 300;
-            this.splitContainer1.Size = new System.Drawing.Size(1769, 561);
-            this.splitContainer1.SplitterDistance = 1465;
+            this.splitContainer1.Size = new System.Drawing.Size(1111, 561);
+            this.splitContainer1.SplitterDistance = 807;
             this.splitContainer1.TabIndex = 1;
             // 
             // mainChart
@@ -74,7 +74,7 @@ namespace SRB.NodeType.PhotoElecX4
             this.mainChart.Forcu_on_plot = null;
             this.mainChart.Location = new System.Drawing.Point(0, 0);
             this.mainChart.Name = "mainChart";
-            this.mainChart.Size = new System.Drawing.Size(1465, 512);
+            this.mainChart.Size = new System.Drawing.Size(807, 512);
             this.mainChart.TabIndex = 1;
             this.mainChart.Text = "chart1";
             this.mainChart.X_grid_size = 1D;
@@ -108,7 +108,7 @@ namespace SRB.NodeType.PhotoElecX4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1769, 561);
+            this.ClientSize = new System.Drawing.Size(1111, 561);
             this.Controls.Add(this.splitContainer1);
             this.MaximumSize = new System.Drawing.Size(60000, 600);
             this.MinimumSize = new System.Drawing.Size(600, 600);

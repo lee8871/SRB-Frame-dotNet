@@ -19,20 +19,12 @@ namespace SRB.NodeType.PhotoElecX4
             node = n;
             node.eBankChangeByAccess += N_eBankChangeByAccess;
             tableInit();
+            this.Disposed += Ctrl_Disposed;
         }
 
-        /// <summary> 
-        /// 清理所有正在使用的资源。
-        /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        protected override void Dispose(bool disposing)
+        private void Ctrl_Disposed(object sender, EventArgs e)
         {
             node.eBankChangeByAccess -= N_eBankChangeByAccess;
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private void tableInit()

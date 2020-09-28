@@ -444,7 +444,10 @@ namespace SRB.port
                 LoopQueuePointer sent_fail_point = new LoopQueuePointer(out_point);
                 while (in_point != sent_fail_point)
                 {
-                    acs[sent_fail_point].sendDoneRecvFail();
+                    if (acs[sent_fail_point].Status == AccessStatus.SendWaitRecv)
+                    {
+                        acs[sent_fail_point].sendDoneRecvFail();
+                    }
                     sent_fail_point++;
                 }
                 out_point.jumpTo(in_point);
@@ -453,8 +456,12 @@ namespace SRB.port
         }
         private bool isPkgWaitRecv()
         {
-            foreach (Access a in acs)
+            int i = out_point;
+            while( i!= in_point) 
             {
+                Access a = acs[i];
+                i++;
+                i %= access_bank_length;
                 if (a != null)
                 {
                     if (a.Status == AccessStatus.SendWaitRecv)

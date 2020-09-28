@@ -15,13 +15,18 @@ namespace SRB.NodeType.Charger
             datas = (Interpreter)n.Datas;
             InitializeComponent();
             MorseTB.KeyPress += MorseTB_KeyPress;
-            n.eBankChangeByAccess += Node_eBankChangeByAccess;
             n.eDataAccessRecv += Node_eDataAccessRecv;
             datas.addDataAccess(2,false, 0);
             this.ToolTips.SetToolTip(PlayBTN, "Click to play morse.");
             this.ToolTips.SetToolTip(BatteryPowerLedBTN, "Click to Toggle Voltage LED On PCB.");
             this.ToolTips.SetToolTip(MuteBTN, "Click to Enable or disable buzzer alram.");
             this.ToolTips.SetToolTip(ChangeEnableBTN, "Click to enable or disable charge.");
+            this.Disposed += ChangerControl_Disposed;
+        }
+
+        private void ChangerControl_Disposed(object sender, EventArgs e)
+        {
+            Node.eDataAccessRecv -= Node_eDataAccessRecv;
         }
 
         private void Node_eDataAccessRecv(object sender, AccessEventArgs e)
@@ -29,7 +34,7 @@ namespace SRB.NodeType.Charger
             this.datas.buzzer_commend = 0x80;
         }
 
-        private void Node_eBankChangeByAccess(object sender, EventArgs e)
+        protected override void onRefreshData()
         {
             this.BatteryValueLAB.Text = (((double)datas.battery_voltage) / 1000.0).ToString("0.000") + "V";
             this.ChangeVottageBar.Value = datas.battery_voltage.enterRound(6000, 8400); ;

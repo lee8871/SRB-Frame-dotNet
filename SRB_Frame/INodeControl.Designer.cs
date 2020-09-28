@@ -37,7 +37,6 @@
             this.HelpBTN = new System.Windows.Forms.Button();
             this.RunStopBTN = new System.Windows.Forms.Button();
             this.RetryLAB = new System.Windows.Forms.Label();
-            this.RetryTIMER = new System.Windows.Forms.Timer(this.components);
             this.RefreshTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sendFreqNUM)).BeginInit();
             this.SuspendLayout();
@@ -128,12 +127,6 @@
             this.RetryLAB.TabIndex = 28;
             this.RetryLAB.Text = "Access:{0} Retry:{1} Lose:{2}";
             // 
-            // RetryTIMER
-            // 
-            this.RetryTIMER.Enabled = true;
-            this.RetryTIMER.Interval = 2000;
-            this.RetryTIMER.Tick += new System.EventHandler(this.RetryTIMER_Tick);
-            // 
             // RefreshTimer
             // 
             this.RefreshTimer.Enabled = true;
@@ -170,7 +163,6 @@
         public System.Windows.Forms.ToolTip ToolTips;
         protected System.Windows.Forms.Button HelpBTN;
         private System.Windows.Forms.Label RetryLAB;
-        private System.Windows.Forms.Timer RetryTIMER;
         private System.Windows.Forms.Timer RefreshTimer;
     }
 }
